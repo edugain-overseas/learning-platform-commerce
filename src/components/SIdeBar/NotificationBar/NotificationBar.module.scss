@@ -1,0 +1,40 @@
+.mainWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24rem;
+  padding: 0 39rem 0 35rem;
+}
+
+.navLink {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+  justify-content: center;
+  align-items: center;
+  padding: 20rem 0;
+  height: 104rem;
+  background-color: #4171cd;
+  border-radius: 7rem;
+  cursor: pointer;
+  transition: background-color 300ms ease-out;
+
+  &.navLink--active {
+    background-color: #81acff;
+  }
+
+  & svg {
+    display: block;
+    resize: none;
+    width: 20rem;
+    height: 20rem;
+  }
+
+  & p {
+    color: #fff;
+    padding: 0 2rem;
+    font-weight: 500;
+    font-size: 14rem;
+    line-height: 122.3%;
+    text-align: center;
+  }
+}

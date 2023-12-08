@@ -1,0 +1,70 @@
+:root {
+  --bg-main: #f4f6fc;
+  --bg-accent: #3a5cbd;
+  --bg-default: #fff;
+  --bg-accent-active: #335ba9;
+  --bg-deafault-active: #718da7;
+  --bg-deafult-block: #fafbff;
+  --bg-default-block-hover: #dcdde3;
+  --bg-accent-block: #5e5e5e;
+
+  --bg-button-main: rgba(131, 131, 131, 0.2);
+  --bg-button-deffault: #fff;
+  --bg-button-success: #39ba6d;
+  --bg-button-failture: #ba3939;
+  --bg-button-decorate-success: #00c808;
+  --bg-button-edit: #fcc400;
+
+  --border-color-main: rgba(0, 0, 0, 0.5);
+  --border-color-secondary: rgba(215, 215, 215, 0.5);
+  --border-color-decorate: #b3b3b3;
+
+  --content-main: #000;
+  --content-secondary: rgba(0, 0, 0, 0.5);
+  --content-dark: #001c54;
+  --content-light: #718da7;
+  --content-accent: #4171cd;
+  --content-detail: #5e5e5e;
+  --content-failture: #ba3939;
+
+  --lg-block: linear-gradient(156deg, #b8eaff 8.25%, #6fd4ff 100.26%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-size: 16rem;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+button {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
