@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/education-platform-commerce/static/css/main.3f4458ce.css",
+    "main.js": "/education-platform-commerce/static/js/main.cc7fd2df.js",
+    "static/media/grid.svg": "/education-platform-commerce/static/media/grid.cb165eb850b911966f9b5c4b603467d4.svg",
+    "static/media/home.svg": "/education-platform-commerce/static/media/home.5596acbdd4ded35a4925ab83528fab34.svg",
+    "static/media/logout.svg": "/education-platform-commerce/static/media/logout.baa510ce5a21d71e3646f7f6040a0eac.svg",
+    "static/media/chat.svg": "/education-platform-commerce/static/media/chat.5e2ab6c98caf148c786d63b9f008784d.svg",
+    "index.html": "/education-platform-commerce/index.html",
+    "static/media/arrow-left.svg": "/education-platform-commerce/static/media/arrow-left.16ef801717584cb8cdbd8efd87be0a87.svg",
+    "main.3f4458ce.css.map": "/education-platform-commerce/static/css/main.3f4458ce.css.map",
+    "main.cc7fd2df.js.map": "/education-platform-commerce/static/js/main.cc7fd2df.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3f4458ce.css",
+    "static/js/main.cc7fd2df.js"
+  ]
+}
