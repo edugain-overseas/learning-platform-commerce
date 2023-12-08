@@ -25,7 +25,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-"homepage": "https://username.github.io/learning-platform-commerce",
+"homepage": "https://edugain-overseas.github.io/learning-platform-commerce",
   "eslintConfig": {
     "extends": [
       "react-app",
