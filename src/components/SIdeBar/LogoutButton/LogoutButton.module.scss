@@ -5,7 +5,7 @@
   justify-content: center;
   gap: 4rem;
   align-items: center;
-  background: #335BA9;
+  background: var(--bg-color-accent);
   border: none;
   cursor: pointer;
 
@@ -17,6 +17,6 @@
   & span {
     font-size: 14rem;
     line-height: 17rem;
-    color: #ffffff;
+    color: var(--content-contr-color);
   }
 }

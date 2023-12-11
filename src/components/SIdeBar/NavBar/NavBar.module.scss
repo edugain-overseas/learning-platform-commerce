@@ -15,13 +15,13 @@
   & svg {
     width: 14rem;
     height: 14rem;
-    fill: #fff;
+    fill: var(--content-contr-color);
   }
 
   & span {
     font-size: 14rem;
     line-height: 17rem;
-    color: #fff;
+    color: var(--content-contr-color);
   }
 }
 

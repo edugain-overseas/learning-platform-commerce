@@ -9,11 +9,13 @@
   --bg-accent-block: #5e5e5e;
 
   --bg-button-main: rgba(131, 131, 131, 0.2);
-  --bg-button-deffault: #fff;
+  --bg-button-default: #fff;
   --bg-button-success: #39ba6d;
   --bg-button-failture: #ba3939;
   --bg-button-decorate-success: #00c808;
   --bg-button-edit: #fcc400;
+  --bg-color-accent: #335ba9;
+  --bg-button-active-link: #81acff;
 
   --border-color-main: rgba(0, 0, 0, 0.5);
   --border-color-secondary: rgba(215, 215, 215, 0.5);
@@ -26,8 +28,13 @@
   --content-accent: #4171cd;
   --content-detail: #5e5e5e;
   --content-failture: #ba3939;
+  --content-contr-color: #fff;
+  --content-datail-secondary: #bbbbbb;
 
   --lg-block: linear-gradient(156deg, #b8eaff 8.25%, #6fd4ff 100.26%);
+
+  --drop-shadow-short: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.1));
+  --drop-shadow-middle: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.2));
 }
 
 * {
@@ -38,7 +45,7 @@
 
 body {
   margin: 0;
-  font-family: Inter, sans-serif;
+  font-family: Inter, Roboto, sans-serif;
   font-style: normal;
   font-size: 16rem;
 }

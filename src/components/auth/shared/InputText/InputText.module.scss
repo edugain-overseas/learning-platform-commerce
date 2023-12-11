@@ -1,0 +1,68 @@
+.inputWrapper {
+  flex: 1;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 0;
+    background-color: var(--border-color-decorate);
+    bottom: 0;
+    transition: width 0.3s ease;
+  }
+
+  &:has(input:focus)::before {
+    width: 90%;
+  }
+
+  &:has(input:focus) .label,
+  &:has(input:not([value=""])) .label {
+    transform: translateY(-150%);   
+    font-size: 20rem;
+    color: var(--content-dark);
+  }
+
+  span {
+    position: absolute;
+  }
+
+  .label {
+    font-family: Roboto;
+    font-size: 24rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-transform: capitalize;
+    color: var(--content-dark);
+    color: var(--border-color-decorate);
+
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.2s ease, font-size 0.2s ease;
+  }
+
+  .inputIcon {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    color: var(--content-dark);
+    & svg {
+      width: 24rem;
+      height: 24rem;
+    }
+  }
+
+  input {
+    width: 100%;
+    height: 40rem;
+    padding-top: 12rem;
+    padding-left: 8rem;
+    padding-right: 32rem;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--content-dark);
+    font-size: 24rem;
+  }
+}
