@@ -1,0 +1,36 @@
+.link {
+  height: 24rem;
+  padding-inline: 4rem;
+  text-align: right;
+  color: var(--content-detail);
+  font-family: Roboto;
+  font-size: 16rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  a {
+    color: var(--content-detail);
+
+    .linkText {
+      line-height: 22rem;
+      padding-inline: 8rem 4rem;
+      transition: color 0.2s ease, font-size 0.2s ease;
+    }
+
+    svg {
+      width: 0;
+      transition: width 0.2s ease;
+    }
+
+    &:hover,
+    &:focus {
+      font-size: 20rem;
+      color: var(--content-dark);
+
+      svg {
+        width: 20rem;
+      }
+    }
+  }
+}

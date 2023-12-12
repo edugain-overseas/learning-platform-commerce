@@ -3,9 +3,8 @@ import AuthForm from "../shared/AuthForm/AuthForm";
 import styles from "./SingUpForm.module.scss";
 
 const SingUpForm = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("submit sing up");
+  const handleSubmit = (data) => {
+    console.log(data);
   };
 
   return (

@@ -3,9 +3,8 @@ import AuthForm from "../shared/AuthForm/AuthForm";
 import styles from './SingInForm.module.scss'
 
 const SingInForm = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("submit sing in");
+  const handleSubmit = (data) => {
+    console.log(data);
   };
   return (
     <div className={styles.pageWrapper}>
