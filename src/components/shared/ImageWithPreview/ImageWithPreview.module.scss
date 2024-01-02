@@ -1,0 +1,106 @@
+.imageWrapper {
+  position: relative;
+
+  .hoverBackdrop {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(#000, 0.65);
+    opacity: 0;
+    transition: opacity var(--transition-time-default) ease;
+    svg {
+      width: 100%;
+      height: auto;
+      path {
+        fill: #fff;
+      }
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    .hoverBackdrop {
+      opacity: 1;
+    }
+  }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(#000, 0.65);
+  backdrop-filter: blur(10rem);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity var(--transition-time-min) ease-in-out;
+
+  &.closing {
+    opacity: 0;
+
+    .modal {
+      transform: scale(0);
+    }
+  }
+
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: transform var(--transition-time-min) ease-in-out;
+    animation: scaleOut var(--transition-time-min) ease-in;
+  }
+
+  img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .closeBtn {
+    width: 40rem;
+    aspect-ratio: 1;
+    position: absolute;
+    top: 32rem;
+    right: 32rem;
+    background-color: rgba(#000, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color var(--transition-time-default) ease;
+
+    &:hover {
+      background-color: rgba(#000, 0.2);
+
+      path {
+        fill-opacity: 0.65;
+      }
+    }
+
+    svg {
+      width: 24rem;
+      height: auto;
+      path {
+        fill: var(--content-contr-color);
+        fill-opacity: 0.35;
+        transition: fill-opacity var(--transition-time-default) ease;
+      }
+    }
+  }
+}
+
+@keyframes scaleOut {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

@@ -9,6 +9,7 @@ import {
   validateText,
 } from "../../../../utils/inputsValidateHandler";
 import { message } from "antd";
+import useGoogleAuthentication from "../../../../hooks/useGoogleAuthentication";
 
 const AuthForm = ({ handleSubmit, type }) => {
   const [username, setUsername] = useState("");
@@ -17,6 +18,9 @@ const AuthForm = ({ handleSubmit, type }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
+
+  const userFromGoogleAPI = useGoogleAuthentication();
+  console.log(userFromGoogleAPI);
 
   const isFormValid = (data) => {
     Object.keys(data).forEach((key) => {
@@ -102,10 +106,12 @@ const AuthForm = ({ handleSubmit, type }) => {
           onChange={setPassword}
         />
       </div>
-      <div className={styles.row}>
+      <div className={`${styles.row} ${styles.btnsWrapper}`}>
         <button className={styles.submitBtn}>
           <span>{type === "registration" ? "Sing up" : "Sing in"}</span>
         </button>
+        <span className={styles.divider}>or</span>
+        <div id="googleAuthBtn"></div>
       </div>
       <AuthFormLink to={type === "registration" ? "login" : "registration"} />
     </form>

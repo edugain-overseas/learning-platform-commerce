@@ -1,0 +1,63 @@
+.wrapper {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+  border-radius: 50%;
+
+  &:hover {
+    box-shadow: var(--drop-shadow-middle);
+  }
+
+  .badge {
+    position: absolute;
+    width: 45%;
+    height: 45%;
+    border-radius: 50%;
+    background-color: var(--bg-button-default);
+    border: 1px solid var(--border-color-main);
+    font-size: 65%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  div.filled {
+    background-color: var(--bg-color-accent);
+    color: var(--content-contr-color);
+    border: none;
+  }
+
+  .b_r {
+    bottom: -10%;
+    right: -10%;
+  }
+  .b_l {
+    bottom: -10%;
+    left: -10%;
+  }
+  .t_r {
+    top: -10%;
+    right: -10%;
+  }
+  .t_l {
+    top: -10%;
+    left: -10%;
+  }
+}
+
+.pulsing {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(#335ba9, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 4rem rgba(#335ba9, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(#335ba9, 0);
+  }
+}

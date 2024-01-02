@@ -17,15 +17,15 @@ const InputPassword = ({ name, value, onChange }) => {
       className={`${styles.inputWrapper} ${
         validatePassword(value) && styles.valid
       }`}
+      onClick={(e) => console.log(e.target)}
     >
       <span className={styles.label}>{name}</span>
-      <button
-        type="button"
+      <span
         className={styles.showBtn}
         onClick={(e) => handleClick(e)}
       >
-        {isShow ? <EyeInvisibleOutlined /> : <EyeOutlined />}
-      </button>
+        {!isShow ? <EyeInvisibleOutlined /> : <EyeOutlined />}
+      </span>
       {getInputIcon(name, styles)}
       <input
         type={isShow ? "text" : "password"}

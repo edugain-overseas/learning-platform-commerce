@@ -1,0 +1,13 @@
+.pageWrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.contentWrapper {
+    // height: calc(100% - 60rem);
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 16rem;
+    padding-right: 0;
+}

@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import LogOutBtn from "../../auth/LogOutBtn/LogOutBtn";
 import { useSelector } from "react-redux";
 import { getAccessToken } from "../../../redux/user/selectors";
-import styles from './AuthBtn.module.scss'
+import { navLinkActiveHandler } from "../../../utils/navLinkActiveHandler";
+import styles from "./AuthBtn.module.scss";
 
 const AuthBtn = () => {
   const token = useSelector(getAccessToken);
@@ -12,13 +13,16 @@ const AuthBtn = () => {
     <LogOutBtn />
   ) : (
     <div className={styles.authLinksWrapper}>
-      <Link to="/login">
+      <NavLink
+        to="/login"
+        className={({ isActive }) => navLinkActiveHandler(isActive, styles)}
+      >
         <span>Sing in</span>
-      </Link>
+      </NavLink>
       <span>|</span>
-      <Link to="/registration">
+      <NavLink to="/registration">
         <span>Sing up</span>
-      </Link>
+      </NavLink>
     </div>
   );
 };

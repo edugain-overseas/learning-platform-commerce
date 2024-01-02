@@ -1,0 +1,130 @@
+.overlay {
+  position: absolute;
+  z-index: 999;
+  inset: 0;
+  height: 100%;
+  background-color: rgba($color: #000000, $alpha: 0.35);
+  backdrop-filter: blur(1rem);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.closing {
+  background-color: rgba($color: #000000, $alpha: 0);
+  backdrop-filter: blur(0);
+
+  .left {
+    animation: fadeFromLeft 0.2s ease-out reverse;
+  }
+  .right {
+    animation: fadeFromRight 0.2s linear reverse;
+  }
+  .top {
+    animation: fadeFromTop 0.2s ease-out reverse;
+  }
+  .bottom {
+    animation: fadeFromBottom 0.2s ease-out reverse;
+  }
+}
+
+.contentWrapper {
+  background-color: #fff;
+  position: absolute;
+  padding: 20rem;
+  padding-right: 40rem;
+}
+
+.left {
+  right: 100%;
+  border-top-right-radius: 8rem;
+  border-bottom-right-radius: 8rem;
+  animation: fadeFromLeft 0.2s ease-in forwards;
+}
+
+.right {
+  left: 100%;
+  border-top-left-radius: 8rem;
+  border-bottom-left-radius: 8rem;
+  animation: fadeFromRight 0.2s ease-in forwards;
+}
+
+.top {
+  bottom: 100%;
+  border-bottom-right-radius: 8rem;
+  border-bottom-left-radius: 8rem;
+  animation: fadeFromTop 0.2s ease-in forwards;
+}
+
+.bottom {
+  top: 100%;
+  border-top-right-radius: 8rem;
+  border-top-left-radius: 8rem;
+  animation: fadeFromBottom 0.2s ease-in forwards;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 16rem;
+  right: 16rem;
+  width: 24rem;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: rgba($color: #000000, $alpha: 0.15);
+  opacity: 0.5;
+  transition: all var(--transition-time-min) ease;
+  svg {
+    width: 12rem;
+    height: 12rem;
+    transition: transform var(--transition-time-min) ease;
+  }
+
+  path {
+    fill-opacity: 0.5;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+    box-shadow: var(--drop-shadow-middle);
+
+    svg {
+      transform: scale(1.1);
+    }
+  }
+}
+
+@keyframes fadeFromLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+@keyframes fadeFromRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+@keyframes fadeFromBottom {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+@keyframes fadeFromTop {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}

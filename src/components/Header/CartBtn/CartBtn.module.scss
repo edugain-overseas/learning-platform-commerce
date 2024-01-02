@@ -1,0 +1,17 @@
+.cartBtn {
+    width: 40rem;
+    background-color: var(--bg-button-default);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid var(--bg-color-accent);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--drop-shadow-short);
+
+    .icon {
+        font-size: 20rem;
+        color: var(--bg-color-accent);
+    }
+
+}

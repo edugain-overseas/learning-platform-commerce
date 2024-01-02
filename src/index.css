@@ -1,16 +1,18 @@
 :root {
   --bg-main: #f4f6fc;
-  --bg-accent: #3a5cbd;
+  --bg-accent: #4171cd;
   --bg-default: #fff;
   --bg-accent-active: #335ba9;
   --bg-deafault-active: #718da7;
   --bg-deafult-block: #fafbff;
   --bg-default-block-hover: #dcdde3;
   --bg-accent-block: #5e5e5e;
+  --bg-thumb: #f4f4f4;
+  --bg-accent-thumb: #e2e2e2;
 
   --bg-button-main: rgba(131, 131, 131, 0.2);
   --bg-button-default: #fff;
-  --bg-button-success: #39ba6d;
+  --bg-button-success: #20412d;
   --bg-button-failture: #ba3939;
   --bg-button-decorate-success: #00c808;
   --bg-button-edit: #fcc400;
@@ -30,11 +32,17 @@
   --content-failture: #ba3939;
   --content-contr-color: #fff;
   --content-datail-secondary: #bbbbbb;
+  --content-cold: #FFD700;
 
   --lg-block: linear-gradient(156deg, #b8eaff 8.25%, #6fd4ff 100.26%);
 
-  --drop-shadow-short: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  --drop-shadow-middle: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  --drop-shadow-short: 0px 0px 10rem rgba(0, 0, 0, 0.1);
+  --drop-shadow-middle: 0px 0px 10rem rgba(0, 0, 0, 0.2);
+  --drop-shadow-button-main: 0 0 4rem 0 rgba(0, 0, 0, 0.12);
+
+  --transition-time-min: 0.2s;
+  --transition-time-default: 0.3s;
+  --transition-time-max: 0.4s;
 }
 
 * {
@@ -46,9 +54,11 @@
 body {
   margin: 0;
   font-family: Inter, Roboto, sans-serif;
-  font-style: normal;
   font-size: 16rem;
   font-weight: 400;
+  font-style: normal;
+  line-height: normal;
+  /* overflow: hidden; */
 }
 
 li {
@@ -72,7 +82,27 @@ button {
   cursor: pointer;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+*::-webkit-scrollbar {
+  width: 16rem;
+  border-radius: 10rem;
+  /* background-color: var(--bg-thumb); */
+  background-color: transparent;
+  /* border: 6rem solid #fff; */
+  border: 6rem solid transparent;
+  box-shadow: inset 7rem 10rem 12rem #f0f0f0;
+  /* box-shadow: inset 7rem 10rem 12rem transparent; */
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 7rem solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 9999rem;
+  background-color: var(--bg-accent-thumb);
+}
+
+@supports (scrollbar-color: var(--bg-thumb) var(--bg-accent-thumb)) {
+  * {
+    scrollbar-color: var(--bg-thumb) var(--bg-accent-thumb);
+    scrollbar-width: thin;
+  }
 }

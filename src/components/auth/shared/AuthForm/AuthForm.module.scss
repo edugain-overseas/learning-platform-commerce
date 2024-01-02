@@ -1,8 +1,7 @@
 .form {
-  width: 760rem;
+  width: 800rem;
   padding-inline: 20rem;
   padding-block: 40rem;
-  //   border: 4rem solid var(--content-dark);
   box-shadow: var(--drop-shadow-middle);
   border-bottom-right-radius: 40rem;
   border-top-left-radius: 40rem;
@@ -22,17 +21,37 @@
 }
 
 .row {
-  margin-bottom: 40rem;
+  margin-bottom: 28rem;
   display: flex;
   justify-content: center;
+}
+
+.btnsWrapper {
+  flex-direction: column;
+  gap: 8rem;
+  align-items: center;
+  margin-bottom: 20rem;
+
+  & span {
+    color: var(--content-dark);
+    text-align: center;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  div[id="googleAuthBtn"] {
+    
+  }
 }
 
 .submitBtn {
   border-radius: 6rem;
   background-color: var(--content-dark);
-  padding: 4rem 132rem;
+  padding: 12rem 132rem;
   border: 1rem solid transparent;
-  transition: border-color 0.3s ease;
+  transition: border-color var(--transition-time-default) ease;
 
   span {
     color: var(--content-contr-color);
@@ -40,8 +59,9 @@
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
-    line-height: 32rem;
-    transition: color 0.3s ease;
+    font-size: 16rem;
+    line-height: normal;
+    transition: color var(--transition-time-default) ease;
   }
 
   &:hover,

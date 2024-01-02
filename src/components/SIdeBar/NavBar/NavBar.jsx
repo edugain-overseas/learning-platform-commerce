@@ -11,7 +11,7 @@ const NavBar = () => {
         <HomeIcon />
         <span>Home</span>
       </NavLink>
-      <NavLink to="/courses" className={styles.navLink}>
+      <NavLink to="/courses/all" className={styles.navLink}>
         <GridIcon />
         <span>Courses</span>
       </NavLink>

@@ -1,0 +1,31 @@
+.navBarWrapper {
+  display: flex;
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+.navLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: calc(100% / 2);
+
+  font-size: 14rem;
+  line-height: 16.94rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--content-secondary);
+
+  height: 60rem;
+
+  border-radius: 2rem;
+  box-shadow: var(--drop-shadow-button-main);
+  transition: all var(--transition-time-min) ease-out;
+
+  background-color: var(--bg-button-default);
+}
+
+.navLink--active {
+  background-color: var(--content-accent);
+  color: var(--content-contr-color);
+}

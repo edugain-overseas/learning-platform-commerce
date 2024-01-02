@@ -14,7 +14,10 @@ const initialState = {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setUserFromGoogleAPI(state, {payload}) {
+    },
+  },
 });
 
 export default userSlice;
