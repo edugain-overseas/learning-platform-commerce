@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { useCart } from "../../../context/cartContext";
+// import { useCart } from "../../../context/cartContext";
 import { ReactComponent as CrossIcon } from "../../../images/icons/cross.svg";
 import styles from "./Drawer.module.scss";
 
