@@ -9,7 +9,6 @@ import Badge from "../shared/Badge/Badge";
 
 const Header = () => {
   const { cartQuantity } = useCart();
-  console.log(cartQuantity);
   return (
     <header className={styles.header}>
       <PrevLink />

@@ -19,14 +19,19 @@ const orientationClassName = (o) => {
   }
 };
 
-const Drawer = ({ children, orientation = "left", size = "500rem" }) => {
-  const { handleClose } = useCart();
+const Drawer = ({
+  children,
+  orientation = "left",
+  size = "500rem",
+  handleClose,
+}) => {
   const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
     const handleKeydown = (e) => {
       switch (e.code) {
         case "Escape":
+          setIsClosing(true);
           setTimeout(handleClose, 200);
           break;
         default:

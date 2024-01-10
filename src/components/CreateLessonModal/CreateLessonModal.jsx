@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Select from "../shared/Select/Select";
 import CircleProgressBar from "../shared/CircleProgressBar/CircleProgressBar";
+import Textarea from "../shared/Textarea/Textarea";
 
 const options = [
   { label: "red", value: "1", disabled: false },
@@ -21,26 +22,33 @@ const options = [
 
 const CreateLessonModal = () => {
   const [selectValue, setSelectValue] = useState("");
+  const [textareaValue, setTeaxtareaValue] = useState("");
   const onChange = (value) => {
     setSelectValue(value);
   };
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Select
-        options={options}
-        value={selectValue}
-        onChange={onChange}
-        borderless={true}
-        placeholder="Please select color"
-        wrapperStyles={{ width: "160rem", fontSize: "14rem" }}
-      />
-      <CircleProgressBar/>
+    <div style={{ padding: "100rem" }}>
+      <div>
+        <Select
+          options={options}
+          value={selectValue}
+          onChange={onChange}
+          borderless={true}
+          placeholder="Please select color"
+          wrapperStyles={{ width: "160rem", fontSize: "14rem" }}
+        />
+      </div>
+      <div>
+        <CircleProgressBar strokeColor="#B8EAFF" strokeWidth={8}/>
+      </div>
+      <div>
+        <Textarea
+          width="300rem"
+          minRows={4}
+          value={textareaValue}
+          onChange={setTeaxtareaValue}
+        />
+      </div>
     </div>
   );
 };

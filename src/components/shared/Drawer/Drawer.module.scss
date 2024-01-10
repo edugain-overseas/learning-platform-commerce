@@ -14,16 +14,16 @@
   backdrop-filter: blur(0);
 
   .left {
-    animation: fadeFromLeft 0.2s ease-out reverse;
+    animation: fadeToLeft 0.2s ease-out;
   }
   .right {
-    animation: fadeFromRight 0.2s linear reverse;
+    animation: fadeToRight 0.2s ease-out;
   }
   .top {
-    animation: fadeFromTop 0.2s ease-out reverse;
+    animation: fadeToTop 0.2s ease-out;
   }
   .bottom {
-    animation: fadeFromBottom 0.2s ease-out reverse;
+    animation: fadeToBottom 0.2s ease-out;
   }
 }
 
@@ -89,10 +89,6 @@
   &:focus {
     opacity: 1;
     box-shadow: var(--drop-shadow-middle);
-
-    svg {
-      transform: scale(1.1);
-    }
   }
 }
 
@@ -126,5 +122,38 @@
   }
   100% {
     transform: translateY(100%);
+  }
+}
+
+@keyframes fadeToLeft {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes fadeToRight {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes fadeToBottom {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes fadeToTop {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
   }
 }

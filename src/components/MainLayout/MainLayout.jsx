@@ -3,6 +3,7 @@ import Header from "../Header/Header";
 import SideBar from "../SIdeBar/SideBar";
 import styles from "./MainLayout.module.scss";
 import { Outlet } from "react-router-dom";
+import ChatsFloatBtn from "../ChatsFloatBtn/ChatsFloatBtn";
 
 const MainLayout = () => {
   return (
@@ -14,6 +15,7 @@ const MainLayout = () => {
           <Outlet />
         </main>
       </div>
+      <ChatsFloatBtn />
     </div>
   );
 };

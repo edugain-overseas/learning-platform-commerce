@@ -40,7 +40,7 @@ export const CartProvider = ({ children }) => {
     >
       {children}
       {isOpen && (
-        <Drawer orientation="right" size="500rem">
+        <Drawer orientation="right" size="500rem" handleClose={handleClose}>
           <Cart items={cartItems} />
         </Drawer>
       )}

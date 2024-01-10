@@ -26,13 +26,15 @@ const Badge = ({
   return (
     <div className={styles.wrapper}>
       {children}
-      <div
-        className={`${pulsing ? styles.pulsing : ""} ${orientationClassName(
-          orietation
-        )} ${type === "filled" ? styles.filled : ""} ${styles.badge}`}
-      >
-        <span>{value}</span>
-      </div>
+      {value !== 0 && (
+        <div
+          className={`${pulsing ? styles.pulsing : ""} ${orientationClassName(
+            orietation
+          )} ${type === "filled" ? styles.filled : ""} ${styles.badge}`}
+        >
+          <span>{value}</span>
+        </div>
+      )}
     </div>
   );
 };

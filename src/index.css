@@ -85,12 +85,9 @@ button {
 *::-webkit-scrollbar {
   width: 16rem;
   border-radius: 10rem;
-  /* background-color: var(--bg-thumb); */
   background-color: transparent;
-  /* border: 6rem solid #fff; */
   border: 6rem solid transparent;
   box-shadow: inset 7rem 10rem 12rem #f0f0f0;
-  /* box-shadow: inset 7rem 10rem 12rem transparent; */
 }
 
 *::-webkit-scrollbar-thumb {

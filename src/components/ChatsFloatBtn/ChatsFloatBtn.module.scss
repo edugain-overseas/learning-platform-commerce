@@ -1,0 +1,32 @@
+.outerWrapper {
+  position: fixed;
+  bottom: 20rem;
+  right: 20rem;
+  z-index: 99;
+  pointer-events: all;
+}
+
+.innerWrapper {
+  width: 48rem;
+  height: 48rem;
+  background-color: var(--bg-default);
+  border: 4rem solid var(--bg-color-accent);
+  border-radius: 50%;
+  padding: 2rem;
+  box-shadow: var(--drop-shadow-middle);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+
+.chatsIcon {
+  font-size: 24rem;
+  color: var(--bg-color-accent);
+}
