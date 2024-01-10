@@ -12,6 +12,7 @@ const Modal = ({ isOpen, onClose, children }) => {
       switch (e.code) {
         case "Escape":
           handleClose();
+          break;
         default:
           break;
       }
@@ -20,6 +21,7 @@ const Modal = ({ isOpen, onClose, children }) => {
     return () => {
       window.removeEventListener("keydown", handleKeydown);
     };
+    // eslint-disable-next-line
   }, []);
 
   const handleClose = (e) => {
@@ -42,10 +44,11 @@ const Modal = ({ isOpen, onClose, children }) => {
   }
 
   return ReactDOM.createPortal(
-    <div className={`${isClosing ? styles.closing : ""} ${styles.overlay}`} onClick={handleOverlayClick}>
-      <div className={styles.modal}>
-        {children}
-      </div>
+    <div
+      className={`${isClosing ? styles.closing : ""} ${styles.overlay}`}
+      onClick={handleOverlayClick}
+    >
+      <div className={styles.modal}>{children}</div>
       <button className={styles.closeBtn} onClick={handleClose}>
         <CrossIcon />
       </button>
