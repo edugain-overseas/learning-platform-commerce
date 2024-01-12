@@ -1,5 +1,27 @@
 .wrapper {
-  width: 100%;
-  overflow-x: hidden;
   position: relative;
+}
+
+.content {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.left,
+.right {
+  position: absolute;
+  top: 0;
+  width: 5%;
+  height: calc(100% - 16rem);
+}
+
+.left {
+  left: 0;
+  background: linear-gradient(to right, #fff 15%, rgba(#fff, 0));
+}
+
+.right {
+  right: 0;
+    background: linear-gradient(to left, #fff 15%, rgba(#fff, 0));
+
 }

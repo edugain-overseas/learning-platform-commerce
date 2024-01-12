@@ -1,16 +1,57 @@
 .nav {
+  width: 100%;
+}
+
+.navItems {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
+
+  .navItem {
+    width: 100%;
+  }
 }
 
 .navLink {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 8rem 8rem 8rem 36rem;
-  gap: 7rem;
-  width: 100%;
+  position: relative;
+
+  .narrowed {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: var(--bg-accent-active);
+    z-index: 3;
+  }
+
+  .navButton {
+    width: 28rem;
+    height: 28rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1rem solid transparent;
+    border-radius: 4rem;
+    transition: border-color var(--transition-time-max) ease;
+  }
+
+  &:hover {
+    .navButton {
+      border-color: var(--content-contr-color);
+    }
+
+    .expanded {
+      background-color: var(--bg-accent-block);
+      span {
+        color: var(--content-nav-hover);
+      }
+      path {
+        fill: var(--content-nav-hover);
+      }
+    }
+  }
 
   & svg {
     width: 14rem;
@@ -18,10 +59,42 @@
     fill: var(--content-contr-color);
   }
 
-  & span {
-    font-size: 14rem;
-    line-height: 17rem;
-    color: var(--content-contr-color);
+  .expanded {
+    width: 148rem;
+    height: 28rem;
+    position: absolute;
+    overflow-x: hidden;
+    left: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 12rem;
+    z-index: 2;
+    transform: translateX(-100%);
+    background-color: transparent;
+
+    transition: transform var(--transition-time-max) ease,
+      background-color var(--transition-time-max) ease;
+
+    span {
+      font-family: Roboto, sans-serif;
+      font-size: 14rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 28rem;
+      color: var(--content-main);
+      transition: color var(--transition-time-max) ease;
+    }
+
+    svg {
+      width: 6rem;
+      height: 6rem;
+    }
+
+    path {
+      fill: var(--content-main);
+      transition: color var(--transition-time-max) ease;
+    }
   }
 }
-

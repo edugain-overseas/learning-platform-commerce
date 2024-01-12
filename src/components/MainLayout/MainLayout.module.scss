@@ -3,16 +3,17 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    position: relative;
   }
   
-  .rightWrapper {
+  .contentWrapper {
     display: flex;
-    flex-direction: column;
-    width: 87.4%;
+    width: 100%;
   }
   
   .main {
+    padding-top: 84rem;
     flex-grow: 1;
-    max-height: calc(100% - 70rem);
+    height: 100%;
     background-color: var(--bg-main);
   }

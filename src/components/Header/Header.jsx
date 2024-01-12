@@ -3,14 +3,16 @@ import PrevLink from "./PrevLink/PrevLink";
 import CurrentTime from "./CurrentTime/CurrentTime";
 import AuthBtn from "./AuthBtn/AuthBtn";
 import CartBtn from "./CartBtn/CartBtn";
+import Badge from "../shared/Badge/Badge";
 import { useCart } from "../../context/cartContext";
 import styles from "./Header.module.scss";
-import Badge from "../shared/Badge/Badge";
+import Logo from "../Logo/Logo";
 
 const Header = () => {
   const { cartQuantity } = useCart();
   return (
     <header className={styles.header}>
+      <Logo />
       <PrevLink />
       <CurrentTime />
       <div className={styles.rightWrapper}>

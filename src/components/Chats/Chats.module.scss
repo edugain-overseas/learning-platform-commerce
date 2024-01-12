@@ -1,11 +1,12 @@
 .navWrapper {
-  padding-inline: 8rem;
+  padding-right: 16rem;
 }
 
 .navItems {
   display: flex;
   gap: 16rem;
   padding-block: 4rem;
+  width: fit-content;
 
   li {
     padding: 4rem 8rem;
