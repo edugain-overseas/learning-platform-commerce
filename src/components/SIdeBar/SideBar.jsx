@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import NavBar from "./NavBar/NavBar";
-// import LogoutButton from "./LogoutButton/LogoutButton";
+import LogoutButton from "./LogoutButton/LogoutButton";
 import { ReactComponent as FixIcon } from "../../images/icons/fix.svg";
+import SupportBtn from "./SupportBtn/SupportBtn";
 import styles from "./SideBar.module.scss";
+import UserInfo from "./UserInfo/UserInfo";
 
 const SideBar = () => {
   const [isExpandedFixed, setIsExpandedFixed] = useState(false);
@@ -37,12 +39,19 @@ const SideBar = () => {
           <FixIcon />
         </button>
         <p className={styles.officialLabel}>Official Platform</p>
-        <NavBar />
+        <div className={styles.itemsWrapper}>
+          <NavBar />
+          <div className={styles.bottomItemsWrapper}>
+            <SupportBtn />
+            <LogoutButton />
+          </div>
+        </div>
       </div>
       <div className={styles.expanded}>
         <button className={styles.fixBtn} onClick={handleExpandedFixed}>
           <FixIcon />
         </button>
+        <UserInfo />
       </div>
     </div>
   );

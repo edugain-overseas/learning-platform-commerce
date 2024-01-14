@@ -2,11 +2,11 @@
   --bg-main: #f4f6fc;
   --bg-accent: #4171cd;
   --bg-default: #fff;
-  --bg-accent-active: #C30000 ;
+  --bg-accent-active: #c30000;
   --bg-deafault-active: #718da7;
   --bg-deafult-block: #fafbff;
   --bg-default-block-hover: #dcdde3;
-  --bg-accent-block: #F8F8F8;
+  --bg-accent-block: #f8f8f8;
   --bg-thumb: #f4f4f4;
   --bg-accent-thumb: #e2e2e2;
 
@@ -23,17 +23,17 @@
   --border-color-secondary: rgba(215, 215, 215, 0.5);
   --border-color-decorate: #b3b3b3;
 
-  --content-main: #001C54;
+  --content-main: #001c54;
   --content-secondary: rgba(0, 0, 0, 0.5);
   --content-dark: #001c54;
-  --content-light: #FCFCFC;
+  --content-light: #c7c6c6;
   --content-accent: #4171cd;
   --content-detail: #5e5e5e;
   --content-failture: #ba3939;
   --content-contr-color: #fff;
   --content-datail-secondary: #bbbbbb;
-  --content-cold: #FFD700;
-  --content-nav-hover: #D00000;
+  --content-cold: #ffd700;
+  --content-nav-hover: #d00000;
 
   --lg-block: linear-gradient(156deg, #b8eaff 8.25%, #6fd4ff 100.26%);
 
@@ -44,6 +44,9 @@
   --transition-time-min: 0.2s;
   --transition-time-default: 0.3s;
   --transition-time-max: 0.4s;
+
+  --sidebar-width-narrowed: 40rem;
+  --sidebar-width-expanded: 148rem;
 }
 
 * {
@@ -59,7 +62,6 @@ body {
   font-weight: 400;
   font-style: normal;
   line-height: normal;
-  /* overflow: hidden; */
 }
 
 li {
@@ -81,6 +83,12 @@ button {
   outline: none;
   background: none;
   cursor: pointer;
+}
+
+span {
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 *::-webkit-scrollbar {

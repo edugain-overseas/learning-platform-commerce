@@ -60,7 +60,7 @@
   }
 
   .expanded {
-    width: 148rem;
+    width: var(--sidebar-width-expanded);
     height: 28rem;
     position: absolute;
     overflow-x: hidden;

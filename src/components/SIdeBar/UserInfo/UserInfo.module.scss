@@ -1,0 +1,41 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 148rem;
+  transform: translateX(-100%);
+  transition: transform var(--transition-time-max) ease;
+}
+
+.fullName {
+  color: var(--content-main);
+  font-size: 14rem;
+  font-style: normal;
+  font-weight: 500;
+  margin-top: 10rem;
+}
+
+.studyInfo {
+  display: flex;
+  color: var(--content-light);
+  font-size: 10rem;
+  font-weight: 500;
+  margin-top: 8rem;
+  width: 100%;
+  padding-inline: 12rem;
+
+  span {
+    flex-basis: 50%;
+
+    &:first-child {
+      text-align: right;
+      padding-right: 4rem;
+      border-right: 0.5px solid var(--content-light);
+    }
+    &:last-child {
+      text-align: left;
+      padding-left: 4rem;
+      border-left: 0.5px solid var(--content-light);
+    }
+  }
+}

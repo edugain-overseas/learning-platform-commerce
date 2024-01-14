@@ -2,11 +2,11 @@
   display: flex;
   height: 100%;
   align-items: center;
-  background: var(--bg-accent-active);
+  background-color: var(--bg-accent-active);
 
   &:hover {
     .expanded {
-      width: 148rem;
+      width: var(--sidebar-width-expanded);
     }
     div[id="expanded"] {
       transform: translateX(0);
@@ -24,12 +24,16 @@
     }
     .narrowed .fixBtn {
       border-color: var(--bg-default);
+      svg * {
+        fill: var(--bg-default);
+        stroke: var(--bg-default);
+      }
     }
   }
 
   &.expandedFixed {
     .expanded {
-      width: 148rem;
+      width: var(--sidebar-width-expanded);
     }
     div[id="expanded"] {
       transform: translateX(0);
@@ -41,24 +45,29 @@
 }
 
 .narrowed {
-  width: 40rem;
+  width: var(--sidebar-width-narrowed);
   height: 100%;
-  padding-top: 100rem;
-  // overflow-x: hidden;
+  padding-block: 100rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   .fixBtn {
-    margin-bottom: 16rem;
+    margin-bottom: 36rem;
 
     svg * {
       fill: var(--content-light);
       stroke: var(--content-light);
+      transition: fill var(--transition-time-min) ease,
+        stroke var(--transition-time-min) ease;
     }
 
     &:hover {
       border-color: var(--bg-default);
+      svg * {
+        fill: var(--bg-default);
+        stroke: var(--bg-default);
+      }
     }
   }
 
@@ -74,19 +83,36 @@
     text-orientation: sideways;
     transform: rotate(180deg);
     white-space: nowrap;
-    margin-bottom: 40rem;
+    margin-bottom: 52rem;
   }
+}
+
+.itemsWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.bottomItemsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 28rem;
 }
 
 .expanded {
   width: 0;
   height: 100%;
-  padding-top: 100rem;
+  padding-block: 100rem;
   background-color: var(--bg-default);
   overflow: hidden;
   transition: width var(--transition-time-max) ease;
 
   .fixBtn {
+    margin-left: auto;
+    margin-right: 12rem;
+    margin-bottom: 16rem;
     svg * {
       fill: var(--content-main);
       stroke: var(--content-main);
