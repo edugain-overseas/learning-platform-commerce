@@ -9,6 +9,7 @@
   --bg-accent-block: #f8f8f8;
   --bg-thumb: #f4f4f4;
   --bg-accent-thumb: #e2e2e2;
+  --bg-rgba-default: rgba(255, 255, 255, 0.65);
 
   --bg-button-main: rgba(131, 131, 131, 0.2);
   --bg-button-default: #fff;
@@ -31,7 +32,7 @@
   --content-detail: #5e5e5e;
   --content-failture: #ba3939;
   --content-contr-color: #fff;
-  --content-datail-secondary: #bbbbbb;
+  --content-datail-secondary: #7e8ca8;
   --content-cold: #ffd700;
   --content-nav-hover: #d00000;
 
@@ -40,6 +41,9 @@
   --drop-shadow-short: 0px 0px 10rem rgba(0, 0, 0, 0.1);
   --drop-shadow-middle: 0px 0px 10rem rgba(0, 0, 0, 0.2);
   --drop-shadow-button-main: 0 0 4rem 0 rgba(0, 0, 0, 0.12);
+  
+  --box-shadow-button: 0 0 2rem 0 rgba(0, 0, 0, 0.16);
+  --box-shadow-button-inset: 0 0 4rem 0 rgba(0, 0, 0, 0.16) inset;
 
   --transition-time-min: 0.2s;
   --transition-time-default: 0.3s;

@@ -5,8 +5,9 @@
 }
 
 .contentWrapper {
-    // height: calc(100% - 60rem);
     flex-grow: 1;
     overflow-y: auto;
     padding-inline: 32rem;
+    padding-bottom: 20rem;
+    scroll-behavior: smooth;
 }
