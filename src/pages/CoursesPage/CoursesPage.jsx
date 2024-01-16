@@ -1,30 +1,24 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import NavLinksPanel from "../../components/shared/NavLinksPanel/NavLinksPanel";
 import styles from "./CoursesPage.module.scss";
+import CoursesPanel from "../../components/CoursesPanel/CoursesPanel";
+import { CoursesListModeProvider } from "../../context/CoursesListModeContext";
 
 const CoursesPage = () => {
   const { pathname } = useLocation();
   const isCoursesHomePage =
-    pathname === "/courses/all" || pathname === "/courses/my";
+    pathname === "/courses/my" ||
+    pathname === "/courses/available" ||
+    pathname === "/courses/completed";
 
-  const renderLinks = [
-    {
-      to: "my",
-      content: `my courses`,
-    },
-    {
-      to: "all",
-      content: "all courses",
-    },
-  ];
-  
   return (
     <div className={styles.pageWrapper}>
-      {isCoursesHomePage && <NavLinksPanel renderLinks={renderLinks} />}
-      <div className={styles.contentWrapper}>
-        <Outlet />
-      </div>
+      <CoursesListModeProvider>
+        {isCoursesHomePage && <CoursesPanel />}
+        <div className={styles.contentWrapper}>
+          <Outlet />
+        </div>
+      </CoursesListModeProvider>
     </div>
   );
 };

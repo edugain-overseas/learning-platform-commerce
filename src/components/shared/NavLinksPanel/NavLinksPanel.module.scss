@@ -1,31 +1,36 @@
 .navBarWrapper {
   display: flex;
-  gap: 2rem;
-  padding: 0 2rem;
+  gap: 40rem;
+  padding-left: 16rem;
+  position: relative;
 }
 
 .navLink {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-basis: calc(100% / 2);
+  text-align: center;
+  font-family: Roboto, sans-serif;
+  font-size: 20rem;
+  font-weight: 700;
+  line-height: 109.6%;
+  text-transform: capitalize;
+  color: var(--content-main);
 
-  font-size: 14rem;
-  line-height: 16.94rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  color: var(--content-secondary);
 
-  height: 60rem;
+  padding-block: 12rem;
 
-  border-radius: 2rem;
-  box-shadow: var(--drop-shadow-button-main);
-  transition: all var(--transition-time-min) ease-out;
-
-  background-color: var(--bg-button-default);
+  transition: color var(--transition-time-min) ease,
+    border-color var(--transition-time-min) ease;
 }
 
-.navLink--active {
-  background-color: var(--content-accent);
-  color: var(--content-contr-color);
+.navLink--active,
+.navLink:hover {
+  color: var(--content-nav-hover);
+}
+
+.activeLinkMarker {
+  position: absolute;
+  height: 2px;
+  bottom: -2px;
+  background-color: var(--content-nav-hover);
+  transition: width var(--transition-time-min) ease,
+    left var(--transition-time-max) ease;
 }

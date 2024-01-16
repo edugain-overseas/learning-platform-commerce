@@ -8,6 +8,7 @@ import CoursesPage from "../pages/CoursesPage/CoursesPage";
 import CategoriesList from "./CategoriesList/CategoriesList";
 import CategoryDetailPage from "../pages/CategoryDetailPage/CategoryDetailPage";
 import CourseDetailPage from "../pages/CourseDetailPage/CourseDetailPage";
+import { coursesLinks } from "../costants/nav";
 
 const Router = () => {
   return (
@@ -17,8 +18,9 @@ const Router = () => {
         <Route path="/registration" element={<SingUpForm />} />
         <Route path="/login" element={<SingInForm />} />
         <Route path="/courses" element={<CoursesPage />}>
-          <Route path="my" element={<CategoriesList />} />
-          <Route path="all" element={<CategoriesList />} />
+          {coursesLinks.map(({ to }) => (
+            <Route key={to} path={to} element={<CategoriesList />} />
+          ))}
           <Route path=":courseId" element={<CourseDetailPage />} />
           <Route path="category/:categoryId" element={<CategoryDetailPage />} />
         </Route>

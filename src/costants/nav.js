@@ -9,7 +9,7 @@ export const sidebarNav = [
   {
     label: "Courses",
     icon: <CoursesIcon />,
-    link: "/courses/all",
+    link: "/courses/my",
     children: null,
   },
   { label: "My profile", icon: <MyProfileIcon />, link: "/me", children: null },
@@ -24,5 +24,20 @@ export const sidebarNav = [
     icon: <InstructionsIcon />,
     link: "/instruction",
     children: null,
+  },
+];
+
+export const coursesLinks = [
+  {
+    to: "my",
+    content: `my courses`,
+  },
+  {
+    to: "available",
+    content: "available courses",
+  },
+  {
+    to: "completed",
+    content: "completed courses",
   },
 ];

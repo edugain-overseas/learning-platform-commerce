@@ -6,6 +6,7 @@ const useGoogleAuthentication = () => {
 
   useEffect(() => {
     const handleCredentialResponse = ({ credential }) => {
+      
       const user = jwtDecode(credential);
       setUser(user);
       console.log(user.picture);

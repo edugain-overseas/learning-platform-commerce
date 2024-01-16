@@ -47,7 +47,8 @@
 .narrowed {
   width: var(--sidebar-width-narrowed);
   height: 100%;
-  padding-block: 100rem;
+  padding-top: 100rem;
+  padding-bottom: 64rem;
   display: flex;
   flex-direction: column;
   align-items: center;
