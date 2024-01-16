@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/learning-platform-commerce/static/css/main.6df45b6c.css",
-    "main.js": "/learning-platform-commerce/static/js/main.0df8f974.js",
+    "main.css": "/learning-platform-commerce/static/css/main.4a6e441f.css",
+    "main.js": "/learning-platform-commerce/static/js/main.1a630d77.js",
     "static/media/login-bg.png": "/learning-platform-commerce/static/media/login-bg.4363596cec990c8af020.png",
     "static/media/logo.svg": "/learning-platform-commerce/static/media/logo.e927e10e1044bbb3f106b075f561af48.svg",
     "static/media/instructions.svg": "/learning-platform-commerce/static/media/instructions.11d2978a8789f2c670174fb5c7a68b06.svg",
@@ -14,6 +14,7 @@
     "static/media/trashRounded.svg": "/learning-platform-commerce/static/media/trashRounded.5e7051ed14365a20f6fdd2d92fa2e245.svg",
     "static/media/logout.svg": "/learning-platform-commerce/static/media/logout.acd18070f31cfbd668b0d3444b630444.svg",
     "static/media/filters.svg": "/learning-platform-commerce/static/media/filters.83963278578ba28667849ce035dead44.svg",
+    "static/media/info.svg": "/learning-platform-commerce/static/media/info.f315b19143e1172589b9001e0e500892.svg",
     "static/media/cross.svg": "/learning-platform-commerce/static/media/cross.0fd84febb660c7e60d7ad35ba59c6cb4.svg",
     "index.html": "/learning-platform-commerce/index.html",
     "static/media/search.svg": "/learning-platform-commerce/static/media/search.3179761e82270231f1a907aca08d1eb8.svg",
@@ -21,13 +22,14 @@
     "static/media/grid.svg": "/learning-platform-commerce/static/media/grid.7832bc155186c27b420e11abbaa89bcd.svg",
     "static/media/navTriangle.svg": "/learning-platform-commerce/static/media/navTriangle.0478358236a2dea7696577f0652d9544.svg",
     "static/media/arrow-left.svg": "/learning-platform-commerce/static/media/arrow-left.16ef801717584cb8cdbd8efd87be0a87.svg",
+    "static/media/bm.svg": "/learning-platform-commerce/static/media/bm.fe6e521df5de4a7e697bf37288f885e2.svg",
     "static/media/list.svg": "/learning-platform-commerce/static/media/list.e7e9a3b9fb918261b2dc92996ee48a81.svg",
     "static/media/arrowDown.svg": "/learning-platform-commerce/static/media/arrowDown.9d52373b9e5c27f5e142671b11fffce5.svg",
-    "main.6df45b6c.css.map": "/learning-platform-commerce/static/css/main.6df45b6c.css.map",
-    "main.0df8f974.js.map": "/learning-platform-commerce/static/js/main.0df8f974.js.map"
+    "main.4a6e441f.css.map": "/learning-platform-commerce/static/css/main.4a6e441f.css.map",
+    "main.1a630d77.js.map": "/learning-platform-commerce/static/js/main.1a630d77.js.map"
   },
   "entrypoints": [
-    "static/css/main.6df45b6c.css",
-    "static/js/main.0df8f974.js"
+    "static/css/main.4a6e441f.css",
+    "static/js/main.1a630d77.js"
   ]
 }
