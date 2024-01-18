@@ -1,0 +1,47 @@
+.outerWrapper {
+  background: var(--bg-rgba-default);
+  box-shadow: var(--box-shadow-button-inset);
+}
+
+.innerWrapper {
+  border-radius: inherit;
+  height: 100%;
+  box-shadow: var(--box-shadow-button);
+  overflow: hidden;
+  position: relative;
+
+  span {
+    font-weight: 500;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.progress {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: width var(--transition-time-max) ease,
+    background-color var(--transition-time-max) ease;
+
+  &.disabled {
+    &::after {
+      content: none;
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      125deg,
+      rgba(0, 0, 0, 0.05),
+      rgba(0, 0, 0, 0.05) 3rem,
+      rgba(0, 0, 0, 0) 3rem,
+      rgba(0, 0, 0, 0) 9rem
+    );
+  }
+}

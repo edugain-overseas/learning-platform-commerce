@@ -20,11 +20,11 @@ const CategoriesItem = ({ category }) => {
       ({ id }) => id === "dropdown"
     );
     if (dropdown) {
-      console.log('dropdown exist');
+      console.log("dropdown exist");
       if (!dropDownOpen) {
         dropdown.style.maxHeight = dropdown.scrollHeight + "px";
       } else {
-        dropdown.style.maxHeight = 0 + 'px';
+        dropdown.style.maxHeight = 0 + "px";
       }
     }
     setDropDownOpen((prev) => !prev);
@@ -51,7 +51,7 @@ const CategoriesItem = ({ category }) => {
           </p>
           <div className={styles.progressWrapper}>
             <span>Progress:</span>
-            <ProgressBar />
+            <ProgressBar value={25} />
           </div>
           <div className={styles.infoWrapper}>
             <span>Info the courses</span>

@@ -6,8 +6,8 @@
 
 .contentWrapper {
     flex-grow: 1;
-    overflow-y: auto;
+    overflow-y: scroll;
     padding-inline: 32rem;
-    padding-bottom: 20rem;
+    padding-bottom: 72rem;
     scroll-behavior: smooth;
 }

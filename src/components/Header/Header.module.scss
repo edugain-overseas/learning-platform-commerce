@@ -6,14 +6,16 @@
   padding: 12rem 20rem;
 
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
-  background-color: var(--bg-default);
+  background-color: var(--bg-rgba-primary);
+  backdrop-filter: blur(28rem);
   border-radius: 8rem;
 
 
   position: absolute;
   top: 20rem;
   left: 20rem;  
-  right: 20rem; 
+  right: 20rem;
+  z-index: 2;
 }
 
 .rightWrapper {

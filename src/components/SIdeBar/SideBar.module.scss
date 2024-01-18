@@ -2,7 +2,6 @@
   display: flex;
   height: 100%;
   align-items: center;
-  background-color: var(--bg-accent-active);
 
   &:hover {
     .expanded {
@@ -46,6 +45,7 @@
 
 .narrowed {
   width: var(--sidebar-width-narrowed);
+  background-color: var(--bg-accent-active);
   height: 100%;
   padding-top: 100rem;
   padding-bottom: 64rem;
@@ -106,7 +106,8 @@
   width: 0;
   height: 100%;
   padding-block: 100rem;
-  background-color: var(--bg-default);
+  background-color: var(--bg-rgba-secondary);
+  backdrop-filter: blur(16px);
   overflow: hidden;
   transition: width var(--transition-time-max) ease;
 
