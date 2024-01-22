@@ -1,0 +1,86 @@
+.wrapper.horizontal {
+  display: flex;
+  gap: 8rem;
+  align-items: flex-start;
+
+  .oldPriceWrapper {
+    order: 2;
+    margin-bottom: 0;
+  }
+
+  .priceWrapper {
+    order: 1;
+
+    position: relative;
+
+    &::after {
+      content: '';
+      height: 100%;
+      width: 1rem;
+      position: absolute;
+      bottom: 0;
+      right: -4rem;
+      background-color: var(--content-datail-secondary);
+      transform: rotateZ(135deg);
+    }
+  }
+}
+
+div.oldPriceWrapper {
+  margin-bottom: 4rem;
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  justify-content: flex-end;
+
+  span {
+    color: var(--content-light);
+  }
+
+  .dollarSign {
+    font-size: 20rem;
+    font-weight: 500;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+
+    .label {
+      font-size: 6rem;
+      font-weight: 500;
+    }
+
+    .value {
+      font-size: 12rem;
+      font-weight: 500;
+      text-decoration-line: line-through;
+    }
+  }
+}
+
+.priceWrapper {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+
+  .dollarSign {
+    font-size: 28rem;
+    font-weight: 500;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+
+    .label {
+      font-size: 8rem;
+      font-weight: 500;
+    }
+
+    .value {
+      font-size: 16rem;
+      font-weight: 500;
+    }
+  }
+}

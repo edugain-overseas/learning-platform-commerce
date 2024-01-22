@@ -1,0 +1,221 @@
+.courseCard {
+  flex-basis: calc(100% / 4 - 16rem * 3 / 4);
+  margin-bottom: 16rem;
+  position: relative;
+
+  &:hover {
+    .cardBtn {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+.courseLink {
+  display: block;
+  height: 100%;
+  padding: 8rem;
+  border-radius: 5rem;
+  background-color: var(--bg-rgba-default);
+  box-shadow: var(--drop-shadow-button-main);
+  backdrop-filter: blur(16rem);
+
+  position: relative;
+  z-index: 2;
+
+  transition: background-color var(--transition-time-min) ease;
+
+  &:hover {
+    background-color: var(--bg-rgba-primary);
+    box-shadow: var(--drop-shadow-button-main-hover);
+  }
+}
+
+.posterWrapper {
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 16/9;
+  border-radius: 5rem;
+  background-size: cover;
+  background-position: center;
+
+  &::before {
+    content: "";
+    display: block;
+    border-radius: 5rem;
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(26rem);
+  }
+
+  &:hover {
+    .coursePoster {
+      transform: scale(1.25);
+    }
+  }
+}
+
+.coursePoster {
+  position: absolute;
+  display: block;
+  border: 4rem solid transparent;
+  inset: 0;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-time-min) ease;
+}
+
+.textWrapper {
+  padding: 8rem;
+  padding-top: 0;
+}
+
+.titleWrapper {
+  height: 50rem;
+  display: flex;
+  align-items: center;
+}
+
+.courseName {
+  font-weight: 700;
+  margin-right: 6rem;
+  overflow: visible;
+
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 0;
+    position: absolute;
+    bottom: 0;
+    height: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--content-nav-hover);
+    transition: width var(--transition-time-min) ease var(--transition-time-min);
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    width: 0;
+    position: absolute;
+    bottom: -2rem;
+    height: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--content-nav-hover);
+    transition: width var(--transition-time-min) ease;
+  }
+
+  &:hover {
+    &::before {
+      width: 30rem;
+      transition: width var(--transition-time-min) ease;
+    }
+
+    &::after {
+      width: 15rem;
+      transition: width var(--transition-time-min) ease
+        var(--transition-time-min);
+    }
+
+    .openBtn {
+      transform: translate(120%, -50%);
+      opacity: 1;
+    }
+  }
+}
+
+.openBtn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+  opacity: 0;
+
+  transition: opacity var(--transition-time-min) ease,
+    transform var(--transition-time-min) ease;
+
+  svg {
+    transform: rotate(180deg);
+    width: 12rem;
+    height: 12rem;
+  }
+
+  svg * {
+    fill: var(--content-nav-hover);
+  }
+}
+
+.courseInfo {
+  display: grid;
+  gap: 10rem;
+  grid-template-columns: 2fr 1fr;
+  span {
+    color: var(--content-datail-secondary);
+    font-size: 12rem;
+    font-weight: 500;
+  }
+}
+
+.progressWrapper {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  gap: 6rem;
+
+  svg {
+    width: 14rem;
+    height: 14rem;
+  }
+}
+
+.gradePriceContainer {
+  grid-row: 1 / span 3;
+  grid-column-start: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.cardBtn {
+  min-width: 64rem;
+  height: 24rem;
+  padding-inline: 8rem;
+  border-radius: 0 0 5rem 5rem;
+  background: var(--content-nav-hover);
+  position: absolute;
+  top: 100%;
+  right: 16rem;
+  z-index: 1;
+
+  display: flex;
+  gap: 6rem;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-100%);
+  opacity: 0;
+
+  transition: transform var(--transition-time-min) ease,
+    opacity var(--transition-time-min) ease;
+
+  span {
+    color: var(--content-light-secondary);
+    font-size: 14rem;
+    font-weight: 500;
+  }
+
+  svg {
+    width: 14rem;
+    height: 14rem;
+
+    * {
+      fill: var(--content-light-secondary);
+    }
+  }
+}

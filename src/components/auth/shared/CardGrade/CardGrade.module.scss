@@ -1,0 +1,31 @@
+.wrapper {
+    display: flex;
+    gap: 4rem;
+    justify-content: center;
+    align-items: center;
+
+    .infoWrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      & > span {
+        font-size: 8rem;
+        font-weight: 400;
+      }
+
+      & > div {
+        margin-left: 4rem;
+      }
+    }
+
+    .divider {
+      font-size: 16rem;
+      font-weight: 300;
+    }
+
+    .maxGrade {
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+  }

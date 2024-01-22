@@ -1,6 +1,7 @@
 export const courses = [
   {
     id: 1,
+    purchased: true,
     categoryId: 1,
     courseName: "Marketing",
     courseStars: 3.5,

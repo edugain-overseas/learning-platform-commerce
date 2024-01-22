@@ -1,0 +1,102 @@
+.wrapper {
+  flex-basis: 100%;
+  height: 48rem;
+  position: relative;
+
+  &:hover {
+    .cardBtn {
+        width: 32rem;
+    }
+  }
+}
+
+.courseLink {
+  display: flex;
+  gap: 40rem;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding-inline: 32rem 72rem;
+  border-radius: 5rem;
+  background-color: var(--bg-rgba-default);
+  box-shadow: var(--drop-shadow-button-main);
+  backdrop-filter: blur(16rem);
+
+  position: relative;
+  z-index: 2;
+
+  transition: background-color var(--transition-time-min) ease;
+
+  &:hover {
+    background-color: var(--bg-rgba-primary);
+    box-shadow: var(--drop-shadow-button-main-hover);
+  }
+}
+
+.title {
+  font-weight: 700;
+//   flex-grow: 1;
+}
+
+.progressWrapper {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.courseInfo {
+  display: flex;
+  gap: 40rem;
+  align-items: center;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6rem;
+
+  span {
+    white-space: nowrap;
+  }
+
+  svg {
+    width: 14rem;
+    height: 14rem;
+  }
+}
+
+.gradePriceContainer {
+    width: 124rem;
+    flex-shrink: 0;
+    flex-grow: 1;
+    display: flex;
+}
+
+.cardBtn {
+    width: 0;
+    border-radius: 0 5rem 5rem 0;
+    background: var(--content-nav-hover);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    transition: width var(--transition-time-min) ease,
+      opacity var(--transition-time-min) ease;
+  
+  
+    svg {
+      width: 14rem;
+      height: 14rem;
+  
+      * {
+        fill: var(--content-light-secondary);
+      }
+    }
+  }

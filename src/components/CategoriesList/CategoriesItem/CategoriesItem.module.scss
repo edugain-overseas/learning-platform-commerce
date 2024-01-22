@@ -1,4 +1,4 @@
-.itemWrapper:not(:last-child) {
+.itemWrapper:not(:last-child):not(:has(.open)) {
   margin-bottom: 24rem;
 }
 
@@ -6,7 +6,6 @@
   border-radius: 4rem;
   background: var(--bg-rgba-default);
 
-  /* nev t */
   box-shadow: 0px 0px 4rem 0px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(16rem);
   display: flex;
@@ -133,4 +132,5 @@
 .dropDownContent {
   padding-top: 16rem;
   padding-inline: 12rem;
+  padding-bottom: 16rem;
 }

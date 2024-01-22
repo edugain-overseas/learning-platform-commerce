@@ -28,7 +28,7 @@ const ProgressBar = ({
   width = 172,
   height = 24,
   value = 22,
-  fillMode = "dashed",
+  // fillMode = "dashed",
   disabled = false,
 }) => {
   return (

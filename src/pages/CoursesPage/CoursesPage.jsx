@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import styles from "./CoursesPage.module.scss";
 import CoursesPanel from "../../components/CoursesPanel/CoursesPanel";
-import { CoursesListModeProvider } from "../../context/CoursesListModeContext";
+import { ListModeProvider } from "../../context/ListModeContext";
 
 const CoursesPage = () => {
   const { pathname } = useLocation();
@@ -13,12 +13,12 @@ const CoursesPage = () => {
 
   return (
     <div className={styles.pageWrapper}>
-      <CoursesListModeProvider>
+      <ListModeProvider>
         {isCoursesHomePage && <CoursesPanel />}
         <div className={styles.contentWrapper}>
           <Outlet />
         </div>
-      </CoursesListModeProvider>
+      </ListModeProvider>
     </div>
   );
 };

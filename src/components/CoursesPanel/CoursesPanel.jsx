@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { coursesLinks } from "../../costants/nav";
-import { useCoursesListMode } from "../../context/CoursesListModeContext";
+import { useListMode } from "../../context/ListModeContext";
 import { ReactComponent as GridIcon } from "../../images/icons/grid.svg";
 import { ReactComponent as ListIcon } from "../../images/icons/list.svg";
 import { ReactComponent as FiltersIcon } from "../../images/icons/filters.svg";
@@ -22,8 +22,7 @@ const filters = [
 
 const CoursesPanel = () => {
   const [searchValue, setSerchValue] = useState("");
-  const { setSelecteListModeIndex, selectedListModeIndex } =
-    useCoursesListMode();
+  const { setSelecteListModeIndex, selectedListModeIndex } = useListMode();
 
   return (
     <div className={styles.wrapper}>
