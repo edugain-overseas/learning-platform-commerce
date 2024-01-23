@@ -12,7 +12,7 @@ import CardPrice from "../../auth/shared/CardPrice/CardPrice";
 import styles from "./CourseRow.module.scss";
 
 const CourseRow = ({ course, purchased, disabled }) => {
-  const { addItem, removeItem, cartItems } = useCart();
+  const { addItem, removeItem, cartItems, handleOpen } = useCart();
 
   const {
     // coursePoster,
@@ -69,6 +69,7 @@ const CourseRow = ({ course, purchased, disabled }) => {
                   !isItemInCart
                     ? () => {
                         addItem(id);
+                        handleOpen();
                       }
                     : null
                 }
