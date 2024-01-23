@@ -3,10 +3,12 @@ import styles from "./CoursesList.module.scss";
 import CourseCard from "./CourseCard/CourseCard";
 import { useListMode } from "../../context/ListModeContext";
 import CourseRow from "./CourseRow/CourseRow";
+import { useLocation } from "react-router-dom";
 
 const CoursesList = ({ courses }) => {
   const { selectedListModeIndex } = useListMode();
-  console.log(selectedListModeIndex);
+  const { pathname } = useLocation();
+
   return (
     <ul className={styles.coursesList}>
       {courses.map((course) =>
@@ -15,12 +17,14 @@ const CoursesList = ({ courses }) => {
             key={course.id}
             course={course}
             purchased={course.purchased}
+            disabled={!course.purchased && pathname === "/courses/my"}
           />
         ) : (
           <CourseCard
             key={course.id}
             course={course}
             purchased={course.purchased}
+            disabled={!course.purchased && pathname === "/courses/my"}
           />
         )
       )}

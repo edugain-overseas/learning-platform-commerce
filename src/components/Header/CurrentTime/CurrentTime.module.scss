@@ -1,18 +1,17 @@
 .wrapper {
-  width: 400rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 16rem;
 }
 
 .date {
   font-size: 16rem;
   line-height: 19rem;
-  color: var(--content-light);
+  color: var(--content-dark-secondary);
 }
 
 .currentTime {
   font-size: 16rem;
   line-height: 19rem;
-  color: var(--content-datail-secondary);
+  color: var(--content-dark-secondary);
 }

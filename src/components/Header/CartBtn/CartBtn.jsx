@@ -1,13 +1,15 @@
 import React from "react";
-import styles from "./CartBtn.module.scss";
-import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useCart } from "../../../context/cartContext";
+import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";
+import styles from "./CartBtn.module.scss";
+import { priceFormatter } from "../../../utils/priceFormatter";
 
 const CartBtn = () => {
-  const { handleOpen } = useCart();
+  const { handleOpen, totalPrice } = useCart();
   return (
     <button className={styles.cartBtn} onClick={handleOpen}>
-      <ShoppingCartOutlined className={styles.icon} />
+      <span>$ {priceFormatter(totalPrice)}</span>
+      <CartIcon className={styles.icon} />
     </button>
   );
 };

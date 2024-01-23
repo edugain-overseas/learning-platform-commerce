@@ -18,6 +18,13 @@
   z-index: 2;
 }
 
+.leftNavLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16rem;
+}
+
 .rightWrapper {
   display: flex;
   align-items: center;

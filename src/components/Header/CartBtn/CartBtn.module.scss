@@ -1,17 +1,26 @@
 .cartBtn {
-    width: 40rem;
-    background-color: var(--bg-button-default);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: 2px solid var(--bg-color-accent);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: var(--drop-shadow-short);
+  min-width: 126rem;
+  height: 36rem;
+  background-color: var(--bg-button-disabled);
+  border-radius: 5rem;
+  display: flex;
+  justify-content: center;
+  gap: 8rem;
+  align-items: center;
+  padding-inline: 16rem;
 
-    .icon {
-        font-size: 20rem;
-        color: var(--bg-color-accent);
+  span {
+    font-size: 16rem;
+    font-weight: 500;
+    line-height: normal;
+    color: var(--content-dark-secondary);
+  }
+
+  .icon {
+    width: 24rem;
+    height: 24rem;
+    * {
+      fill: var(--content-dark-secondary);
     }
-
+  }
 }

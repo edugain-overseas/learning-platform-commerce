@@ -6,10 +6,30 @@
   font-weight: 500;
   font-size: 18rem;
   line-height: 22rem;
-  color: var(--content-dark);
+  color: var(--content-main);
   text-decoration: none;
 
-  &:hover, &:focus {
+
+  &::before {
+    content: '';
+    display: block;
+    height: 18rem;
+    width: 1rem;
+    background-color: var(--content-main);
+    border-radius: 40rem;
+    margin-right: 2rem;
+  }
+
+  svg {
+    width: 14rem;
+    height: 14rem;
+    * {
+      fill: var(--content-main);
+    }
+  }
+
+  &:hover,
+  &:focus {
     text-decoration: underline;
   }
 }

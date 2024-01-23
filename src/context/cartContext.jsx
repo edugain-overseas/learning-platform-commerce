@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import Drawer from "../components/shared/Drawer/Drawer";
 import Cart from "../components/Cart/Cart";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { courses } from "../assets/courses";
 
 const CartContext = createContext({});
 
@@ -12,6 +13,10 @@ export const useCart = () => {
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useLocalStorage("shopping-cart", []);
   const [isOpen, setIsOpen] = useState(false);
+
+  const totalPrice = courses
+    .filter(({ id }) => cartItems.includes(id))
+    .reduce((total, { coursePrice }) => total + coursePrice, 0);
 
   const addItem = (id) => {
     setCartItems((currentItems) => [...currentItems, id]);
@@ -36,6 +41,7 @@ export const CartProvider = ({ children }) => {
         handleClose,
         cartItems,
         cartQuantity,
+        totalPrice,
       }}
     >
       {children}

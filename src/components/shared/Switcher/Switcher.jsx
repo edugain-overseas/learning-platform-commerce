@@ -6,14 +6,14 @@ const Switcher = ({
   onChange = () => {},
   value = 0,
   width = "56rem",
+  height = "28rem",
 }) => {
-  
   const handleToggle = (index) => {
     onChange(index);
   };
 
   return (
-    <div className={styles.wrapper} style={{ width }}>
+    <div className={styles.wrapper} style={{ width, height }}>
       {items.map((item, index) => (
         <button
           key={index}

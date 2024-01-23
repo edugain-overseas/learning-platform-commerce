@@ -12,8 +12,9 @@ import CardGrade from "../../auth/shared/CardGrade/CardGrade";
 import CardPrice from "../../auth/shared/CardPrice/CardPrice";
 import styles from "./CourseCard.module.scss";
 
-const CourseCard = ({ course, purchased }) => {
+const CourseCard = ({ course, purchased, disabled }) => {
   const { addItem, removeItem, cartItems } = useCart();
+  console.log(disabled);
 
   const {
     coursePoster,
@@ -38,7 +39,7 @@ const CourseCard = ({ course, purchased }) => {
   };
 
   return (
-    <li className={styles.courseCard}>
+    <li className={`${styles.courseCard} ${disabled ? styles.disabled : ""}`}>
       <Link className={styles.courseLink} to={`/courses/${id}`}>
         <div
           className={styles.posterWrapper}
@@ -46,11 +47,13 @@ const CourseCard = ({ course, purchased }) => {
             backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65)), url(${coursePoster})`,
           }}
         >
-          <img
-            src={coursePoster}
-            alt={courseName}
-            className={styles.coursePoster}
-          />
+          <div className={styles.imageWrapper}>
+            <img
+              src={coursePoster}
+              alt={courseName}
+              className={styles.coursePoster}
+            />
+          </div>
         </div>
 
         <div className={styles.textWrapper}>
@@ -82,7 +85,7 @@ const CourseCard = ({ course, purchased }) => {
             </div>
             <div className={styles.gradePriceContainer}>
               {purchased ? (
-                <CardGrade grade={192} />
+                <CardGrade grade={0} />
               ) : (
                 <CardPrice price="14.99" oldPrice="40.00" />
               )}
@@ -98,7 +101,7 @@ const CourseCard = ({ course, purchased }) => {
           }
         >
           <span>{isItemInCart ? "Remove" : "Buy"}</span>
-          {isItemInCart ? <TrashIcon /> : <CartIcon />} 
+          {isItemInCart ? <TrashIcon /> : <CartIcon />}
         </button>
       )}
     </li>

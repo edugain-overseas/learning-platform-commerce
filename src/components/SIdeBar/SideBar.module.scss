@@ -22,11 +22,7 @@
       }
     }
     .narrowed .fixBtn {
-      border-color: var(--bg-default);
-      svg * {
-        fill: var(--bg-default);
-        stroke: var(--bg-default);
-      }
+      opacity: 1;
     }
   }
 
@@ -38,7 +34,7 @@
       transform: translateX(0);
     }
     .expanded .fixBtn {
-      border-color: var(--content-main);
+      opacity: 1;
     }
   }
 }
@@ -57,18 +53,8 @@
     margin-bottom: 36rem;
 
     svg * {
-      fill: var(--content-light);
-      stroke: var(--content-light);
-      transition: fill var(--transition-time-min) ease,
-        stroke var(--transition-time-min) ease;
-    }
-
-    &:hover {
-      border-color: var(--bg-default);
-      svg * {
-        fill: var(--bg-default);
-        stroke: var(--bg-default);
-      }
+      fill: var(--content-contr-color);
+      stroke: var(--content-contr-color);
     }
   }
 
@@ -119,10 +105,6 @@
       fill: var(--content-main);
       stroke: var(--content-main);
     }
-
-    &:hover {
-      border-color: var(--content-main);
-    }
   }
 }
 
@@ -132,9 +114,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid transparent;
-  border-radius: 4rem;
-  transition: border-color var(--transition-time-min) ease;
+  opacity: 0.5;
+  transition: opacity var(--transition-time-min) ease;
+
+  &:hover {
+    opacity: 1;
+  }
 
   svg {
     width: 12rem;

@@ -32,9 +32,8 @@ const CoursesPanel = () => {
           onChange={(index) => setSelecteListModeIndex(index)}
           value={selectedListModeIndex}
           items={switchItems}
-          style={{ marginBottom: "16rem" }}
         />
-        <DropDownFilter icon={<FiltersIcon />} dropwownOptions={filters} />
+        <DropDownFilter icon={<FiltersIcon />} dropwownOptions={filters}/>
         <SearchBar
           width="226rem"
           value={searchValue}

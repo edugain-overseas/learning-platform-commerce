@@ -4,7 +4,7 @@ import styles from "./DropDownFilter.module.scss";
 const DropDownFilter = ({
   icon = null,
   width = "136rem",
-  height = "26rem",
+  height = "28rem",
   label = "Filters",
   dropwownOptions = [],
   dropDownWidth = "140rem",

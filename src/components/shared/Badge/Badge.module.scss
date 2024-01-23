@@ -2,17 +2,10 @@
   position: relative;
   width: fit-content;
   height: fit-content;
-  cursor: pointer;
-  border-radius: 50%;
-
-  &:hover {
-    box-shadow: var(--drop-shadow-middle);
-  }
 
   .badge {
     position: absolute;
-    width: 45%;
-    height: 45%;
+    aspect-ratio: 1;
     border-radius: 50%;
     background-color: var(--bg-button-default);
     border: 1px solid var(--border-color-main);

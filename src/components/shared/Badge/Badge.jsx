@@ -22,15 +22,21 @@ const Badge = ({
   orietation = "bottom-right",
   type = "outline",
   pulsing = false,
+  rounded = false,
+  width = "15%",
 }) => {
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      style={{ borderRadius: rounded ? "50%" : "0" }}
+    >
       {children}
       {value !== 0 && (
         <div
           className={`${pulsing ? styles.pulsing : ""} ${orientationClassName(
             orietation
           )} ${type === "filled" ? styles.filled : ""} ${styles.badge}`}
+          style={{width}}
         >
           <span>{value}</span>
         </div>

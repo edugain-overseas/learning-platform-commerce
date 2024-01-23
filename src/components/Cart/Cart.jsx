@@ -5,14 +5,14 @@ import styles from "./Cart.module.scss";
 import { useCart } from "../../context/cartContext";
 
 const Cart = ({ items }) => {
-  const { removeItem } = useCart();
+  const { removeItem, totalPrice } = useCart();
 
   const products = courses.filter(({ id }) => items.includes(id));
 
-  const totalPrice = products.reduce(
-    (total, { coursePrice }) => total + coursePrice,
-    0
-  );
+  // const totalPrice = products.reduce(
+  //   (total, { coursePrice }) => total + coursePrice,
+  //   0
+  // );
 
   return (
     <div className={styles.wrapper}>

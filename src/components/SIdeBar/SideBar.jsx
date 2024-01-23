@@ -7,7 +7,7 @@ import styles from "./SideBar.module.scss";
 import UserInfo from "./UserInfo/UserInfo";
 
 const SideBar = () => {
-  const [isExpandedFixed, setIsExpandedFixed] = useState(false);
+  const [isExpandedFixed, setIsExpandedFixed] = useState(true);
   const [isNarrowedFixed, setIsNarrowedFixed] = useState(false);
 
   const handleNarrowedFix = () => {

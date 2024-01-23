@@ -1,12 +1,30 @@
 .courseCard {
-  flex-basis: calc(100% / 4 - 16rem * 3 / 4);
+  width: calc(100% / 4 - 16rem * 3 / 4);
+  flex-shrink: 0;
   margin-bottom: 16rem;
   position: relative;
 
   &:hover {
     .cardBtn {
-      transform: translateY(0);
+      height: 24rem;
       opacity: 1;
+    }
+  }
+
+  &.disabled {
+    .courseLink {
+      opacity: 0.5;
+      transition: opacity var(--transition-time-min) ease;
+
+      &:hover {
+        background-color: var(--bg-rgba-default);
+      }
+    }
+
+    &:hover {
+      .courseLink {
+        opacity: 1;
+      }
     }
   }
 }
@@ -50,19 +68,23 @@
 
   &:hover {
     .coursePoster {
-      transform: scale(1.25);
+      transform: scale(1.1);
     }
   }
 }
 
-.coursePoster {
+.imageWrapper {
   position: absolute;
-  display: block;
-  border: 4rem solid transparent;
   inset: 0;
+  border: 4rem solid transparent;
+  overflow: hidden;
+}
+
+.coursePoster {
   height: 100%;
+  display: block;
   object-fit: cover;
-  transition: transform var(--transition-time-min) ease;
+  transition: transform var(--transition-time-max) linear;
 }
 
 .textWrapper {
@@ -185,7 +207,8 @@
 
 .cardBtn {
   min-width: 64rem;
-  height: 24rem;
+  height: 0;
+  overflow: hidden;
   padding-inline: 8rem;
   border-radius: 0 0 5rem 5rem;
   background: var(--content-nav-hover);
@@ -198,10 +221,9 @@
   gap: 6rem;
   align-items: center;
   justify-content: center;
-  transform: translateY(-100%);
   opacity: 0;
 
-  transition: transform var(--transition-time-min) ease,
+  transition: height var(--transition-time-min) ease,
     opacity var(--transition-time-min) ease;
 
   span {

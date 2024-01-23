@@ -6,12 +6,12 @@ import { ReactComponent as ClockIcon } from "../../../images/icons/clock.svg";
 import { ReactComponent as LaptopIcon } from "../../../images/icons/laptop.svg";
 import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";
 import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
-import styles from "./CourseRow.module.scss";
 import ProgressBar from "../../auth/shared/ProgressBar/ProgressBar";
 import CardGrade from "../../auth/shared/CardGrade/CardGrade";
 import CardPrice from "../../auth/shared/CardPrice/CardPrice";
+import styles from "./CourseRow.module.scss";
 
-const CourseRow = ({ course, purchased }) => {
+const CourseRow = ({ course, purchased, disabled }) => {
   const { addItem, removeItem, cartItems } = useCart();
 
   const {
@@ -36,7 +36,7 @@ const CourseRow = ({ course, purchased }) => {
     removeItem(id);
   };
   return (
-    <li className={styles.wrapper}>
+    <li className={`${styles.wrapper} ${disabled ? styles.disabled : ""}`}>
       <Link className={styles.courseLink} to={`/courses/${id}`}>
         <h3 className={styles.title}>{courseName}</h3>
         <div className={styles.courseInfo}>
@@ -65,6 +65,13 @@ const CourseRow = ({ course, purchased }) => {
                 price="14.99"
                 oldPrice="40.00"
                 orientation="horizontal"
+                onClick={
+                  !isItemInCart
+                    ? () => {
+                        addItem(id);
+                      }
+                    : null
+                }
               />
             )}
           </div>

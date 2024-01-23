@@ -1,12 +1,25 @@
 import React from "react";
 import styles from "./CardPrice.module.scss";
 
-const CardPrice = ({ price, oldPrice, orientation = "vertical" }) => {
+const CardPrice = ({
+  price,
+  oldPrice,
+  orientation = "vertical",
+  onClick = () => {},
+}) => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (onClick) {
+      onClick();
+    }
+  };
+
   return (
     <div
       className={`${styles.wrapper} ${
         orientation === "horizontal" ? styles.horizontal : ""
       }`}
+      onClick={handleClick}
     >
       {oldPrice && (
         <div className={styles.oldPriceWrapper}>
