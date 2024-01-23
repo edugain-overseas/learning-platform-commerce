@@ -48,11 +48,87 @@
     background-color: var(--bg-rgba-primary);
     box-shadow: var(--drop-shadow-button-main-hover);
   }
+
+  &:before {
+    content: "";
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background-color: var(--content-main);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 20rem;
+  }
 }
 
 .title {
   font-weight: 700;
-  //   flex-grow: 1;
+
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 0;
+    position: absolute;
+    bottom: 0;
+    height: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--content-nav-hover);
+    transition: width var(--transition-time-min) ease var(--transition-time-min);
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    width: 0;
+    position: absolute;
+    bottom: -2rem;
+    height: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--content-nav-hover);
+    transition: width var(--transition-time-min) ease;
+  }
+
+  &:hover {
+    &::before {
+      width: 30rem;
+      transition: width var(--transition-time-min) ease;
+    }
+
+    &::after {
+      width: 15rem;
+      transition: width var(--transition-time-min) ease
+        var(--transition-time-min);
+    }
+
+    .openBtn {
+      transform: translate(120%, -50%);
+      opacity: 1;
+    }
+  }
+}
+
+.openBtn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+  opacity: 0;
+
+  transition: opacity var(--transition-time-min) ease,
+    transform var(--transition-time-min) ease;
+
+  svg {
+    transform: rotate(180deg);
+    width: 12rem;
+    height: 12rem;
+  }
+
+  svg * {
+    fill: var(--content-nav-hover);
+  }
 }
 
 .progressWrapper {
@@ -65,6 +141,10 @@
   display: flex;
   gap: 40rem;
   align-items: center;
+
+  span {
+    font-size: 12rem;
+  }
 }
 
 .details {

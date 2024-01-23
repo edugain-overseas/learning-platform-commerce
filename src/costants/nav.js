@@ -41,3 +41,18 @@ export const coursesLinks = [
     content: "completed courses",
   },
 ];
+
+export const courseLinks = [
+  {
+    to: "intro",
+    content: `intro`,
+  },
+  {
+    to: "tasks",
+    content: "tasks",
+  },
+  {
+    to: "exam-certificate",
+    content: "exam | certificate",
+  },
+];

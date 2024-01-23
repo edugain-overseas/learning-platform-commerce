@@ -5,11 +5,14 @@ import CoursesList from "../../CoursesList/CoursesList";
 import { ReactComponent as BMIcon } from "../../../images/icons/bm.svg";
 import { ReactComponent as InfoIcon } from "../../../images/icons/info.svg";
 import { ReactComponent as ChevronIcon } from "../../../images/icons/arrowDown.svg";
-import styles from "./CategoriesItem.module.scss";
 import ProgressBar from "../../auth/shared/ProgressBar/ProgressBar";
+import { useListMode } from "../../../context/ListModeContext";
+import styles from "./CategoriesItem.module.scss";
 
 const CategoriesItem = ({ category }) => {
   const [dropDownOpen, setDropDownOpen] = useState(true);
+
+  const { listModeIndex } = useListMode();
 
   const categoryCourses = courses.filter(
     (course) => course.categoryId === category.id
@@ -77,7 +80,10 @@ const CategoriesItem = ({ category }) => {
         className={`${styles.dropdown} ${dropDownOpen ? styles.open : ""}`}
         id="dropdown"
       >
-        <div className={styles.dropDownContent}>
+        <div
+          className={styles.dropDownContent}
+          style={{ paddingTop: listModeIndex ? "16rem" : "8rem" }}
+        >
           <CoursesList courses={categoryCourses} />
         </div>
       </div>

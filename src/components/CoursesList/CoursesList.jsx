@@ -10,7 +10,10 @@ const CoursesList = ({ courses }) => {
   const { pathname } = useLocation();
 
   return (
-    <ul className={styles.coursesList}>
+    <ul
+      className={styles.coursesList}
+      style={{ gap: selectedListModeIndex ? "8rem" : "16rem" }}
+    >
       {courses.map((course) =>
         selectedListModeIndex ? (
           <CourseRow

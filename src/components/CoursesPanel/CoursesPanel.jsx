@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { coursesLinks } from "../../costants/nav";
+import { courseLinks, coursesLinks } from "../../costants/nav";
 import { useListMode } from "../../context/ListModeContext";
 import { ReactComponent as GridIcon } from "../../images/icons/grid.svg";
 import { ReactComponent as ListIcon } from "../../images/icons/list.svg";
@@ -9,6 +9,7 @@ import Switcher from "../shared/Switcher/Switcher";
 import DropDownFilter from "../auth/shared/DropDownFilter/DropDownFilter";
 import styles from "./CoursesPanel.module.scss";
 import SearchBar from "../auth/shared/SearchBar/SearchBar";
+import { useParams } from "react-router-dom";
 
 const switchItems = [<GridIcon />, <ListIcon />];
 const filters = [
@@ -23,17 +24,19 @@ const filters = [
 const CoursesPanel = () => {
   const [searchValue, setSerchValue] = useState("");
   const { setSelecteListModeIndex, selectedListModeIndex } = useListMode();
+  const { courseId } = useParams();
+  console.log(courseId);
 
   return (
     <div className={styles.wrapper}>
-      <NavLinksPanel renderLinks={coursesLinks} />
+      <NavLinksPanel renderLinks={courseId ? courseLinks : coursesLinks} />
       <div className={styles.tools}>
         <Switcher
           onChange={(index) => setSelecteListModeIndex(index)}
           value={selectedListModeIndex}
           items={switchItems}
         />
-        <DropDownFilter icon={<FiltersIcon />} dropwownOptions={filters}/>
+        <DropDownFilter icon={<FiltersIcon />} dropwownOptions={filters} />
         <SearchBar
           width="226rem"
           value={searchValue}

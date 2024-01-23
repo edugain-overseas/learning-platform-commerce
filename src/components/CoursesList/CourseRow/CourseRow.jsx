@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../../context/cartContext";
-// import { ReactComponent as ArrowRightIcon } from "../../../images/icons/arrow-left.svg";
+import { ReactComponent as ArrowRightIcon } from "../../../images/icons/arrow-left.svg";
 import { ReactComponent as ClockIcon } from "../../../images/icons/clock.svg";
 import { ReactComponent as LaptopIcon } from "../../../images/icons/laptop.svg";
 import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";
@@ -38,7 +38,12 @@ const CourseRow = ({ course, purchased, disabled }) => {
   return (
     <li className={`${styles.wrapper} ${disabled ? styles.disabled : ""}`}>
       <Link className={styles.courseLink} to={`/courses/${id}`}>
-        <h3 className={styles.title}>{courseName}</h3>
+        <h3 className={styles.title}>
+          {courseName}
+          <span className={styles.openBtn}>
+            <ArrowRightIcon />
+          </span>
+        </h3>
         <div className={styles.courseInfo}>
           <div className={styles.progressWrapper}>
             <span>Progress:</span>

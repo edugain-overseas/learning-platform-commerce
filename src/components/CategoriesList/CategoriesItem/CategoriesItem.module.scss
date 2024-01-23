@@ -1,6 +1,10 @@
-.itemWrapper:not(:last-child):not(:has(.open)) {
-  margin-bottom: 24rem;
+.itemWrapper:not(:last-child) {
+  margin-bottom: 16rem;
 }
+
+// .itemWrapper:not(:last-child):not(:has(.open)) {
+//   margin-bottom: 16rem;
+// }
 
 .categoryPanel {
   border-radius: 4rem;
@@ -130,7 +134,7 @@
 }
 
 .dropDownContent {
-  padding-top: 16rem;
+  // padding-top: 16rem;
   padding-inline: 12rem;
-  padding-bottom: 16rem;
+  padding-bottom: 8rem;
 }

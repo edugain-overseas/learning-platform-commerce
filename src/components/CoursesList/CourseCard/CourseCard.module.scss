@@ -9,6 +9,10 @@
       height: 24rem;
       opacity: 1;
     }
+
+    .coursePoster {
+      transform: scale(1.1);
+    }
   }
 
   &.disabled {
@@ -64,12 +68,6 @@
     position: absolute;
     inset: 0;
     backdrop-filter: blur(26rem);
-  }
-
-  &:hover {
-    .coursePoster {
-      transform: scale(1.1);
-    }
   }
 }
 
