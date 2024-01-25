@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/learning-platform-commerce/static/css/main.fd4e6243.css",
-    "main.js": "/learning-platform-commerce/static/js/main.7db5959c.js",
+    "main.css": "/learning-platform-commerce/static/css/main.9e87625e.css",
+    "main.js": "/learning-platform-commerce/static/js/main.d8899da7.js",
     "static/media/body-bg-desktop.png": "/learning-platform-commerce/static/media/body-bg-desktop.fc47d0198aebfcf1f931.png",
     "static/media/login-bg.png": "/learning-platform-commerce/static/media/login-bg.4363596cec990c8af020.png",
     "static/media/devices.png": "/learning-platform-commerce/static/media/devices.53ace09b44c8af760960.png",
@@ -34,11 +34,11 @@
     "static/media/bm.svg": "/learning-platform-commerce/static/media/bm.fe6e521df5de4a7e697bf37288f885e2.svg",
     "static/media/list.svg": "/learning-platform-commerce/static/media/list.e7e9a3b9fb918261b2dc92996ee48a81.svg",
     "static/media/arrowDown.svg": "/learning-platform-commerce/static/media/arrowDown.9d52373b9e5c27f5e142671b11fffce5.svg",
-    "main.fd4e6243.css.map": "/learning-platform-commerce/static/css/main.fd4e6243.css.map",
-    "main.7db5959c.js.map": "/learning-platform-commerce/static/js/main.7db5959c.js.map"
+    "main.9e87625e.css.map": "/learning-platform-commerce/static/css/main.9e87625e.css.map",
+    "main.d8899da7.js.map": "/learning-platform-commerce/static/js/main.d8899da7.js.map"
   },
   "entrypoints": [
-    "static/css/main.fd4e6243.css",
-    "static/js/main.7db5959c.js"
+    "static/css/main.9e87625e.css",
+    "static/js/main.d8899da7.js"
   ]
 }
