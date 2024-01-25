@@ -37,7 +37,7 @@ const CourseRow = ({ course, purchased, disabled }) => {
   };
   return (
     <li className={`${styles.wrapper} ${disabled ? styles.disabled : ""}`}>
-      <Link className={styles.courseLink} to={`/courses/${id}`}>
+      <Link className={styles.courseLink} to={`/course/${id}/intro`}>
         <h3 className={styles.title}>
           {courseName}
           <span className={styles.openBtn}>
@@ -67,8 +67,8 @@ const CourseRow = ({ course, purchased, disabled }) => {
               <CardGrade grade={192} />
             ) : (
               <CardPrice
-                price="14.99"
-                oldPrice="40.00"
+                price={14.99}
+                oldPrice={40}
                 orientation="horizontal"
                 onClick={
                   !isItemInCart

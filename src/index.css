@@ -45,8 +45,8 @@
 
   --lg-block: linear-gradient(156deg, #b8eaff 8.25%, #6fd4ff 100.26%);
 
-  --drop-shadow-short: 0px 0px 10rem rgba(0, 0, 0, 0.1);
-  --drop-shadow-middle: 0px 0px 10rem rgba(0, 0, 0, 0.2);
+  --drop-shadow-short: 0 0 10rem rgba(0, 0, 0, 0.1);
+  --drop-shadow-middle: 0 0 10rem rgba(0, 0, 0, 0.2);
   --drop-shadow-button-main: 0 0 4rem 0 rgba(0, 0, 0, 0.12);
   --drop-shadow-button-main-hover: 0 0 14rem 0 rgba(0, 0, 0, 0.12);
 

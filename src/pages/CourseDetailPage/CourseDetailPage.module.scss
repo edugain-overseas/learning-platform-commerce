@@ -1,0 +1,12 @@
+.pageWrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.contentWrapper {
+  flex-grow: 1;
+  overflow-y: scroll;
+  padding: 16rem 32rem 72rem;
+  scroll-behavior: smooth;
+}

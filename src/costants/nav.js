@@ -3,6 +3,9 @@ import { ReactComponent as CoursesIcon } from "../images/icons/courses.svg";
 import { ReactComponent as MyProfileIcon } from "../images/icons/myProfile.svg";
 import { ReactComponent as AboutIEUIcon } from "../images/icons/aboutIEU.svg";
 import { ReactComponent as InstructionsIcon } from "../images/icons/instructions.svg";
+import CourseIntroPage from "../pages/CourseDetailPage/CourseIntroPage/CourseIntroPage";
+import CourseTasksPage from "../pages/CourseDetailPage/CourseTasksPage/CourseTasksPage";
+import CourseCerificatePage from "../pages/CourseDetailPage/CourseCerificatePage/CourseCerificatePage";
 
 export const sidebarNav = [
   { label: "Home", icon: <HomeIcon />, link: "/", children: null },
@@ -46,13 +49,16 @@ export const courseLinks = [
   {
     to: "intro",
     content: `intro`,
+    element: <CourseIntroPage />,
   },
   {
     to: "tasks",
     content: "tasks",
+    element: <CourseTasksPage />,
   },
   {
     to: "exam-certificate",
     content: "exam | certificate",
+    element: <CourseCerificatePage />,
   },
 ];

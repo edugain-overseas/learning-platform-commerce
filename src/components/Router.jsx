@@ -8,7 +8,7 @@ import CoursesPage from "../pages/CoursesPage/CoursesPage";
 import CategoriesList from "./CategoriesList/CategoriesList";
 import CategoryDetailPage from "../pages/CategoryDetailPage/CategoryDetailPage";
 import CourseDetailPage from "../pages/CourseDetailPage/CourseDetailPage";
-import { coursesLinks } from "../costants/nav";
+import { courseLinks, coursesLinks } from "../costants/nav";
 
 const Router = () => {
   return (
@@ -21,8 +21,17 @@ const Router = () => {
           {coursesLinks.map(({ to }) => (
             <Route key={to} path={to} element={<CategoriesList />} />
           ))}
-          <Route path=":courseId" element={<CourseDetailPage />} />
+          {/* <Route path=":courseId" element={<CourseDetailPage />}>
+            {courseLinks.map(({ to }) => (
+              <Route key={to} path={to} element={<div>{to}</div>} />
+            ))}
+          </Route> */}
           <Route path="category/:categoryId" element={<CategoryDetailPage />} />
+        </Route>
+        <Route path="course/:courseId" element={<CourseDetailPage />}>
+          {courseLinks.map(({ to, element }) => (
+            <Route key={to} path={to} element={element} />
+          ))}
         </Route>
         <Route path="/*" element={<div>Not Found Page</div>} />
       </Route>

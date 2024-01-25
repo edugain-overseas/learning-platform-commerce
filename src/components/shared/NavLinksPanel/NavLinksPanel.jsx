@@ -7,7 +7,7 @@ export default function NavLinksPanel({ renderLinks }) {
   const wrapperRef = useRef(null);
   const [markerProps, setMarkerProps] = useState({
     left: "16rem",
-    width: "106.8rem",
+    width: `${renderLinks[0]?.content?.length * 8}px`,
   });
 
   const handleClick = (e, index) => {

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Select from "../shared/Select/Select";
 import CircleProgressBar from "../shared/CircleProgressBar/CircleProgressBar";
 import Textarea from "../shared/Textarea/Textarea";
+import TextReader from "../TextReader/TextReader";
 
 const options = [
   { label: "red", value: "1", disabled: false },
@@ -19,6 +20,9 @@ const options = [
   { label: "orange", value: "8", disabled: false },
   { label: "purple", value: "9", disabled: false },
 ];
+
+const toRead =
+  "This course introduces basic economic concepts that are fundamental to understand many of the issues faced by business firms. Learn the processes that govern the production and consumption of goods and services in a global economy: Microeconomics and Macroeconomics.";
 
 const CreateLessonModal = () => {
   const [selectValue, setSelectValue] = useState("");
@@ -39,7 +43,7 @@ const CreateLessonModal = () => {
         />
       </div>
       <div>
-        <CircleProgressBar strokeColor="#B8EAFF" strokeWidth={8}/>
+        <CircleProgressBar strokeColor="#B8EAFF" strokeWidth={8} />
       </div>
       <div>
         <Textarea
@@ -48,6 +52,10 @@ const CreateLessonModal = () => {
           value={textareaValue}
           onChange={setTeaxtareaValue}
         />
+      </div>
+      <div style={{ width: "800rem", margin: "0 auto", padding: '20rem', }}>
+        <p style={{marginBottom: '20rem'}}>{toRead}</p>
+        <TextReader textToRead={toRead} />
       </div>
     </div>
   );

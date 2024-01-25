@@ -23,7 +23,7 @@
     align-items: center;
     position: relative;
     background-color: var(--bg-accent-active);
-    z-index: 3;
+    z-index: 11;
   }
 
   .navButton {
@@ -70,7 +70,7 @@
     justify-content: space-between;
     align-items: center;
     padding-inline: 12rem;
-    z-index: 2;
+    z-index: 10;
     transform: translateX(-100%);
     background-color: transparent;
 

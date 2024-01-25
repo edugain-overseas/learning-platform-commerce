@@ -14,10 +14,11 @@ const CoursesPage = () => {
   return (
     <div className={styles.pageWrapper}>
       <ListModeProvider>
-        {/* {isCoursesHomePage && ( */}
         <CoursesPanel />
-        {/* )} */}
-        <div className={styles.contentWrapper}>
+        <div
+          className={styles.contentWrapper}
+          // style={{ paddingInline: isCoursesHomePage ? "32rem" : 0 }}
+        >
           <Outlet />
         </div>
       </ListModeProvider>

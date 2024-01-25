@@ -1,11 +1,13 @@
 import React from "react";
 import styles from "./CardPrice.module.scss";
+import { priceFormatter } from "../../../../utils/priceFormatter";
 
 const CardPrice = ({
-  price,
+  price = 0,
   oldPrice,
   orientation = "vertical",
   onClick = () => {},
+  size = "s",
 }) => {
   const handleClick = (e) => {
     e.preventDefault();
@@ -20,13 +22,16 @@ const CardPrice = ({
         orientation === "horizontal" ? styles.horizontal : ""
       }`}
       onClick={handleClick}
+      style={{
+        transform: `scale(${size === "s" ? 1 : size === "m" ? 1.3 : 1.6})`,
+      }}
     >
       {oldPrice && (
         <div className={styles.oldPriceWrapper}>
           <span className={styles.dollarSign}>$</span>
           <div className={styles.info}>
             <span className={styles.label}>Old price</span>
-            <span className={styles.value}>{oldPrice}</span>
+            <span className={styles.value}>{priceFormatter(oldPrice)}</span>
           </div>
         </div>
       )}
@@ -34,7 +39,7 @@ const CardPrice = ({
         <span className={styles.dollarSign}>$</span>
         <div className={styles.info}>
           <span className={styles.label}>Buy</span>
-          <span className={styles.value}>{price}</span>
+          <span className={styles.value}>{priceFormatter(price)}</span>
         </div>
       </div>
     </div>

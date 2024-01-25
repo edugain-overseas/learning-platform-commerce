@@ -40,7 +40,7 @@ const CourseCard = ({ course, purchased, disabled }) => {
 
   return (
     <li className={`${styles.courseCard} ${disabled ? styles.disabled : ""}`}>
-      <Link className={styles.courseLink} to={`/courses/${id}`}>
+      <Link className={styles.courseLink} to={`/course/${id}/intro`}>
         <div
           className={styles.posterWrapper}
           style={{
@@ -87,7 +87,7 @@ const CourseCard = ({ course, purchased, disabled }) => {
               {purchased ? (
                 <CardGrade grade={0} />
               ) : (
-                <CardPrice price="14.99" oldPrice="40.00" />
+                <CardPrice price={14.99} oldPrice={40} />
               )}
             </div>
           </div>

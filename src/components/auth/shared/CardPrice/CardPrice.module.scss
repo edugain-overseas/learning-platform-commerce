@@ -6,15 +6,9 @@
   .oldPriceWrapper {
     order: 2;
     margin-bottom: 0;
-  }
 
-  .priceWrapper {
-    order: 1;
-
-    position: relative;
-
-    &::after {
-      content: '';
+    & + .priceWrapper::after {
+      content: "";
       height: 100%;
       width: 1rem;
       position: absolute;
@@ -23,6 +17,23 @@
       background-color: var(--content-datail-secondary);
       transform: rotateZ(135deg);
     }
+  }
+
+  .priceWrapper {
+    order: 1;
+
+    position: relative;
+
+    // &::after {
+    //   content: "";
+    //   height: 100%;
+    //   width: 1rem;
+    //   position: absolute;
+    //   bottom: 0;
+    //   right: -4rem;
+    //   background-color: var(--content-datail-secondary);
+    //   transform: rotateZ(135deg);
+    // }
   }
 }
 

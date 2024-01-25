@@ -14,10 +14,20 @@
 .contentWrapper {
   display: flex;
   width: 100%;
+
+  &:has([data-expanded-fixed="true"]) {
+    .main {
+      padding-left: calc(
+        var(--sidebar-width-expanded) + var(--sidebar-width-narrowed)
+      );
+    }
+  }
 }
 
 .main {
   padding-top: 84rem;
   flex-grow: 1;
   height: 100%;
+  padding-left: var(--sidebar-width-narrowed);
+  transition: padding-left var(--transition-time-max) ease;
 }

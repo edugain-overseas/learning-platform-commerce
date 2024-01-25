@@ -33,6 +33,7 @@ const SideBar = () => {
       className={`${styles.wrapper} 
       ${isExpandedFixed ? styles.expandedFixed : ""} 
       ${isNarrowedFixed ? styles.narrowedFixed : ""}`}
+      data-expanded-fixed={isExpandedFixed}
     >
       <div className={styles.narrowed}>
         <button className={styles.fixBtn} onClick={handleNarrowedFix}>

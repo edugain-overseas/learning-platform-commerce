@@ -25,7 +25,6 @@ const CoursesPanel = () => {
   const [searchValue, setSerchValue] = useState("");
   const { setSelecteListModeIndex, selectedListModeIndex } = useListMode();
   const { courseId } = useParams();
-  console.log(courseId);
 
   return (
     <div className={styles.wrapper}>

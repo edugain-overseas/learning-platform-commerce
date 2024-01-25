@@ -8,9 +8,9 @@ import ChatsFloatBtn from "../ChatsFloatBtn/ChatsFloatBtn";
 const MainLayout = () => {
   return (
     <div className={styles.mainWrapper}>
-        <Header />
+      <Header />
       <div className={styles.contentWrapper}>
-      <SideBar />
+        <SideBar />
         <main className={styles.main}>
           <Outlet />
         </main>

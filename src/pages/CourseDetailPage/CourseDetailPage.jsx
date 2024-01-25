@@ -1,9 +1,21 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import CoursesPanel from "../../components/CoursesPanel/CoursesPanel";
+import { ListModeProvider } from "../../context/ListModeContext";
+import styles from "./CourseDetailPage.module.scss";
 
 const CourseDetailPage = () => {
-  const { courseId } = useParams();
-  return <div>Course {courseId} Detail Page</div>;
+  
+  return (
+    <div className={styles.pageWrapper}>
+      <ListModeProvider>
+        <CoursesPanel />
+        <div className={styles.contentWrapper}>
+          <Outlet />
+        </div>
+      </ListModeProvider>
+    </div>
+  );
 };
 
 export default CourseDetailPage;
