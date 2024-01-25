@@ -22,7 +22,7 @@ const options = [
 ];
 
 const toRead =
-  "This course introduces basic economic concepts that are fundamental to understand many of the issues faced by business firms. Learn the processes that govern the production and consumption of goods and services in a global economy: Microeconomics and Macroeconomics.";
+  "This course introduces basic economic, concepts that are fundamental to understand, many of the issues faced by business firms. Learn the processes that govern the production and consumption of goods and services in a global economy: Microeconomics and Macroeconomics.";
 
 const CreateLessonModal = () => {
   const [selectValue, setSelectValue] = useState("");
@@ -53,8 +53,8 @@ const CreateLessonModal = () => {
           onChange={setTeaxtareaValue}
         />
       </div>
-      <div style={{ width: "800rem", margin: "0 auto", padding: '20rem', }}>
-        <p style={{marginBottom: '20rem'}}>{toRead}</p>
+      <div style={{ width: "800rem", margin: "0 auto", padding: "20rem" }}>
+        <p style={{ marginBottom: "20rem" }}>{toRead}</p>
         <TextReader textToRead={toRead} />
       </div>
     </div>

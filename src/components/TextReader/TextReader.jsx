@@ -19,10 +19,10 @@ const TextReader = ({ textToRead = "Hello world" }) => {
 
     // Cleanup on component unmount
     return () => {
-        // eslint-disable-next-line
+      // eslint-disable-next-line
       synth.current.removeEventListener("voiceschanged", updateVoices);
     };
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
   }, []);
 
   const toggleSpeech = () => {

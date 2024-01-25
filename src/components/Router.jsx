@@ -21,11 +21,6 @@ const Router = () => {
           {coursesLinks.map(({ to }) => (
             <Route key={to} path={to} element={<CategoriesList />} />
           ))}
-          {/* <Route path=":courseId" element={<CourseDetailPage />}>
-            {courseLinks.map(({ to }) => (
-              <Route key={to} path={to} element={<div>{to}</div>} />
-            ))}
-          </Route> */}
           <Route path="category/:categoryId" element={<CategoryDetailPage />} />
         </Route>
         <Route path="course/:courseId" element={<CourseDetailPage />}>

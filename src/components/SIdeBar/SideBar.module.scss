@@ -16,10 +16,10 @@
   &.narrowedFixed {
     &:hover {
       .expanded {
-        display: none;
+        width: 0;
       }
       div[id="expanded"] {
-        display: none;
+        transform: translateX(-100%);
       }
     }
     .narrowed .fixBtn {
@@ -50,7 +50,6 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  // z-index: 11;
 
   .fixBtn {
     margin-bottom: 36rem;
