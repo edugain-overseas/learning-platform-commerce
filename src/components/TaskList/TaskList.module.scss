@@ -29,6 +29,7 @@
       background-color: #fff;
       opacity: 0.6;
       z-index: 2;
+      pointer-events: none;
 
       transition: opacity var(--transition-time-min) ease;
     }
@@ -91,6 +92,16 @@
 
   .titleWrapper {
     min-height: auto;
+    .pointer {
+      position: absolute;
+      top: 50%;
+      left: -12rem;
+      width: 4rem;
+      height: 4rem;
+      transform: translateY(-50%);
+      background-color: var(--content-main);
+      border-radius: 50%;
+    }
   }
 
   .rowLink {

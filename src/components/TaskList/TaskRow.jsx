@@ -20,6 +20,7 @@ const TaskRow = ({ task }) => {
       >
         <div className={styles.titleWrapper}>
           <span className={styles.taskTitle}>
+            <span className={styles.pointer}></span>
             {task.title}
             <span className={styles.openBtn}>
               <ArrowRightIcon />
