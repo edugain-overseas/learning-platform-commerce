@@ -1,6 +1,6 @@
 import React from "react";
-import { ReactComponent as SearchIcon } from "../../../../images/icons/search.svg";
-import { ReactComponent as CrossIcon } from "../../../../images/icons/cross.svg";
+import { ReactComponent as SearchIcon } from "../../../images/icons/search.svg";
+import { ReactComponent as CrossIcon } from "../../../images/icons/cross.svg";
 import styles from "./SearchBar.module.scss";
 
 const SearchBar = ({

@@ -1,6 +1,6 @@
 import React from "react";
+import { letterGrade } from "../../../utils/gradingScale";
 import styles from "./CardGrade.module.scss";
-import { letterGrade } from "../../../../utils/gradingScale";
 
 const CardGrade = ({ grade = 0 }) => {
   return (

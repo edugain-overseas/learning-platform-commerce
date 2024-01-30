@@ -1,0 +1,71 @@
+.listWrapper {
+  padding-top: 12rem;
+  li {
+    display: flex;
+    align-items: center;
+    gap: 10rem;
+
+    span {
+      color: var(--content-datail-secondary);
+      font-size: 14rem;
+      font-weight: 500;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 10rem;
+    }
+  }
+}
+
+.progressIconOuter {
+  width: 22rem;
+  height: 22rem;
+  padding: 3rem;
+
+  border-radius: 5rem;
+  background: var(--bg-rgba-detail);
+  box-shadow: var(--box-shadow-button-inset);
+  position: relative;
+
+  &.success {
+    &:before {
+      content: "";
+      background-color: var(--content-success);
+    }
+    .progressIconInner {
+      border-color: var(--content-success);
+    }
+  }
+
+  &.inProgress {
+    &:before {
+      content: "";
+      background-color: var(--content-main);
+    }
+    .progressIconInner {
+      border-color: var(--content-main);
+    }
+  }
+
+  &:before {
+    content: "";
+    width: 8rem;
+    height: 8rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: transparent;
+
+    border-radius: 1rem;
+  }
+}
+
+.progressIconInner {
+  width: 100%;
+  height: 100%;
+  border-radius: 4rem;
+  box-shadow: var(--box-shadow-button);
+
+  border: 2rem solid transparent;
+}

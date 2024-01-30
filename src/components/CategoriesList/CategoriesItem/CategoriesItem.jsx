@@ -5,7 +5,7 @@ import CoursesList from "../../CoursesList/CoursesList";
 import { ReactComponent as BMIcon } from "../../../images/icons/bm.svg";
 import { ReactComponent as InfoIcon } from "../../../images/icons/info.svg";
 import { ReactComponent as ChevronIcon } from "../../../images/icons/arrowDown.svg";
-import ProgressBar from "../../auth/shared/ProgressBar/ProgressBar";
+import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import { useListMode } from "../../../context/ListModeContext";
 import styles from "./CategoriesItem.module.scss";
 

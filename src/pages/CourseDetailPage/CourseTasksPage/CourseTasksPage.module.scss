@@ -1,0 +1,57 @@
+.pageWrapper {
+  display: flex;
+  gap: 16rem;
+  height: 100%;
+}
+
+.mainContentWrapper {
+  height: 100%;
+  flex-grow: 1;
+}
+
+.listWrapper {
+  height: calc(100% - 48rem);
+  overflow-y: auto;
+}
+
+.tasksPanel {
+  display: flex;
+  justify-content: space-between;
+  gap: 32rem;
+  height: 48rem;
+  align-items: center;
+  padding-inline: 12rem 36rem;
+
+  border-radius: 5rem;
+  background: var(--bg-rgba-default);
+
+  box-shadow: var(--drop-shadow-button-main);
+  backdrop-filter: blur(16rem);
+
+  h3 {
+    font-weight: 700;
+  }
+
+  .attributesList {
+    display: flex;
+    gap: 32rem;
+    align-items: center;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 6rem;
+
+      svg {
+        width: 14rem;
+        height: 14rem;
+      }
+
+      span {
+        color: var(--content-datail-secondary);
+        font-size: 12rem;
+        font-weight: 500;
+      }
+    }
+  }
+}

@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { courseLinks, coursesLinks } from "../../costants/nav";
+import { useParams } from "react-router-dom";
 import { useListMode } from "../../context/ListModeContext";
+import { courseLinks, coursesLinks } from "../../costants/nav";
 import { ReactComponent as GridIcon } from "../../images/icons/grid.svg";
 import { ReactComponent as ListIcon } from "../../images/icons/list.svg";
 import { ReactComponent as FiltersIcon } from "../../images/icons/filters.svg";
 import NavLinksPanel from "../shared/NavLinksPanel/NavLinksPanel";
 import Switcher from "../shared/Switcher/Switcher";
-import DropDownFilter from "../auth/shared/DropDownFilter/DropDownFilter";
+import DropDownFilter from "../shared/DropDownFilter/DropDownFilter";
+import SearchBar from "../shared/SearchBar/SearchBar";
 import styles from "./CoursesPanel.module.scss";
-import SearchBar from "../auth/shared/SearchBar/SearchBar";
-import { useParams } from "react-router-dom";
 
 const switchItems = [<GridIcon />, <ListIcon />];
 const filters = [

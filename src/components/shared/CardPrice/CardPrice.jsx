@@ -1,6 +1,6 @@
 import React from "react";
+import { priceFormatter } from "../../../utils/priceFormatter";
 import styles from "./CardPrice.module.scss";
-import { priceFormatter } from "../../../../utils/priceFormatter";
 
 const CardPrice = ({
   price = 0,

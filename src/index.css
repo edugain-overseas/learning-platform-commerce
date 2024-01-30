@@ -14,6 +14,7 @@
   --bg-rgba-primary: rgba(255, 255, 255, 0.9);
   --bg-rgba-secondary: rgba(255, 255, 255, 0.75);
   --bg-rgba-default: rgba(255, 255, 255, 0.65);
+  --bg-rgba-detail: rgba(255, 255, 255, 0.2);
 
   --bg-button-main: rgba(131, 131, 131, 0.2);
   --bg-button-default: #fff;
@@ -37,6 +38,7 @@
   --content-light-secondary: #fcfcfc;
   --content-accent: #4171cd;
   --content-detail: #5e5e5e;
+  --content-success: #39BA6D;
   --content-failture: #ba3939;
   --content-contr-color: #fff;
   --content-datail-secondary: #7e8ca8;

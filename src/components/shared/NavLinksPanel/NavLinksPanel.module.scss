@@ -13,12 +13,21 @@
   line-height: 109.6%;
   text-transform: capitalize;
   color: var(--content-main);
-
+  position: relative;
 
   padding-block: 12rem;
 
   transition: color var(--transition-time-min) ease,
     border-color var(--transition-time-min) ease;
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    background-color: var(--content-nav-hover);
+  }
 }
 
 .navLink--active,
@@ -26,11 +35,6 @@
   color: var(--content-nav-hover);
 }
 
-.activeLinkMarker {
-  position: absolute;
-  height: 2px;
-  bottom: -2px;
-  background-color: var(--content-nav-hover);
-  transition: width var(--transition-time-min) ease,
-    left var(--transition-time-max) ease;
+.navLink--active::before {
+  width: 100%;
 }

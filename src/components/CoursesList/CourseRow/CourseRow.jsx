@@ -6,9 +6,9 @@ import { ReactComponent as ClockIcon } from "../../../images/icons/clock.svg";
 import { ReactComponent as LaptopIcon } from "../../../images/icons/laptop.svg";
 import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";
 import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
-import ProgressBar from "../../auth/shared/ProgressBar/ProgressBar";
-import CardGrade from "../../auth/shared/CardGrade/CardGrade";
-import CardPrice from "../../auth/shared/CardPrice/CardPrice";
+import ProgressBar from "../../shared/ProgressBar/ProgressBar";
+import CardGrade from "../../shared/CardGrade/CardGrade";
+import CardPrice from "../../shared/CardPrice/CardPrice";
 import styles from "./CourseRow.module.scss";
 
 const CourseRow = ({ course, purchased, disabled }) => {
