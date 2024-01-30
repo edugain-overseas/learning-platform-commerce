@@ -10,7 +10,7 @@ import { ReactComponent as ClockDarkIcon } from "../../../images/icons/courseIco
 import { ReactComponent as CertificateIcon } from "../../../images/icons/courseIcons/certificate.svg";
 import devices from "../../../images/devices.png";
 import styles from "./CourseIntroPage.module.scss";
-import CardPrice from "../../../components/auth/shared/CardPrice/CardPrice";
+import CardPrice from "../../../components/shared/CardPrice/CardPrice";
 import CoursesList from "../../../components/CoursesList/CoursesList";
 
 const CourseIntroPage = () => {
