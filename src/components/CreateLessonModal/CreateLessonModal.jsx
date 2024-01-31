@@ -27,6 +27,9 @@ const toRead =
 const CreateLessonModal = () => {
   const [selectValue, setSelectValue] = useState("");
   const [textareaValue, setTeaxtareaValue] = useState("");
+  const [lang, setLang] = useState(navigator.language);
+  console.log(setLang);
+  console.log(lang);
   const onChange = (value) => {
     setSelectValue(value);
   };

@@ -1,9 +1,9 @@
 .wrapper {
   width: 80rem;
   padding: 4rem 8rem;
-  border-radius: 4rem;
+  border-radius: 5rem;
   border: 1rem solid var(--border-color-main);
-  background-color: var(--bg-default);
+  background-color: var(--bg-accent-block);
 
   display: flex;
   align-items: center;
@@ -22,7 +22,7 @@
 
     .openBtn {
       svg {
-        transform: rotateZ(180deg);
+        transform: rotateZ(0);
       }
     }
   }
@@ -37,6 +37,8 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
 }
 
 .value {
@@ -44,7 +46,7 @@
 }
 
 .placeholder {
-  color: var(--content-secondary);
+  color: var(--content-datail-secondary);
 }
 
 .openBtn,
@@ -69,6 +71,7 @@
 
 .openBtn {
   svg {
+    transform: rotateZ(180deg);
     transform-origin: center center;
     transition: transform var(--transition-time-min) ease;
   }
@@ -88,8 +91,9 @@
   z-index: 10;
 
   border-radius: 4rem;
-  background: var(--bg-default);
-  box-shadow: var(--drop-shadow-short);
+  background: var(--bg-rgba-primary);
+  box-shadow: var(--drop-shadow-button-main);
+  backdrop-filter: blur(16rem);
 
   overflow-x: hidden;
   overflow-y: auto;
@@ -112,10 +116,15 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
+      display: block;
+
+      color: var(--content-datail-secondary);
+      font-size: 12rem;
+      cursor: pointer;
     }
 
     &.selected {
-      background-color: var(--bg-default-block-hover);
+      background-color: var(--bg-accent-block);
 
       & .label {
         font-weight: 500;
@@ -123,7 +132,7 @@
 
       &:hover,
       &:focus {
-        background-color: var(--bg-default-block-hover);
+        background-color: var(--bg-accent-block);
       }
     }
 
@@ -135,7 +144,7 @@
     }
 
     &.highlighted {
-      background-color: var(--bg-deafult-block);
+      background-color: var(--bg-accent-block);
     }
   }
 }

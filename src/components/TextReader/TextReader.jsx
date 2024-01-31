@@ -1,29 +1,51 @@
 import React, { useEffect, useRef, useState } from "react";
-// import styles from "./TextReader.module.scss";
+import { ReactComponent as PlayIcon } from "../../images/icons/play.svg";
+import { ReactComponent as StopIcon } from "../../images/icons/pause.svg";
+import { ReactComponent as VoiceIcon } from "../../images/icons/voice.svg";
+import { ReactComponent as VolumeIcon } from "../../images/icons/volume.svg";
+// import { ReactComponent as ArrowLeftIcon } from "../../images/icons/volume.svg";
+// import { ReactComponent as ArowRightIcon } from "../../images/icons/volume.svg";
+import styles from "./TextReader.module.scss";
+import Select from "../shared/Select/Select";
+
+const getOptionsFromVoices = (voices) =>
+  voices.map((voice) => ({ label: voice.name, value: voice }));
+
+const formatTextToRead = (text) => {
+  const chunks = text.split(" ");
+  const marketChunks = chunks.map(
+    (chunk, index) => chunk + `<mark name="point${index + 1}"/>`
+  );
+  console.log(marketChunks.join(" "));
+  return chunks.join(" ");
+};
 
 const TextReader = ({ textToRead = "Hello world" }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [selectedVoice, setSelectedVoice] = useState(null);
-  const [volume, setVolume] = useState(0.1);
+  const [volume, setVolume] = useState("1");
   const [rate, setRate] = useState(1);
-  const [charIndex, setCharIndex] = useState(0);
+  const [voices, setVoices] = useState([]);
+  const [selectedVoice, setSelectedVoice] = useState(null);
+
   const synth = useRef(window.speechSynthesis);
   const utterance = useRef(null);
 
   useEffect(() => {
-    const synthRef = synth.current; // Capture the current value
-
     const updateVoices = () => {
-      const voices = synthRef.getVoices(); // Use the captured value
-      setSelectedVoice(voices[0]);
+      const voices = synth.current.getVoices();
+      const googleVoices = voices.filter(({ name }) => name.includes("Google"));
+      const otherVoices = voices.filter(({ name }) => !name.includes("Google"));
+      const sortedVoices = [...googleVoices, ...otherVoices];
+      setVoices(sortedVoices);
+      setSelectedVoice(sortedVoices[0]);
     };
 
-    synthRef.addEventListener("voiceschanged", updateVoices);
+    synth.current.addEventListener("voiceschanged", updateVoices);
 
     return () => {
-      // Cleanup function
-      synthRef.removeEventListener("voiceschanged", updateVoices);
-      synthRef.cancel(); // Cancel any ongoing speech synthesis when component unmounts
+      synth.current.removeEventListener("voiceschanged", updateVoices);
+      // eslint-disable-next-line
+      synth.current.cancel();
     };
   }, []);
 
@@ -31,7 +53,7 @@ const TextReader = ({ textToRead = "Hello world" }) => {
     const synthRef = synth.current;
 
     const handleBeforeUnload = () => {
-      synthRef.cancel(); // Cancel any ongoing speech synthesis before unloading the page
+      synthRef.cancel();
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);
@@ -41,113 +63,125 @@ const TextReader = ({ textToRead = "Hello world" }) => {
     };
   }, []);
 
-  const createUtterance = () => {
-    const utt = new SpeechSynthesisUtterance(textToRead);
-    if (selectedVoice) {
-      utt.voice = selectedVoice;
-    }
-    utt.volume = volume;
-    utt.rate = rate;
-    utt.onend = () => {
-      setIsPlaying(false);
-    };
-    utt.onboundary = (event) => {
-      setCharIndex(event.charIndex);
-    };
-    return utt;
-  };
+  const handlePlay = () => {
+    if (!utterance.current) {
+      utterance.current = new SpeechSynthesisUtterance(
+        formatTextToRead(textToRead)
+      );
+      utterance.current.voice = selectedVoice;
+      utterance.current.volume = +volume;
+      utterance.current.rate = rate;
 
-  const toggleSpeech = () => {
-    // const { speaking, paused, pending } = synth.current;
-    // console.log("Synthesis Status:", { speaking, paused, pending });
+      utterance.current.onend = (event) => {
+        console.log(event);
+        setIsPlaying(false);
+        synth.current.cancel();
+        utterance.current = null;
+      };
 
-    // if (speaking || paused) {
-    //   isPlaying ? synth.current.pause() : synth.current.resume();
-    // } else {
-    //   const utterance = new SpeechSynthesisUtterance(textToRead);
-    //   if (selectedVoice) {
-    //     utterance.voice = selectedVoice;
-    //   }
-    //   utterance.volume = volume;
-    //   utterance.rate = rate;
-    //   synth.current.speak(utterance);
+      utterance.current.onerror = (event) => {
+        console.log(event);
+      };
 
-    //   utterance.onerror = (event) => {
-    //     console.log(
-    //       "An error has occurred with the speech synthesis:",
-    //       event.error
-    //     );
-    //   };
+      utterance.current.onboundary = (event) => {
+        console.log(event);
+      };
 
-    //   console.log("Speech synthesis started:", textToRead);
-    // }
+      utterance.current.onpause = (event) => {
+        console.log(event);
+      };
 
-    // console.log("Synthesis Status After Toggle:", {
-    //   speaking: synth.current.speaking,
-    //   paused: synth.current.paused,
-    //   pending: synth.current.pending,
-    // });
+      utterance.current.onresume = (event) => {
+        console.log(event);
+      };
 
-    // setIsPlaying(!isPlaying);
+      utterance.current.onstart = (event) => {
+        console.log(event);
+      };
 
-    if (!isPlaying) {
-      utterance.current = createUtterance();
-      utterance.current.text = textToRead.slice(charIndex);
       synth.current.speak(utterance.current);
-      setIsPlaying(true);
     } else {
+      synth.current.resume();
+    }
+    setIsPlaying(true);
+  };
+
+  const handlePause = () => {
+    setIsPlaying(false);
+    if (utterance.current) {
       synth.current.pause();
-      setIsPlaying(false);
     }
   };
-
-  const handleVoiceChange = (event) => {
-    const voiceName = event.target.value;
-    const selectedVoice = synth.current
-      .getVoices()
-      .find((voice) => voice.name === voiceName);
-    setSelectedVoice(selectedVoice);
+  const handleChangeVolume = (e) => {
+    const { value } = e.target;
+    setVolume(value);
   };
-
-  const handleVolumeChange = (event) => {
-    setVolume(event.target.value);
+  const handleIncreaseRate = () => {
+    if (rate < 2) {
+      setRate((prev) => prev + 0.25);
+    }
   };
-
-  const handleRateChange = (event) => {
-    setRate(event.target.value);
+  const handleDecreaseRate = () => {
+    if (rate > 0.25) {
+      setRate((prev) => prev - 0.25);
+    }
   };
-
   return (
-    <div>
-      <button onClick={toggleSpeech}>{isPlaying ? "Pause" : "Play"}</button>
-      <select
-        onChange={handleVoiceChange}
-        value={selectedVoice ? selectedVoice.name : ""}
-      >
-        {synth.current.getVoices().map((voice) => (
-          <option key={voice.name} value={voice.name}>
-            {voice.name}
-          </option>
-        ))}
-      </select>
-      <label>Volume: </label>
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.1"
-        value={volume}
-        onChange={handleVolumeChange}
+    <div className={styles.wrapper}>
+      <span className={styles.title}>Voice acting:</span>
+      {isPlaying ? (
+        <button type="button" onClick={handlePause} className={styles.playBtn}>
+          <StopIcon />
+        </button>
+      ) : (
+        <button type="button" onClick={handlePlay} className={styles.playBtn}>
+          <PlayIcon />
+        </button>
+      )}
+      <Select
+        onChange={setSelectedVoice}
+        options={getOptionsFromVoices(voices)}
+        placeholder={
+          <>
+            <VoiceIcon style={{ width: "16rem", height: "auto" }} />
+          </>
+        }
+        wrapperStyles={{
+          width: "fit-content",
+          padding: "6rem",
+          gap: "4rem",
+          marginRight: "12rem",
+        }}
+        borderless={true}
+        dropDownWrapperStyles={{ maxWidth: "156rem", maxHeight: "200rem" }}
       />
-      <label>Rate: </label>
-      <input
-        type="range"
-        min="0.5"
-        max="2"
-        step="0.1"
-        value={rate}
-        onChange={handleRateChange}
-      />
+      <div className={styles.volumeWrapper}>
+        <VolumeIcon />
+        <div className={styles.inputWrapper}>
+          <input
+            className={styles.volumeInput}
+            type="range"
+            min="0"
+            max="1"
+            step="0.05"
+            value={volume}
+            onChange={handleChangeVolume}
+          />
+          <div
+            className={styles.volumeValue}
+            style={{ width: `calc(${+volume} * 100%)` }}
+          ></div>
+        </div>
+      </div>
+      <div className={styles.rateWrapper}>
+        <button className={styles.decrease} onClick={handleDecreaseRate}>
+          <PlayIcon />
+        </button>
+        <span>{`${rate}x`}</span>
+        <button className={styles.increase} onClick={handleIncreaseRate}>
+          <PlayIcon />
+        </button>
+      </div>
     </div>
   );
 };

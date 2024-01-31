@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ReactComponent as DropDownArrowIcon } from "../../../images/icons/arrowDown.svg";
+import { ReactComponent as DropDownArrowIcon } from "../../../images/icons/dropdownArrow.svg";
 import { ReactComponent as CrossIcon } from "../../../images/icons/cross.svg";
 import styles from "./Select.module.scss";
 
@@ -10,6 +10,7 @@ const Select = ({
   borderless = false,
   placeholder = "Please select option",
   wrapperStyles = {},
+  dropDownWrapperStyles = {},
 }) => {
   const [isOpen, setIsOpen] = useState();
   const [highlightedIndex, setHightlightedIndex] = useState(0);
@@ -123,11 +124,11 @@ const Select = ({
         </button>
       )}
 
-      <div className={styles.dropDownWrapper}>
+      <div className={styles.dropDownWrapper} style={dropDownWrapperStyles}>
         <ul className={styles.dropDownList}>
           {options.map((option, index) => (
             <li
-              key={option.value || index}
+              key={option.label || index}
               ref={
                 highlightedIndex === index + 1
                   ? highlightedOptionRef
