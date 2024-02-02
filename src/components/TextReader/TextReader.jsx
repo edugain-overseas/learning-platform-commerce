@@ -11,21 +11,14 @@ import Select from "../shared/Select/Select";
 const getOptionsFromVoices = (voices) =>
   voices.map((voice) => ({ label: voice.name, value: voice }));
 
-const formatTextToRead = (text) => {
-  const chunks = text.split(" ");
-  const marketChunks = chunks.map(
-    (chunk, index) => chunk + `<mark name="point${index + 1}"/>`
-  );
-  console.log(marketChunks.join(" "));
-  return chunks.join(" ");
-};
-
-const TextReader = ({ textToRead = "Hello world" }) => {
+const TextReader = ({ textToRead = "" }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState("1");
   const [rate, setRate] = useState(1);
   const [voices, setVoices] = useState([]);
   const [selectedVoice, setSelectedVoice] = useState(null);
+  const [charIndex, setCharIndex] = useState(0);
+  const [currentText, setCurrentText] = useState(textToRead);
 
   const synth = useRef(window.speechSynthesis);
   const utterance = useRef(null);
@@ -33,17 +26,31 @@ const TextReader = ({ textToRead = "Hello world" }) => {
   useEffect(() => {
     const updateVoices = () => {
       const voices = synth.current.getVoices();
-      const googleVoices = voices.filter(({ name }) => name.includes("Google"));
-      const otherVoices = voices.filter(({ name }) => !name.includes("Google"));
-      const sortedVoices = [...googleVoices, ...otherVoices];
+      // const googleVoices = voices.filter(({ name }) => name.includes("Google"));
+      const notGoogleVoices = voices.filter(
+        ({ name }) => !name.includes("Google")
+      );
+      const langFiltredVoices = notGoogleVoices.filter(({ lang }) =>
+        lang.includes("en")
+      );
+      const sortedVoices = [...langFiltredVoices];
       setVoices(sortedVoices);
       setSelectedVoice(sortedVoices[0]);
     };
 
-    synth.current.addEventListener("voiceschanged", updateVoices);
+    if (synth.current.addEventListener) {
+      synth.current.addEventListener("voiceschanged", updateVoices);
+    } else {
+      console.error(
+        "Synthesis API on Safari does not support addEventListener"
+      );
+    }
 
     return () => {
-      synth.current.removeEventListener("voiceschanged", updateVoices);
+      if (synth.current.removeEventListener) {
+        // eslint-disable-next-line
+        synth.current.removeEventListener("voiceschanged", updateVoices);
+      }
       // eslint-disable-next-line
       synth.current.cancel();
     };
@@ -63,40 +70,28 @@ const TextReader = ({ textToRead = "Hello world" }) => {
     };
   }, []);
 
-  const handlePlay = () => {
+  const handlePlay = (newText, newVolume, newRate, newVoice) => {
     if (!utterance.current) {
       utterance.current = new SpeechSynthesisUtterance(
-        formatTextToRead(textToRead)
+        newText ? newText : textToRead
       );
-      utterance.current.voice = selectedVoice;
-      utterance.current.volume = +volume;
-      utterance.current.rate = rate;
+      utterance.current.voice = newVoice ? newVoice : selectedVoice;
+      utterance.current.volume = newVolume ? +newVolume : +volume;
+      utterance.current.rate = newRate ? newRate : rate;
 
       utterance.current.onend = (event) => {
-        console.log(event);
         setIsPlaying(false);
         synth.current.cancel();
         utterance.current = null;
       };
 
-      utterance.current.onerror = (event) => {
-        console.log(event);
-      };
-
       utterance.current.onboundary = (event) => {
-        console.log(event);
-      };
-
-      utterance.current.onpause = (event) => {
-        console.log(event);
-      };
-
-      utterance.current.onresume = (event) => {
-        console.log(event);
+        setCharIndex(event.charIndex);
       };
 
       utterance.current.onstart = (event) => {
-        console.log(event);
+        const { text } = event.target;
+        setCurrentText(text);
       };
 
       synth.current.speak(utterance.current);
@@ -115,15 +110,43 @@ const TextReader = ({ textToRead = "Hello world" }) => {
   const handleChangeVolume = (e) => {
     const { value } = e.target;
     setVolume(value);
+
+    if (utterance.current) {
+      synth.current.cancel();
+      utterance.current = null;
+      const newText = currentText.slice(charIndex);
+      handlePlay(newText, value);
+    }
   };
   const handleIncreaseRate = () => {
     if (rate < 2) {
       setRate((prev) => prev + 0.25);
+      if (utterance.current) {
+        synth.current.cancel();
+        utterance.current = null;
+        const newText = currentText.slice(charIndex);
+        handlePlay(newText, volume, rate + 0.25);
+      }
     }
   };
   const handleDecreaseRate = () => {
     if (rate > 0.25) {
       setRate((prev) => prev - 0.25);
+      if (utterance.current) {
+        synth.current.cancel();
+        utterance.current = null;
+        const newText = currentText.slice(charIndex);
+        handlePlay(newText, volume, rate - 0.25);
+      }
+    }
+  };
+  const handleVoiceChange = (value) => {
+    setSelectedVoice(value);
+    if (utterance.current) {
+      synth.current.cancel();
+      utterance.current = null;
+      const newText = currentText.slice(charIndex);
+      handlePlay(newText, volume, rate, value);
     }
   };
   return (
@@ -134,12 +157,16 @@ const TextReader = ({ textToRead = "Hello world" }) => {
           <StopIcon />
         </button>
       ) : (
-        <button type="button" onClick={handlePlay} className={styles.playBtn}>
+        <button
+          type="button"
+          onClick={() => handlePlay()}
+          className={styles.playBtn}
+        >
           <PlayIcon />
         </button>
       )}
       <Select
-        onChange={setSelectedVoice}
+        onChange={handleVoiceChange}
         options={getOptionsFromVoices(voices)}
         placeholder={
           <>
