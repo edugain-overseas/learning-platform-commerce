@@ -1,6 +1,7 @@
 :root {
   --bg-body: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
     url("./images/body-bg-desktop.png");
+  --bg-auth: url("./images/auth-bg-destop.png");
   --bg-main: #f4f6fc;
   --bg-accent: #4171cd;
   --bg-default: #fff;
@@ -38,7 +39,7 @@
   --content-light-secondary: #fcfcfc;
   --content-accent: #4171cd;
   --content-detail: #5e5e5e;
-  --content-success: #39BA6D;
+  --content-success: #39ba6d;
   --content-failture: #ba3939;
   --content-contr-color: #fff;
   --content-datail-secondary: #7e8ca8;

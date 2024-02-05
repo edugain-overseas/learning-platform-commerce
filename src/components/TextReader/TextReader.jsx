@@ -3,8 +3,6 @@ import { ReactComponent as PlayIcon } from "../../images/icons/play.svg";
 import { ReactComponent as StopIcon } from "../../images/icons/pause.svg";
 import { ReactComponent as VoiceIcon } from "../../images/icons/voice.svg";
 import { ReactComponent as VolumeIcon } from "../../images/icons/volume.svg";
-// import { ReactComponent as ArrowLeftIcon } from "../../images/icons/volume.svg";
-// import { ReactComponent as ArowRightIcon } from "../../images/icons/volume.svg";
 import styles from "./TextReader.module.scss";
 import Select from "../shared/Select/Select";
 

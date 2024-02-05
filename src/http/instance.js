@@ -1,8 +1,9 @@
 import axios from "axios";
-import { baseURL } from "./sever";
+import { serverBaseUrl } from "./sever";
 
-const instance = axios.create({
-  baseURL,
+export const instance = axios.create({
+  baseURL: serverBaseUrl,
+  headers: {
+    "ngrok-skip-browser-warning": "1",
+  },
 });
-
-export default instance;

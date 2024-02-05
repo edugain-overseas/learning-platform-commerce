@@ -1,17 +1,24 @@
 import React from "react";
 import AuthForm from "../shared/AuthForm/AuthForm";
-import styles from "./SingUpForm.module.scss";
+import { useDispatch } from "react-redux";
+import { createUserThunk } from "../../../redux/user/operations";
 
 const SingUpForm = () => {
+  const dispatch = useDispatch();
   const handleSubmit = (data) => {
-    console.log(data);
+    const credentials = {
+      name: data.firstname,
+      surname: data.lastname,
+      username: data.username,
+      email: data.email,
+      password: data.password,
+    };
+    console.log(credentials);
+
+    dispatch(createUserThunk(credentials));
   };
 
-  return (
-    <div className={styles.pageWrapper}>
-      <AuthForm handleSubmit={handleSubmit} type='registration'/>
-    </div>
-  );
+  return <AuthForm handleSubmit={handleSubmit} type="registration" />;
 };
 
 export default SingUpForm;

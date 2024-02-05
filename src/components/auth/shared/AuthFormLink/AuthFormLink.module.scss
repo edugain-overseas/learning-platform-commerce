@@ -1,32 +1,22 @@
 .link {
-  height: 24rem;
-  padding-inline: 4rem;
-  text-align: right;
-  color: var(--content-detail);
+  color: var(--content-datail-secondary);
   font-family: Roboto;
-  font-size: 16rem;
+  font-size: 14rem;
+  line-height: 16.94rem;
   font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  font-weight: 400;
+  margin-bottom: 24rem;
 
   a {
-    color: var(--content-detail);
-
+    color: var(--content-main);
     .linkText {
-      line-height: 22rem;
-      padding-inline: 8rem 4rem;
-      transition: color 0.2s ease, font-size 0.2s ease;
-    }
-
-    svg {
-      width: 0;
-      transition: width 0.2s ease;
+      font-weight: 600;
+      transition: color var(--transition-time-min) ease;
     }
 
     &:hover,
     &:focus {
-      font-size: 20rem;
-      color: var(--content-dark);
+      color: var(--content-nav-hover);
 
       svg {
         width: 20rem;

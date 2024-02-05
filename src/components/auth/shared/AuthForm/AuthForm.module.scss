@@ -1,77 +1,95 @@
 .form {
-  width: 800rem;
-  padding-inline: 20rem;
-  padding-block: 40rem;
-  box-shadow: var(--drop-shadow-middle);
-  border-bottom-right-radius: 40rem;
-  border-top-left-radius: 40rem;
+  // width: 800rem;
+  padding: 24rem 32rem 32rem;
+  box-shadow: var(--drop-shadow-button-main);
+  background-color: var(--bg-rgba-default);
+  border-radius: 5rem;
 
   h2 {
-    color: var(--content-dark);
-    font-size: 45.913rem;
-    font-style: normal;
+    color: var(--content-main);
+    font-size: 28rem;
     font-weight: 600;
+    line-height: 33.89rem;
     line-height: normal;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 32rem;
-    letter-spacing: 10rem;
-    border-bottom: 1rem solid var(--content-dark);
+    margin-bottom: 12rem;
   }
 }
 
 .row {
-  margin-bottom: 28rem;
-  display: flex;
-  justify-content: center;
+  margin-bottom: 16rem;
+}
+
+.lastRow {
+  margin-bottom: 24rem;
 }
 
 .btnsWrapper {
+  display: flex;
   flex-direction: column;
-  gap: 8rem;
+  gap: 12rem;
   align-items: center;
   margin-bottom: 20rem;
 
-  & span {
-    color: var(--content-dark);
+  & > span {
+    color: var(--content-datail-secondary);
+    font-size: 14rem;
     text-align: center;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
-
-  div[id="googleAuthBtn"] {
-    
   }
 }
 
 .submitBtn {
-  border-radius: 6rem;
-  background-color: var(--content-dark);
-  padding: 12rem 132rem;
+  width: 100%;
+  height: 38rem;
+  border-radius: 5rem;
+  background-color: var(--content-main);
   border: 1rem solid transparent;
-  transition: border-color var(--transition-time-default) ease;
+  transition: background-color var(--transition-time-default) ease;
 
   span {
     color: var(--content-contr-color);
     text-align: center;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 16rem;
-    line-height: normal;
-    transition: color var(--transition-time-default) ease;
   }
 
   &:hover,
   &:focus {
-    background-color: var(--bg-button-default);
-    border-color: var(--content-dark);
+    background-color: var(--content-nav-hover);
+    box-shadow: var(--drop-shadow-short);
+  }
+}
+
+.googleBtn {
+  width: 100%;
+  height: 38rem;
+  border-radius: 5rem;
+  background-color: var(--bg-default);
+  border: 1rem solid var(--content-datail-secondary);
+  transition: background-color var(--transition-time-default) ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rem;
+
+  svg {
+    width: 24rem;
+    height: 24rem;
+  }
+
+  span {
+    color: var(--content-main);
+    font-weight: 600;
+    font-size: 14rem;
+    transition: color var(--transition-time-default);
+  }
+
+  &:hover,
+  &:focus {
+    background-color: var(--content-datail-secondary);
     box-shadow: var(--drop-shadow-short);
 
     span {
-      color: var(--content-dark);
+      color: var(--content-contr-color);
     }
   }
 }

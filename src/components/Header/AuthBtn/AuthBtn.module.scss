@@ -1,20 +1,26 @@
-.authLinksWrapper {
+.link {
+  width: 125rem;
+  height: 38rem;
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 4rem;
-  width: 140rem;
+  gap: 12rem;
+  background-color: var(--content-nav-hover);
+  border-radius: 5rem;
+  margin-right: 40rem;
+  transition: background-color var(--transition-time-min) ease;
 
-  a {
-    transition: color 0.2s ease, font-size 0.2s ease;
-    border-bottom: 0 solid var(--content-dark);
+  &:hover {
+    background-color: var(--content-main);
   }
 
-  a:hover,
-  a:focus,
-  .navLink--active {
-    font-size: 18rem;
-    color: var(--content-dark);
-    border-bottom-width: 2rem;
-    white-space: nowrap;
+  span {
+    font-weight: 500;
+    color: var(--content-contr-color);
+  }
+
+  svg {
+    width: 16rem;
+    height: 16rem;
   }
 }
