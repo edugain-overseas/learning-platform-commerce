@@ -20,7 +20,7 @@ const AuthForm = ({ handleSubmit, type }) => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const isFormValid = (data) => {
-    return Object.keys(data).reduce((isValid, key) => {
+    return Object.keys(data).reduce((_, key) => {
       if (!validateText(data[key])) {
         messageApi.open({
           type: "error",

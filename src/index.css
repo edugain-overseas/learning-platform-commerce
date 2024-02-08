@@ -19,7 +19,7 @@
 
   --bg-button-main: rgba(131, 131, 131, 0.2);
   --bg-button-default: #fff;
-  --bg-button-disabled: #ececec;
+  --bg-button-disabled: #d9d9d9;
   --bg-button-success: #20412d;
   --bg-button-failture: #ba3939;
   --bg-button-decorate-success: #00c808;
@@ -99,6 +99,11 @@ button {
   outline: none;
   background: none;
   cursor: pointer;
+}
+
+input {
+  border: none;
+  outline: none;
 }
 
 span {

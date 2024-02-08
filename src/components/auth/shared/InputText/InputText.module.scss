@@ -20,7 +20,7 @@
 }
 
 .label {
-  width: 76rem;
+  min-width: 76rem;
   font-size: 14rem;
   line-height: 16.94rem;
   color: var(--content-datail-secondary);
@@ -38,14 +38,16 @@
     transform: translateY(-50%);
     background-color: var(--content-datail-secondary);
   }
-}
 
-input {
-  flex-grow: 1;
-  border: none;
-  outline: none;
+  input {
+    flex-grow: 1;
 
-  font-size: 14rem;
-  line-height: 16.94rem;
-  color: var(--content-main);
+    font-size: 14rem;
+    line-height: 16.94rem;
+    color: var(--content-main);
+  }
+
+  input[name="verificarion code"] {
+    letter-spacing: 0.5em;
+  }
 }

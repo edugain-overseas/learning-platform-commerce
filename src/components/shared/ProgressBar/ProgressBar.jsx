@@ -25,7 +25,7 @@ const handleProgressColor = (value) => {
 };
 
 const ProgressBar = ({
-  width = 172,
+  width = 171,
   height = 24,
   value = 22,
   // fillMode = "dashed",
@@ -38,7 +38,7 @@ const ProgressBar = ({
         width: `${width}rem`,
         height: `${height}rem`,
         borderRadius: `${width * 0.03}rem`,
-        padding: `${width * 0.02}rem`,
+        padding: `${width * 0.0175}rem`,
       }}
     >
       <div

@@ -11,3 +11,7 @@ export const validateEmail = (value) => {
 export const validateText = (value) => {
   return value.length > 0;
 };
+
+export const validateCode = (value) => {
+  return value.length === 7;
+};

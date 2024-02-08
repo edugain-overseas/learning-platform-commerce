@@ -3,11 +3,11 @@ import { courses } from "../../../assets/courses";
 import { Link } from "react-router-dom";
 import CoursesList from "../../CoursesList/CoursesList";
 import { ReactComponent as BMIcon } from "../../../images/icons/bm.svg";
-import { ReactComponent as InfoIcon } from "../../../images/icons/info.svg";
 import { ReactComponent as ChevronIcon } from "../../../images/icons/arrowDown.svg";
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import { useListMode } from "../../../context/ListModeContext";
 import styles from "./CategoriesItem.module.scss";
+import InfoBtn from "../../shared/InfoBtn/InfoBtn";
 
 const CategoriesItem = ({ category }) => {
   const [dropDownOpen, setDropDownOpen] = useState(true);
@@ -58,11 +58,7 @@ const CategoriesItem = ({ category }) => {
           </div>
           <div className={styles.infoWrapper}>
             <span>Info the courses</span>
-            <button>
-              <span>
-                <InfoIcon />
-              </span>
-            </button>
+            <InfoBtn infoContent="The average score is calculated based on all courses you have completed" />
           </div>
           <button
             className={`${styles.dropdownBtn} ${

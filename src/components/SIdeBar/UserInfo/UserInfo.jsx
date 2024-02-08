@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { getAccessToken } from "../../../redux/user/selectors";
 import Avatar from "../../shared/Avatar/Avatar";
 import styles from "./UserInfo.module.scss";
-import AvatarFallback from "../../shared/AvatarFallback/AvatarFallback";
+// import AvatarFallback from "../../shared/AvatarFallback/AvatarFallback";
 
 const UserInfo = () => {
   const accessToken = useSelector(getAccessToken);
@@ -14,11 +14,7 @@ const UserInfo = () => {
 
   return (
     <div className={styles.wrapper} id="expanded">
-      {accessToken ? (
-        <Avatar handleUpload={handleUploadAvatar} />
-      ) : (
-        <AvatarFallback />
-      )}
+      <Avatar handleUpload={handleUploadAvatar} />
       <span className={styles.fullName}>
         {accessToken ? "Sam James" : "User Name"}
       </span>

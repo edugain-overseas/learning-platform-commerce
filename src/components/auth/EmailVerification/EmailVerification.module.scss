@@ -1,0 +1,63 @@
+.form {
+  width: 424rem;
+  padding: 24rem 32rem 32rem;
+  box-shadow: var(--drop-shadow-button-main);
+  background-color: var(--bg-rgba-default);
+  border-radius: 5rem;
+
+  h2 {
+    color: var(--content-main);
+    font-size: 28rem;
+    font-weight: 600;
+    line-height: 33.89rem;
+    line-height: normal;
+    margin-bottom: 12rem;
+  }
+}
+
+.emailInfo,
+.sendAgain {
+  font-size: 14rem;
+  line-height: 17px;
+  color: var(--content-datail-secondary);
+
+  span {
+    font-weight: 600;
+    color: var(--content-main);
+  }
+}
+
+.emailInfo {
+  margin-bottom: 24rem;
+}
+
+.sendAgain span {
+  cursor: pointer;
+}
+
+.row {
+  margin-bottom: 24rem;
+}
+
+.submitBtn {
+  width: 100%;
+  height: 38rem;
+  border-radius: 5rem;
+  background-color: var(--content-main);
+  border: 1rem solid transparent;
+  transition: background-color var(--transition-time-default) ease;
+  margin-bottom: 12rem;
+
+  span {
+    color: var(--content-contr-color);
+    text-align: center;
+    font-weight: 600;
+    font-size: 16rem;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: var(--content-nav-hover);
+    box-shadow: var(--drop-shadow-short);
+  }
+}

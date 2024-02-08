@@ -1,13 +1,15 @@
 import React, { useRef } from "react";
-import foto from "../../../images/login-bg.png";
+// import foto from "../../../images/login-bg.png";
 import { ReactComponent as EditIcon } from "../../../images/icons/edit.svg";
 import styles from "./Avatar.module.scss";
+import AvatarFallback from "../AvatarFallback/AvatarFallback";
 
-const Avatar = ({ size, handleUpload = () => {} }) => {
+const Avatar = ({ size = "76rem", src, handleUpload = () => {} }) => {
   const inputRef = useRef(null);
 
   const onChange = (e) => {
     const file = e.target.files[0];
+    console.log(file);
     handleUpload(file);
   };
 
@@ -16,7 +18,11 @@ const Avatar = ({ size, handleUpload = () => {} }) => {
       className={styles.avatarWrapper}
       style={size && { width: size, height: size }}
     >
-      <img src={foto} alt="user full name" />
+      {src ? (
+        <img src={src} alt="user full name" />
+      ) : (
+        <AvatarFallback size={size} />
+      )}
       <button
         className={styles.editBtn}
         onClick={() => inputRef.current.click()}

@@ -1,0 +1,52 @@
+.wrapper {
+  display: flex;
+  gap: 16rem;
+
+  & > div {
+    flex: 1;
+    padding: 24rem 32rem 24rem 28rem;
+    background-color: var(--bg-rgba-default);
+    border-radius: 5rem;
+    box-shadow: var(--drop-shadow-button-main);
+
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 48rem;
+      height: 48rem;
+      margin-right: 20rem;
+    }
+
+    .clock {
+      width: 44.5rem;
+      height: 44.5rem;
+    }
+  }
+
+  .divider {
+    width: 2rem;
+    height: 54rem;
+    background-color: var(--content-datail-secondary);
+    border-radius: 2rem;
+    margin-right: 22rem;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+
+    .value {
+      font-family: Roboto;
+      font-weight: 600;
+      line-height: 18rem;
+    }
+
+    .name {
+      font-family: Roboto;
+      font-size: 14rem;
+      line-height: 16rem;
+    }
+  }
+}

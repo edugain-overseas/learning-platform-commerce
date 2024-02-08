@@ -8,7 +8,6 @@ const Switcher = ({
   width = "56rem",
   height = "28rem",
 }) => {
-  
   const handleToggle = (index) => {
     onChange(index);
   };
