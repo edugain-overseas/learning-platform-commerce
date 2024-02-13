@@ -8,16 +8,31 @@ import ChatsFloatBtn from "../ChatsFloatBtn/ChatsFloatBtn";
 const MainLayout = () => {
   const { pathname } = useLocation();
 
-  const isAuthLayout = pathname === "/registration" || pathname === "/login";
+  const isFullscreenLayout =
+    pathname === "/registration" || pathname === "/login" || "/aboutIEU";
+  const isAuthBg = pathname === "/registration" || pathname === "/login";
 
   return (
-    <div className={`${isAuthLayout ? styles.authLayout : styles.mainWrapper}`}>
+    <div
+      className={`${
+        isFullscreenLayout ? styles.isFullscreenLayout : styles.mainWrapper
+      }`}
+    >
       <Header />
       <div className={styles.contentWrapper}>
         <SideBar />
-        <main className={styles.main}>
-          {isAuthLayout ? (
-            <div className={styles.formWrapper}>
+        <main
+          className={styles.main}
+          style={{
+            backgroundImage: isFullscreenLayout
+              ? isAuthBg
+                ? "var(--bg-auth)"
+                : "var(--bg-aboutIEU)"
+              : "none",
+          }}
+        >
+          {isFullscreenLayout ? (
+            <div className={styles.pageContent}>
               <Outlet />
             </div>
           ) : (

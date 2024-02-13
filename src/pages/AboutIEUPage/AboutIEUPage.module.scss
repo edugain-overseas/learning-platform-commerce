@@ -1,0 +1,62 @@
+.wrapper {
+  padding-block: 100rem 44rem;
+}
+
+.textBlock {
+  width: 464rem;
+  margin: 0 auto;
+  padding: 24rem 44rem 32rem;
+  border-radius: 5rem;
+  background-color: var(--bg-rgba-default);
+  box-shadow: var(--drop-shadow-button-main);
+
+  &:not(:last-child) {
+    margin-bottom: 24rem;
+  }
+}
+
+.mainTitle {
+  padding-top: 8rem;
+  margin-bottom: 16rem;
+  font-family: Roboto;
+  font-size: 28rem;
+  font-weight: 700;
+}
+
+.text {
+  font-family: Roboto;
+  font-size: 14rem;
+  text-align: justify;
+  &:not(:last-child) {
+    margin-bottom: 16rem;
+  }
+}
+
+.textWithIconWrapper {
+  img {
+    width: 48rem;
+    height: 48rem;
+    float: left;
+    margin-right: 10rem;
+  }
+}
+
+.secondaryTitle {
+  font-family: Roboto;
+  font-size: 24rem;
+  font-weight: 700;
+  margin-bottom: 16rem;
+  padding-left: 10rem;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 3rem;
+    background-color: var(--content-nav-hover);
+    border-radius: 30rem;
+  }
+}

@@ -1,31 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { ReactComponent as InfoIcon } from "../../../images/icons/info.svg";
-import styles from "./InfoBtn.module.scss";
+import Tooltip from "../Tooltip/Tooltip";
+import InsetBtn from "../InsetBtn/InsetBtn";
 
 const InfoBtn = ({
   infoContent = "Hello world",
   orientation = "left",
-  wrapperStyles = {},
   popupMaxWidth = "204rem",
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className={styles.wrapper} style={wrapperStyles}>
-      <button
-        className={styles.infoBtn}
-        onClick={() => setIsOpen((prev) => !prev)}
-      >
-        <div>
-          <InfoIcon />
-        </div>
-      </button>
-      <div
-        className={`${styles.popup} ${styles[orientation]}`}
-        style={{ opacity: isOpen ? 1 : 0, maxWidth: popupMaxWidth }}
-      >
-        <p>{infoContent}</p>
-      </div>
-    </div>
+    <Tooltip
+      infoContent={infoContent}
+      popupMaxWidth={popupMaxWidth}
+      orientation={orientation}
+    >
+      <InsetBtn icon={<InfoIcon />} />
+    </Tooltip>
   );
 };
 

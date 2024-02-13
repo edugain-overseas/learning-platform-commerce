@@ -1,0 +1,34 @@
+.insetBtn {
+  width: var(--button-width);
+  height: var(--button-height);
+  border-radius: 21%;
+  box-shadow: var(--box-shadow-button-inset);
+  padding: calc(0.125 * var(--button-width));
+
+  svg {
+    width: 14rem;
+    height: 14rem;
+
+    * {
+      fill: var(--content-main);
+      fill-opacity: 1;
+    }
+  }
+
+  &:hover {
+    svg * {
+      fill: var(--content-nav-hover);
+    }
+  }
+
+  div {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-rgba-default);
+    border-radius: 4rem;
+    box-shadow: var(--box-shadow-button);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

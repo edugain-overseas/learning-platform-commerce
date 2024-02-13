@@ -6,14 +6,14 @@
   box-shadow: var(--drop-shadow-button-main);
   backdrop-filter: blur(16rem);
   margin-bottom: 16rem;
+  position: relative;
 }
 
 .avatarWrapper {
   margin-right: 16rem;
 }
 
-.editBtn,
-.saveBtn {
+.editBtn {
   display: flex;
   width: 100%;
   align-items: center;
@@ -29,21 +29,16 @@
     font-weight: 400;
     line-height: 14rem;
     overflow: visible;
+    color: var(--content-datail-secondary);
   }
 
   svg {
     width: 14rem;
     height: 14rem;
-  }
-}
 
-.editBtn {
-  span {
-    color: var(--content-datail-secondary);
-  }
-
-  svg * {
-    fill: var(--content-datail-secondary);
+    * {
+      fill: var(--content-datail-secondary);
+    }
   }
 
   &:hover {
@@ -53,26 +48,6 @@
 
     svg * {
       fill: var(--content-main);
-    }
-  }
-}
-
-.saveBtn {
-  span {
-    color: var(--content-main);
-  }
-
-  svg * {
-    fill: var(--content-main);
-  }
-
-  &:hover {
-    span {
-      color: var(--content-success);
-    }
-
-    svg * {
-      fill: var(--content-success);
     }
   }
 }
@@ -168,34 +143,58 @@
     grid-column: 1 / span 2;
   }
 
-  .verificationCode {
-    .verificationInputWrapper {
-      display: flex;
-      gap: 16rem;
+  .btnsWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
 
-      input {
-        text-align: center;
-        width: 88rem;
+    button {
+      width: 96rem;
+      height: 28rem;
+      border-radius: 5rem;
+      border: 1rem solid var(--content-datail-secondary);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12rem;
+      transition: border-color var(--transition-time-min) ease;
+
+      &:hover {
+        border-color: var(--content-main);
+
+        span {
+          color: var(--content-main);
+        }
+
+        svg * {
+          fill: var(--content-main);
+        }
       }
 
-      button {
-        height: 28rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-grow: 1;
+      span {
+        font-family: Roboto;
+        font-size: 12rem;
+        font-weight: 600;
+        line-height: 18rem;
+        color: var(--content-datail-secondary);
+        transition: color var(--transition-time-min) ease;
+      }
 
-        border-radius: 5rem;
-        border: 1rem solid var(--content-datail-secondary);
-        span {
-          flex-grow: 1;
-          font-family: Roboto;
-          font-size: 12rem;
-          font-weight: 600;
-          line-height: 18rem;
-          color: var(--content-main);
+      svg {
+        width: 14rem;
+        height: 14rem;
+
+        * {
+          fill: var(--content-datail-secondary);
+          transition: fill var(--transition-time-min) ease;
         }
       }
     }
   }
+}
+
+.editBtnWrapper {
+  position: absolute;
+  top: 16rem;
+  right: 28rem;
 }

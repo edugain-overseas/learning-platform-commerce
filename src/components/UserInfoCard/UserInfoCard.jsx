@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import { ReactComponent as EditIcon } from "../../images/icons/edit.svg";
-import { ReactComponent as SaveIcon } from "../../images/icons/check.svg";
+import { ReactComponent as SaveIcon } from "../../images/icons/save.svg";
+import { ReactComponent as ReloadIcon } from "../../images/icons/reload.svg";
 import { ReactComponent as EyeIcon } from "../../images/icons/eye.svg";
 import { ReactComponent as EyeInvisibleIcon } from "../../images/icons/eye-invisible.svg";
+import { ReactComponent as SettingsIcon } from "../../images/icons/settings.svg";
 import Avatar from "../shared/Avatar/Avatar";
 import styles from "./UserInfoCard.module.scss";
+import Tooltip from "../shared/Tooltip/Tooltip";
+import InsetBtn from "../shared/InsetBtn/InsetBtn";
+import Modal from "../shared/Modal/Modal";
+import AvatarEditor from "../shared/AvatarEditor/AvatarEditor";
 // import Select from "../shared/Select/Select";
-
 
 const UserInfoCard = () => {
   const [isEdit, setIsEdit] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [username, setUsername] = useState("Sam James");
   const [firstname, setFirstname] = useState("Sam");
   const [lastname, setLastname] = useState("Sam James");
@@ -17,11 +23,14 @@ const UserInfoCard = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("+380669209415");
   const [country, setCountry] = useState("Ukraine");
-  const [code, setCode] = useState("");
   const [isPasswordShown, setIsPasswrodSwown] = useState(false);
 
   const handleEdit = () => {
     setIsEdit(true);
+  };
+
+  const handleOpenModal = () => {
+    setIsOpenModal(true);
   };
 
   const handleSave = () => {
@@ -34,20 +43,28 @@ const UserInfoCard = () => {
     setIsPasswrodSwown((prev) => !prev);
   };
 
+  const handleCancelEdit = () => {
+    setIsEdit(false);
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.avatarWrapper}>
-        <Avatar size="117rem" />
-        {isEdit ? (
-          <button className={styles.saveBtn} onClick={handleSave}>
-            <SaveIcon />
-            <span>Save changes</span>
-          </button>
-        ) : (
-          <button className={styles.editBtn} onClick={handleEdit}>
-            <EditIcon />
-            <span>Edit data</span>
-          </button>
+        <Avatar size="117rem" editable={false} />
+        {isEdit && (
+          <>
+            <button className={styles.editBtn} onClick={handleOpenModal}>
+              <EditIcon />
+              <span>Change avatar</span>
+            </button>
+            <Modal
+              isOpen={isOpenModal}
+              width="610rem"
+              closeModal={() => setIsOpenModal(false)}
+            >
+              <AvatarEditor />
+            </Modal>
+          </>
         )}
       </div>
       <div className={styles.divider}></div>
@@ -134,22 +151,25 @@ const UserInfoCard = () => {
           /> */}
         </label>
         {isEdit && (
-          <label className={styles.verificationCode}>
-            <span>Verification code:</span>
-            <div className={styles.verificationInputWrapper}>
-              <input
-                type="text"
-                value={code}
-                disabled={!isEdit}
-                onChange={(e) => setCode(e.target.value)}
-              />
-              <button>
-                <span>Verification</span>
-              </button>
-            </div>
-          </label>
+          <div className={styles.btnsWrapper}>
+            <button onClick={handleCancelEdit}>
+              <span>Cancel</span>
+              <ReloadIcon />
+            </button>
+            <button onClick={handleSave}>
+              <span>Save</span>
+              <SaveIcon />
+            </button>
+          </div>
         )}
       </div>
+      {!isEdit && (
+        <div className={styles.editBtnWrapper}>
+          <Tooltip infoContent="Edit profile">
+            <InsetBtn onClick={handleEdit} icon={<SettingsIcon />} />
+          </Tooltip>
+        </div>
+      )}
     </div>
   );
 };

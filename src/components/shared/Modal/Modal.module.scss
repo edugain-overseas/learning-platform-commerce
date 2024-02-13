@@ -1,0 +1,40 @@
+.overlay {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  inset: 0;
+  height: 100%;
+  background-color: rgba($color: #000000, $alpha: 0.35);
+  backdrop-filter: blur(4rem);
+  overflow: hidden;
+  transition: all var(--transition-time-min) ease;
+  opacity: 0;
+  pointer-events: none;
+
+  &.open {
+    opacity: 1;
+    pointer-events: auto;
+
+    .contentWrapper {
+      transform: scale(1);
+    }
+  }
+}
+
+.contentWrapper {
+  background-color: var(--bg-rgba-primary);
+  padding: 16rem 32rem 24rem;
+  border-radius: 5rem;
+  box-shadow: var(--drop-shadow-button-main);
+  transform: scale(0.65);
+  transition: transform var(--transition-time-min) ease;
+  position: relative;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 18rem;
+  right: 28rem;
+}

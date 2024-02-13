@@ -11,6 +11,7 @@ import CategoryDetailPage from "../pages/CategoryDetailPage/CategoryDetailPage";
 import CourseDetailPage from "../pages/CourseDetailPage/CourseDetailPage";
 import TaskPage from "../pages/TaskPage/TaskPage";
 import UserProfilePage from "../pages/UserProfilePage/UserProfilePage";
+import AboutIEUPage from "../pages/AboutIEUPage/AboutIEUPage";
 
 const Router = () => {
   return (
@@ -32,6 +33,7 @@ const Router = () => {
         </Route>
         <Route path="/task/:taskId" element={<TaskPage />} />
         <Route path="/me" element={<UserProfilePage />} />
+        <Route path="/aboutIEU" element={<AboutIEUPage />} />
         <Route path="/*" element={<div>Not Found Page</div>} />
       </Route>
     </Routes>

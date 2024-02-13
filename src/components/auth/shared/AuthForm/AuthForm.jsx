@@ -61,7 +61,7 @@ const AuthForm = ({ handleSubmit, type }) => {
       password,
     };
 
-    if (isFormValid(data)) handleSubmit(data)
+    if (isFormValid(data)) handleSubmit(data);
   };
 
   const handleCustomGoogleButtonClick = () => {
@@ -79,57 +79,59 @@ const AuthForm = ({ handleSubmit, type }) => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleFormSubmit}>
-      {contextHolder}
-      <h2>{type === "registration" ? "Sing up" : "Sing in"}</h2>
-      <AuthFormLink to={type === "registration" ? "login" : "registration"} />
-      <div className={styles.row}>
-        <InputText name="username" value={username} onChange={setUsername} />
-      </div>
-      {type === "registration" && (
-        <>
-          <div className={styles.row}>
-            <InputText
-              name="first name"
-              value={firstname}
-              onChange={setFirstname}
-            />
-          </div>
-          <div className={styles.row}>
-            <InputText
-              name="last name"
-              value={lastname}
-              onChange={setLastname}
-            />
-          </div>
+    <div className={styles.wrapper}>
+      <form className={styles.form} onSubmit={handleFormSubmit}>
+        {contextHolder}
+        <h2>{type === "registration" ? "Sing up" : "Sing in"}</h2>
+        <AuthFormLink to={type === "registration" ? "login" : "registration"} />
+        <div className={styles.row}>
+          <InputText name="username" value={username} onChange={setUsername} />
+        </div>
+        {type === "registration" && (
+          <>
+            <div className={styles.row}>
+              <InputText
+                name="first name"
+                value={firstname}
+                onChange={setFirstname}
+              />
+            </div>
+            <div className={styles.row}>
+              <InputText
+                name="last name"
+                value={lastname}
+                onChange={setLastname}
+              />
+            </div>
 
-          <div className={styles.row}>
-            <InputText name="email" value={email} onChange={setEmail} />
-          </div>
-        </>
-      )}
-      <div className={styles.lastRow}>
-        <InputPassword
-          name="password"
-          value={password}
-          onChange={setPassword}
-        />
-      </div>
-      <div className={styles.btnsWrapper}>
-        <button className={styles.submitBtn}>
-          <span>{type === "registration" ? "Sing up" : "Sing in"}</span>
-        </button>
-        <span className={styles.divider}>or continue with</span>
-        <button
-          type="button"
-          className={styles.googleBtn}
-          onClick={handleCustomGoogleButtonClick}
-        >
-          <GoogleIcon />
-          <span>Account Google</span>
-        </button>
-      </div>
-    </form>
+            <div className={styles.row}>
+              <InputText name="email" value={email} onChange={setEmail} />
+            </div>
+          </>
+        )}
+        <div className={styles.lastRow}>
+          <InputPassword
+            name="password"
+            value={password}
+            onChange={setPassword}
+          />
+        </div>
+        <div className={styles.btnsWrapper}>
+          <button className={styles.submitBtn}>
+            <span>{type === "registration" ? "Sing up" : "Sing in"}</span>
+          </button>
+          <span className={styles.divider}>or continue with</span>
+          <button
+            type="button"
+            className={styles.googleBtn}
+            onClick={handleCustomGoogleButtonClick}
+          >
+            <GoogleIcon />
+            <span>Account Google</span>
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

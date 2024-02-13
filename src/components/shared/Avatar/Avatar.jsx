@@ -1,10 +1,14 @@
 import React, { useRef } from "react";
-// import foto from "../../../images/login-bg.png";
 import { ReactComponent as EditIcon } from "../../../images/icons/edit.svg";
 import styles from "./Avatar.module.scss";
 import AvatarFallback from "../AvatarFallback/AvatarFallback";
 
-const Avatar = ({ size = "76rem", src, handleUpload = () => {} }) => {
+const Avatar = ({
+  size = "76rem",
+  src,
+  handleUpload = () => {},
+  editable = true,
+}) => {
   const inputRef = useRef(null);
 
   const onChange = (e) => {
@@ -16,7 +20,11 @@ const Avatar = ({ size = "76rem", src, handleUpload = () => {} }) => {
   return (
     <div
       className={styles.avatarWrapper}
-      style={size && { width: size, height: size }}
+      style={{
+        width: size,
+        height: size,
+        pointerEvents: editable ? "auto" : "none",
+      }}
     >
       {src ? (
         <img src={src} alt="user full name" />
