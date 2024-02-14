@@ -9,8 +9,11 @@ const MainLayout = () => {
   const { pathname } = useLocation();
 
   const isFullscreenLayout =
-    pathname === "/registration" || pathname === "/login" || "/aboutIEU";
+    pathname === "/registration" ||
+    pathname === "/login" ||
+    pathname === "/aboutIEU";
   const isAuthBg = pathname === "/registration" || pathname === "/login";
+  console.log(isFullscreenLayout, isAuthBg);
 
   return (
     <div
