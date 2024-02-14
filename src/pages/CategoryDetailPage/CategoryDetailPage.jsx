@@ -40,7 +40,6 @@ const CategoryDetailPage = () => {
         </div>
         <div className={styles.certificateInfoWrapper}>
           <ImageWithPreview src={certificate.sampleImage} alt={certificate.name}/>
-          {/* <img src={certificate.sampleImage} alt={certificate.name} /> */}
           <ul className={styles.certificateAttributes}>
             <li>
               <span>Number of required courses:</span>

@@ -13,7 +13,6 @@ const MainLayout = () => {
     pathname === "/login" ||
     pathname === "/aboutIEU";
   const isAuthBg = pathname === "/registration" || pathname === "/login";
-  console.log(isFullscreenLayout, isAuthBg);
 
   return (
     <div

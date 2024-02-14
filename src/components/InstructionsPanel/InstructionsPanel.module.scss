@@ -1,0 +1,13 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-inline: 20rem;
+  border-bottom: 2px solid var(--content-main);
+  padding-top: 12rem;
+}
+
+.tools {
+  display: flex;
+  gap: 32rem;
+  align-items: center;
+}

@@ -23,9 +23,9 @@ export const sidebarNav = [
     children: null,
   },
   {
-    label: "Instruction",
+    label: "Instructions",
     icon: <InstructionsIcon />,
-    link: "/instruction",
+    link: "/instructions/general",
     children: null,
   },
 ];
@@ -60,5 +60,16 @@ export const courseLinks = [
     to: "exam-certificate",
     content: "exam | certificate",
     element: <CourseCerificatePage />,
+  },
+];
+
+export const instructionsLinks = [
+  {
+    to: "general",
+    content: "general instruction",
+  },
+  {
+    to: "courses",
+    content: "instruction courses",
   },
 ];

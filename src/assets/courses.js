@@ -618,3 +618,110 @@ export const lessons = [
     number: 7,
   },
 ];
+
+export const instructions = [
+  {
+    instructionId: 1,
+    name: "Welcome letter",
+    last_update: "12.02.2014",
+    category: "Administration IEU",
+    title: "Our mission",
+    content: {
+      text: '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry printing and typesetting industry </p><p><span style="font-size: 16rem; font-weight: 600">Skills you will learn:</span></p><ul><li>Understanding essential economic principles and concepts;</li><li>Analyzing the production and consumption of goods and services;</li><li>Evaluation of international business strategies.</li></ul>',
+      files: [
+        {
+          id: 1,
+          file_name: "Name File 1",
+          type: "pdf",
+          size: 2.59,
+          file_path: "/path_to_file",
+        },
+        {
+          id: 2,
+          file_name: "Name File 2",
+          type: "pdf",
+          size: 2.59,
+          file_path: "/path_to_file",
+        },
+      ],
+    },
+  },
+  {
+    instructionId: 2,
+    name: "Privacy policy",
+    last_update: "12.02.2014",
+    category: "general",
+    title: "Our mission",
+    content: {
+      text: '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry printing and typesetting industry </p><p><span style="font-size: 16rem; font-weight: 600"></span></p><ul><li>Understanding essential economic principles and concepts;</li><li>Analyzing the production and consumption of goods and services;</li><li>Evaluation of international business strategies.</li></ul>',
+      files: [
+        {
+          id: 1,
+          file_name: "Name File 1",
+          type: "pdf",
+          size: 2.59,
+          file_path: "/path_to_file",
+        },
+        {
+          id: 2,
+          file_name: "Name File 2",
+          type: "pdf",
+          size: 2.59,
+          file_path: "/path_to_file",
+        },
+      ],
+    },
+  },
+  {
+    instructionId: 3,
+    name: "University recognition",
+    last_update: "12.02.2014",
+    category: "general",
+    title: "Our mission",
+    content: {
+      text: '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry printing and typesetting industry </p><p><span style="font-size: 16rem; font-weight: 600"></span></p><ul><li>Understanding essential economic principles and concepts;</li><li>Analyzing the production and consumption of goods and services;</li><li>Evaluation of international business strategies.</li></ul>',
+      files: [
+        {
+          id: 1,
+          file_name: "Name File 1",
+          type: "pdf",
+          size: 2.59,
+          file_path: "/path_to_file",
+        },
+        {
+          id: 2,
+          file_name: "Name File 2",
+          type: "pdf",
+          size: 2.59,
+          file_path: "/path_to_file",
+        },
+      ],
+    },
+  },
+  {
+    instructionId: 4,
+    name: "How does it work?",
+    last_update: "12.02.2014",
+    category: "general",
+    title: "Our mission",
+    content: {
+      text: '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry printing and typesetting industry </p><p><span style="font-size: 16rem; font-weight: 600"></span></p><ul><li>Understanding essential economic principles and concepts;</li><li>Analyzing the production and consumption of goods and services;</li><li>Evaluation of international business strategies.</li></ul>',
+      files: [
+        {
+          id: 1,
+          file_name: "Name File 1",
+          type: "pdf",
+          size: 2.59,
+          file_path: "/path_to_file",
+        },
+        {
+          id: 2,
+          file_name: "Name File 2",
+          type: "pdf",
+          size: 2.59,
+          file_path: "/path_to_file",
+        },
+      ],
+    },
+  },
+];
