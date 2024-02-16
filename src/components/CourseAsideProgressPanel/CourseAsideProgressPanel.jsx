@@ -3,10 +3,9 @@ import ProgressBar from "../shared/ProgressBar/ProgressBar";
 import ProgressList from "../shared/ProgressList/ProgressList";
 import { ReactComponent as ExamIcon } from "../../images/icons/exam.svg";
 import styles from "./CourseAsideProgressPanel.module.scss";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const CourseAsideProgressPanel = ({ courseLessons }) => {
-  const { courseId } = useParams();
+const CourseAsideProgressPanel = ({ courseLessons, courseId }) => {
   const compleatedLessons = courseLessons.filter(
     ({ status }) => status === "compleated"
   );

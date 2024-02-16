@@ -1,4 +1,5 @@
 import Router from "./components/Router";
+import { ActiveTimeProvider } from "./context/activeTimeContext";
 import { CartProvider } from "./context/cartContext";
 import { ChatProvider } from "./context/chatContext";
 import useAdjustFontSize from "./hooks/useAdjustFontSize";
@@ -11,7 +12,9 @@ function App() {
   return (
     <ChatProvider>
       <CartProvider>
-        <Router />
+        <ActiveTimeProvider>
+          <Router />
+        </ActiveTimeProvider>
       </CartProvider>
     </ChatProvider>
   );

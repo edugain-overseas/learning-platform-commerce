@@ -15,7 +15,8 @@ const TaskRow = ({ task }) => {
       }`}
     >
       <Link
-        to={task.status ? `/task/${task.lessonId}` : null}
+        // to={task.status ? `/task/${task.lessonId}` : null}
+        to={`/task/${task.lessonId}`}
         className={styles.rowLink}
       >
         <div className={styles.titleWrapper}>

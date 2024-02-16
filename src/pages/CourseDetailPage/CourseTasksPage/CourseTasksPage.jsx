@@ -43,7 +43,7 @@ const CourseTasksPage = () => {
           <TaskList tasks={courseLessons} />
         </div>
       </div>
-      <CourseAsideProgressPanel courseLessons={courseLessons} />
+      <CourseAsideProgressPanel courseLessons={courseLessons} courseId={courseId}/>
     </div>
   );
 };

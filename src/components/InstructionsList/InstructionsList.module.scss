@@ -35,7 +35,6 @@
     }
 
     &.navLink--active {
-
       .chevronIcon {
         width: 10.5rem;
         height: 6rem;
@@ -98,17 +97,17 @@
     gap: 62rem;
     align-items: center;
     justify-content: center;
-  }
 
-  svg {
-    width: 212rem;
-    height: 212rem;
-  }
+    svg {
+      width: 212rem;
+      height: 212rem;
+    }
 
-  span {
-    font-family: Roboto;
-    font-size: 72rem;
-    font-weight: 900;
-    opacity: 0.03;
+    span {
+      font-family: Roboto;
+      font-size: 72rem;
+      font-weight: 900;
+      opacity: 0.03;
+    }
   }
 }

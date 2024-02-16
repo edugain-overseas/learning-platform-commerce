@@ -1,0 +1,25 @@
+.testWrapper {
+  height: 100%;
+}
+
+.bodyWrapper {
+  display: flex;
+  gap: 16rem;
+  position: relative;
+  height: calc(100% - 60rem);
+  overflow-y: auto;
+  padding-bottom: 40rem;
+}
+
+.contentWrapper {
+  flex-grow: 1;
+  height: 1500rem;
+  border: 1rem solid red;
+}
+
+.progressWrapper {
+  width: 269rem;
+  display: flex;
+  position: sticky;
+  top: 0;
+}

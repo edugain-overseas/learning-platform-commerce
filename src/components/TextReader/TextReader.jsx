@@ -128,7 +128,7 @@ const TextReader = ({ textToRead = "" }) => {
     }
   };
   const handleDecreaseRate = () => {
-    if (rate > 0.25) {
+    if (rate > 0.5) {
       setRate((prev) => prev - 0.25);
       if (utterance.current) {
         synth.current.cancel();

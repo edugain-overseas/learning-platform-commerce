@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { instructions } from "../../assets/courses";
 import { ReactComponent as CategoryIcon } from "../../images/icons/category.svg";
 import styles from "./InstructionContent.module.scss";
+import DocumentLink from "../shared/DocumentLink/DocumentLink";
 
 const InstructionContent = () => {
   const { instructionId: id } = useParams();
@@ -25,7 +26,16 @@ const InstructionContent = () => {
             className={styles.textBlock}
             dangerouslySetInnerHTML={{ __html: instruction.content.text }}
           ></div>
-          <div className={styles.docsWrapper}></div>
+          {instruction.content.files.length > 0 && (
+            <div className={styles.docsWrapper}>
+              <h4>Download material</h4>
+              <div className={styles.filesWrapper}>
+                {instruction.content.files.map((file) => (
+                  <DocumentLink key={file.id} file={file} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <p>No data</p>

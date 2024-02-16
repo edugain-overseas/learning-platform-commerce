@@ -3,6 +3,7 @@ import Select from "../shared/Select/Select";
 import CircleProgressBar from "../shared/CircleProgressBar/CircleProgressBar";
 import Textarea from "../shared/Textarea/Textarea";
 import TextReader from "../TextReader/TextReader";
+import { useActiveTime } from "../../context/activeTimeContext";
 
 const options = [
   { label: "red", value: "1", disabled: false },
@@ -28,6 +29,8 @@ const CreateLessonModal = () => {
   const [selectValue, setSelectValue] = useState("");
   const [textareaValue, setTeaxtareaValue] = useState("");
   const [lang, setLang] = useState(navigator.language);
+
+  const activeTime = useActiveTime();
   console.log(setLang);
   console.log(lang);
   const onChange = (value) => {
@@ -59,6 +62,10 @@ const CreateLessonModal = () => {
       <div style={{ width: "800rem", margin: "0 auto", padding: "20rem" }}>
         <p style={{ marginBottom: "20rem" }}>{toRead}</p>
         <TextReader textToRead={toRead} />
+      </div>
+
+      <div>
+        <p>Active Time: {Math.round(activeTime / 60000)} minutes</p>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import { letterGrade } from "../../../utils/gradingScale";
 import styles from "./CardGrade.module.scss";
 
-const CardGrade = ({ grade = 0 }) => {
+const CardGrade = ({ grade = 0, maxGrade = 200 }) => {
   return (
     <div className={styles.wrapper}>
       {letterGrade(grade)}
@@ -11,7 +11,7 @@ const CardGrade = ({ grade = 0 }) => {
         <div>
           <span className={styles.userGrade}>{grade} </span>
           <span className={styles.divider}>\</span>
-          <span className={styles.maxGrade}>200</span>
+          <span className={styles.maxGrade}>{maxGrade}</span>
         </div>
       </div>
     </div>

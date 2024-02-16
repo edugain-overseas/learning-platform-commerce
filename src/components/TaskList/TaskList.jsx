@@ -4,7 +4,7 @@ import TaskCard from "./TaskCard";
 import { useListMode } from "../../context/ListModeContext";
 import TaskRow from "./TaskRow";
 
-const TaskList = ({ tasks }) => {
+const   TaskList = ({ tasks }) => {
   const { selectedListModeIndex } = useListMode();
   console.log(selectedListModeIndex);
   const sortedItemsByNumber = [...tasks].sort(
