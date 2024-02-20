@@ -9,6 +9,7 @@ import styles from "./Lecture.module.scss";
 import DocumentLink from "../shared/DocumentLink/DocumentLink";
 import { Empty } from "antd";
 import Textarea from "../shared/Textarea/Textarea";
+import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
 
 // const a = [
 //   {
@@ -68,14 +69,17 @@ import Textarea from "../shared/Textarea/Textarea";
 
 const LectureContent = ({ lecture }) => {
   const [lectureTitle, setLectureTitle] = useState(lecture?.title || "");
-  //   const [lectureDesc, setLectureDesc] = useState(lecture?.description || "");
   const [fullscreen, setFullscreen] = useState(false);
 
-  const [isEdit, setIsEdit] = useState(false);
+  //   const [isEdit, setIsEdit] = useState(false);
+  const isEdit = false;
 
   const { lessonId: lectureId } = lecture;
+  console.log(lecture);
 
-  const lectureContent = lecture.content;
+  const lectureContent = [...lecture.content].sort(
+    (itemA, itemB) => itemA.a_number - itemB.a_number
+  );
 
   const courseName = "Marketing";
   console.log(lectureContent);
@@ -124,7 +128,7 @@ const LectureContent = ({ lecture }) => {
           );
         case "present":
           const filePath = files[0].file_path;
-        //   const encodedFilePathPresent = filePath?.replace(/ /g, "%20");
+          //   const encodedFilePathPresent = filePath?.replace(/ /g, "%20");
           return (
             <section
               key={id}
@@ -147,7 +151,11 @@ const LectureContent = ({ lecture }) => {
               </div>
               <Modal
                 width="fit-content"
-                contentWrapperStyles={{padding: 0, background: 'none', boxShadow: 'none'}}
+                contentWrapperStyles={{
+                  padding: 0,
+                  background: "none",
+                  boxShadow: "none",
+                }}
                 isOpen={fullscreen}
                 closeModal={() => setFullscreen(false)}
               >
@@ -313,7 +321,6 @@ const LectureContent = ({ lecture }) => {
   return (
     <div className={styles.contentWrapper}>
       <div className={styles.lectureContent}>
-        <button onClick={() => setIsEdit((prev) => !prev)}>change</button>
         <div className={styles.titleWrapper}>
           {isEdit ? (
             <Textarea
@@ -348,6 +355,22 @@ const LectureContent = ({ lecture }) => {
         ) : (
           <Empty />
         )}
+        <div className={styles.bottomNavBtnsWrapper}>
+          <LessonNavigateBtn
+            forward={false}
+            currentNumber={lecture.number}
+            label="Return to previous"
+            width="200rem"
+            height="38rem"
+          />
+          <LessonNavigateBtn
+            forward={true}
+            currentNumber={lecture.number}
+            label="Move on to next"
+            width="200rem"
+            height="38rem"
+          />
+        </div>
       </div>
     </div>
   );

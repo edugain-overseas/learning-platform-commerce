@@ -61,7 +61,7 @@ const CreateLessonModal = () => {
       </div>
       <div style={{ width: "800rem", margin: "0 auto", padding: "20rem" }}>
         <p style={{ marginBottom: "20rem" }}>{toRead}</p>
-        <TextReader textToRead={toRead} />
+        <TextReader textToRead={toRead} lang="en"/>
       </div>
 
       <div>

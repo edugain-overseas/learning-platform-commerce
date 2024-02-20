@@ -281,3 +281,11 @@ h4.sectionSubTitle {
     }
   }
 }
+
+.bottomNavBtnsWrapper {
+    display: flex;
+    justify-content: center;
+    gap: 314rem;
+    align-items: center;
+    padding-top: 64rem;
+}

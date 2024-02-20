@@ -5,6 +5,7 @@ import TestContent from "./TestContent";
 import CourseAsideProgressPanel from "../CourseAsideProgressPanel/CourseAsideProgressPanel";
 import styles from "./Test.module.scss";
 
+
 const Test = ({ test }) => {
   const { courseId } = test;
 

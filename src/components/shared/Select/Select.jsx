@@ -109,7 +109,10 @@ const Select = ({
           {selectedOption.label}
         </span>
       ) : (
-        <span className={styles.placeholder} title={placeholder}>
+        <span
+          className={styles.placeholder}
+          title={typeof placeholder === "string" ? placeholder : ""}
+        >
           {placeholder}
         </span>
       )}

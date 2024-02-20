@@ -564,7 +564,7 @@ export const lessons = [
         a_id: 2,
         a_type: "link",
         a_title: "Link Section",
-        a_number: 2,
+        a_number: 3,
         a_text:
           "Здесь ваш текст.. Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию, так что поиск по ключевым словам lorem ipsum сразу показывает, как много веб-страниц всё ещё дожидаются своего настоящего рождения",
         hidden: false,
@@ -586,7 +586,7 @@ export const lessons = [
         a_id: 3,
         a_type: "present",
         a_title: "File section",
-        a_number: 3,
+        a_number: 2,
         a_text:
           "За прошедшие годы текст Lorem Ipsum получил много версий. Некоторые версии появились по ошибке, некоторые - намеренно (например, юмористические варианты).",
         hidden: false,
@@ -657,8 +657,181 @@ export const lessons = [
     type: "test",
     status: null,
     duration: 10,
-    content: [{}],
-    number: 6,
+    content: [
+      {
+        q_id: 12,
+        q_text: "Как вы думаете ответ А?",
+        q_number: 1,
+        q_score: 4,
+        q_type: "test",
+        hidden: false,
+        image_path: null,
+        answers: [
+          {
+            a_id: 33,
+            a_text: "А",
+            is_correct: true,
+          },
+          {
+            a_id: 34,
+            a_text: "Б",
+            is_correct: false,
+          },
+          {
+            a_id: 35,
+            a_text: "B",
+            is_correct: false,
+          },
+          {
+            a_id: 36,
+            a_text: "G",
+            is_correct: false,
+          },
+        ],
+      },
+      {
+        q_id: 13,
+        q_text: "Еще один очень сложный вопрос",
+        q_number: 2,
+        q_score: 4,
+        q_type: "test",
+        hidden: false,
+        image_path: null,
+        answers: [
+          {
+            a_id: 37,
+            a_text: "А",
+            is_correct: false,
+          },
+          {
+            a_id: 38,
+            a_text: "Б",
+            is_correct: false,
+          },
+          {
+            a_id: 39,
+            a_text: "B",
+            is_correct: true,
+          },
+          {
+            a_id: 40,
+            a_text: "G",
+            is_correct: false,
+          },
+        ],
+      },
+      {
+        q_id: 14,
+        q_text: "Еще один очень сложный вопрос2",
+        q_number: 3,
+        q_score: 4,
+        q_type: "boolean",
+        hidden: false,
+        image_path: null,
+        answers: [
+          {
+            a_id: 41,
+            a_text: "А",
+            is_correct: false,
+          },
+          {
+            a_id: 42,
+            a_text: "Б",
+            is_correct: true,
+          },
+        ],
+      },
+      {
+        q_id: 15,
+        q_text: "Еще один очень сложный вопрос3",
+        q_number: 4,
+        q_score: 6,
+        q_type: "multiple_choice",
+        hidden: false,
+        image_path: null,
+        answers: [
+          {
+            a_id: 43,
+            a_text: "А",
+            is_correct: false,
+          },
+          {
+            a_id: 44,
+            a_text: "Б",
+            is_correct: false,
+          },
+          {
+            a_id: 45,
+            a_text: "B",
+            is_correct: true,
+          },
+          {
+            a_id: 46,
+            a_text: "G",
+            is_correct: false,
+          },
+          {
+            a_id: 47,
+            a_text: "F",
+            is_correct: true,
+          },
+          {
+            a_id: 48,
+            a_text: "D",
+            is_correct: false,
+          },
+        ],
+        count_correct: 0,
+      },
+      {
+        q_id: 16,
+        q_text: "Сопоставьте левые и правые варианты",
+        q_number: 5,
+        q_score: 8,
+        q_type: "matching",
+        hidden: false,
+        image_path: null,
+        answers: {
+          left: [
+            {
+              value: "Left 1",
+              id: 1,
+            },
+            {
+              value: "Left 2",
+              id: 2,
+            },
+            {
+              value: "Left 3",
+              id: 3,
+            },
+            {
+              value: "Left 4",
+              id: 4,
+            },
+          ],
+          right: [
+            {
+              value: "Right 1",
+              id: 1,
+            },
+            {
+              value: "Right 2",
+              id: 2,
+            },
+            {
+              value: "Right 3",
+              id: 3,
+            },
+            {
+              value: "Right 4",
+              id: 4,
+            },
+          ],
+        },
+      },
+    ],
+    number: 7,
     questionsAmount: 8,
   },
   {
@@ -670,7 +843,7 @@ export const lessons = [
     status: null,
     duration: 24,
     content: [{}],
-    number: 7,
+    number: 6,
   },
 ];
 
@@ -686,14 +859,14 @@ export const instructions = [
       files: [
         {
           id: 1,
-          file_name: "Name File 1",
+          filename: "Name File 1",
           file_type: "pdf",
           file_size: 2590000,
           file_path: "/path_to_file1",
         },
         {
           id: 2,
-          file_name: "Name File 2",
+          filename: "Name File 2",
           file_type: "pdf",
           file_size: 2590000,
           file_path: "/path_to_file2",
@@ -712,14 +885,14 @@ export const instructions = [
       files: [
         {
           id: 1,
-          file_name: "Name File 1",
+          filename: "Name File 1",
           file_type: "pdf",
           file_size: 2590000,
           file_path: "/path_to_file",
         },
         {
           id: 2,
-          file_name: "Name File 2",
+          filename: "Name File 2",
           file_type: "pdf",
           file_size: 2590000,
           file_path: "/path_to_file",
@@ -738,14 +911,14 @@ export const instructions = [
       files: [
         {
           id: 1,
-          file_name: "Name File 1",
+          filename: "Name File 1",
           file_type: "pdf",
           file_size: 2590000,
           file_path: "/path_to_file",
         },
         {
           id: 2,
-          file_name: "Name File 2",
+          filename: "Name File 2",
           file_type: "pdf",
           file_size: 2590000,
           file_path: "/path_to_file",
@@ -764,14 +937,14 @@ export const instructions = [
       files: [
         {
           id: 1,
-          file_name: "Name File 1",
+          filename: "Name File 1",
           file_type: "pdf",
           file_size: 2590000,
           file_path: "/path_to_file",
         },
         {
           id: 2,
-          file_name: "Name File 2",
+          filename: "Name File 2",
           file_type: "pdf",
           file_size: 2590000,
           file_path: "/path_to_file",

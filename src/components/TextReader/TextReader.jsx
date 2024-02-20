@@ -3,41 +3,49 @@ import { ReactComponent as PlayIcon } from "../../images/icons/play.svg";
 import { ReactComponent as StopIcon } from "../../images/icons/pause.svg";
 import { ReactComponent as VoiceIcon } from "../../images/icons/voice.svg";
 import { ReactComponent as VolumeIcon } from "../../images/icons/volume.svg";
-import styles from "./TextReader.module.scss";
 import Select from "../shared/Select/Select";
+import styles from "./TextReader.module.scss";
+
+const filterVoices = (voices, lang) =>
+  voices
+    .filter(({ name }) => !name.includes("Google"))
+    .filter(({ lang: language }) => {
+      if (lang === "rus") {
+        return language.includes("ru");
+      }
+      return language.includes(lang);
+    });
 
 const getOptionsFromVoices = (voices) =>
   voices.map((voice) => ({ label: voice.name, value: voice }));
 
-const TextReader = ({ textToRead = "" }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState("1");
-  const [rate, setRate] = useState(1);
-  const [voices, setVoices] = useState([]);
-  const [selectedVoice, setSelectedVoice] = useState(null);
-  const [charIndex, setCharIndex] = useState(0);
-  const [currentText, setCurrentText] = useState(textToRead);
-
+const TextReader = ({ textToRead = "", lang = "" }) => {
   const synth = useRef(window.speechSynthesis);
   const utterance = useRef(null);
 
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState("1");
+  const [rate, setRate] = useState(1);
+  const [voices, setVoices] = useState(() =>
+    filterVoices(synth.current.getVoices(), lang)
+  );
+  const [selectedVoice, setSelectedVoice] = useState(
+    filterVoices(synth.current.getVoices(), lang)[0]
+  );
+  const [charIndex, setCharIndex] = useState(0);
+  const [currentText, setCurrentText] = useState(textToRead);
+
+
   useEffect(() => {
     const updateVoices = () => {
+      console.log("voice changed");
       const voices = synth.current.getVoices();
-      // const googleVoices = voices.filter(({ name }) => name.includes("Google"));
-      const notGoogleVoices = voices.filter(
-        ({ name }) => !name.includes("Google")
-      );
-      const langFiltredVoices = notGoogleVoices.filter(({ lang }) =>
-        lang.includes("en")
-      );
-      const sortedVoices = [...langFiltredVoices];
-      setVoices(sortedVoices);
-      setSelectedVoice(sortedVoices[0]);
+      setVoices(filterVoices(voices, lang));
+      setSelectedVoice(filterVoices(voices, lang)[0]);
     };
 
     if (synth.current.addEventListener) {
-      synth.current.addEventListener("voiceschanged", updateVoices);
+      synth.current.onvoiceschanged = updateVoices;
     } else {
       console.error(
         "Synthesis API on Safari does not support addEventListener"
@@ -52,7 +60,7 @@ const TextReader = ({ textToRead = "" }) => {
       // eslint-disable-next-line
       synth.current.cancel();
     };
-  }, []);
+  }, [lang]);
 
   useEffect(() => {
     const synthRef = synth.current;
@@ -91,7 +99,7 @@ const TextReader = ({ textToRead = "" }) => {
         const { text } = event.target;
         setCurrentText(text);
       };
-
+      console.log(utterance.current.voice);
       synth.current.speak(utterance.current);
     } else {
       synth.current.resume();
@@ -147,6 +155,7 @@ const TextReader = ({ textToRead = "" }) => {
       handlePlay(newText, volume, rate, value);
     }
   };
+
   return (
     <div className={styles.wrapper}>
       <span className={styles.title}>Voice acting:</span>

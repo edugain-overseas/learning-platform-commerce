@@ -1,15 +1,17 @@
 import React from "react";
-import { ReactComponent as ArrowDownIcon } from "../../images/icons/arrow-left.svg";
+import { franc } from "franc";
 import { ReactComponent as NoteIcon } from "../../images/icons/note.svg";
 import TextReader from "../TextReader/TextReader";
+import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
 import styles from "./TasksHeader.module.scss";
 
 const LectureHeader = ({ lecture }) => {
-  const { title, type } = lecture;
+  const { title, type, number } = lecture;
 
-  const lectureToSpeech = lecture.content.map(
-    ({ a_title: title, a_text: text }) => title + ". " + text
-  ).join('. ');
+  const lectureToSpeech = [...lecture.content]
+    .sort((itemA, itemB) => itemA.a_number - itemB.a_number)
+    .map(({ a_title: title, a_text: text }) => title + ". " + text)
+    .join(". ");
 
   return (
     <div className={styles.wrapper}>
@@ -23,16 +25,13 @@ const LectureHeader = ({ lecture }) => {
           <span>The note:</span>
           <NoteIcon />
         </div>
-        <TextReader textToRead={lectureToSpeech} />
+        <TextReader
+          textToRead={lectureToSpeech}
+          lang={franc(lectureToSpeech)}
+        />
         <div className={styles.navBtnsWrapper}>
-          <button className={styles.prev}>
-            <ArrowDownIcon />
-            <span>Return</span>
-          </button>
-          <button className={styles.next}>
-            <span>Next</span>
-            <ArrowDownIcon />
-          </button>
+          <LessonNavigateBtn forward={false} currentNumber={number} />
+          <LessonNavigateBtn forward={true} currentNumber={number} />
         </div>
       </div>
     </div>
