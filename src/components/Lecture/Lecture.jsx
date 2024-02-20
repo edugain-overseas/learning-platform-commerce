@@ -11,13 +11,17 @@ const Lecture = ({ lecture }) => {
   const courseLessons = lessons.filter(
     ({ courseId: course_id }) => course_id === +courseId
   );
+  
   return (
     <div className={styles.lectureWrapper}>
       <LectureHeader lecture={lecture} />
       <div className={styles.bodyWrapper}>
         <LectureContent lecture={lecture} />
         <div className={styles.progressWrapper}>
-          <CourseAsideProgressPanel courseLessons={courseLessons} courseId={courseId} />
+          <CourseAsideProgressPanel
+            courseLessons={courseLessons}
+            courseId={courseId}
+          />
         </div>
       </div>
     </div>

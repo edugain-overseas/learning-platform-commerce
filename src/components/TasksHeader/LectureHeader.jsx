@@ -6,6 +6,11 @@ import styles from "./TasksHeader.module.scss";
 
 const LectureHeader = ({ lecture }) => {
   const { title, type } = lecture;
+
+  const lectureToSpeech = lecture.content.map(
+    ({ a_title: title, a_text: text }) => title + ". " + text
+  ).join('. ');
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.titleWrapper}>
@@ -18,7 +23,7 @@ const LectureHeader = ({ lecture }) => {
           <span>The note:</span>
           <NoteIcon />
         </div>
-        <TextReader textToRead="this is lecture" />
+        <TextReader textToRead={lectureToSpeech} />
         <div className={styles.navBtnsWrapper}>
           <button className={styles.prev}>
             <ArrowDownIcon />

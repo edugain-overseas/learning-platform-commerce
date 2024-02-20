@@ -548,7 +548,61 @@ export const lessons = [
     type: "lecture",
     status: "compleated",
     duration: 12,
-    content: [{}],
+    content: [
+      {
+        a_id: 1,
+        a_type: "text",
+        a_title: "Introduction Section",
+        a_number: 1,
+        a_text:
+          "Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться",
+        hidden: false,
+        files: [],
+        links: [],
+      },
+      {
+        a_id: 2,
+        a_type: "link",
+        a_title: "Link Section",
+        a_number: 2,
+        a_text:
+          "Здесь ваш текст.. Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию, так что поиск по ключевым словам lorem ipsum сразу показывает, как много веб-страниц всё ещё дожидаются своего настоящего рождения",
+        hidden: false,
+        files: [],
+        links: [
+          {
+            link_id: 1,
+            link: "https://ru.lipsum.com/",
+            anchor: "https://ru.lipsum.com/",
+          },
+          {
+            link_id: 2,
+            link: "http://127.0.0.1:8000/",
+            anchor: "swagger",
+          },
+        ],
+      },
+      {
+        a_id: 3,
+        a_type: "present",
+        a_title: "File section",
+        a_number: 3,
+        a_text:
+          "За прошедшие годы текст Lorem Ipsum получил много версий. Некоторые версии появились по ошибке, некоторые - намеренно (например, юмористические варианты).",
+        hidden: false,
+        files: [
+          {
+            file_id: 1,
+            filename: "sample.pdf",
+            file_path: "static/lessons/19-02-2024/sample.pdf",
+            file_size: 3028,
+            file_description: "Description for file",
+            download_allowed: false,
+          },
+        ],
+        links: [],
+      },
+    ],
     number: 1,
   },
   {
