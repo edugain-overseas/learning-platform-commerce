@@ -7,27 +7,25 @@ import {
   validatePassword,
   validateText,
 } from "../../../../utils/inputsValidateHandler";
-import { message } from "antd";
 import { ReactComponent as GoogleIcon } from "../../../../images/icons/google.svg";
 import styles from "./AuthForm.module.scss";
 
-const AuthForm = ({ handleSubmit, type }) => {
+const AuthForm = ({
+  handleSubmit,
+  type,
+  errorField,
+  resetError,
+  setIsResetPassword = () => {},
+  messageApi
+}) => {
   const [username, setUsername] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [messageApi, contextHolder] = message.useMessage();
 
   const isFormValid = (data) => {
-    return Object.keys(data).reduce((_, key) => {
-      if (!validateText(data[key])) {
-        messageApi.open({
-          type: "error",
-          content: `Please fill ${key} field`,
-        });
-        return false;
-      }
+    const valid = Object.keys(data).reduce((acc, key) => {
       if (key === "email" && !validateEmail(data[key])) {
         messageApi.open({
           type: "error",
@@ -38,17 +36,25 @@ const AuthForm = ({ handleSubmit, type }) => {
             </>
           ),
         });
-        return false;
+        return acc && false;
       }
       if (key === "password" && !validatePassword(data[key])) {
         messageApi.open({
           type: "error",
           content: `Your ${key} must be at least 8 characters long`,
         });
-        return false;
+        return acc && false;
       }
-      return true;
+      if (!validateText(data[key])) {
+        messageApi.open({
+          type: "error",
+          content: `Please fill ${key} field`,
+        });
+        return acc && false;
+      }
+      return acc && true;
     }, true);
+    return valid;
   };
 
   const handleFormSubmit = (e) => {
@@ -61,7 +67,33 @@ const AuthForm = ({ handleSubmit, type }) => {
       password,
     };
 
-    if (isFormValid(data)) handleSubmit(data);
+    const loginData = new FormData();
+    loginData.append("username", username);
+    loginData.append("password", password);
+
+    switch (type) {
+      case "registration":
+        if (
+          isFormValid({
+            username: data.username,
+            email: data.email,
+            password: data.password,
+          })
+        )
+          handleSubmit(data);
+        break;
+      case "login":
+        if (
+          isFormValid({
+            username: data.username,
+            password: data.password,
+          })
+        )
+          handleSubmit(loginData);
+        break;
+      default:
+        break;
+    }
   };
 
   const handleCustomGoogleButtonClick = () => {
@@ -81,45 +113,67 @@ const AuthForm = ({ handleSubmit, type }) => {
   return (
     <div className={styles.wrapper}>
       <form className={styles.form} onSubmit={handleFormSubmit}>
-        {contextHolder}
         <h2>{type === "registration" ? "Sing up" : "Sing in"}</h2>
         <AuthFormLink to={type === "registration" ? "login" : "registration"} />
         <div className={styles.row}>
-          <InputText name="username" value={username} onChange={setUsername} />
+          <InputText
+            name="Username"
+            value={username}
+            onChange={setUsername}
+            isError={errorField === "username"}
+            resetError={resetError}
+          />
         </div>
         {type === "registration" && (
           <>
             <div className={styles.row}>
               <InputText
-                name="first name"
+                name="First name"
                 value={firstname}
                 onChange={setFirstname}
               />
             </div>
             <div className={styles.row}>
               <InputText
-                name="last name"
+                name="Last name"
                 value={lastname}
                 onChange={setLastname}
               />
             </div>
 
             <div className={styles.row}>
-              <InputText name="email" value={email} onChange={setEmail} />
+              <InputText
+                name="Email"
+                value={email}
+                onChange={setEmail}
+                isError={errorField === "email"}
+                resetError={resetError}
+              />
             </div>
           </>
         )}
         <div className={styles.lastRow}>
           <InputPassword
-            name="password"
+            name="Password"
             value={password}
             onChange={setPassword}
+            isError={errorField === "password"}
+            resetError={resetError}
           />
         </div>
         <div className={styles.btnsWrapper}>
           <button className={styles.submitBtn}>
             <span>{type === "registration" ? "Sing up" : "Sing in"}</span>
           </button>
+          {type === "login" && errorField === "password" && (
+            <button
+              type="button"
+              className={styles.passwordRecoveryBtn}
+              onClick={() => setIsResetPassword(true)}
+            >
+              <span>Forgot your password?</span>
+            </button>
+          )}
           <span className={styles.divider}>or continue with</span>
           <button
             type="button"

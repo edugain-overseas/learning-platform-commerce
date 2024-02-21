@@ -8,6 +8,7 @@ const Avatar = ({
   src,
   handleUpload = () => {},
   editable = true,
+  alt,
 }) => {
   const inputRef = useRef(null);
 
@@ -26,11 +27,7 @@ const Avatar = ({
         pointerEvents: editable ? "auto" : "none",
       }}
     >
-      {src ? (
-        <img src={src} alt="user full name" />
-      ) : (
-        <AvatarFallback size={size} />
-      )}
+      {src ? <img src={src} alt={alt} /> : <AvatarFallback size={size} />}
       <button
         className={styles.editBtn}
         onClick={() => inputRef.current.click()}

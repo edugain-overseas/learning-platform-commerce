@@ -8,28 +8,49 @@ import {
 
 const isStateValid = (name, value) => {
   switch (name) {
-    case "email":
+    case "Email":
       return validateEmail(value);
-    case "verificarion code":
+    case "Verificarion code":
+      return validateCode(value);
+    case "Recovery code":
       return validateCode(value);
     default:
       return validateText(value);
   }
 };
 
-const InputText = ({ name, value, onChange }) => {
+const InputText = ({
+  name,
+  value,
+  onChange,
+  isError = false,
+  resetError = () => {},
+}) => {
   return (
     <label
       className={`${styles.inputWrapper} ${
-        isStateValid(name, value) ? styles.valid : ""
+        isStateValid(name, value) && !isError
+          ? styles.valid
+          : isError
+          ? styles.error
+          : ""
       }`}
     >
-      <span className={styles.label}>{name}</span>
+      <span
+        className={`${styles.label} ${
+          name === "Recovery code" ? styles.newPassword : ""
+        }`}
+      >
+        {name}
+      </span>
       <input
         type="text"
         name={name}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => {
+          resetError();
+          onChange(e.target.value);
+        }}
       />
     </label>
   );

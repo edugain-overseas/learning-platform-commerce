@@ -8,6 +8,7 @@ import AuthBtn from "./AuthBtn/AuthBtn";
 import CartBtn from "./CartBtn/CartBtn";
 import Badge from "../shared/Badge/Badge";
 import Logo from "../Logo/Logo";
+import UserPanel from './UserPanel/UserPanel'
 import styles from "./Header.module.scss";
 
 const Header = () => {
@@ -23,7 +24,7 @@ const Header = () => {
       </div>
       <CurrentTime />
       <div className={styles.rightWrapper}>
-        {!accessToken && <AuthBtn />}
+        {accessToken ? <UserPanel /> : <AuthBtn />}
         <Badge
           value={cartQuantity < 100 ? cartQuantity : 99}
           type="filled"

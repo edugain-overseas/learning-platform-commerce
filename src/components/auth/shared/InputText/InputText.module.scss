@@ -17,26 +17,9 @@
   &.valid {
     border-color: var(--content-success);
   }
-}
 
-.label {
-  min-width: 76rem;
-  font-size: 14rem;
-  line-height: 16.94rem;
-  color: var(--content-datail-secondary);
-  text-transform: capitalize;
-  position: relative;
-  overflow: visible;
-
-  &::after {
-    content: "";
-    position: absolute;
-    width: 1rem;
-    right: -11.5rem;
-    height: 20rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: var(--content-datail-secondary);
+  &.error {
+    border-color: var(--content-nav-hover);
   }
 
   input {
@@ -47,7 +30,33 @@
     color: var(--content-main);
   }
 
-  input[name="verificarion code"] {
+  input[name="Verificarion code"],
+  input[name="Recovery code"] {
     letter-spacing: 0.5em;
+  }
+}
+
+.label {
+  min-width: 76rem;
+  font-size: 14rem;
+  line-height: 16.94rem;
+  color: var(--content-datail-secondary);
+  // text-transform: capitalize;
+  position: relative;
+  overflow: visible;
+
+  &.newPassword {
+    width: 100rem;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 1rem;
+    right: -11.5rem;
+    height: 20rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--content-datail-secondary);
   }
 }
