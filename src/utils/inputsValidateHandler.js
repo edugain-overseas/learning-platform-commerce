@@ -13,5 +13,5 @@ export const validateText = (value) => {
 };
 
 export const validateCode = (value) => {
-  return value.length === 7;
+  return value.length === 6;
 };

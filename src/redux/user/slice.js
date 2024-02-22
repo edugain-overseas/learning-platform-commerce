@@ -4,6 +4,7 @@ import {
   getUserInfoThunk,
   loginThunk,
   logoutThunk,
+  setNewPasswordThunk,
 } from "./operations";
 
 const initialState = {
@@ -61,6 +62,21 @@ const userSlice = createSlice({
         state.error = payload;
       })
 
+      .addCase(setNewPasswordThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(setNewPasswordThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.accessToken = payload.access_token;
+        state.userId = payload.user_id;
+        state.username = payload.username;
+      })
+      .addCase(setNewPasswordThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
       .addCase(logoutThunk.pending, (state, _) => {
         state.isLoading = true;
         state.error = null;
@@ -77,7 +93,7 @@ const userSlice = createSlice({
         state.avatarURL = "";
         state.activeTime = null;
         state.accessToken = null;
-        state.courses = null;
+        state.courses = [];
         state.isLoading = false;
         state.error = null;
       })
@@ -93,6 +109,7 @@ const userSlice = createSlice({
       .addCase(getUserInfoThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.name = payload.name;
+        state.username = payload.username;
         state.surname = payload.surname;
         state.avatarURL = payload.image;
         state.country = payload.country;

@@ -1,9 +1,17 @@
 import React, { useState } from "react";
-import { validateCode, validateEmail } from "../../../utils/inputsValidateHandler";
+import { useDispatch } from "react-redux";
+import { setNewPasswordThunk } from "../../../redux/user/operations";
+import {
+  resendPasswordResetCode,
+  resetPassword,
+} from "../../../http/services/user";
+import {
+  validateCode,
+  validateEmail,
+} from "../../../utils/inputsValidateHandler";
 import InputText from "../shared/InputText/InputText";
-import styles from "./PasswordRecovery.module.scss";
-import { resetPassword } from "../../../http/services/user";
 import InputPassword from "../shared/InputPassword/InputPassword";
+import styles from "./PasswordRecovery.module.scss";
 
 const PasswordRecovery = ({ messageApi }) => {
   const [email, setEmail] = useState("");
@@ -11,6 +19,8 @@ const PasswordRecovery = ({ messageApi }) => {
   const [code, setCode] = useState("");
   const [errorField, setErrorField] = useState("");
   const [isVerification, setIsVerification] = useState(false);
+
+  const dispatch = useDispatch();
 
   const handleSumbitEmail = async (e) => {
     e.preventDefault();
@@ -29,6 +39,7 @@ const PasswordRecovery = ({ messageApi }) => {
       setErrorField("email");
       return;
     }
+    //client validation
 
     try {
       const response = await resetPassword(email);
@@ -55,30 +66,53 @@ const PasswordRecovery = ({ messageApi }) => {
           content: "Something went wrong. Please try again",
         });
       }
+      //response validation
     }
   };
 
-  const handleVerify = (e) => {
+  const handleVerify = async (e) => {
     e.preventDefault();
 
     //client validation
     if (!validateCode(code)) {
       messageApi.open({
         type: "error",
-        content: (
-          <>
-            <span>Please write valid email.</span>
-            <p>Example: example@mail.com</p>
-          </>
-        ),
+        content: "Recovery code's length must be 6 characters",
       });
-      setErrorField("email");
+      setErrorField("Recovery code");
       return;
     }
+    //client validation
+
+    const credentials = {
+      code,
+      new_pass: newPassword,
+      email,
+    };
+
+    dispatch(setNewPasswordThunk({ credentials, messageApi, setErrorField }));
   };
 
   const resetError = () => {
     setErrorField("");
+  };
+
+  const handleResendCode = async () => {
+    try {
+      const response = await resendPasswordResetCode(email);
+      const message = response.data.message;
+      if (response.status === 200) {
+        messageApi.open({
+          type: "success",
+          content: `${message} ${email}`,
+        });
+      }
+    } catch (error) {
+      messageApi.open({
+        type: "error",
+        content: "Something went wrong. Please try again",
+      });
+    }
   };
 
   return (
@@ -100,7 +134,7 @@ const PasswordRecovery = ({ messageApi }) => {
                 name="Recovery code"
                 value={code}
                 onChange={setCode}
-                isError={errorField === "code"}
+                isError={errorField === "Recovery code"}
                 resetError={resetError}
               />
             </div>
@@ -130,7 +164,7 @@ const PasswordRecovery = ({ messageApi }) => {
         </button>
         {isVerification && (
           <p className={styles.sendAgain}>
-            Send the code <span>again!</span>
+            Send the code <span onClick={handleResendCode}>again!</span>
           </p>
         )}
       </form>

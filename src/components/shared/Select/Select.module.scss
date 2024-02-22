@@ -16,7 +16,7 @@
     .dropDownWrapper {
       height: auto;
       opacity: 1;
-      padding-block: 16rem;
+      padding-block: 10rem;
       transition: opacity var(--transition-time-min) ease-out;
     }
 
@@ -96,10 +96,14 @@
   backdrop-filter: blur(16rem);
 
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
   transition: opacity var(--transition-time-min) ease,
     height var(--transition-time-min) ease,
     padding var(--transition-time-min) ease;
+
+  &.open {
+    overflow-y: auto;
+  }
 }
 
 .dropDownList {
@@ -107,8 +111,8 @@
   flex-direction: column;
   gap: 2rem;
   .option {
-    padding: 4rem;
-    padding-left: 16rem;
+    padding-block: 4rem;
+    padding-inline: 14rem;
     background-color: #fff;
     border-radius: 4rem;
 

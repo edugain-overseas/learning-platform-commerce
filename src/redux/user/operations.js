@@ -4,6 +4,7 @@ import {
   getUserInfo,
   login,
   logout,
+  setNewPassword,
 } from "../../http/services/user";
 
 export const activateUserThunk = createAsyncThunk(
@@ -42,6 +43,36 @@ export const loginThunk = createAsyncThunk(
           content: message,
         });
       }
+
+      return rejectWithValue({
+        message: message,
+        status: status,
+      });
+    }
+  }
+);
+
+export const setNewPasswordThunk = createAsyncThunk(
+  "user/setNewPassword",
+  async (args, { rejectWithValue }) => {
+    const { credentials, messageApi, setErrorField } = args;
+
+    try {
+      const response = await setNewPassword(credentials);
+      return response;
+    } catch (error) {
+      const status = error.response ? error.response.status : null;
+      const message = error.response
+        ? error.response.data.detail
+        : error.message;
+
+      // if (status === 404 && message.includes("code")) {
+      setErrorField("Recovery code");
+      messageApi.open({
+        type: "error",
+        content: `${message}`,
+      });
+      // }
 
       return rejectWithValue({
         message: message,

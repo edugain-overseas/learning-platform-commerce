@@ -21,7 +21,7 @@ const SingInForm = () => {
     if (accessToken) {
       navigate("/");
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [accessToken]);
 
   const handleSubmit = (data) => {
@@ -36,7 +36,9 @@ const SingInForm = () => {
     <div className={styles.pageWrapper}>
       {contextHolder}
       {isResetPassword ? (
-        <PasswordRecovery messageApi={messageApi} />
+        <PasswordRecovery
+          messageApi={messageApi}
+        />
       ) : (
         <AuthForm
           handleSubmit={handleSubmit}

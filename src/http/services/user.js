@@ -41,6 +41,26 @@ export const resetPassword = async (email) => {
   }
 };
 
+export const setNewPassword = async (credentials) => {
+  try {
+    const { data } = await instance.post("/user/set-new-pass", credentials);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const resendPasswordResetCode = async (email) => {
+  try {
+    const response = await instance.get("/user/resend-password-reset-code", {
+      params: { email },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const logout = async () => {
   try {
     const { data } = await instance.get("/user/logout");

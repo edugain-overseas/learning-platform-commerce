@@ -16,7 +16,7 @@ const AuthForm = ({
   errorField,
   resetError,
   setIsResetPassword = () => {},
-  messageApi
+  messageApi,
 }) => {
   const [username, setUsername] = useState("");
   const [firstname, setFirstname] = useState("");
