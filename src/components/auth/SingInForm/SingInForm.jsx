@@ -25,7 +25,9 @@ const SingInForm = () => {
   }, [accessToken]);
 
   const handleSubmit = (data) => {
-    dispatch(loginThunk({ credentials: data, messageApi, setErrorField }));
+    dispatch(
+      loginThunk({ credentials: data, messageApi, setErrorField, navigate })
+    );
   };
 
   const resetError = () => {
@@ -36,9 +38,7 @@ const SingInForm = () => {
     <div className={styles.pageWrapper}>
       {contextHolder}
       {isResetPassword ? (
-        <PasswordRecovery
-          messageApi={messageApi}
-        />
+        <PasswordRecovery messageApi={messageApi} />
       ) : (
         <AuthForm
           handleSubmit={handleSubmit}

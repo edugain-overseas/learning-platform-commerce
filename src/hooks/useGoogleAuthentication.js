@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { loginWithGoogleThunk } from "../redux/user/operations";
 
 const useGoogleAuthentication = () => {
-  const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleCredentialResponse = ({ credential }) => {
-      const user = jwtDecode(credential);
-      setUser(user);
+      if (credential) {
+        dispatch(loginWithGoogleThunk(credential));
+      }
     };
     const IdConfiguration = {
       client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
@@ -27,9 +29,8 @@ const useGoogleAuthentication = () => {
     } catch (error) {
       console.log(error);
     }
+    // eslint-disable-next-line
   }, []);
-
-  return user;
 };
 
 export default useGoogleAuthentication;

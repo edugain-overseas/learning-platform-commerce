@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { getUserInfo } from "../../redux/user/selectors";
 import { ReactComponent as EditIcon } from "../../images/icons/edit.svg";
 import { ReactComponent as SaveIcon } from "../../images/icons/save.svg";
 import { ReactComponent as ReloadIcon } from "../../images/icons/reload.svg";
@@ -6,23 +8,24 @@ import { ReactComponent as EyeIcon } from "../../images/icons/eye.svg";
 import { ReactComponent as EyeInvisibleIcon } from "../../images/icons/eye-invisible.svg";
 import { ReactComponent as SettingsIcon } from "../../images/icons/settings.svg";
 import Avatar from "../shared/Avatar/Avatar";
-import styles from "./UserInfoCard.module.scss";
 import Tooltip from "../shared/Tooltip/Tooltip";
 import InsetBtn from "../shared/InsetBtn/InsetBtn";
 import Modal from "../shared/Modal/Modal";
 import AvatarEditor from "../shared/AvatarEditor/AvatarEditor";
+import styles from "./UserInfoCard.module.scss";
 // import Select from "../shared/Select/Select";
 
 const UserInfoCard = () => {
+  const userInfo = useSelector(getUserInfo);
   const [isEdit, setIsEdit] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [username, setUsername] = useState("Sam James");
-  const [firstname, setFirstname] = useState("Sam");
-  const [lastname, setLastname] = useState("Sam James");
-  const [email, setEmail] = useState("samj_ames20@gmail.com");
+  const [username, setUsername] = useState(userInfo.username);
+  const [firstname, setFirstname] = useState(userInfo.name);
+  const [lastname, setLastname] = useState(userInfo.surname);
+  const [email, setEmail] = useState(userInfo.email);
   const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("+380669209415");
-  const [country, setCountry] = useState("Ukraine");
+  const [phone, setPhone] = useState(userInfo.phone);
+  const [country, setCountry] = useState(userInfo.country);
   const [isPasswordShown, setIsPasswrodSwown] = useState(false);
 
   const handleEdit = () => {

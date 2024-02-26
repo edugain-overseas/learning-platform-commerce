@@ -3,8 +3,10 @@ import {
   activateUserThunk,
   getUserInfoThunk,
   loginThunk,
+  loginWithGoogleThunk,
   logoutThunk,
   setNewPasswordThunk,
+  updateStudingTimeThunk,
 } from "./operations";
 
 const initialState = {
@@ -28,7 +30,9 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUserFromGoogleAPI(state, { payload }) {},
+    refreshTokenAction(state, { payload }) {
+      console.log(payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -73,6 +77,21 @@ const userSlice = createSlice({
         state.username = payload.username;
       })
       .addCase(setNewPasswordThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
+      .addCase(loginWithGoogleThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(loginWithGoogleThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.accessToken = payload.access_token;
+        state.userId = payload.user_id;
+        state.username = payload.username;
+      })
+      .addCase(loginWithGoogleThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
       })
@@ -125,8 +144,23 @@ const userSlice = createSlice({
       .addCase(getUserInfoThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = { code: payload.code, message: payload.message };
+      })
+
+      .addCase(updateStudingTimeThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateStudingTimeThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        console.log(action);
+        // state.activeTime =
+      })
+      .addCase(updateStudingTimeThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
       });
   },
 });
 
+export const { refreshTokenAction } = userSlice.actions;
 export default userSlice;

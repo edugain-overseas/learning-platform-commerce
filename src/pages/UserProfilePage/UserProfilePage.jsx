@@ -5,12 +5,26 @@ import { ReactComponent as ArrowDownIcon } from "../../images/icons/arrowDown.sv
 import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
 import { ReactComponent as TaskViewIcon } from "../../images/icons/task-view.svg";
 import { ReactComponent as TaskCompletedIcon } from "../../images/icons/task-completed.svg";
-import styles from "./UserProfilePage.module.scss";
 import CircleProgressCard from "../../components/CircleProgressCard/CircleProgressCard";
 import InfoBtn from "../../components/shared/InfoBtn/InfoBtn";
+import styles from "./UserProfilePage.module.scss";
+import { useSelector } from "react-redux";
+import { getActiveTime, getUserCourses } from "../../redux/user/selectors";
+import { useActiveTime } from "../../context/activeTimeContext";
+import { convertMillisecondsToHoursAndMinutes } from "../../utils/millisecondsToSrt";
 
 const UserProfilePage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const prevActiveTime = useSelector(getActiveTime);
+  const myCourses = useSelector(getUserCourses);
+
+  const activeTime = useActiveTime();
+  const activeTimeToDisplay = prevActiveTime
+    ? prevActiveTime + activeTime
+    : activeTime;
+  const { hours, minutes } =
+    convertMillisecondsToHoursAndMinutes(activeTimeToDisplay);
+
   return (
     <div className={styles.pageWrappper}>
       <div className={styles.leftWrapper}>
@@ -21,7 +35,12 @@ const UserProfilePage = () => {
           {!isOpen ? (
             <>
               <UserInfoCard />
-              <UserMainStats />
+              <UserMainStats
+                hours={hours}
+                minutes={minutes}
+                progressCourses={myCourses.length}
+                competedCourses={myCourses.length}
+              />
             </>
           ) : (
             <div className={styles.mainStatsRowWrapper}>
@@ -30,15 +49,15 @@ const UserProfilePage = () => {
                 <div className={styles.itemsWrapper}>
                   <div className={styles.item}>
                     <ClockIcon />
-                    <p>{"12h 12m  |  studying time"}</p>
+                    <p>{`${hours}h ${minutes}m  |  studying time`}</p>
                   </div>
                   <div className={styles.item}>
                     <TaskViewIcon />
-                    <p>4 courses in progress</p>
+                    <p>{`${myCourses.length} courses in progress`}</p>
                   </div>
                   <div className={styles.item}>
                     <TaskCompletedIcon />
-                    <p>3 completed courses</p>
+                    <p>{`${myCourses.length} completed courses`}</p>
                   </div>
                 </div>
                 <button onClick={() => setIsOpen((prev) => !prev)}>

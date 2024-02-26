@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
+import { updateStudingTime } from "../http/services/user";
+import { useSelector } from "react-redux";
+import { getAccessToken } from "../redux/user/selectors";
 
 const useActiveTimeTracker = () => {
   const [activeTime, setActiveTime] = useState(0);
   const [lastActiveTime, setLastActiveTime] = useState(Date.now());
-
+  const accessToken = useSelector(getAccessToken);
+  
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
@@ -20,9 +24,6 @@ const useActiveTimeTracker = () => {
     };
   }, [activeTime, lastActiveTime]);
 
-
-  
-
   useEffect(() => {
     const interval = setInterval(() => {
       if (document.visibilityState === "visible") {
@@ -31,8 +32,7 @@ const useActiveTimeTracker = () => {
     }, 60000);
 
     const sendActiveTimeToServer = () => {
-      // send to server
-      console.log("to server:", activeTime);
+      if (accessToken) updateStudingTime(60000);
     };
 
     const intervalSendToServer = setInterval(() => {
@@ -45,7 +45,7 @@ const useActiveTimeTracker = () => {
       clearInterval(interval);
       clearInterval(intervalSendToServer);
     };
-  }, [activeTime]);
+  }, [activeTime, accessToken]);
 
   return { activeTime, setActiveTime };
 };

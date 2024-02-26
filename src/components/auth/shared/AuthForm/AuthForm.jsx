@@ -9,6 +9,7 @@ import {
 } from "../../../../utils/inputsValidateHandler";
 import { ReactComponent as GoogleIcon } from "../../../../images/icons/google.svg";
 import styles from "./AuthForm.module.scss";
+import { useLocation } from "react-router-dom";
 
 const AuthForm = ({
   handleSubmit,
@@ -23,6 +24,10 @@ const AuthForm = ({
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const query = useLocation().search;
+  const usernameFromQueryParams = new URLSearchParams(query).get("username");
+  console.log(usernameFromQueryParams);
 
   const isFormValid = (data) => {
     const valid = Object.keys(data).reduce((acc, key) => {
@@ -60,7 +65,7 @@ const AuthForm = ({
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const data = {
-      username,
+      username: usernameFromQueryParams ? usernameFromQueryParams : username,
       firstname,
       lastname,
       email,
@@ -68,7 +73,10 @@ const AuthForm = ({
     };
 
     const loginData = new FormData();
-    loginData.append("username", username);
+    loginData.append(
+      "username",
+      usernameFromQueryParams ? usernameFromQueryParams : username
+    );
     loginData.append("password", password);
 
     switch (type) {
@@ -118,10 +126,12 @@ const AuthForm = ({
         <div className={styles.row}>
           <InputText
             name="Username"
-            value={username}
+            // value={usernameFromParams ? usernameFromParams : username}
+            value={usernameFromQueryParams ? usernameFromQueryParams : username}
             onChange={setUsername}
             isError={errorField === "username"}
             resetError={resetError}
+            disabled={usernameFromQueryParams}
           />
         </div>
         {type === "registration" && (

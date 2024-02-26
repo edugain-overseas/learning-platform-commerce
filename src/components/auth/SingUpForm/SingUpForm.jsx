@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import { activateUserThunk } from "../../../redux/user/operations";
-import { createUser } from "../../../http/services/user";
+import { createUser, resendActivationCode } from "../../../http/services/user";
 import { getAccessToken } from "../../../redux/user/selectors";
 import AuthForm from "../shared/AuthForm/AuthForm";
 import EmailVerification from "../EmailVerification/EmailVerification";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SingUpForm = () => {
   const [isVerificationEmail, setIsVerificationEmail] = useState(false);
@@ -15,11 +15,18 @@ const SingUpForm = () => {
   const [errorField, setErrorField] = useState("");
   const accessToken = useSelector(getAccessToken);
 
+  const query = useLocation().search;
+  const isVerificationEmailFromQuery = new URLSearchParams(query).get(
+    "verification"
+  );
+  const usernameFromQuery = new URLSearchParams(query).get("username");
+  console.log(usernameFromQuery);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if (accessToken) navigate("/");
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [accessToken]);
 
   const dispatch = useDispatch();
@@ -46,19 +53,25 @@ const SingUpForm = () => {
       const message = error.response.data.detail;
 
       if (error.response.status === 422) {
-        if (message.includes("username")) setErrorField("username");
-        if (message.includes("email")) setErrorField("email");
         messageApi.open({
           type: "error",
           content: message,
         });
+        if (message === `User with email ${credentials.email} does exist`)
+          navigate(
+            `/login?username=${credentials.username}&email=${credentials.email}`
+          );
+        if (message.includes("username")) setErrorField("username");
+        if (message.includes("email")) setErrorField("email");
       }
     }
   };
 
   const handleSumbitVerification = (code) => {
     const credentials = {
-      username: verificationData.username,
+      username: usernameFromQuery
+        ? usernameFromQuery
+        : verificationData.username,
       code,
     };
 
@@ -71,6 +84,28 @@ const SingUpForm = () => {
     }
   };
 
+  const handleResendActivationCode = async () => {
+    try {
+      const response = await resendActivationCode(
+        usernameFromQuery ? usernameFromQuery : verificationData.username
+      );
+      const message = response.data.message;
+      if (response.status === 200) {
+        messageApi.open({
+          type: "success",
+          content: `${message} ${
+            verificationData.email && verificationData.email
+          }`,
+        });
+      }
+    } catch (error) {
+      messageApi.open({
+        type: "error",
+        content: "Something went wrong. Please try again",
+      });
+    }
+  };
+
   const resetError = () => {
     setErrorField("");
   };
@@ -78,10 +113,11 @@ const SingUpForm = () => {
   return (
     <>
       {contextHolder}
-      {isVerificationEmail ? (
+      {isVerificationEmail || isVerificationEmailFromQuery ? (
         <EmailVerification
           handleSubmit={handleSumbitVerification}
           email={verificationData?.email}
+          handleResendActivationCode={handleResendActivationCode}
         />
       ) : (
         <AuthForm

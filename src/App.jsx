@@ -20,6 +20,7 @@ function App() {
       console.log(accessToken);
       dispatch(getUserInfoThunk());
     }
+    // eslint-disable-next-line
   }, [accessToken]);
 
   console.log(user);

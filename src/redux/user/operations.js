@@ -3,8 +3,11 @@ import {
   activateUser,
   getUserInfo,
   login,
+  loginWithGoogle,
   logout,
+  refreshToken,
   setNewPassword,
+  updateStudingTime,
 } from "../../http/services/user";
 
 export const activateUserThunk = createAsyncThunk(
@@ -22,7 +25,7 @@ export const activateUserThunk = createAsyncThunk(
 export const loginThunk = createAsyncThunk(
   "user/login",
   async (args, { rejectWithValue }) => {
-    const { credentials, messageApi, setErrorField } = args;
+    const { credentials, messageApi, setErrorField, navigate } = args;
 
     try {
       const response = await login(credentials);
@@ -42,6 +45,14 @@ export const loginThunk = createAsyncThunk(
           type: "error",
           content: message,
         });
+      }
+
+      if (status === 409) {
+        messageApi.open({
+          type: "info",
+          content: message,
+        });
+        navigate(`/registration?verification=true&username=${credentials.get('username')}`)
       }
 
       return rejectWithValue({
@@ -82,6 +93,22 @@ export const setNewPasswordThunk = createAsyncThunk(
   }
 );
 
+export const loginWithGoogleThunk = createAsyncThunk(
+  "user/loginWithGoogle",
+  async (token, { rejectWithValue }) => {
+    try {
+      const response = await loginWithGoogle(token);
+      console.log(response);
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
 export const logoutThunk = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
@@ -102,6 +129,30 @@ export const getUserInfoThunk = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await getUserInfo();
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const updateStudingTimeThunk = createAsyncThunk(
+  "user/updateStudingTime",
+  async (newTime, { rejectWithValue }) => {
+    try {
+      const response = await updateStudingTime(newTime);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const refreshTokenThunk = createAsyncThunk(
+  "user/refreshToken",
+  async (newTime, { rejectWithValue }) => {
+    try {
+      const response = await refreshToken(newTime);
       return response;
     } catch (error) {
       return rejectWithValue(error);

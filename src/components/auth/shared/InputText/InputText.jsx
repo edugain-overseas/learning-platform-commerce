@@ -25,6 +25,7 @@ const InputText = ({
   onChange,
   isError = false,
   resetError = () => {},
+  disabled = false,
 }) => {
   return (
     <label
@@ -51,6 +52,7 @@ const InputText = ({
           resetError();
           onChange(e.target.value);
         }}
+        disabled={disabled}
       />
     </label>
   );
