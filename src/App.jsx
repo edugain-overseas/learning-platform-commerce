@@ -11,19 +11,20 @@ import { getUserInfoThunk } from "./redux/user/operations";
 import { instance } from "./http/instance";
 
 function App() {
-  const user = useGoogleAuthentication();
+  useGoogleAuthentication();
   const dispatch = useDispatch();
   const accessToken = useSelector(getAccessToken);
+
   useEffect(() => {
     if (accessToken) {
       instance.defaults.headers.Authorization = `Bearer ${accessToken}`;
       console.log(accessToken);
       dispatch(getUserInfoThunk());
     }
-    // eslint-disable-next-line
+  // eslint-disable-next-line
   }, [accessToken]);
 
-  console.log(user);
+  // console.log(user);
   useAdjustFontSize();
   return (
     <ChatProvider>

@@ -52,7 +52,11 @@ export const loginThunk = createAsyncThunk(
           type: "info",
           content: message,
         });
-        navigate(`/registration?verification=true&username=${credentials.get('username')}`)
+        navigate(
+          `/registration?verification=true&username=${credentials.get(
+            "username"
+          )}`
+        );
       }
 
       return rejectWithValue({
@@ -131,7 +135,10 @@ export const getUserInfoThunk = createAsyncThunk(
       const response = await getUserInfo();
       return response;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
     }
   }
 );

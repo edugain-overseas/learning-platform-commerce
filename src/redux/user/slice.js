@@ -31,7 +31,8 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     refreshTokenAction(state, { payload }) {
-      console.log(payload);
+      state.accessToken = payload.access_token;
+      state.error = null;
     },
   },
   extraReducers: (builder) => {

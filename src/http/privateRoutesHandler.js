@@ -1,5 +1,6 @@
 import { instance } from "./instance";
 import { refreshToken } from "./services/user";
+import { store } from "../redux/store";
 import { refreshTokenAction } from "../redux/user/slice";
 
 export const privateRoutesHandler = async (method, url, ...args) => {
@@ -10,9 +11,12 @@ export const privateRoutesHandler = async (method, url, ...args) => {
     if (error.response && error.response.status === 401) {
       try {
         const newTokenData = await refreshToken();
-        refreshTokenAction(newTokenData);
-
-        const {data} = await instance[method](url, ...args);
+        store.dispatch(refreshTokenAction(newTokenData));
+        instance.defaults.headers[
+          "Authorization"
+        ] = `Bearer ${newTokenData.access_token}`;
+        
+        const { data } = await instance[method](url, ...args);
         return data;
       } catch (refreshError) {
         throw refreshError;

@@ -12,7 +12,9 @@ export const createUser = async (credentials) => {
 
 export const activateUser = async (credentials) => {
   try {
-    const { data } = await instance.post("/user/activate", credentials);
+    const { data } = await instance.post("/user/activate", credentials, {
+      withCredentials: true,
+    });
     return data;
   } catch (error) {
     throw error;
@@ -36,11 +38,12 @@ export const login = async (credentials) => {
   try {
     instance.defaults.headers["Content-Type"] =
       "application/x-wwww-form-urlencoded";
-    const response = await instance.post("/user/login", credentials);
+    const response = await instance.post("/user/login", credentials, {
+      withCredentials: true,
+    });
     instance.defaults.headers[
       "Authorization"
     ] = `Bearer ${response.data.access_token}`;
-    console.log(response);
     return response.data;
   } catch (error) {
     throw error;
@@ -60,7 +63,9 @@ export const resetPassword = async (email) => {
 
 export const setNewPassword = async (credentials) => {
   try {
-    const { data } = await instance.post("/user/set-new-pass", credentials);
+    const { data } = await instance.post("/user/set-new-pass", credentials, {
+      withCredentials: true,
+    });
     return data;
   } catch (error) {
     throw error;
@@ -80,9 +85,13 @@ export const resendPasswordResetCode = async (email) => {
 
 export const loginWithGoogle = async (googleToken) => {
   try {
-    const { data } = await instance.post("/user/login-with-google", {
-      google_token: googleToken,
-    });
+    const { data } = await instance.post(
+      "/user/login-with-google",
+      {
+        google_token: googleToken,
+      },
+      { withCredentials: true }
+    );
     return data;
   } catch (error) {
     throw error;
@@ -91,7 +100,9 @@ export const loginWithGoogle = async (googleToken) => {
 
 export const logout = async () => {
   try {
-    const { data } = await instance.get("/user/logout");
+    const data = await privateRoutesHandler("get", "/user/logout", {
+      withCredentials: true,
+    });
     return data;
   } catch (error) {
     throw error;
@@ -99,7 +110,7 @@ export const logout = async () => {
 };
 
 export const getUserInfo = async () => {
-  try { 
+  try {
     const data = await privateRoutesHandler("get", "/user/info/me");
     return data;
   } catch (error) {
@@ -109,7 +120,7 @@ export const getUserInfo = async () => {
 
 export const updateStudingTime = async (newTime) => {
   try {
-    const { data } = await instance.put("user/update/time", null, {
+    const data = await privateRoutesHandler("put", "user/update/time", null, {
       params: {
         time: newTime,
       },
