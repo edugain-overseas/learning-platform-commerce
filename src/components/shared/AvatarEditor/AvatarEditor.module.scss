@@ -30,9 +30,17 @@
   }
 }
 
+.avatarWrapper {
+  width: 346rem;
+  height: 260rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .noAvatar {
-    width: 346rem;
-    height: 260rem;
+  width: 100%;
+  height: 100%;
 }
 
 .userAvatars {
@@ -42,7 +50,18 @@
   overflow: hidden;
 
   li {
-    cursor: pointer;
+    pointer-events: none;
+    border-radius: 50%;
+    border: 1rem solid transparent;
+
+    &.userAvatarItem {
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    &.selected {
+      border-color: var(--content-main);
+    }
   }
 }
 
@@ -62,6 +81,11 @@
     gap: 10rem;
     border: 1rem solid var(--content-datail-secondary);
     border-radius: 5rem;
+    transition: opacity var(--transition-time-min) ease;
+
+    &:disabled {
+      opacity: 0.5;
+    }
 
     span {
       font-family: Roboto;

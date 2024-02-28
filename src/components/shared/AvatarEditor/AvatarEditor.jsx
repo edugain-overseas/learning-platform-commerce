@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as Editor from "react-avatar-editor";
 import { ReactComponent as MinusIcon } from "../../../images/icons/minus.svg";
 import { ReactComponent as PlusIcon } from "../../../images/icons/plus.svg";
@@ -9,13 +9,37 @@ import noAvatar from "../../../images/noAvatar.png";
 import InsetBtn from "../InsetBtn/InsetBtn";
 import Avatar from "../Avatar/Avatar";
 import styles from "./AvatarEditor.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getLastUserImagesThunk,
+  setNewMainImageThunk,
+  updateUserImageThunk,
+} from "../../../redux/user/operations";
+import { serverName } from "../../../http/sever";
+import { getUserInfo } from "../../../redux/user/selectors";
 
 const AvatarEditor = () => {
+  const previousAvatars = useSelector(getUserInfo).previousAvatars;
+  const userId = useSelector(getUserInfo).userId;
+  const userAvatar = useSelector(getUserInfo).avatarURL;
   const [image, setImage] = useState(null);
   const [scale, setScale] = useState(1);
-  const [userAvatars, setUserAvatars] = useState([]);
+  const [selectedAvatarId, setSelectedAvatarId] = useState(null);
 
-  console.log(scale);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getLastUserImagesThunk());
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    if (previousAvatars.length) {
+      setSelectedAvatarId(
+        previousAvatars.find(({ path }) => path === userAvatar)?.id
+      );
+    }
+  }, [previousAvatars, userAvatar]);
 
   const inputUploadRef = useRef(null);
   const editorRef = useRef(null);
@@ -32,7 +56,6 @@ const AvatarEditor = () => {
   };
 
   const handleIncreaseScale = () => {
-    console.log("click");
     if (scale <= 2.8) {
       setScale((prev) => prev + 0.2);
     } else {
@@ -41,7 +64,6 @@ const AvatarEditor = () => {
   };
 
   const handleDecreaseScale = () => {
-    console.log("click");
     if (scale >= 1.2) {
       setScale((prev) => prev - 0.2);
     } else {
@@ -53,10 +75,13 @@ const AvatarEditor = () => {
     if (editorRef.current && image) {
       const canvas = editorRef.current.getImageScaledToCanvas();
       canvas.toBlob((blob) => {
-        const imageUrl = URL.createObjectURL(blob);
-        console.log(imageUrl);
-        setUserAvatars((prev) => [...prev, imageUrl]);
-        // URL.revokeObjectURL(imageUrl);
+        if (userId) {
+          const formData = new FormData();
+          formData.append("image", blob, `user${userId}-avatar-${Date.now()}`);
+          dispatch(updateUserImageThunk(formData));
+        }
+
+        setImage(null);
       }, "image/png");
     }
   };
@@ -80,7 +105,21 @@ const AvatarEditor = () => {
             // disableBoundaryChecks={true}
           />
         ) : (
-          <img src={noAvatar} className={styles.noAvatar} alt="user avatar" />
+          <div className={styles.avatarWrapper}>
+            {userAvatar ? (
+              <Avatar
+                size="200rem"
+                src={`${serverName}/${userAvatar}`}
+                editable={false}
+              />
+            ) : (
+              <img
+                src={noAvatar}
+                className={styles.noAvatar}
+                alt="user avatar"
+              />
+            )}
+          </div>
         )}
         <div className={styles.scaleSlider}>
           <InsetBtn
@@ -107,14 +146,24 @@ const AvatarEditor = () => {
       </div>
       <div className={styles.divider}></div>
       <ul className={styles.userAvatars}>
-        {userAvatars.length ? (
-          userAvatars.map((avatarUrl, index) => (
-            <li className={styles.userAvatarItem} key={index}>
-              <Avatar size="72rem" editable={false} src={avatarUrl} />
+        {previousAvatars.length ? (
+          previousAvatars.map(({ path, id }) => (
+            <li
+              className={`${styles.userAvatarItem} ${
+                id === selectedAvatarId ? styles.selected : ""
+              }`}
+              key={id}
+              onClick={() => dispatch(setNewMainImageThunk(id))}
+            >
+              <Avatar
+                size="70rem"
+                editable={false}
+                src={`${serverName}/${path}`}
+              />
             </li>
           ))
         ) : (
-          <li className={styles.userAvatarItem}>
+          <li>
             <Avatar size="72rem" editable={false} />
           </li>
         )}
@@ -125,7 +174,7 @@ const AvatarEditor = () => {
           <span>Upload</span>
           <UploadIcon />
         </button>
-        <button onClick={handleSaveNewAvatar}>
+        <button onClick={handleSaveNewAvatar} disabled={!image}>
           <span>Save</span>
           <SaveIcon />
         </button>

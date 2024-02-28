@@ -92,6 +92,7 @@
       display: block;
       padding: 4rem 6rem;
       height: 28rem;
+      width: 100%;
 
       background-color: var(--bg-button-default);
       box-shadow: var(--box-shadow-button-inset);
@@ -141,6 +142,49 @@
 
   .emailWrapper {
     grid-column: 1 / span 2;
+  }
+
+  .phoneContainer {
+    input:disabled + div {
+      div {
+        border: none;
+      }
+    }
+
+    .phoneInput {
+      font-weight: 600;
+      font-size: 16rem;
+      line-height: 20rem;
+      color: var(--content-main);
+
+      display: block;
+      padding-left: 44px;
+      height: 28rem;
+      width: 100%;
+
+      background-color: var(--bg-button-default);
+      box-shadow: var(--box-shadow-button-inset);
+      border-radius: 5rem;
+      border: none;
+
+      &:disabled {
+        background-color: transparent;
+        box-shadow: none;
+        padding-left: 44px;
+      }
+    }
+
+    .phoneBtn {
+      border: none;
+      border-radius: 5rem 0 0 5rem;
+      background: none;
+      margin: 4rem;
+      margin-right: 0;
+    }
+
+    .phoneDropDown {
+      border-radius: 5rem;
+    }
   }
 
   .btnsWrapper {

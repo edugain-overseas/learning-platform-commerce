@@ -1,12 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   activateUserThunk,
+  getLastUserImagesThunk,
   getUserInfoThunk,
   loginThunk,
   loginWithGoogleThunk,
   logoutThunk,
+  setNewMainImageThunk,
   setNewPasswordThunk,
   updateStudingTimeThunk,
+  updateUserImageThunk,
+  updateUserInfoThunk,
+  updateUsernameThunk,
 } from "./operations";
 
 const initialState = {
@@ -19,9 +24,13 @@ const initialState = {
   phone: "",
   country: "",
   avatarURL: "",
+  previousAvatars: [],
   activeTime: null,
   accessToken: null,
   courses: [],
+  balance: 0,
+  changedName: false,
+  changedSurname: false,
   isLoading: false,
   error: null,
 };
@@ -114,6 +123,9 @@ const userSlice = createSlice({
         state.activeTime = null;
         state.accessToken = null;
         state.courses = [];
+        state.balance = 0;
+        state.changedName = false;
+        state.changedSurname = false;
         state.isLoading = false;
         state.error = null;
       })
@@ -131,16 +143,17 @@ const userSlice = createSlice({
         state.name = payload.name;
         state.username = payload.username;
         state.surname = payload.surname;
-        state.avatarURL = payload.image;
-        state.country = payload.country;
+        state.avatarURL = payload.image ? payload.image : "";
         state.email = payload.email;
-        state.phone = payload.phone;
+        state.phone = payload.phone ? payload.phone : "";
+        state.country = payload.country ? payload.country : "";
         state.userType = payload.user_type;
         state.userId = payload.user_id;
         state.activeTime = payload.studying_time;
         state.courses = payload.courses;
-
-        // balance: 0;
+        state.balance = payload.balance;
+        state.changedName = payload.changed_name;
+        state.changedSurname = payload.changed_surname;
       })
       .addCase(getUserInfoThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -151,12 +164,85 @@ const userSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(updateStudingTimeThunk.fulfilled, (state, action) => {
+      .addCase(updateStudingTimeThunk.fulfilled, (state, _) => {
         state.isLoading = false;
-        console.log(action);
-        // state.activeTime =
       })
       .addCase(updateStudingTimeThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
+      .addCase(updateUserInfoThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateUserInfoThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.name = payload.name;
+        state.surname = payload.surname;
+        state.email = payload.email;
+        state.phone = payload.phone ? payload.phone : "";
+        state.country = payload.country ? payload.country : "";
+      })
+      .addCase(updateUserInfoThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
+      .addCase(updateUsernameThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateUsernameThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.username = payload.username;
+        state.accessToken = payload.access_token;
+      })
+      .addCase(updateUsernameThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
+      .addCase(getLastUserImagesThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getLastUserImagesThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.previousAvatars = payload.reverse();
+      })
+      .addCase(getLastUserImagesThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
+      .addCase(updateUserImageThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateUserImageThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.avatarURL = payload.path;
+        if (state.previousAvatars.length === 6) state.previousAvatars.shift();
+        state.previousAvatars.push(payload);
+      })
+      .addCase(updateUserImageThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
+      .addCase(setNewMainImageThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(setNewMainImageThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const imageId = action.meta.arg;
+        state.avatarURL = state.previousAvatars.find(
+          ({ id }) => id === imageId
+        ).path;
+      })
+      .addCase(setNewMainImageThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
       });

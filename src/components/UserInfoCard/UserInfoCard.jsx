@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { getUserInfo } from "../../redux/user/selectors";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import { useDispatch } from "react-redux";
 import { ReactComponent as EditIcon } from "../../images/icons/edit.svg";
 import { ReactComponent as SaveIcon } from "../../images/icons/save.svg";
 import { ReactComponent as ReloadIcon } from "../../images/icons/reload.svg";
@@ -13,10 +14,14 @@ import InsetBtn from "../shared/InsetBtn/InsetBtn";
 import Modal from "../shared/Modal/Modal";
 import AvatarEditor from "../shared/AvatarEditor/AvatarEditor";
 import styles from "./UserInfoCard.module.scss";
-// import Select from "../shared/Select/Select";
+import {
+  updateUserInfoThunk,
+  updateUsernameThunk,
+} from "../../redux/user/operations";
+import { validatePassword } from "../../utils/inputsValidateHandler";
+import { serverName } from "../../http/sever";
 
-const UserInfoCard = () => {
-  const userInfo = useSelector(getUserInfo);
+const UserInfoCard = ({ userInfo }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [username, setUsername] = useState(userInfo.username);
@@ -28,6 +33,8 @@ const UserInfoCard = () => {
   const [country, setCountry] = useState(userInfo.country);
   const [isPasswordShown, setIsPasswrodSwown] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleEdit = () => {
     setIsEdit(true);
   };
@@ -37,12 +44,26 @@ const UserInfoCard = () => {
   };
 
   const handleSave = () => {
-    setIsEdit(false);
+    if (username !== userInfo.username) dispatch(updateUsernameThunk(username));
+    const data = {};
+    if (email !== userInfo.email) data.email = email;
+    if (password !== "" && validatePassword(password)) data.password = password;
+    if (firstname !== userInfo.name) data.name = firstname;
+    if (lastname !== userInfo.surname) data.surname = lastname;
+    if (phone !== userInfo.phone) data.phone = phone;
+    if (country !== userInfo.country) data.country = country;
+
+    console.log(data);
+
+    if (Object.keys(data).length !== 0) {
+      dispatch(updateUserInfoThunk(data)).then(() => setIsEdit(false));
+    } else {
+      setIsEdit(false);
+    }
   };
 
   const handleToggleShowPassword = (e) => {
     e.preventDefault();
-    console.log("toggle");
     setIsPasswrodSwown((prev) => !prev);
   };
 
@@ -50,10 +71,26 @@ const UserInfoCard = () => {
     setIsEdit(false);
   };
 
+  const handlePhoneChange = (value, countryValue, _, formattedValue) => {
+    console.log("value:", value);
+    console.log("country:", countryValue);
+    console.log("formattedValue:", formattedValue);
+    setPhone(value);
+    setCountry(countryValue.name);
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.avatarWrapper}>
-        <Avatar size="117rem" editable={false} />
+        <Avatar
+          size="117rem"
+          editable={false}
+          src={
+            userInfo.avatarURL !== ""
+              ? `${serverName}/${userInfo.avatarURL}`
+              : null
+          }
+        />
         {isEdit && (
           <>
             <button className={styles.editBtn} onClick={handleOpenModal}>
@@ -65,7 +102,11 @@ const UserInfoCard = () => {
               width="610rem"
               closeModal={() => setIsOpenModal(false)}
             >
-              <AvatarEditor />
+              <AvatarEditor
+                previousAvatars={userInfo.previousAvatars}
+                userId={userInfo.userId}
+                userAvatar={userInfo.avatarURL}
+              />
             </Modal>
           </>
         )}
@@ -83,21 +124,35 @@ const UserInfoCard = () => {
         </label>
         <label>
           <span>First Name:</span>
-          <input
-            type="text"
-            value={firstname}
-            disabled={!isEdit}
-            onChange={(e) => setFirstname(e.target.value)}
-          />
+          <Tooltip
+            orientation="bottom"
+            infoContent="You can chage your first name just once!"
+            trigger={userInfo.changedSurname ? "none" : "focus"}
+            popupMaxWidth="100%"
+          >
+            <input
+              type="text"
+              value={firstname}
+              disabled={!isEdit || userInfo.changedName}
+              onChange={(e) => setFirstname(e.target.value)}
+            />
+          </Tooltip>
         </label>
         <label>
           <span>Last Name:</span>
-          <input
-            type="text"
-            value={lastname}
-            disabled={!isEdit}
-            onChange={(e) => setLastname(e.target.value)}
-          />
+          <Tooltip
+            orientation="bottom"
+            infoContent="You can chage your last name just once!"
+            trigger={userInfo.changedSurname ? "none" : "focus"}
+            popupMaxWidth="100%"
+          >
+            <input
+              type="text"
+              value={lastname}
+              disabled={!isEdit || userInfo.changedSurname}
+              onChange={(e) => setLastname(e.target.value)}
+            />
+          </Tooltip>
         </label>
         <label className={styles.emailWrapper}>
           <span>Email:</span>
@@ -132,11 +187,15 @@ const UserInfoCard = () => {
         </label>
         <label>
           <span>Phone number:</span>
-          <input
-            type="tel"
+          <PhoneInput
+            containerClass={styles.phoneContainer}
+            inputClass={styles.phoneInput}
+            buttonClass={styles.phoneBtn}
+            dropdownClass={styles.phoneDropDown}
+            country={"us"}
             value={phone}
+            onChange={handlePhoneChange}
             disabled={!isEdit}
-            onChange={(e) => setPhone(e.target.value)}
           />
         </label>
         <label>

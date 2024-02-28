@@ -136,7 +136,76 @@ export const refreshToken = async () => {
     const { data } = await instance.get("user/refresh", {
       withCredentials: true,
     });
-    console.log(data);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateUserInfo = async (credentials) => {
+  try {
+    const data = await privateRoutesHandler(
+      "put",
+      "user/update/info",
+      credentials
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateUsername = async (newUsername) => {
+  try {
+    const data = await privateRoutesHandler(
+      "put",
+      "user/update/username",
+      {
+        username: newUsername,
+      },
+      { withCredentials: true }
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateUserImage = async (imageFormData) => {
+  try {
+    const data = await privateRoutesHandler(
+      "put",
+      "user/update/image",
+      imageFormData,
+      { headers: { "Content-Type": "application/x-wwww-form-urlencoded" } }
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getLastUserImages = async () => {
+  try {
+    const data = await privateRoutesHandler("get", "user/my-images");
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const setNewMainImage = async (imageId) => {
+  try {
+    const data = await privateRoutesHandler(
+      "put",
+      "/user/set-main-image",
+      null,
+      {
+        params: {
+          image_id: imageId,
+        },
+      }
+    );
     return data;
   } catch (error) {
     throw error;

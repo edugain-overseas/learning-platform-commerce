@@ -18,7 +18,6 @@ function App() {
   useEffect(() => {
     if (accessToken) {
       instance.defaults.headers.Authorization = `Bearer ${accessToken}`;
-      console.log(accessToken);
       dispatch(getUserInfoThunk());
     }
   // eslint-disable-next-line

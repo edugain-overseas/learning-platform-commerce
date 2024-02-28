@@ -1,13 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   activateUser,
+  getLastUserImages,
   getUserInfo,
   login,
   loginWithGoogle,
   logout,
-  refreshToken,
+  setNewMainImage,
   setNewPassword,
   updateStudingTime,
+  updateUserImage,
+  updateUserInfo,
+  updateUsername,
 } from "../../http/services/user";
 
 export const activateUserThunk = createAsyncThunk(
@@ -17,7 +21,10 @@ export const activateUserThunk = createAsyncThunk(
       const response = await activateUser(credenrials);
       return response;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
     }
   }
 );
@@ -150,19 +157,87 @@ export const updateStudingTimeThunk = createAsyncThunk(
       const response = await updateStudingTime(newTime);
       return response;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
     }
   }
 );
 
-export const refreshTokenThunk = createAsyncThunk(
-  "user/refreshToken",
-  async (newTime, { rejectWithValue }) => {
+export const updateUserInfoThunk = createAsyncThunk(
+  "user/updateUserInfo",
+  async (credenrials, { rejectWithValue }) => {
     try {
-      const response = await refreshToken(newTime);
+      const response = await updateUserInfo(credenrials);
       return response;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const updateUsernameThunk = createAsyncThunk(
+  "user/updateUsername",
+  async (newUsername, { rejectWithValue }) => {
+    try {
+      const response = await updateUsername(newUsername);
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+
+
+export const getLastUserImagesThunk = createAsyncThunk(
+  "user/getLastUserImages",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await getLastUserImages();
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const updateUserImageThunk = createAsyncThunk(
+  "user/updateUserImage",
+  async (imageFile, { rejectWithValue }) => {
+    try {
+      const response = await updateUserImage(imageFile);
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const setNewMainImageThunk = createAsyncThunk(
+  "user/setNewMainImage",
+  async (imageId, { rejectWithValue }) => {
+    try {
+      const response = await setNewMainImage(imageId);
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
     }
   }
 );
