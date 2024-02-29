@@ -1,15 +1,22 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styles from "./CoursesPage.module.scss";
 import CoursesPanel from "../../components/CoursesPanel/CoursesPanel";
 import { ListModeProvider } from "../../context/ListModeContext";
+import { getAccessToken } from "../../redux/user/selectors";
+import { useSelector } from "react-redux";
 
 const CoursesPage = () => {
-  // const { pathname } = useLocation();
-  // const isCoursesHomePage =
-  //   pathname === "/courses/my" ||
-  //   pathname === "/courses/available" ||
-  //   pathname === "/courses/completed";
+  const navigate = useNavigate();
+  const accessToken = useSelector(getAccessToken);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname === "/courses") {
+      accessToken ? navigate("/courses/my") : navigate("/courses/available");
+    }
+    // eslint-disable-next-line
+  }, [pathname, accessToken]);
 
   return (
     <div className={styles.pageWrapper}>

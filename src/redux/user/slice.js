@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   activateUserThunk,
+  buyCourseThunk,
   getLastUserImagesThunk,
   getUserInfoThunk,
   loginThunk,
@@ -243,6 +244,19 @@ const userSlice = createSlice({
         ).path;
       })
       .addCase(setNewMainImageThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
+      .addCase(buyCourseThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(buyCourseThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        console.log(payload);
+      })
+      .addCase(buyCourseThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
       });

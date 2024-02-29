@@ -28,10 +28,10 @@
 
   .popup {
     position: absolute;
-    z-index: 9;
+    z-index: 99;
     transition: opacity var(--transition-time-min) ease;
     padding: 8rem 10rem;
-    background-color: rgba($color: #fcfcfc, $alpha: 0.90);
+    background-color: rgba($color: #fcfcfc, $alpha: 1);
     backdrop-filter: blur(16rem);
     border-radius: 2rem;
     box-shadow: var(--drop-shadow-button-main);

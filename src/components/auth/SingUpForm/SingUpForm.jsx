@@ -7,6 +7,7 @@ import { getAccessToken } from "../../../redux/user/selectors";
 import AuthForm from "../shared/AuthForm/AuthForm";
 import EmailVerification from "../EmailVerification/EmailVerification";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useCart } from "../../../context/cartContext";
 
 const SingUpForm = () => {
   const [isVerificationEmail, setIsVerificationEmail] = useState(false);
@@ -15,7 +16,10 @@ const SingUpForm = () => {
   const [errorField, setErrorField] = useState("");
   const accessToken = useSelector(getAccessToken);
 
-  const query = useLocation().search;
+  const location = useLocation();
+  const { handleOpen } = useCart();
+
+  const query = location.search;
   const isVerificationEmailFromQuery = new URLSearchParams(query).get(
     "verification"
   );
@@ -25,7 +29,13 @@ const SingUpForm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (accessToken) navigate("/");
+    if (accessToken) {
+      if (location.state.from) {
+        navigate(location.state.from);
+        location.state.navigateFromCart && handleOpen();
+      }
+      navigate("/");
+    }
     // eslint-disable-next-line
   }, [accessToken]);
 

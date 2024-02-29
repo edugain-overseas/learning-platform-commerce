@@ -61,6 +61,7 @@
   li {
     display: flex;
     gap: 16rem;
+    justify-content: space-between;
     border-radius: 4rem;
     border: 1px solid transparent;
     padding: 4rem;
@@ -79,8 +80,8 @@
 
   .productInfoWrapper {
     display: flex;
-    flex-basis: calc(90% - 16rem);
-    flex-shrink: 0;
+    // flex-basis: calc(90% - 16rem);
+    // flex-shrink: 0;
     gap: 8rem;
     align-items: center;
 
@@ -141,19 +142,23 @@
   bottom: 0;
   box-shadow: 0 0 0 12rem var(--drop-shadow-short);
   background-color: var(--bg-default);
-  display: flex;
-  //   justify-content: space-between;
-  gap: 16rem;
+  margin-top: 16rem;
   padding-block: 8rem;
   padding-bottom: 32rem;
-  margin-top: 16rem;
   border-top: 1px solid var(--border-color-secondary);
+
+  .totalPriceWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 16rem;
+    margin-bottom: 16rem;
+  }
 
   .total {
     font-size: 14rem;
     text-transform: uppercase;
-    flex-basis: calc(90% - 16rem);
-    flex-shrink: 0;
+    // flex-basis: calc(90% - 16rem);
+    // flex-shrink: 0;
   }
 
   .totalAmoutn {

@@ -211,3 +211,14 @@ export const setNewMainImage = async (imageId) => {
     throw error;
   }
 };
+
+export const buyCourse = async (courseId) => {
+  try {
+    const data = await privateRoutesHandler("post", "/user/buy-course", {
+      course_id: courseId,
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

@@ -1,28 +1,51 @@
 import React from "react";
-import { categories } from "../../assets/courses";
 import CategoriesItem from "./CategoriesItem/CategoriesItem";
-import styles from "./CategoriesList.module.scss";
+import { useSelector } from "react-redux";
+import { getAllCategories } from "../../redux/category/selectors";
 import { useLocation } from "react-router-dom";
+import { getUserCourses } from "../../redux/user/selectors";
+import { getAllCourses } from "../../redux/course/selectors";
+import styles from "./CategoriesList.module.scss";
 
 const CategoriesList = () => {
+  const categories = useSelector(getAllCategories);
+  const userCourses = useSelector(getUserCourses);
+  const allCourses = useSelector(getAllCourses);
   const { pathname } = useLocation();
-  console.log(pathname);
 
-  // const getCategories = () => {
-  //   switch (pathname) {
-  //     case "/courses/my":
-  //       return categories.filter((category) =>
-  //         courses.filter((course) => course.categoryId === category.id).find(({purchased})=>pur)
-  //       );
-
-  //     default:
-  //       break;
-  //   }
-  // };
+  const filterCategoriesForPage = () => {
+    switch (pathname) {
+      case "/courses/my":
+        return categories.filter(({ id: categoryId }) => {
+          const categoryCourses = allCourses.filter(
+            ({ category_id }) => category_id === categoryId
+          );
+          return categoryCourses.find(({ id }) =>
+            userCourses.find(({ course_id }) => course_id === id)
+          );
+        });
+      case "/courses/available":
+        return categories;
+      case "/courses/completed":
+        return categories.filter(({ id: categoryId }) => {
+          const categoryCourses = allCourses.filter(
+            ({ category_id }) => category_id === categoryId
+          );
+          return categoryCourses.find(({ id }) =>
+            userCourses.find(
+              (userCourse) =>
+                userCourse.course_id === id && userCourse.status === "completed"
+            )
+          );
+        });
+      default:
+        break;
+    }
+  };
 
   return (
     <ul className={styles.categoryList}>
-      {categories.map((category) => (
+      {filterCategoriesForPage().map((category) => (
         <CategoriesItem key={category.id} category={category} />
       ))}
     </ul>

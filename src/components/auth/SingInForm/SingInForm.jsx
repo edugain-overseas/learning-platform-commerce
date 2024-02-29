@@ -3,10 +3,11 @@ import AuthForm from "../shared/AuthForm/AuthForm";
 import styles from "./SingInForm.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from "../../../redux/user/operations";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getAccessToken } from "../../../redux/user/selectors";
 import { message } from "antd";
 import PasswordRecovery from "../PasswordRecovery/PasswordRecovery";
+import { useCart } from "../../../context/cartContext";
 
 const SingInForm = () => {
   const [errorField, setErrorField] = useState("");
@@ -15,10 +16,17 @@ const SingInForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const location = useLocation();
+  const { handleOpen } = useCart();
+
   const accessToken = useSelector(getAccessToken);
 
   useEffect(() => {
     if (accessToken) {
+      if (location.state?.from) {
+        navigate(location.state?.from);
+        location.state?.navigateFromCart && handleOpen(); 
+      }
       navigate("/");
     }
     // eslint-disable-next-line

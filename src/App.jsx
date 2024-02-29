@@ -9,6 +9,8 @@ import { getAccessToken } from "./redux/user/selectors";
 import { useEffect } from "react";
 import { getUserInfoThunk } from "./redux/user/operations";
 import { instance } from "./http/instance";
+import { getCategoriesThunk } from "./redux/category/operations";
+import { getCoursesThunk } from "./redux/course/operations";
 
 function App() {
   useGoogleAuthentication();
@@ -20,8 +22,14 @@ function App() {
       instance.defaults.headers.Authorization = `Bearer ${accessToken}`;
       dispatch(getUserInfoThunk());
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [accessToken]);
+
+  useEffect(() => {
+    dispatch(getCategoriesThunk());
+    dispatch(getCoursesThunk());
+    // eslint-disable-next-line
+  }, []);
 
   // console.log(user);
   useAdjustFontSize();

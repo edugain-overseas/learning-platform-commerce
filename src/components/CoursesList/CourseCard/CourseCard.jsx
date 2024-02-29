@@ -11,18 +11,19 @@ import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import CardGrade from "../../shared/CardGrade/CardGrade";
 import CardPrice from "../../shared/CardPrice/CardPrice";
 import styles from "./CourseCard.module.scss";
+import { serverName } from "../../../http/sever";
 
 const CourseCard = ({ course, purchased, disabled }) => {
   const { addItem, removeItem, cartItems } = useCart();
-  console.log(disabled);
 
   const {
-    coursePoster,
-    courseName,
-    // courseStars,
-    // coursePrice,
-    // courseIncludes,
-    // courseDuration,
+    image_path: coursePoster,
+    title: courseName,
+    c_duration: courseDuration,
+    c_type: courseType,
+    c_award: courseAward,
+    old_price: oldPrice,
+    price,
     id,
   } = course;
 
@@ -44,12 +45,20 @@ const CourseCard = ({ course, purchased, disabled }) => {
         <div
           className={styles.posterWrapper}
           style={{
-            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65)), url(${coursePoster})`,
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65)), url(${
+              coursePoster
+                ? serverName + "/" + coursePoster
+                : "https://online.maryville.edu/wp-content/uploads/sites/97/2023/09/business-management-team.jpg"
+            })`,
           }}
         >
           <div className={styles.imageWrapper}>
             <img
-              src={coursePoster}
+              src={
+                coursePoster
+                  ? `${serverName}/${coursePoster}`
+                  : "https://online.maryville.edu/wp-content/uploads/sites/97/2023/09/business-management-team.jpg"
+              }
               alt={courseName}
               className={styles.coursePoster}
             />
@@ -77,17 +86,19 @@ const CourseCard = ({ course, purchased, disabled }) => {
             </div>
             <div className={styles.details}>
               <ClockIcon />
-              <span>3 hours {"(self-paced)"}</span>
+              <span>{courseDuration}</span>
             </div>
             <div className={styles.details}>
               <LaptopIcon />
-              <span>Online course | Certificate</span>
+              <span>
+                {courseType} | {courseAward}
+              </span>
             </div>
             <div className={styles.gradePriceContainer}>
               {purchased ? (
                 <CardGrade grade={0} />
               ) : (
-                <CardPrice price={14.99} oldPrice={40} />
+                <CardPrice price={price} oldPrice={oldPrice} />
               )}
             </div>
           </div>

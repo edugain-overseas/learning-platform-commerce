@@ -1,21 +1,31 @@
 import React, { useState } from "react";
-import { courses } from "../../../assets/courses";
+// import { courses } from "../../../assets/courses";
 import { Link } from "react-router-dom";
 import CoursesList from "../../CoursesList/CoursesList";
+import { useSelector } from "react-redux";
+import { getAllCourses } from "../../../redux/course/selectors";
+import { getUserCourses } from "../../../redux/user/selectors";
+import { useListMode } from "../../../context/ListModeContext";
 import { ReactComponent as BMIcon } from "../../../images/icons/bm.svg";
 import { ReactComponent as ChevronIcon } from "../../../images/icons/arrowDown.svg";
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
-import { useListMode } from "../../../context/ListModeContext";
-import styles from "./CategoriesItem.module.scss";
 import InfoBtn from "../../shared/InfoBtn/InfoBtn";
+import styles from "./CategoriesItem.module.scss";
 
 const CategoriesItem = ({ category }) => {
   const [dropDownOpen, setDropDownOpen] = useState(true);
 
+  const courses = useSelector(getAllCourses);
+  const userCourses = useSelector(getUserCourses);
+
   const { listModeIndex } = useListMode();
 
   const categoryCourses = courses.filter(
-    (course) => course.categoryId === category.id
+    (course) => course.category_id === category.id
+  );
+
+  const userCoursesinCategory = categoryCourses.filter(({ id }) =>
+    userCourses.find(({ course_id }) => course_id === id)
   );
 
   const handleToggleDropDown = (e) => {
@@ -23,7 +33,6 @@ const CategoriesItem = ({ category }) => {
       ({ id }) => id === "dropdown"
     );
     if (dropdown) {
-      console.log("dropdown exist");
       if (!dropDownOpen) {
         dropdown.style.maxHeight = dropdown.scrollHeight + "px";
       } else {
@@ -42,7 +51,7 @@ const CategoriesItem = ({ category }) => {
         >
           <BMIcon />
           <div className={styles.nameWrapper}>
-            <h3>{category.categoryName}</h3>
+            <h3>{category.title}</h3>
             <p>
               Complete all 4 courses to receive a <span>MBA Certificate</span>
             </p>
@@ -50,7 +59,8 @@ const CategoriesItem = ({ category }) => {
         </Link>
         <div className={styles.tools}>
           <p>
-            <span>Purchased: </span>3 / 4
+            <span>Purchased: </span>
+            {`${userCoursesinCategory.length} / ${categoryCourses.length}`}
           </p>
           <div className={styles.progressWrapper}>
             <span>Progress:</span>
@@ -58,7 +68,7 @@ const CategoriesItem = ({ category }) => {
           </div>
           <div className={styles.infoWrapper}>
             <span>Info the courses</span>
-            <InfoBtn infoContent="The average score is calculated based on all courses you have completed" />
+            <InfoBtn infoContent={category.description} orientation="bottom" />
           </div>
           <button
             className={`${styles.dropdownBtn} ${

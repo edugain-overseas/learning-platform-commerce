@@ -32,7 +32,7 @@ const UserProfilePage = () => {
 
   return (
     <div className={styles.pageWrappper}>
-      {!userInfo.username === "" ? (
+      {!userInfo.userId ? (
         <div>please sing in</div>
       ) : (
         <>

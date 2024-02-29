@@ -15,12 +15,15 @@ const CourseRow = ({ course, purchased, disabled }) => {
   const { addItem, removeItem, cartItems, handleOpen } = useCart();
 
   const {
-    // coursePoster,
-    courseName,
+    title: courseName,
     // courseStars,
     // coursePrice,
     // courseIncludes,
-    // courseDuration,
+    c_duration: courseDuration,
+    c_type: courseType,
+    c_award: courseAward,
+    old_price: oldPrice,
+    price,
     id,
   } = course;
 
@@ -56,19 +59,21 @@ const CourseRow = ({ course, purchased, disabled }) => {
           </div>
           <div className={styles.details}>
             <ClockIcon />
-            <span>3 hours {"(self-paced)"}</span>
+            <span>{courseDuration}</span>
           </div>
           <div className={styles.details}>
             <LaptopIcon />
-            <span>Online course | Certificate</span>
+            <span>
+              {courseType} | {courseAward}
+            </span>
           </div>
           <div className={styles.gradePriceContainer}>
             {purchased ? (
               <CardGrade grade={192} />
             ) : (
               <CardPrice
-                price={14.99}
-                oldPrice={40}
+                price={price}
+                oldPrice={oldPrice}
                 orientation="horizontal"
                 onClick={
                   !isItemInCart

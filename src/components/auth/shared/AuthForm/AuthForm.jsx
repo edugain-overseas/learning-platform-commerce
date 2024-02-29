@@ -122,7 +122,7 @@ const AuthForm = ({
     <div className={styles.wrapper}>
       <form className={styles.form} onSubmit={handleFormSubmit}>
         <h2>{type === "registration" ? "Sing up" : "Sing in"}</h2>
-        <AuthFormLink to={type === "registration" ? "login" : "registration"} />
+        <AuthFormLink to={type === "registration" ? "login" : "registration"}/>
         <div className={styles.row}>
           <InputText
             name="Username"
