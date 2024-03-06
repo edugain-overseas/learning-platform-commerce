@@ -6,7 +6,8 @@ import TaskRow from "./TaskRow";
 
 const   TaskList = ({ tasks }) => {
   const { selectedListModeIndex } = useListMode();
-  console.log(selectedListModeIndex);
+  console.log(tasks);
+
   const sortedItemsByNumber = [...tasks].sort(
     (itemA, itemB) => itemA.number - itemB.number
   );
@@ -19,9 +20,9 @@ const   TaskList = ({ tasks }) => {
     >
       {sortedItemsByNumber.map((task) =>
         selectedListModeIndex ? (
-          <TaskRow key={task.lessonId} task={task} />
+          <TaskRow key={task.id} task={task} />
         ) : (
-          <TaskCard key={task.lessonId} task={task} />
+          <TaskCard key={task.id} task={task} />
         )
       )}
     </ul>

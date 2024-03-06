@@ -1,39 +1,55 @@
 import React, { useState } from "react";
+import { Empty } from "antd";
 import QuestionTest from "./Questions/QuestionTest/QuestionTest";
 import QuestionMultipleChoice from "./Questions/QuestionMultipleChoice/QuestionMultipleChoice";
 import QuestionPhotoAnswers from "./Questions/QuestionPhotoAnswers/QuestionPhotoAnswers";
 import QuestionPhoto from "./Questions/QuestionPhoto/QuestionPhoto";
 import QuestionMatching from "./Questions/QuestionMatching/QuestionMatching";
-import styles from "./Test.module.scss";
 import Textarea from "../shared/Textarea/Textarea";
 import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
-import { Empty } from "antd";
+import styles from "./Test.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCourses } from "../../redux/course/selectors";
+import { getLessonNumberByType } from "../../utils/getLessonNumberByType";
+import CompleteBtn from "../shared/CompleteBtn/CompleteBtn";
+import { confirmTestThunk } from "../../redux/lesson/operation";
 
 const TestContent = ({ test }) => {
   const [testTitle, setTestTitle] = useState(test?.title || "");
+  const [discription, setDiscription] = useState(test?.description || "");
   const [studentAnswers, setStudentAnswers] = useState([]);
   // const [result, setResult] = useState(null);
   const isEdit = false;
 
-  const { lessonId: testId } = test;
+  const dispatch = useDispatch();
 
-  const testContent = [...test.content].sort(
+  const {
+    id: testId,
+    course_id: courseId,
+    type: lessonType,
+    test_data: testData,
+  } = test;
+  const course = useSelector(getAllCourses)?.find(({ id }) => id === courseId);
+  const testContent = [...testData?.questions].sort(
     (itemA, itemB) => itemA.a_number - itemB.a_number
   );
-
-  const courseName = "Marketing";
+  const courseName = course?.title;
+  const courseLessons = course?.lessons;
 
   const onTitleChange = (value) => {
-    console.log(value);
     const valueWithoutPrefix = value.replace(`${courseName}: `, "");
     setTestTitle(valueWithoutPrefix);
+  };
+
+  const onDiscriptionChange = (value) => {
+    setDiscription(value);
   };
 
   const setSingleAnswerState = (id, value) => {
     setStudentAnswers((prev) => {
       const updatedState = prev.map((question) => {
-        if (question.questionId === id) {
-          question.answerId = value;
+        if (question.q_id === id) {
+          question.a_id = value;
         }
         return question;
       });
@@ -43,18 +59,17 @@ const TestContent = ({ test }) => {
 
   const setMultipleAnswersState = (id, value) => {
     setStudentAnswers((prev) => {
-      console.log(prev);
       const updatedState = prev.map((question) => {
-        if (question.questionId === id) {
-          if (question.answersIds.includes(value)) {
+        if (question.q_id === id) {
+          if (question.a_ids.includes(value)) {
             return {
               ...question,
-              answersIds: question.answersIds.filter((v) => v !== value),
+              a_ids: question.a_ids.filter((v) => v !== value),
             };
           }
           return {
             ...question,
-            answersIds: [...question.answersIds, value],
+            a_ids: [...question.a_ids, value],
           };
         }
         return question;
@@ -66,22 +81,22 @@ const TestContent = ({ test }) => {
   const setMatchingState = (id, leftOptionId, value) => {
     setStudentAnswers((prev) => {
       const updatedState = prev.map((question) => {
-        if (question.questionId === id) {
+        if (question.q_id === id) {
           if (
             question.matching.find(
-              ({ leftOptionId: leftId }) => leftId === leftOptionId
+              ({ left_id: leftId }) => leftId === leftOptionId
             )
           ) {
             question.matching.map((i) => {
-              if (i.leftOptionId === leftOptionId) {
-                i.rightOptionId = value;
+              if (i.left_id === leftOptionId) {
+                i.right_id = value;
               }
               return i;
             });
           } else {
             question.matching.push({
-              leftOptionId: leftOptionId,
-              rightOptionId: value,
+              left_id: leftOptionId,
+              right_id: value,
             });
           }
         }
@@ -93,7 +108,7 @@ const TestContent = ({ test }) => {
 
   const renderTestContent = () =>
     [...testContent]
-      .sort((itemA, itemB) => itemA.questionNumber - itemB.questionNumber)
+      .sort((a, b) => a.q_number - b.q_number)
       .map((question) => {
         const {
           q_id: id,
@@ -107,24 +122,28 @@ const TestContent = ({ test }) => {
 
         switch (type) {
           case "test":
-            if (studentAnswers.find(({ questionId }) => questionId === id)) {
+            if (
+              studentAnswers.find(({ q_id: questionId }) => questionId === id)
+            ) {
             } else {
               setStudentAnswers((prev) => [
                 ...prev,
-                { questionId: id, questionType: type, answerId: 0 },
+                { q_id: id, q_type: type, a_id: 0 },
               ]);
             }
             const testState = studentAnswers.find(
-              ({ questionId }) => questionId === id
-            )?.answerId;
+              ({ q_id: questionId }) => questionId === id
+            )?.a_id;
             return (
               <div key={id} className={styles.questionWrapper}>
                 <div className={styles.questionHeader}>
                   <p className={styles.text}>
-                    <span>{`${number})`}</span>
+                    <span>{`${number}) `}</span>
                     {text}
                   </p>
-                  <span className={styles.score}>{`${score}/200`}</span>
+                  <span
+                    className={styles.score}
+                  >{`${score}/${testData.score}`}</span>
                 </div>
                 <QuestionTest
                   answers={answers}
@@ -135,24 +154,28 @@ const TestContent = ({ test }) => {
               </div>
             );
           case "multiple_choice":
-            if (studentAnswers.find(({ questionId }) => questionId === id)) {
+            if (
+              studentAnswers.find(({ q_id: questionId }) => questionId === id)
+            ) {
             } else {
               setStudentAnswers((prev) => [
                 ...prev,
-                { questionId: id, questionType: type, answersIds: [] },
+                { q_id: id, q_type: type, a_ids: [] },
               ]);
             }
             const multipleChoiseState = studentAnswers.find(
-              ({ questionId }) => questionId === id
-            )?.answersIds;
+              ({ q_id: questionId }) => questionId === id
+            )?.a_ids;
             return (
               <div key={id} className={styles.questionWrapper}>
                 <div className={styles.questionHeader}>
                   <p className={styles.text}>
-                    <span>{`${number})`}</span>
+                    <span>{`${number}) `}</span>
                     {text}
                   </p>
-                  <span className={styles.score}>{`${score}/200`}</span>
+                  <span
+                    className={styles.score}
+                  >{`${score}/${testData.score}`}</span>
                 </div>
                 <QuestionMultipleChoice
                   answers={answers}
@@ -163,24 +186,28 @@ const TestContent = ({ test }) => {
               </div>
             );
           case "answer_with_photo":
-            if (studentAnswers.find(({ questionId }) => questionId === id)) {
+            if (
+              studentAnswers.find(({ q_id: questionId }) => questionId === id)
+            ) {
             } else {
               setStudentAnswers((prev) => [
                 ...prev,
-                { questionId: id, questionType: type, answerId: 0 },
+                { q_id: id, q_type: type, a_id: 0 },
               ]);
             }
             const photoAnswersState = studentAnswers.find(
-              ({ questionId }) => questionId === id
-            )?.answerId;
+              ({ q_id: questionId }) => questionId === id
+            )?.a_id;
             return (
               <div key={id} className={styles.questionWrapper}>
                 <div className={styles.questionHeader}>
                   <p className={styles.text}>
-                    <span>{`${number})`}</span>
+                    <span>{`${number}) `}</span>
                     {text}
                   </p>
-                  <span className={styles.score}>{`${score}/200`}</span>
+                  <span
+                    className={styles.score}
+                  >{`${score}/${testData.score}`}</span>
                 </div>
                 <QuestionPhotoAnswers
                   answers={answers}
@@ -191,24 +218,28 @@ const TestContent = ({ test }) => {
               </div>
             );
           case "question_with_photo":
-            if (studentAnswers.find(({ questionId }) => questionId === id)) {
+            if (
+              studentAnswers.find(({ q_id: questionId }) => questionId === id)
+            ) {
             } else {
               setStudentAnswers((prev) => [
                 ...prev,
-                { questionId: id, questionType: type, answerId: 0 },
+                { q_id: id, q_type: type, a_id: 0 },
               ]);
             }
             const photoState = studentAnswers.find(
-              ({ questionId }) => questionId === id
-            )?.answerId;
+              ({ q_id: questionId }) => questionId === id
+            )?.a_id;
             return (
               <div key={id} className={styles.questionWrapper}>
                 <div className={styles.questionHeader}>
                   <p className={styles.text}>
-                    <span>{`${number})`}</span>
+                    <span>{`${number}) `}</span>
                     {text}
                   </p>
-                  <span className={styles.score}>{`${score}/200`}</span>
+                  <span
+                    className={styles.score}
+                  >{`${score}/${testData.score}`}</span>
                 </div>
                 <QuestionPhoto
                   answers={answers}
@@ -220,24 +251,27 @@ const TestContent = ({ test }) => {
               </div>
             );
           case "matching":
-            if (studentAnswers.find(({ questionId }) => questionId === id)) {
+            if (
+              studentAnswers.find(({ q_id: questionId }) => questionId === id)
+            ) {
             } else {
               setStudentAnswers((prev) => [
                 ...prev,
-                { questionId: id, questionType: type, matching: [] },
+                { q_id: id, q_type: type, matching: [] },
               ]);
             }
             const matchingState = studentAnswers.find(
-              ({ questionId }) => questionId === id
+              ({ q_id }) => q_id === id
             )?.matching;
             return (
               <div key={id} className={styles.questionWrapper}>
                 <div className={styles.questionHeader}>
                   <p className={styles.text}>
-                    <span>{`${number})`}</span>
-                    {text}
+                    <span>{`${number})`}</span> {text}
                   </p>
-                  <span className={styles.score}>{`${score}/200`}</span>
+                  <span
+                    className={styles.score}
+                  >{`${score}/${testData.score}`}</span>
                 </div>
                 <QuestionMatching
                   answers={{
@@ -251,28 +285,31 @@ const TestContent = ({ test }) => {
               </div>
             );
           case "boolean":
-            if (studentAnswers.find(({ questionId }) => questionId === id)) {
+            if (
+              studentAnswers.find(({ q_id: questionId }) => questionId === id)
+            ) {
             } else {
               setStudentAnswers((prev) => [
                 ...prev,
-                { questionId: id, questionType: type, answerId: 0 },
+                { q_id: id, q_type: type, a_id: 0 },
               ]);
             }
             const booleanState = studentAnswers.find(
-              ({ questionId }) => questionId === id
-            )?.answerId;
+              ({ q_id: questionId }) => questionId === id
+            )?.a_id;
             return (
               <div key={id} className={styles.questionWrapper}>
                 <div className={styles.questionHeader}>
                   <p className={styles.text}>
-                    <span>{`${number})`}</span>
+                    <span>{`${number}) `}</span>
                     {text}
                   </p>
-                  <span className={styles.score}>{`${score}/200`}</span>
+                  <span
+                    className={styles.score}
+                  >{`${score}/${testData.score}`}</span>
                 </div>
                 <QuestionTest
                   answers={answers}
-                  // answers={shuffleArray([...answers])}
                   state={booleanState}
                   setState={setSingleAnswerState}
                   id={id}
@@ -284,10 +321,16 @@ const TestContent = ({ test }) => {
         }
       });
 
+  const handleConfirmTest = () => {
+    dispatch(
+      confirmTestThunk({ lessonId: testId, studentTest: studentAnswers })
+    );
+  };
+
   return (
     <div className={styles.contentWrapper}>
       <div className={styles.testContent}>
-        <div className={styles.titleWrapper}>
+        <div className={styles.header}>
           {isEdit ? (
             <Textarea
               className={styles.titleInput}
@@ -302,10 +345,26 @@ const TestContent = ({ test }) => {
               <span className={styles.title}>{testTitle}</span>
             </div>
           )}
-          <h2 className={styles.title}>
-            <span className={styles.prefix}>Test №:</span>
-            {testId}
-          </h2>
+          {courseLessons && courseLessons.length && (
+            <div className={styles.testName}>
+              <h2 className={styles.title}>
+                <span className={styles.prefix}>Test №:</span>
+                {getLessonNumberByType(courseLessons, lessonType, testId)}
+              </h2>
+            </div>
+          )}
+          {isEdit ? (
+            <Textarea
+              className={styles.titleInput}
+              fontSize={14}
+              value={discription}
+              onChange={onDiscriptionChange}
+            />
+          ) : (
+            <div className={styles.testName}>
+              <span className={styles.description}>{discription}</span>
+            </div>
+          )}
         </div>
         {isEdit ? (
           //   <LectureConstructor
@@ -329,6 +388,7 @@ const TestContent = ({ test }) => {
             width="200rem"
             height="38rem"
           />
+          <CompleteBtn onClick={handleConfirmTest} />
           <LessonNavigateBtn
             forward={true}
             currentNumber={test.number}

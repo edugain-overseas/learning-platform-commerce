@@ -2,18 +2,12 @@ import React from "react";
 import { ReactComponent as DocQuestionIcon } from "../../images/icons/document-question.svg";
 import { ReactComponent as ComplieteIcon } from "../../images/icons/task-check.svg";
 import CardGrade from "../shared/CardGrade/CardGrade";
-import styles from "./TasksHeader.module.scss";
 import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
+import styles from "./TasksHeader.module.scss";
 
-const TestHeader = ({ test, questionsDoneAmount = 0 }) => {
-  const {
-    title,
-    type,
-    number,
-    questionsAmount,
-    grade = 0,
-    maxGrade = 40,
-  } = test;
+const TestHeader = ({ test, questionsDoneAmount = 0, testScore }) => {
+  const { title, type, number, test_data: testData } = test;
+  console.log(testScore);
   return (
     <div className={styles.wrapper}>
       <div className={styles.titleWrapper}>
@@ -24,13 +18,13 @@ const TestHeader = ({ test, questionsDoneAmount = 0 }) => {
       <div className={styles.toolsWrapper}>
         <div className={styles.questionsDoneWrapper}>
           <DocQuestionIcon />
-          <span>{`Questions: ${questionsDoneAmount}/${questionsAmount}`}</span>
+          <span>{`Questions: ${questionsDoneAmount}/${testData?.questions?.length}`}</span>
         </div>
         <button className={styles.complieteBtn}>
           <span>Compliete</span>
           <ComplieteIcon />
         </button>
-        <CardGrade grade={grade} maxGrade={maxGrade} />
+        <CardGrade grade={testScore} maxGrade={testData?.score} />
         <div className={styles.navBtnsWrapper}>
           <LessonNavigateBtn forward={false} currentNumber={number} />
           <LessonNavigateBtn forward={true} currentNumber={number} />

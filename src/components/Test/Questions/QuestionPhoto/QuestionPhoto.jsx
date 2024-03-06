@@ -11,12 +11,14 @@ const QuestionPhoto = ({ answers, state, setState, id, imagePath }) => {
     setState(id, value);
   };
 
+  console.log(answers);
   const renderAnswers = () => {
     if (!answers) {
       return;
     }
 
-    return answers.map(({ answerId, answerText }, index) => {
+    return answers.map(({ a_id: answerId, a_text: answerText }, index) => {
+      console.log(answerText);
       return (
         <label
           key={answerId}
@@ -41,7 +43,7 @@ const QuestionPhoto = ({ answers, state, setState, id, imagePath }) => {
   return (
     <div className={styles.questionBody}>
       <div className={styles.imageWrapper}>
-        <Image src={`${serverName}${imagePath}`} fallback={noImage} />
+        <Image src={`${serverName}/${imagePath}`} fallback={noImage} />
       </div>
       <form className={styles.answersWrapper}>{renderAnswers()}</form>
     </div>

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCourseDetailThunk, getCoursesThunk } from "./operations";
+import { confirmLectureThunk } from "../lesson/operation";
 
 const initialState = {
   isLoading: false,
@@ -32,11 +33,32 @@ const courseSlice = createSlice({
       })
       .addCase(getCourseDetailThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+        console.log(payload);
         state.courses = state.courses.map((course) =>
-          course.id === payload.id ? payload : course
+          course.id === payload.id ? { ...course, ...payload } : course
         );
       })
       .addCase(getCourseDetailThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
+      .addCase(confirmLectureThunk.fulfilled, (state, action) => {
+        const lessonId = action.meta.arg;
+        const courseToUpdate = state.courses.find(({ lessons }) =>
+          lessons.find(({ id }) => {
+            return id === lessonId;
+          })
+        );
+        if (courseToUpdate) {
+          courseToUpdate.lessons.forEach((lesson) => {
+            if (lesson.id === lessonId) {
+              lesson.status = "completed";
+            }
+          });
+        }
+      })
+      .addCase(confirmLectureThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = { code: payload.code, message: payload.message };
       });

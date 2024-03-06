@@ -5,7 +5,6 @@ import { serverName } from "../../../../http/sever";
 import noImage from "../../../../images/noImage.jpeg";
 import styles from "./QuestionPhotoAnswers.module.scss";
 
-
 const QuestionPhotoAnswers = ({ answers, state, setState, id }) => {
   const onRadioInputChange = (e) => {
     const value = +e.target.value;
@@ -16,31 +15,36 @@ const QuestionPhotoAnswers = ({ answers, state, setState, id }) => {
     if (!answers) {
       return;
     }
-
-    return answers.map(({ answerId, answerText, imagePath }, index) => {
-      console.log(imagePath);
-      return (
-        <div key={answerId} className={styles.imageCard}>
-          <Image src={`${serverName}${imagePath}`} fallback={noImage} />
-          <label
-            className={
-              state === answerId
-                ? `${styles.option} ${styles.optionChecked}`
-                : styles.option
-            }
-          >
-            <input
-              type="radio"
-              name={`answerText`}
-              value={answerId}
-              checked={state === answerId}
-              onChange={onRadioInputChange}
-            />
-            {getLetterVatiantsByIndex(index)} {answerText}
-          </label>
-        </div>
-      );
-    });
+    console.log(answers);
+    return answers.map(
+      (
+        { a_id: answerId, a_text: answerText, image_path: imagePath },
+        index
+      ) => {
+        console.log(imagePath);
+        return (
+          <div key={answerId} className={styles.imageCard}>
+            <Image src={`${serverName}/${imagePath}`} fallback={noImage} />
+            <label
+              className={
+                state === answerId
+                  ? `${styles.option} ${styles.optionChecked}`
+                  : styles.option
+              }
+            >
+              <input
+                type="radio"
+                name={`answerText`}
+                value={answerId}
+                checked={state === answerId}
+                onChange={onRadioInputChange}
+              />
+              {getLetterVatiantsByIndex(index)} {answerText}
+            </label>
+          </div>
+        );
+      }
+    );
   };
   return <form className={styles.answersWrapper}>{renderAnswers()}</form>;
 };

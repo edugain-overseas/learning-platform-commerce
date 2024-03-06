@@ -14,20 +14,39 @@
 .contentWrapper {
   flex-grow: 1;
   height: fit-content;
+  max-width: calc(100% - 16rem - 270rem);
 }
 
 .progressWrapper {
-  width: 269rem;
+  width: 270rem;
   display: flex;
   position: sticky;
   top: 0;
 }
 
 .testContent {
-  padding: 40rem 24rem 64rem;
-  background-color: var(--bg-rgba-default);
-  box-shadow: var(-drop-shadow-button-main);
+  label {
+    width: fit-content;
+    cursor: pointer
+  }
+
+  input[type="radio"] {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  input[type="checkbox"] {
+    width: 12rem;
+    height: 12rem;
+  }
+}
+
+.header {
   border-radius: 5rem;
+  background-color: var(--bg-rgba-default);
+  box-shadow: var(--drop-shadow-button-main);
+  padding: 40rem 24rem 12rem;
+  margin-bottom: 16rem;
 }
 
 .titleWrapper {
@@ -38,7 +57,7 @@
   text-align: center;
   padding: 2rem 8rem;
   border: 1rem solid transparent;
-  margin-bottom: 8rem;
+  margin-bottom: 12rem;
 
   & > span {
     white-space: normal;
@@ -52,25 +71,35 @@
   color: var(--content-secondary);
 }
 
-.title,
-.titleInput {
+.title {
   font-size: 18rem;
+}
+
+.title,
+.titleInput,
+.description {
   font-weight: 500;
   line-height: 1.2;
   text-align: center;
-  color: var(--content-main);
-  margin-bottom: 8rem;
+  color: var(--content-dark);
+}
+
+.description {
+  font-size: 14rem;
+  margin-bottom: 0;
 }
 
 .titleInput {
   padding: 2rem 8rem;
+  margin-bottom: 12rem;
 }
 
 .questionWrapper {
-  padding-inline: 24rem;
-  margin-bottom: 52rem;
-  border-radius: 4rem;
-  box-shadow: 0 0 3.70673rem 0 rgba(0, 0, 0, 0.12);
+  padding-inline: 24rem 32rem;
+  margin-bottom: 16rem;
+  border-radius: 5rem;
+  box-shadow: var(--drop-shadow-button-main);
+  background-color: var(--bg-rgba-default);
 
   .questionHeader {
     display: flex;
@@ -79,10 +108,10 @@
     justify-content: space-between;
     align-items: center;
 
-    border-bottom: 1rem solid #cfcfcf;
+    border-bottom: 1rem solid var(--content-datail-secondary);
 
     & span {
-      color: rgba(0, 0, 0, 0.5);
+      color: var(--content-datail-secondary);
       font-family: Inter, sans-serif;
       font-size: 16rem;
       font-style: normal;
@@ -92,14 +121,18 @@
 
     & .score {
       font-size: 14rem;
+      flex-shrink: 0;
+      width: fit-content;
     }
   }
 }
 
 .bottomNavBtnsWrapper {
   display: flex;
-  justify-content: center;
-  gap: 314rem;
+  justify-content: space-evenly;
   align-items: center;
-  padding-top: 64rem;
+  padding: 40rem 90rem;
+  border-radius: 5rem;
+  background-color: var(--bg-rgba-default);
+  box-shadow: var(--drop-shadow-button-main);
 }

@@ -1,17 +1,19 @@
 import React from "react";
-import { franc } from "franc";
 import { ReactComponent as NoteIcon } from "../../images/icons/note.svg";
-import TextReader from "../TextReader/TextReader";
 import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
 import styles from "./TasksHeader.module.scss";
+import LectureAudioPlayer from "../LectureAudioPlayer/LectureAudioPlayer";
 
 const LectureHeader = ({ lecture }) => {
-  const { title, type, number } = lecture;
+  const {
+    title,
+    type,
+    number,
+    lecture_info: lectureInfo,
+    course_id: courseId,
+  } = lecture;
 
-  const lectureToSpeech = [...lecture.content]
-    .sort((itemA, itemB) => itemA.a_number - itemB.a_number)
-    .map(({ a_title: title, a_text: text }) => title + ". " + text)
-    .join(". ");
+  const lectureSpeech = lectureInfo?.lecture_speeches;
 
   return (
     <div className={styles.wrapper}>
@@ -25,13 +27,20 @@ const LectureHeader = ({ lecture }) => {
           <span>The note:</span>
           <NoteIcon />
         </div>
-        <TextReader
-          textToRead={lectureToSpeech}
-          lang={franc(lectureToSpeech)}
-        />
+        {lectureSpeech && lectureSpeech?.length !== 0 && (
+          <LectureAudioPlayer lectureSpeeches={lectureInfo.lecture_speeches} />
+        )}
         <div className={styles.navBtnsWrapper}>
-          <LessonNavigateBtn forward={false} currentNumber={number} />
-          <LessonNavigateBtn forward={true} currentNumber={number} />
+          <LessonNavigateBtn
+            forward={false}
+            currentNumber={number}
+            courseId={courseId}
+          />
+          <LessonNavigateBtn
+            forward={true}
+            currentNumber={number}
+            courseId={courseId}
+          />
         </div>
       </div>
     </div>

@@ -8,15 +8,16 @@ import { Link } from "react-router-dom";
 import styles from "./TaskList.module.scss";
 
 const TaskRow = ({ task }) => {
+  console.log(task);
   return (
     <li
       className={`${styles.row} ${
-        task.status === "compleated" ? styles.completedRow : ""
+        task.status === "completed" ? styles.completedRow : ""
       }`}
     >
       <Link
-        // to={task.status ? `/task/${task.lessonId}` : null}
-        to={`/task/${task.lessonId}`}
+        to={task.status ? `/task/${task.id}` : null}
+        // to={`/task/${task.id}`}
         className={styles.rowLink}
       >
         <div className={styles.titleWrapper}>
@@ -33,32 +34,32 @@ const TaskRow = ({ task }) => {
             <TaskViewIcon />
             <span>{`Type of activity: ${task.type}`}</span>
           </div>
-          {task.status ? (
-            task.status === "compleated" ? (
-              <div className={styles.secondaryWrapper}>
-                <ComplietedIcon />
-                <span>
-                  Status: <span className={styles.success}>Completed</span>
+          {task.status && task.status !== "blocked" ? (
+            <div className={styles.secondaryWrapper}>
+              <ComplietedIcon />
+              <span>
+                Status:{" "}
+                <span
+                  className={
+                    task.status === "completed"
+                      ? `${styles.success}`
+                      : `${styles.active}`
+                  }
+                >
+                  {task.status}
                 </span>
-              </div>
-            ) : (
-              <div className={styles.secondaryWrapper}>
-                <ComplietedIcon />
-                <span>
-                  Status: <span className={styles.active}>Active</span>
-                </span>
-              </div>
-            )
+              </span>
+            </div>
           ) : (
             <>
               <div className={styles.secondaryWrapper}>
                 <ClockIcon />
-                <span>{`Scheduled time: ${task.duration} min`}</span>
+                <span>{`Scheduled time: ${task.scheduled_time} min`}</span>
               </div>
               {task.type === "test" && (
                 <div className={styles.secondaryWrapper}>
                   <QuestionsIcon />
-                  <span>{`Questions: 8`}</span>
+                  <span>{`Questions: ${task.q_count}`}</span>
                 </div>
               )}
             </>

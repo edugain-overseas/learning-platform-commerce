@@ -1,0 +1,116 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.audio {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+.title {
+  color: var(--content-datail-secondary);
+  font-size: 14rem;
+  font-weight: 500;
+  margin-right: 8rem;
+}
+
+.playBtn {
+  width: 16rem;
+  height: 16rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12rem;
+
+  svg {
+    height: 100%;
+    width: auto;
+  }
+
+  svg rect {
+    fill: var(--content-datail-secondary);
+  }
+}
+
+.volumeWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rem;
+  margin-right: 16rem;
+
+  .inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .volumeInput {
+    // appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    width: 50rem;
+    background: transparent;
+
+    &::-webkit-slider-runnable-track {
+      background: #b7b7b7;
+      height: 4rem;
+      border-radius: 2rem;
+    }
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: 4rem;
+      height: 4rem;
+    }
+  }
+
+  .volumeValue {
+    position: absolute;
+    height: 4rem;
+    background: #7e8ca8;
+    pointer-events: none;
+    border-radius: 2rem;
+  }
+
+  svg {
+    width: 16rem;
+    height: 16rem;
+  }
+}
+
+.rateWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  span {
+    color: var(--content-datail-secondary);
+    font-size: 14rem;
+    font-weight: 500;
+    line-height: 14rem;
+    width: 40rem;
+    text-align: center;
+  }
+
+  svg {
+    width: 9rem;
+    height: 8rem;
+  }
+
+  .decrease {
+    svg {
+      transform: rotateZ(180deg);
+    }
+  }
+}

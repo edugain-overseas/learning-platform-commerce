@@ -57,8 +57,9 @@
     overflow: hidden;
   }
 
-  .poster {
+  .poster { 
     position: absolute;
+    height: 63rem;
     top: 0;
     object-fit: cover;
   }
@@ -229,9 +230,11 @@
 
   .success {
     color: var(--content-success);
+    text-transform: capitalize;
   }
 
   .active {
     color: var(--bg-button-edit);
+    text-transform: capitalize;
   }
 }

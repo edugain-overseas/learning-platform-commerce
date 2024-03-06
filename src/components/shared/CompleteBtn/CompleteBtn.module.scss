@@ -1,0 +1,20 @@
+.completeBtn {
+  width: 164rem;
+  height: 38rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12rem;
+  background-color: var(--bg-button-success);
+  border-radius: 5rem;
+
+  span {
+    color: var(--content-contr-color);
+    font-size: 16rem;
+  }
+
+  svg {
+    width: 18rem;
+    height: 18rem;
+  }
+}

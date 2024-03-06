@@ -5,11 +5,10 @@
   padding-block: 16rem;
   display: flex;
 
-  border-bottom: 1rem solid #cfcfcf;
+  border-bottom: 1rem solid var(--content-datail-secondary);
 
   & p {
-    color: rgba(0, 0, 0, 0.5);
-    font-family: Inter, sans-serif;
+    color: var(--content-datail-secondary);
     font-size: 14rem;
     font-style: normal;
     font-weight: 500;
@@ -27,7 +26,7 @@
 
 .left {
   padding-right: 24rem;
-  border-right: 1rem solid #cfcfcf;
+  border-right: 1rem solid var(--content-datail-secondary);
 }
 
 .right {
@@ -40,15 +39,24 @@
   gap: 24rem;
   padding-block: 16rem;
 
-  & ul {
+  & > ul {
     display: flex;
     align-items: center;
-    gap: 24rem;
-    color:  #4171cd;
-    font-family: Inter, sans-serif;
-    font-size: 14rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+    gap: 16rem;
+  }
+
+  .answerOption {
+    display: flex;
+    align-items: center;
+    height: 24rem;
+
+    span {
+      color: var(--content-main);
+      font-family: Inter, sans-serif;
+      font-size: 14rem;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
   }
 }

@@ -11,6 +11,7 @@ const Select = ({
   placeholder = "Please select option",
   wrapperStyles = {},
   dropDownWrapperStyles = {},
+  allowClear = true,
 }) => {
   const [isOpen, setIsOpen] = useState();
   const [highlightedIndex, setHightlightedIndex] = useState(0);
@@ -117,13 +118,13 @@ const Select = ({
         </span>
       )}
 
-      {value === "" ? (
-        <button className={styles.openBtn} onClick={(e) => handleOpen(e)}>
-          <DropDownArrowIcon />
-        </button>
-      ) : (
+      {value === "" && allowClear ? (
         <button className={styles.clearBtn} onClick={(e) => handleClear(e)}>
           <CrossIcon />
+        </button>
+      ) : (
+        <button className={styles.openBtn} onClick={(e) => handleOpen(e)}>
+          <DropDownArrowIcon />
         </button>
       )}
 

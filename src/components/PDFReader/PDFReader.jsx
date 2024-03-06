@@ -13,7 +13,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 const options = {
   cMapUrl: "/cmaps/",
   standardFontDataUrl: "/standard_fonts/",
-  // withCredentials: true,
+  withCredentials: true,
 };
 
 function PDFReader({ pdf, setFullscreen, fullscreen }) {
@@ -22,8 +22,9 @@ function PDFReader({ pdf, setFullscreen, fullscreen }) {
   const [pageLoadedSucces, setPageLoadedSucces] = useState(false);
   const [play, setPlay] = useState(false);
   const [pageHeight, setPageHeight] = useState(0);
+  
+  // eslint-disable-next-line
   const [fileObj, setFileObj] = useState({ url: pdf });
-  console.log(setFileObj);
 
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
@@ -33,7 +34,7 @@ function PDFReader({ pdf, setFullscreen, fullscreen }) {
   const NextBtnRef = useRef(null);
 
   const rootFontSize = parseFloat(document.documentElement.style.fontSize);
-  const pageWidthInRem = 470;
+  const pageWidthInRem = 423;
   const pageWidthInPx = pageWidthInRem * rootFontSize;
   const fullscreenHeight = window.window.outerHeight * 0.85;
 
@@ -156,8 +157,8 @@ function PDFReader({ pdf, setFullscreen, fullscreen }) {
           className={styles.page}
           width={fullscreen ? null : pageWidthInPx}
           height={fullscreen ? fullscreenHeight : null}
-          onLoadSuccess={handlePageLoadSuccess}
           loading={null}
+          onLoadSuccess={handlePageLoadSuccess}
         />
         {pageNumber !== numPages && (
           <Page

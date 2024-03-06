@@ -13,6 +13,7 @@ import {
 } from "redux-persist";
 import categorySlice from "./category/slice";
 import courseSlice from "./course/slice";
+import lessonSlice from "./lesson/slice";
 
 const persistConfig = {
   key: "persisted-user",
@@ -27,6 +28,7 @@ export const store = configureStore({
     user: persistedReducer,
     category: categorySlice.reducer,
     course: courseSlice.reducer,
+    lesson: lessonSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

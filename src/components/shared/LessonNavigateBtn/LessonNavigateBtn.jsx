@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getAllCourses } from "../../../redux/course/selectors";
 import { ReactComponent as ArrowDownIcon } from "../../../images/icons/arrow-left.svg";
-import { lessons } from "../../../assets/courses";
 import styles from "./LessonNavigateBtn.module.scss";
 
 const LessonNavigateBtn = ({
@@ -10,14 +11,18 @@ const LessonNavigateBtn = ({
   height = "28rem",
   label = forward ? "Next" : "Return",
   currentNumber = 1,
+  courseId = 1,
 }) => {
   const navigate = useNavigate();
+  const courses = useSelector(getAllCourses);
+  const course = courses.find(({ id }) => id === +courseId);
+  const courseLessons = course?.lessons || [];
 
-  const coursesLessons = [...lessons].sort(
-    (itemA, itemB) => itemA.number - itemB.number
+  const courseSortedLessons = [...courseLessons]?.sort(
+    (a, b) => a.number - b.number
   );
 
-  const targetLesson = coursesLessons.find(({ number: num }) => {
+  const targetLesson = courseSortedLessons?.find(({ number: num }) => {
     if (forward) {
       return num === currentNumber + 1;
     }
@@ -25,7 +30,7 @@ const LessonNavigateBtn = ({
   });
 
   const handleNavigate = () => {
-    const targetLessonId = targetLesson.lessonId;
+    const targetLessonId = targetLesson.id;
     navigate(`/task/${targetLessonId}`);
   };
 

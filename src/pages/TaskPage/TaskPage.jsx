@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import styles from "./TaskPage.module.scss";
-import { lessons } from "../../assets/courses";
+import { useDispatch, useSelector } from "react-redux";
+import { getLessonByIdThunk } from "../../redux/lesson/operation";
+import { getAllLessons } from "../../redux/lesson/selectors";
 import Lecture from "../../components/Lecture/Lecture";
 import Test from "../../components/Test/Test";
+import styles from "./TaskPage.module.scss";
 
 const TaskPage = () => {
   const { taskId } = useParams();
-  const task = lessons.find(({ lessonId }) => lessonId === +taskId);
-  const taskType = task.type;
-  console.log(task);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (taskId) {
+      dispatch(getLessonByIdThunk(+taskId));
+    }
+    // eslint-disable-next-line
+  }, [taskId]);
+
+  const lessons = useSelector(getAllLessons);
+
+  const task = lessons.find(({ id }) => id === +taskId);
+  const taskType = task?.type;
+
   return (
     <div className={styles.pageWrapper}>
       {taskType === "lecture" && <Lecture lecture={task} />}

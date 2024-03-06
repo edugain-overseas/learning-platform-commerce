@@ -3,17 +3,19 @@ import { Outlet, useParams } from "react-router-dom";
 import CoursesPanel from "../../components/CoursesPanel/CoursesPanel";
 import { ListModeProvider } from "../../context/ListModeContext";
 import styles from "./CourseDetailPage.module.scss";
-import { useDispatch } from "react-redux";
-import { getCourseDetailThunk } from "../../redux/course/operations";
+import {  useSelector } from "react-redux";
+// import { getCourseDetailThunk } from "../../redux/course/operations";
+import { getAllCourses } from "../../redux/course/selectors";
 
 const CourseDetailPage = () => {
   const { courseId } = useParams();
-  const dispatch = useDispatch();
+  const courses = useSelector(getAllCourses);
+  // const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCourseDetailThunk(+courseId));
+    // dispatch(getCourseDetailThunk(+courseId));
     // eslint-disable-next-line
-  }, [courseId]);
+  }, [courseId, courses.length]);
 
   return (
     <div className={styles.pageWrapper}>

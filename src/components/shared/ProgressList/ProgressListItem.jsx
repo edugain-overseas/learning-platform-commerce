@@ -6,7 +6,7 @@ const ProgressListItem = ({ item }) => {
     <li>
       <div
         className={`${styles.progressIconOuter} ${
-          item.status === "compleated"
+          item.status === "completed"
             ? styles.success
             : item.status === "active"
             ? styles.inProgress

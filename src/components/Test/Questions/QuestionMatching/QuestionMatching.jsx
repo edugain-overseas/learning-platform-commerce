@@ -1,14 +1,14 @@
 import React from "react";
 import { getLetterVatiantsByIndex } from "../../../../utils/getLetterVatiantsByIndex";
-import { Select } from "antd";
+import Select from "../../../shared/Select/Select";
 import styles from "./QuestionMatching.module.scss";
 
-const QuestionMatching = ({ answers, setState, id }) => {
+const QuestionMatching = ({ answers, setState, id, state }) => {
   const leftOptions = answers?.left || [];
   const rightOptions = answers?.right || [];
 
   const options = rightOptions.map(({ id }, index) => ({
-    label: <span>{getLetterVatiantsByIndex(index)}</span>,
+    label: getLetterVatiantsByIndex(index),
     value: id,
   }));
 
@@ -37,16 +37,29 @@ const QuestionMatching = ({ answers, setState, id }) => {
       <div className={styles.selectOptionsWrapper}>
         <span className={styles.matchPointer}>Answer options:</span>
         <ul>
-          {leftOptions.map(({ id: leftOptionId }, index) => (
-            <li key={leftOptionId}>
-              <span>{`${index + 1}) = `}</span>
-              <Select
-                options={options}
-                bordered={false}
-                onChange={(value) => setState(id, leftOptionId, +value)}
-              />
-            </li>
-          ))}
+          {leftOptions.map(({ id: leftOptionId }, index) => {
+            const currentValue = state.find(
+              (answer) => answer.left_id === leftOptionId
+            )?.right_id;
+            return (
+              <li key={leftOptionId} className={styles.answerOption}>
+                <span>{`${index + 1}) = `}</span>
+                <Select
+                  options={options}
+                  value={currentValue ? currentValue : ""}
+                  bordered={false}
+                  onChange={(value) => setState(id, leftOptionId, +value)}
+                  placeholder=""
+                  borderless={true}
+                  allowClear={false}
+                  wrapperStyles={{
+                    backgroundColor: "transparent",
+                    width: "48rem",
+                  }}
+                />
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>

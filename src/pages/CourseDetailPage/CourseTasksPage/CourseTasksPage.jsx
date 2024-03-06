@@ -1,23 +1,25 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { lessons } from "../../../assets/courses";
+import { useSelector } from "react-redux";
+import { getAllCourses } from "../../../redux/course/selectors";
 import { ReactComponent as LectureIcon } from "../../../images/icons/document-text.svg";
 import { ReactComponent as TestIcon } from "../../../images/icons/test.svg";
 import { ReactComponent as TranslationIcon } from "../../../images/icons/translate.svg";
-import styles from "./CourseTasksPage.module.scss";
 import TaskList from "../../../components/TaskList/TaskList";
 import CourseAsideProgressPanel from "../../../components/CourseAsideProgressPanel/CourseAsideProgressPanel";
+import styles from "./CourseTasksPage.module.scss";
 
 const CourseTasksPage = () => {
   const { courseId } = useParams();
+  const courses = useSelector(getAllCourses);
+  const course = courses.find(({ id }) => id === +courseId);
+  const courseLessons = course?.lessons;
+  const progress = course?.progress;
 
-  const courseLessons = lessons.filter(
-    ({ courseId: course_id }) => course_id === +courseId
-  );
+  console.log(courseLessons);
 
-  const lectures = courseLessons.filter(({ type }) => type === "lecture");
-  const tests = courseLessons.filter(({ type }) => type === "test");
-  console.log(courseLessons, lectures, tests);
+  const lectures = courseLessons?.filter(({ type }) => type === "lecture");
+  const tests = courseLessons?.filter(({ type }) => type === "test");
 
   return (
     <div className={styles.pageWrapper}>
@@ -27,11 +29,11 @@ const CourseTasksPage = () => {
           <ul className={styles.attributesList}>
             <li>
               <LectureIcon />
-              <span>{`Lectures: ${lectures.length}`}</span>
+              <span>{`Lectures: ${lectures?.length}`}</span>
             </li>
             <li>
               <TestIcon />
-              <span>{`Tests: ${tests.length}`}</span>
+              <span>{`Tests: ${tests?.length}`}</span>
             </li>
             <li>
               <TranslationIcon />
@@ -40,10 +42,16 @@ const CourseTasksPage = () => {
           </ul>
         </div>
         <div className={styles.listWrapper}>
-          <TaskList tasks={courseLessons} />
+          {courseLessons?.length && <TaskList tasks={courseLessons} />}
         </div>
       </div>
-      <CourseAsideProgressPanel courseLessons={courseLessons} courseId={courseId}/>
+      {courseLessons?.length && (
+        <CourseAsideProgressPanel
+          courseLessons={courseLessons}
+          courseId={courseId}
+          progress={progress}
+        />
+      )}
     </div>
   );
 };

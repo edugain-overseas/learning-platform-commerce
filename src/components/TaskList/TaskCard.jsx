@@ -7,19 +7,24 @@ import { ReactComponent as QuestionsIcon } from "../../images/icons/document-que
 import { ReactComponent as ComplietedIcon } from "../../images/icons/task-check.svg";
 import poster from "../../images/MedicineBackground.png";
 import styles from "./TaskList.module.scss";
+import { serverName } from "../../http/sever";
 
 const TaskCard = ({ task }) => {
   return (
     <li
       className={`${styles.card} ${
-        task.status === "compleated" ? styles.completedCard : ""
+        task.status === "completed" ? styles.completedCard : ""
       }`}
     >
       <Link
-        to={task.status ? `/task/${task.lessonId}` : null}
+        to={task.status !== "blocked" ? `/task/${task.id}` : null}
         className={styles.cardLink}
       >
-        <img className={styles.poster} src={poster} alt="" />
+        <img
+          className={styles.poster}
+          src={task.image_path ? `${serverName}/${task.image_path}` : poster}
+          alt={task.title}
+        />
         <div className={styles.infoWrapper}>
           <div className={styles.titleWrapper}>
             <span className={styles.taskTitle}>
@@ -33,7 +38,7 @@ const TaskCard = ({ task }) => {
             <TaskViewIcon />
             <span>{`Type of activity: ${task.type}`}</span>
           </div>
-          {task.status === "compleated" ? (
+          {task.status === "completed" ? (
             <div className={styles.secondaryWrapper}>
               <ComplietedIcon />
               <span>
@@ -44,12 +49,12 @@ const TaskCard = ({ task }) => {
             <>
               <div className={styles.secondaryWrapper}>
                 <ClockIcon />
-                <span>{`Scheduled time: ${task.duration} min`}</span>
+                <span>{`Scheduled time: ${task.scheduled_time} min`}</span>
               </div>
               {task.type === "test" && (
                 <div className={styles.secondaryWrapper}>
                   <QuestionsIcon />
-                  <span>{`Questions: 8`}</span>
+                  <span>{`Questions: ${task.q_count}`}</span>
                 </div>
               )}
             </>

@@ -1,88 +1,31 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Empty } from "antd";
 import { serverName } from "../../http/sever";
 import PDFReader from "../PDFReader/PDFReader";
 import Modal from "../shared/Modal/Modal";
 import VideoPlayer from "../shared/VideoPlayer/VideoPlayer";
 import LinkCard from "../shared/LinkCard/LinkCard";
 import ImageGroup from "../shared/ImageGroup/ImageGroup";
-import styles from "./Lecture.module.scss";
 import DocumentLink from "../shared/DocumentLink/DocumentLink";
-import { Empty } from "antd";
 import Textarea from "../shared/Textarea/Textarea";
 import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
-
-// const a = [
-//   {
-//     a_id: 1,
-//     a_type: "text",
-//     a_title: "Introduction Section",
-//     a_number: 1,
-//     a_text:
-//       "Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться",
-//     hidden: false,
-//     files: [],
-//     links: [],
-//   },
-//   {
-//     a_id: 2,
-//     a_type: "link",
-//     a_title: "Link Section",
-//     a_number: 2,
-//     a_text:
-//       "Здесь ваш текст.. Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию, так что поиск по ключевым словам lorem ipsum сразу показывает, как много веб-страниц всё ещё дожидаются своего настоящего рождения",
-//     hidden: false,
-//     files: [],
-//     links: [
-//       {
-//         link_id: 1,
-//         link: "https://ru.lipsum.com/",
-//         anchor: "https://ru.lipsum.com/",
-//       },
-//       {
-//         link_id: 2,
-//         link: "http://127.0.0.1:8000/",
-//         anchor: "swagger",
-//       },
-//     ],
-//   },
-//   {
-//     a_id: 3,
-//     a_type: "present",
-//     a_title: "File section",
-//     a_number: 3,
-//     a_text:
-//       "За прошедшие годы текст Lorem Ipsum получил много версий. Некоторые версии появились по ошибке, некоторые - намеренно (например, юмористические варианты).",
-//     hidden: false,
-//     files: [
-//       {
-//         file_id: 1,
-//         filename: "sample.pdf",
-//         file_path: "static/lessons/19-02-2024/sample.pdf",
-//         file_size: 3028,
-//         file_description: "Description for file",
-//         download_allowed: false,
-//       },
-//     ],
-//     links: [],
-//   },
-// ];
+import CompleteBtn from "../shared/CompleteBtn/CompleteBtn";
+import styles from "./Lecture.module.scss";
+import { confirmLectureThunk } from "../../redux/lesson/operation";
 
 const LectureContent = ({ lecture }) => {
   const [lectureTitle, setLectureTitle] = useState(lecture?.title || "");
   const [fullscreen, setFullscreen] = useState(false);
-
-  //   const [isEdit, setIsEdit] = useState(false);
   const isEdit = false;
 
-  const { lessonId: lectureId } = lecture;
-  console.log(lecture);
+  const dispatch = useDispatch();
 
-  const lectureContent = [...lecture.content].sort(
+  const { number, courseName, status, id } = lecture;
+
+  const lectureContent = [...lecture.lecture_info.attributes].sort(
     (itemA, itemB) => itemA.a_number - itemB.a_number
   );
-
-  const courseName = "Marketing";
-  console.log(lectureContent);
 
   const onTitleChange = (value) => {
     console.log(value);
@@ -128,7 +71,7 @@ const LectureContent = ({ lecture }) => {
           );
         case "present":
           const filePath = files[0].file_path;
-          //   const encodedFilePathPresent = filePath?.replace(/ /g, "%20");
+          const encodedFilePathPresent = filePath?.replace(/ /g, "%20");
           return (
             <section
               key={id}
@@ -143,10 +86,9 @@ const LectureContent = ({ lecture }) => {
               ></h3>
               <div className={styles.pdfWrapper}>
                 <PDFReader
-                  // pdf={`${serverName}${encodedFilePathPresent}`}
-                  pdf="https://pdfobject.com/pdf/sample.pdf"
+                  pdf={`${serverName}/${encodedFilePathPresent}`}
                   setFullscreen={setFullscreen}
-                  fullscreen={fullscreen}
+                  fullscreen={false}
                 />
               </div>
               <Modal
@@ -160,8 +102,7 @@ const LectureContent = ({ lecture }) => {
                 closeModal={() => setFullscreen(false)}
               >
                 <PDFReader
-                  //   pdf={`${serverName}${encodedFilePathPresent}`}
-                  pdf="https://pdfobject.com/pdf/sample.pdf"
+                  pdf={`${serverName}/${encodedFilePathPresent}`}
                   setFullscreen={setFullscreen}
                   fullscreen={fullscreen}
                 />
@@ -204,7 +145,7 @@ const LectureContent = ({ lecture }) => {
             </section>
           );
         case "video":
-          const encodedFilePathVideo = filePath?.replace(/ /g, "%20");
+          const encodedFilePathVideo = files[0].file_path?.replace(/ /g, "%20");
           return (
             <section
               key={id}
@@ -218,7 +159,9 @@ const LectureContent = ({ lecture }) => {
                 dangerouslySetInnerHTML={{ __html: title }}
               ></h3>
               <div className={styles.videoWrapper}>
-                <VideoPlayer file={{ filePath: encodedFilePathVideo }} />
+                <VideoPlayer
+                  file={{ filePath: `${serverName}/${encodedFilePathVideo}` }}
+                />
               </div>
               {text && text !== "" && (
                 <div
@@ -318,6 +261,10 @@ const LectureContent = ({ lecture }) => {
       }
     });
 
+  const handleConfirmLecture = () => {
+    dispatch(confirmLectureThunk(id));
+  };
+
   return (
     <div className={styles.contentWrapper}>
       <div className={styles.lectureContent}>
@@ -338,7 +285,7 @@ const LectureContent = ({ lecture }) => {
           )}
           <h2 className={styles.title}>
             <span className={styles.prefix}>Lecture №:</span>
-            {lectureId}
+            {number}
           </h2>
         </div>
         {isEdit ? (
@@ -363,6 +310,9 @@ const LectureContent = ({ lecture }) => {
             width="200rem"
             height="38rem"
           />
+          {status === "active" && (
+            <CompleteBtn onClick={handleConfirmLecture} />
+          )}
           <LessonNavigateBtn
             forward={true}
             currentNumber={lecture.number}

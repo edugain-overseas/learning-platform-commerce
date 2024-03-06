@@ -35,8 +35,9 @@ export const CartProvider = ({ children }) => {
   const handleClose = () => {
     setIsOpen(false);
   };
+  
   const cartQuantity = cartItems.length;
-  console.log(cartQuantity);
+
   return (
     <CartContext.Provider
       value={{
@@ -52,10 +53,7 @@ export const CartProvider = ({ children }) => {
       {children}
       {isOpen && (
         <Drawer orientation="right" size="500rem" handleClose={handleClose}>
-          <Cart
-            items={cartItems}
-            handleClose={handleClose}
-          />
+          <Cart items={cartItems} handleClose={handleClose} />
         </Drawer>
       )}
     </CartContext.Provider>
