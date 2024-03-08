@@ -1,19 +1,19 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { navLinkActiveHandler } from "../../utils/navLinkActiveHandler";
 import { ReactComponent as TaskIcon } from "../../images/icons/task.svg";
 import { ReactComponent as CalendarIcon } from "../../images/icons/calendar.svg";
 import { ReactComponent as ArrowDownIcon } from "../../images/icons/arrowDown.svg";
 import InsetBtn from "../shared/InsetBtn/InsetBtn";
 import styles from "./InstructionsList.module.scss";
-import { navLinkActiveHandler } from "../../utils/navLinkActiveHandler";
+import { getFormattedStrFromDate } from "../../utils/formatDate";
 
 const InstructionItem = ({ instruction }) => {
-  console.log(instruction);
   return (
     <li className={styles.instructionItem}>
       <NavLink
         className={({ isActive }) => navLinkActiveHandler(isActive, styles)}
-        to={`${instruction.instructionId}`}
+        to={`${instruction.id}`}
       >
         <div className={styles.leftWrapper}>
           <TaskIcon />
@@ -23,7 +23,7 @@ const InstructionItem = ({ instruction }) => {
           <div className={styles.dateWrapper}>
             <CalendarIcon />
             <span className={styles.date}>
-              Last update: {instruction.last_update}
+              Last update: {getFormattedStrFromDate(instruction.last_update)}
             </span>
           </div>
           <InsetBtn icon={<ArrowDownIcon className={styles.chevronIcon} />} />

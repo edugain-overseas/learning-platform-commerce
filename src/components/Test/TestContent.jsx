@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Empty } from "antd";
 import QuestionTest from "./Questions/QuestionTest/QuestionTest";
 import QuestionMultipleChoice from "./Questions/QuestionMultipleChoice/QuestionMultipleChoice";
@@ -14,11 +14,11 @@ import { getLessonNumberByType } from "../../utils/getLessonNumberByType";
 import CompleteBtn from "../shared/CompleteBtn/CompleteBtn";
 import { confirmTestThunk } from "../../redux/lesson/operation";
 
-const TestContent = ({ test }) => {
+const TestContent = ({ test, setStudentAnswersLength = () => {} }) => {
   const [testTitle, setTestTitle] = useState(test?.title || "");
   const [discription, setDiscription] = useState(test?.description || "");
+  const [confirmBtnState, setConfirmBtnState] = useState("default");
   const [studentAnswers, setStudentAnswers] = useState([]);
-  // const [result, setResult] = useState(null);
   const isEdit = false;
 
   const dispatch = useDispatch();
@@ -28,7 +28,9 @@ const TestContent = ({ test }) => {
     course_id: courseId,
     type: lessonType,
     test_data: testData,
+    status,
   } = test;
+
   const course = useSelector(getAllCourses)?.find(({ id }) => id === courseId);
   const testContent = [...testData?.questions].sort(
     (itemA, itemB) => itemA.a_number - itemB.a_number
@@ -322,10 +324,33 @@ const TestContent = ({ test }) => {
       });
 
   const handleConfirmTest = () => {
+    setConfirmBtnState("pending");
     dispatch(
       confirmTestThunk({ lessonId: testId, studentTest: studentAnswers })
-    );
+    ).then(() => {
+      setConfirmBtnState("fulfilled");
+      setStudentAnswers([]);
+    });
   };
+
+  useEffect(() => {
+    console.log("update");
+    setStudentAnswersLength(
+      studentAnswers.filter((ans) => {
+        if (
+          ans.q_type === "test" ||
+          ans.q_type === "boolean" ||
+          ans.q_type === "answer_with_photo" ||
+          ans.q_type === "question_with_photo"
+        )
+          return ans.a_id !== 0;
+        if (ans.q_type === "multiple_choice") return ans.a_ids.length !== 0;
+        if (ans.q_type === "matching") return ans.matching?.length !== 0;
+        return false;
+      }).length
+    );
+    // eslint-disable-next-line
+  }, [studentAnswers]);
 
   return (
     <div className={styles.contentWrapper}>
@@ -388,7 +413,9 @@ const TestContent = ({ test }) => {
             width="200rem"
             height="38rem"
           />
-          <CompleteBtn onClick={handleConfirmTest} />
+          {(status === "active" || status === "completed") && (
+            <CompleteBtn onClick={handleConfirmTest} state={confirmBtnState} />
+          )}
           <LessonNavigateBtn
             forward={true}
             currentNumber={test.number}

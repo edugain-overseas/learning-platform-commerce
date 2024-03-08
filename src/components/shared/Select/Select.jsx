@@ -118,7 +118,7 @@ const Select = ({
         </span>
       )}
 
-      {value === "" && allowClear ? (
+      {value !== "" && allowClear ? (
         <button className={styles.clearBtn} onClick={(e) => handleClear(e)}>
           <CrossIcon />
         </button>

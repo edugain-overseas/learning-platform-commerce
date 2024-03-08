@@ -16,7 +16,6 @@ const CourseTasksPage = () => {
   const courseLessons = course?.lessons;
   const progress = course?.progress;
 
-  console.log(courseLessons);
 
   const lectures = courseLessons?.filter(({ type }) => type === "lecture");
   const tests = courseLessons?.filter(({ type }) => type === "test");

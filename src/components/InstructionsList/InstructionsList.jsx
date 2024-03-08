@@ -1,20 +1,33 @@
 import React from "react";
-import { Outlet, useParams } from "react-router-dom";
-import { instructions } from "../../assets/courses";
+import { Outlet, useLocation, useParams } from "react-router-dom";
+// import { instructions } from "../../assets/courses";
 import { ReactComponent as DocSearchIcon } from "../../images/icons/document-search.svg";
 import InstructionItem from "./InstructionItem";
 import styles from "./InstructionsList.module.scss";
+import { useSelector } from "react-redux";
+import { getAllInstructions } from "../../redux/instruction/selectors";
 
 const InstructionsList = () => {
   const { instructionId } = useParams();
+  const { pathname } = useLocation();
+
+  const instructions = useSelector(getAllInstructions);
+  const generalInstruction = instructions.filter(
+    ({ type }) => type === "general"
+  );
+  const coursesInstruction = instructions.filter(
+    ({ type }) => type === "courses"
+  );
+
+  const targetInstructions = pathname.includes("general")
+    ? generalInstruction
+    : coursesInstruction;
+
   return (
     <div className={styles.wrapper}>
       <ul className={styles.instructionsList}>
-        {instructions.map((instruction) => (
-          <InstructionItem
-            key={instruction.instructionId}
-            instruction={instruction}
-          />
+        {targetInstructions.map((instruction) => (
+          <InstructionItem key={instruction.id} instruction={instruction} />
         ))}
       </ul>
       <div className={styles.instructionContentWrapper}>

@@ -18,3 +18,13 @@
     height: 18rem;
   }
 }
+
+.spinnerWrapper {
+  width: 164rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > span {
+    overflow: visible;
+  }
+}

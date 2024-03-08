@@ -23,7 +23,7 @@ const CourseAsideProgressPanel = ({ courseLessons, courseId, progress }) => {
             value={progress}
             width={172}
             height={24}
-            disabled={!!progress}
+            disabled={progress === undefined}
           />
         </div>
         <div className={styles.progressListWrapper}>

@@ -6,7 +6,6 @@ import TaskRow from "./TaskRow";
 
 const   TaskList = ({ tasks }) => {
   const { selectedListModeIndex } = useListMode();
-  console.log(tasks);
 
   const sortedItemsByNumber = [...tasks].sort(
     (itemA, itemB) => itemA.number - itemB.number

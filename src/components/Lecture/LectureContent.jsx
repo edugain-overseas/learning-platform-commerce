@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Empty } from "antd";
 import { serverName } from "../../http/sever";
+import { confirmLectureThunk } from "../../redux/lesson/operation";
 import PDFReader from "../PDFReader/PDFReader";
 import Modal from "../shared/Modal/Modal";
 import VideoPlayer from "../shared/VideoPlayer/VideoPlayer";
@@ -12,11 +13,11 @@ import Textarea from "../shared/Textarea/Textarea";
 import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
 import CompleteBtn from "../shared/CompleteBtn/CompleteBtn";
 import styles from "./Lecture.module.scss";
-import { confirmLectureThunk } from "../../redux/lesson/operation";
 
 const LectureContent = ({ lecture }) => {
   const [lectureTitle, setLectureTitle] = useState(lecture?.title || "");
   const [fullscreen, setFullscreen] = useState(false);
+  const [confirmBtnState, setConfirmBtnState] = useState("default");
   const isEdit = false;
 
   const dispatch = useDispatch();
@@ -262,7 +263,10 @@ const LectureContent = ({ lecture }) => {
     });
 
   const handleConfirmLecture = () => {
-    dispatch(confirmLectureThunk(id));
+    setConfirmBtnState("pending");
+    dispatch(confirmLectureThunk(id)).then(() =>
+      setConfirmBtnState("fulfilled")
+    );
   };
 
   return (
@@ -310,9 +314,14 @@ const LectureContent = ({ lecture }) => {
             width="200rem"
             height="38rem"
           />
-          {status === "active" && (
-            <CompleteBtn onClick={handleConfirmLecture} />
-          )}
+          {status === "active" ? (
+            <CompleteBtn
+              onClick={handleConfirmLecture}
+              state={confirmBtnState}
+            />
+          ) : status === "completed" ? (
+            <CompleteBtn state={"fulfilled"} />
+          ) : null}
           <LessonNavigateBtn
             forward={true}
             currentNumber={lecture.number}

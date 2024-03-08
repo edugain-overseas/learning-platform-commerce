@@ -16,16 +16,16 @@ const CourseRow = ({ course, purchased, disabled }) => {
 
   const {
     title: courseName,
-    // courseStars,
-    // coursePrice,
-    // courseIncludes,
     c_duration: courseDuration,
     c_type: courseType,
     c_award: courseAward,
     old_price: oldPrice,
     price,
     id,
+    progress,
   } = course;
+
+  console.log(course);
 
   const isItemInCart = cartItems.find((item) => item === id) && true;
 
@@ -51,7 +51,7 @@ const CourseRow = ({ course, purchased, disabled }) => {
           <div className={styles.progressWrapper}>
             <span>Progress:</span>
             <ProgressBar
-              value={purchased ? 34 : 0}
+              value={purchased ? progress : 0}
               width={104}
               height={14}
               disabled={!purchased}

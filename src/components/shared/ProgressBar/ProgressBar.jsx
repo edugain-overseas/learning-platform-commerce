@@ -9,7 +9,7 @@ const colors = {
 };
 
 const handleProgressColor = (value) => {
-  if (0 < value && value <= 33) {
+  if (0 <= value && value <= 33) {
     return colors.low;
   }
   if (33 < value && value <= 66) {
@@ -24,7 +24,7 @@ const handleProgressColor = (value) => {
   return "transparrent";
 };
 
-const ProgressBar = ({ width = 171, height = 24, value }) => {
+const ProgressBar = ({ width = 171, height = 24, value, disabled }) => {
   return (
     <div
       className={styles.outerWrapper}
@@ -40,9 +40,7 @@ const ProgressBar = ({ width = 171, height = 24, value }) => {
         style={{ borderRadius: `${width * 0.023}rem` }}
       >
         <div
-          className={`${styles.progress} ${
-            value >= 100 || value === 0 ? styles.disabled : ""
-          }`}
+          className={`${styles.progress} ${disabled ? styles.disabled : ""}`}
           style={{
             width: value <= 100 ? `${value}%` : "100%",
             borderRadius: `${width * 0.023}rem`,
@@ -52,7 +50,7 @@ const ProgressBar = ({ width = 171, height = 24, value }) => {
           }}
         ></div>
         <span style={{ fontSize: `${(10 / 24) * height}rem` }}>
-          {value === 0
+          {disabled
             ? "Not purchased"
             : value >= 100
             ? "Completed"

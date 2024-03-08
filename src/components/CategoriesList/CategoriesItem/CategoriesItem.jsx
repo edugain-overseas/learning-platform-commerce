@@ -28,6 +28,10 @@ const CategoriesItem = ({ category }) => {
     userCourses.find(({ course_id }) => course_id === id)
   );
 
+  const progress =
+    userCoursesinCategory.reduce((sum, { progress }) => sum + progress, 0) /
+    categoryCourses.length;
+
   const handleToggleDropDown = (e) => {
     const dropdown = [...e.target.closest("#wrapper")?.children]?.find(
       ({ id }) => id === "dropdown"
@@ -64,7 +68,10 @@ const CategoriesItem = ({ category }) => {
           </p>
           <div className={styles.progressWrapper}>
             <span>Progress:</span>
-            <ProgressBar value={25} />
+            <ProgressBar
+              value={progress}
+              disabled={userCoursesinCategory.length === 0}
+            />
           </div>
           <div className={styles.infoWrapper}>
             <span>Info the courses</span>

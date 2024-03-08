@@ -1,0 +1,28 @@
+.filtersList {
+  li {
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+    height: 32rem;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--bg-accent-block);
+
+        & > span {
+            color: var(--content-main);
+        }
+    }
+
+    button {
+      flex-shrink: 0;
+    }
+
+    & > span {
+        font-weight: 500;
+        color: var(--content-datail-secondary);
+        line-height: 1;
+    }
+  }
+}

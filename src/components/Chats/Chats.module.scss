@@ -1,25 +1,112 @@
-.navWrapper {
+.mainWrapper {
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  width: 100%;
   padding-right: 16rem;
+  align-items: flex-start;
+  gap: 12rem;
+  height: 70rem;
+}
+
+.addNewChat {
+  width: 32rem;
+  height: 32rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: var(--content-success);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.12);
+  opacity: 0.9;
+  transition: opacity var(--transition-time-min) ease,
+    box-shadow var(--transition-time-min) ease;
+
+  &:hover {
+    box-shadow: var(--drop-shadow-button-main-hover);
+    opacity: 1;
+
+    & svg * {
+      fill-opacity: 1;
+    }
+  }
+
+  svg {
+    width: 20rem;
+    height: 20rem;
+    * {
+      fill: var(--content-contr-color);
+      fill-opacity: 0.9;
+      transition: fill-opacity var(--transition-time-min) ease;
+    }
+  }
+}
+
+.navWrapper {
+  max-width: calc(100% - 48rem);
+  width: 100%;
 }
 
 .navItems {
   display: flex;
   gap: 16rem;
-  padding-block: 4rem;
+  padding-inline: 4rem;
   width: fit-content;
 
   li {
-    padding: 4rem 8rem;
-    background-color: var(--bg-main);
-    border-radius: 2rem;
-    box-shadow: var(--drop-shadow-button-main);
+    .selectChatBtn {
+      padding: 4rem 8rem;
+      height: 40rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--bg-main);
+      border-radius: 5rem;
+      box-shadow: var(--drop-shadow-button-main);
+      transition: background-color var(--transition-time-min) ease;
+
+      span {
+        color: var(--content-datail-secondary);
+        transition: color var(--transition-time-min) ease;
+      }
+    }
+
+    .selected {
+      background-color: var(--bg-button-active-link);
+
+      span {
+        color: var(--content-contr-color);
+      }
+    }
 
     span {
       display: block;
       max-width: 320rem;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
     }
   }
+}
+
+.body {
+  height: calc(100% - 70rem);
+  display: flex;
+  gap: 16rem;
+}
+
+.chatAsideBar {
+  width: 24rem;
+  transition: width var(--transition-time-min) ease;
+
+  &:hover {
+    width: 140rem;
+  }
+}
+
+.chatMessagesWrapper {
+  flex-grow: 1;
+  background-color: var(--bg-rgba-accent);
+  border-radius: 5rem;
+  box-shadow: var(--drop-shadow-button-main);
+  overflow-y: auto;
 }

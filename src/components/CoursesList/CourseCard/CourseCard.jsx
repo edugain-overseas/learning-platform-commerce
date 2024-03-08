@@ -25,6 +25,7 @@ const CourseCard = ({ course, purchased, disabled }) => {
     old_price: oldPrice,
     price,
     id,
+    progress,
   } = course;
 
   const isItemInCart = cartItems.find((item) => item === id) && true;
@@ -78,7 +79,7 @@ const CourseCard = ({ course, purchased, disabled }) => {
             <div className={styles.progressWrapper}>
               <span>Progress:</span>
               <ProgressBar
-                value={purchased ? 34 : 0}
+                value={progress}
                 width={104}
                 height={14}
                 disabled={!purchased}
