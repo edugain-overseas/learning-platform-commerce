@@ -222,3 +222,16 @@ export const buyCourse = async (courseId) => {
     throw error;
   }
 };
+
+export const initializationChat = async (chatData) => {
+  try {
+    const data = await privateRoutesHandler(
+      "post",
+      "/chat/initial-chat",
+      chatData
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

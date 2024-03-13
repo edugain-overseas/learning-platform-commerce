@@ -10,7 +10,7 @@ const ChatsNavBar = () => {
     <div className={styles.navWrapper}>
       <HorizontalScroller>
         <ul className={styles.navItems}>
-          {filtredChats.map(({ id, title }) => (
+          {filtredChats.map(({ id, chat_subject: title }) => (
             <li key={id}>
               <button
                 type="button"

@@ -4,6 +4,7 @@ import {
   buyCourseThunk,
   getLastUserImagesThunk,
   getUserInfoThunk,
+  initializationChatThunk,
   loginThunk,
   loginWithGoogleThunk,
   logoutThunk,
@@ -32,6 +33,7 @@ const initialState = {
   balance: 0,
   changedName: false,
   changedSurname: false,
+  chats: [],
   isLoading: false,
   error: null,
 };
@@ -155,6 +157,7 @@ const userSlice = createSlice({
         state.balance = payload.balance;
         state.changedName = payload.changed_name;
         state.changedSurname = payload.changed_surname;
+        state.chats = payload.chats;
       })
       .addCase(getUserInfoThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -257,6 +260,19 @@ const userSlice = createSlice({
         console.log(payload);
       })
       .addCase(buyCourseThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
+      .addCase(initializationChatThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(initializationChatThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.chats.push(payload)
+      })
+      .addCase(initializationChatThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
       });

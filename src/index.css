@@ -54,6 +54,7 @@
   --drop-shadow-middle: 0 0 10rem rgba(0, 0, 0, 0.2);
   --drop-shadow-button-main: 0 0 4rem 0 rgba(0, 0, 0, 0.12);
   --drop-shadow-button-main-hover: 0 0 14rem 0 rgba(0, 0, 0, 0.12);
+  --drop-shadow-message: 0 1px 0.5px rgba(11, 20, 26, 0.13);
 
   --box-shadow-button: 0 0 2rem 0 rgba(0, 0, 0, 0.16);
   --box-shadow-button-inset: 0 0 4rem 0 rgba(0, 0, 0, 0.16) inset;

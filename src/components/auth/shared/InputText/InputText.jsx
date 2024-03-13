@@ -21,6 +21,8 @@ const isStateValid = (name, value) => {
 
 const InputText = ({
   name,
+  width,
+  height,
   value,
   onChange,
   isError = false,
@@ -36,6 +38,7 @@ const InputText = ({
           ? styles.error
           : ""
       }`}
+      style={width || height ? { width, height } : {}}
     >
       <span
         className={`${styles.label} ${

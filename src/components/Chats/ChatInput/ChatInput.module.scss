@@ -1,0 +1,76 @@
+.chatForm {
+  padding: 12rem 16rem 12rem 8rem;
+  overflow-y: auto;
+  border: 1rem solid var(--content-datail-secondary);
+  border-radius: 5rem;
+  transition: border var(--transition-time-min) ease,
+    height var(--transition-time-min) ease;
+
+  display: flex;
+  gap: 16rem;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+  
+
+  &:has(textarea:focus) {
+    border-color: var(--bg-color-accent);
+    box-shadow: var(--drop-shadow-button-main);
+  }
+}
+
+.inputsWrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+}
+
+.subjectInutWrapper {
+}
+
+textarea.chatTextarea {
+  border: none;
+  background-color: transparent;
+}
+
+.sendButton {
+  align-self: flex-end;
+  width: 32rem;
+  height: 32rem;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-color-accent);
+  border-radius: 5rem;
+  border: 1rem solid transparent;
+  transition: all var(--transition-time-min) ease;
+
+  &:disabled {
+    background-color: var(--bg-button-disabled);
+  }
+
+  & svg {
+    width: 14rem;
+    height: 14rem;
+    transition: transform var(--transition-time-min) ease;
+
+    & path {
+      transition: fill var(--transition-time-min) ease;
+    }
+  }
+
+  &:hover {
+    background-color: transparent;
+    border-color: var(--bg-color-accent);
+
+    & svg {
+      transform: rotate(45deg);
+
+      & path {
+        fill: #3a5cbd;
+      }
+    }
+  }
+}

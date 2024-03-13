@@ -1,0 +1,111 @@
+.messageWrapper {
+  display: flex;
+  padding: 4rem;
+  gap: 16rem;
+  max-width: 65%;
+  margin-bottom: 16rem;
+
+  &.in {
+    align-self: flex-start;
+    flex-direction: row;
+    .messageContent {
+      border-top-left-radius: 0;
+    }
+  }
+  &.out {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+    .messageContent {
+      border-top-right-radius: 0;
+    }
+  }
+}
+
+.messageContent {
+  max-width: calc(100% - 56rem);
+  padding: 8rem;
+  background-color: var(--bg-default);
+  border-radius: 5rem;
+  box-shadow: var(--drop-shadow-button-main);
+  box-shadow: var(--box-shadow-button);
+  box-shadow: var(--drop-shadow-message);
+
+  position: relative;
+}
+
+.messageTail {
+  display: flex;
+  position: absolute;
+  top: 0;
+  color: var(--bg-default);
+
+  &.left {
+    left: 0;
+    transform: translateX(-100%);
+  }
+  &.right {
+    right: 0;
+    transform: translateX(100%);
+  }
+}
+
+.nameWrapper {
+  margin-bottom: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rem;
+
+  span {
+    display: block;
+    max-width: 100%;
+    font-size: 18rem;
+    color: var(--content-main);
+    font-weight: 500;
+  }
+
+  .time {
+    span {
+      font-size: 12rem;
+      line-height: 1;
+      text-align: right;
+      color: var(--content-datail-secondary);
+    }
+  }
+}
+
+.messageText {
+  padding-inline-start: 4rem;
+  color: var(--content-dark);
+}
+
+.messageFiles {
+  margin-top: 8rem;
+
+  .divider {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 4rem;
+
+    .dividerText {
+      font-weight: 300;
+      font-size: 12rem;
+      padding-inline: 4rem;
+      background-color: var(--bg-default);
+      position: relative;
+      z-index: 1;
+    }
+
+    &:before {
+      content: "";
+      width: 100%;
+      height: 1rem;
+      position: absolute;
+      //   z-index: -1;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: var(--content-datail-secondary);
+    }
+  }
+}

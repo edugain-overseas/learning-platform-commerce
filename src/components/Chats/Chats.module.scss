@@ -74,7 +74,7 @@
     }
 
     .selected {
-      background-color: var(--bg-button-active-link);
+      background-color: var(--bg-color-accent);
 
       span {
         color: var(--content-contr-color);
@@ -105,7 +105,11 @@
 
 .chatMessagesWrapper {
   flex-grow: 1;
-  background-color: var(--bg-rgba-accent);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 16rem;
+  justify-content: flex-end;
+  background-color: var(--bg-main);
   border-radius: 5rem;
   box-shadow: var(--drop-shadow-button-main);
   overflow-y: auto;

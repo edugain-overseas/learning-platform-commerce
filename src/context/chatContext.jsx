@@ -1,73 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import Chats from "../components/Chats/Chats";
 import Drawer from "../components/shared/Drawer/Drawer";
-
-const chatsInit = [
-  {
-    id: 1,
-    title:
-      "Chat 1 Chat 1 Chat 1 Chat 1Chat 1 Chat 1 Chat 1 Chat 1 Chat 1 Chat 1",
-    status: "archive",
-  },
-  {
-    id: 2,
-    title: "Chat 2",
-    status: "archive",
-  },
-  {
-    id: 3,
-    title: "Chat 3",
-    status: "active",
-  },
-  {
-    id: 4,
-    title: "Chat 4",
-    status: "active",
-  },
-  {
-    id: 5,
-    title: "Chat 5",
-    status: "active",
-  },
-  {
-    id: 6,
-    title: "Chat 6",
-    status: "active",
-  },
-  {
-    id: 7,
-    title: "Chat 7",
-    status: "active",
-  },
-  {
-    id: 8,
-    title: "Chat 8",
-    status: "active",
-    initiator_id: 2,
-    messages: [
-      {
-        id: 1,
-        message: "I need to help",
-        timestamp: "22.02.2024T12:02:02",
-        chat_id: 1,
-        sender_id: 2,
-        sender_type: "student",
-        recipient_id: null,
-        recipient_type: "moderator",
-        files: [
-          {
-            id: 1,
-            file_type: "jpeg",
-            file_name: "screen1.jpeg",
-            file_path: "static/chatfiles/screen1.jpeg",
-            file_size: 2442,
-            message_id: 1,
-          },
-        ],
-      },
-    ],
-  },
-];
+import { webSocketUrl } from "../http/sever";
+import { useSelector } from "react-redux";
+import { getAccessToken, getUserChats } from "../redux/user/selectors";
 
 const ChatContext = createContext({});
 
@@ -76,15 +12,109 @@ export const useChats = () => {
 };
 
 export const ChatProvider = ({ children }) => {
+  const userChats = useSelector(getUserChats);
+  const accessToken = useSelector(getAccessToken);
+
   const [isOpen, setIsOpen] = useState(false);
-  const [chats, setChats] = useState([...chatsInit.reverse()]);
-  const [selectedChatId, setSelectedChatId] = useState(0);
+  const [chats, setChats] = useState([...userChats].reverse());
+  const [selectedChatId, setSelectedChatId] = useState(
+    userChats[userChats.length - 1]?.id
+  );
   const [typeFilter, setTypeFilter] = useState("all");
+  const [webSockets, setWebSockets] = useState([]);
 
   const filtredChats =
     typeFilter === "all"
       ? chats
-      : chats.filter(({ status }) => status === typeFilter);
+      : chats.filter(({ status }) => {
+          return typeFilter === "active"
+            ? status === typeFilter || status === "new"
+            : status === typeFilter;
+        });
+
+  const messages =
+    chats.find(({ id }) => id === selectedChatId)?.messages || [];
+
+  useEffect(() => {
+    if (accessToken) {
+      const existingChatIds = webSockets.map(({ id }) => id);
+
+      webSockets.forEach(({ websocket }) => {
+        if (!userChats.some(({ id }) => id === websocket.id)) {
+          websocket.close();
+        }
+      });
+
+      const newWebSockets = userChats
+        .filter(({ id }) => !existingChatIds.includes(id))
+        .map(({ id }) => {
+          const ws = new WebSocket(`${webSocketUrl}/${id}/${accessToken}`);
+          ws.onopen = () => {
+            console.log(`WebSocket connection established for chat ${id}`);
+          };
+          ws.onerror = (error) => {
+            console.error(`WebSocket error for chat ${id}:`, error);
+          };
+          ws.onclose = () => {
+            console.log(`WebSocket connection closed for chat ${id}`);
+          };
+          ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            if (data.type === "chat-history") {
+              const incomigMessages = data.data.reverse();
+              setChats((prev) =>
+                prev.map((chat) =>
+                  chat.id === id ? { ...chat, messages: incomigMessages } : chat
+                )
+              );
+              return;
+            }
+            if (data.type === "new-message") {
+              const newMessages = data.data;
+              setChats((prev) =>
+                prev.map((chat) =>
+                  chat.id === id
+                    ? {
+                        ...chat,
+                        messages: [...chat.messages, newMessages],
+                      }
+                    : chat
+                )
+              );
+              return;
+            }
+          };
+          return { id, websocket: ws };
+        });
+
+      setWebSockets((prev) => [...prev, ...newWebSockets]);
+    }
+
+    return () => {
+      webSockets.forEach(({ websocket }) => {
+        websocket.close();
+      });
+    };
+    // eslint-disable-next-line
+  }, [userChats, accessToken]);
+
+  useEffect(() => {
+    setChats((prev) => [
+      ...userChats
+        .filter(({ id }) => !prev.some(({ id: prevId }) => prevId === id))
+        .reverse(),
+      ...prev,
+    ]);
+  }, [userChats]);
+
+  useEffect(() => {
+    if (
+      !filtredChats.find(({ id }) => id === selectedChatId) &&
+      filtredChats.length !== 0
+    ) {
+      setSelectedChatId(filtredChats[0].id);
+    }
+  }, [filtredChats, selectedChatId]);
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -93,19 +123,24 @@ export const ChatProvider = ({ children }) => {
     setIsOpen(false);
   };
   const createNewChat = () => {
-    const newChatId = chats.length + 1;
+    const newChatId = `new_chat_${chats.length + 1}`;
     if (typeFilter !== "all") setTypeFilter("all");
     setChats((prev) => [
-      { id: newChatId, title: `New chat`, status: "new" },
+      { id: newChatId, chat_subject: `New chat`, status: "proposed" },
       ...prev,
     ]);
     setSelectedChatId(newChatId);
   };
 
-  useEffect(() => {
-    if (!filtredChats.find(({ id }) => id === selectedChatId))
-      setSelectedChatId(filtredChats[0].id);
-  }, [filtredChats, selectedChatId]);
+  const sendToWebsocket = (data, chatId) => {
+    const ws = webSockets.find(({ id }) => id === chatId).websocket;
+    if (ws) ws.send(data);
+    console.log(data);
+  };
+
+  const deleteChat = (chatId) => {
+    setChats((prev) => prev.filter(({ id }) => id !== chatId));
+  };
 
   return (
     <ChatContext.Provider
@@ -119,6 +154,9 @@ export const ChatProvider = ({ children }) => {
         createNewChat,
         typeFilter,
         setTypeFilter,
+        messages,
+        sendToWebsocket,
+        deleteChat,
       }}
     >
       {children}

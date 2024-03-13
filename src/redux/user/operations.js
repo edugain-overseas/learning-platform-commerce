@@ -4,6 +4,7 @@ import {
   buyCourse,
   getLastUserImages,
   getUserInfo,
+  initializationChat,
   login,
   loginWithGoogle,
   logout,
@@ -246,6 +247,21 @@ export const buyCourseThunk = createAsyncThunk(
     try {
       const response = await buyCourse(courseId);
       removeItem(courseId);
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const initializationChatThunk = createAsyncThunk(
+  "user/initChat",
+  async (chatData, { rejectWithValue }) => {
+    try {
+      const response = await initializationChat(chatData);
       return response;
     } catch (error) {
       return rejectWithValue({

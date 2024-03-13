@@ -1,0 +1,13 @@
+.chatFeedWrapper {
+  padding-inline: 20rem;
+  margin-bottom: 20rem;
+  max-height: calc(100% - 58rem);
+  overflow-y: auto;
+}
+
+.chatScroller {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 100%;
+}
