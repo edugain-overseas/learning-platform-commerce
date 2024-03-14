@@ -4,9 +4,12 @@ import SideBar from "../SIdeBar/SideBar";
 import styles from "./MainLayout.module.scss";
 import { Outlet, useLocation } from "react-router-dom";
 import ChatsFloatBtn from "../ChatsFloatBtn/ChatsFloatBtn";
+import { useSelector } from "react-redux";
+import { getAccessToken } from "../../redux/user/selectors";
 
 const MainLayout = () => {
   const { pathname } = useLocation();
+  const accessToken = useSelector(getAccessToken);
 
   const isFullscreenLayout =
     pathname === "/registration" ||
@@ -42,7 +45,7 @@ const MainLayout = () => {
           )}
         </main>
       </div>
-      <ChatsFloatBtn />
+      {accessToken && <ChatsFloatBtn />}
     </div>
   );
 };

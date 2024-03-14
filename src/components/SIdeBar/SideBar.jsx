@@ -5,11 +5,14 @@ import { ReactComponent as FixIcon } from "../../images/icons/fix.svg";
 import SupportBtn from "./SupportBtn/SupportBtn";
 import styles from "./SideBar.module.scss";
 import UserInfo from "./UserInfo/UserInfo";
+import { useSelector } from "react-redux";
+import { getAccessToken } from "../../redux/user/selectors";
 
 const SideBar = () => {
+  const accessToken = useSelector(getAccessToken);
+
   const [isExpandedFixed, setIsExpandedFixed] = useState(true);
   const [isNarrowedFixed, setIsNarrowedFixed] = useState(false);
-
 
   const handleNarrowedFix = () => {
     setIsNarrowedFixed((prev) => {
@@ -44,7 +47,7 @@ const SideBar = () => {
         <div className={styles.itemsWrapper}>
           <NavBar />
           <div className={styles.bottomItemsWrapper}>
-            <SupportBtn />
+            {accessToken && <SupportBtn />}
             <LogoutButton />
           </div>
         </div>
