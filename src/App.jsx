@@ -26,13 +26,13 @@ function App() {
       instance.defaults.headers.Authorization = `Bearer ${accessToken}`;
       dispatch(getUserInfoThunk());
       dispatch(getCoursesInstuctionsThunk());
+      dispatch(getCategoriesThunk()); 
+      dispatch(getCoursesThunk());
     }
     // eslint-disable-next-line
   }, [accessToken]);
 
   useEffect(() => {
-    dispatch(getCategoriesThunk());
-    dispatch(getCoursesThunk());
     dispatch(getGeneralInstuctionsThunk());
     // eslint-disable-next-line
   }, []);

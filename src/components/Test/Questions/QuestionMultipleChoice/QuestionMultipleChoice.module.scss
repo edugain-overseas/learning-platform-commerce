@@ -4,17 +4,4 @@
   flex-direction: column;
   justify-content: center;
   gap: 12rem;
-
-  & .option {
-    display: flex;
-    align-items: center;
-    gap: 12rem;
-
-    color: var(--content-datail-secondary);
-    font-size: 14rem;
-    font-weight: 500;
-  }
-  & .optionChecked {
-    color: var(--content-main);
-  }
 }

@@ -4,6 +4,7 @@ import { Image } from "antd";
 import { serverName } from "../../../../http/sever";
 import noImage from "../../../../images/noImage.jpeg";
 import styles from "./QuestionPhotoAnswers.module.scss";
+import InputRadio from "../../../shared/InputRadio/InputRadio";
 
 const QuestionPhotoAnswers = ({ answers, state, setState, id }) => {
   const onRadioInputChange = (e) => {
@@ -24,23 +25,26 @@ const QuestionPhotoAnswers = ({ answers, state, setState, id }) => {
         console.log(imagePath);
         return (
           <div key={answerId} className={styles.imageCard}>
-            <Image src={`${serverName}/${imagePath}`} fallback={noImage} />
-            <label
-              className={
-                state === answerId
-                  ? `${styles.option} ${styles.optionChecked}`
-                  : styles.option
-              }
-            >
-              <input
-                type="radio"
-                name={`answerText`}
-                value={answerId}
-                checked={state === answerId}
-                onChange={onRadioInputChange}
-              />
-              {getLetterVatiantsByIndex(index)} {answerText}
-            </label>
+            <Image
+              src={`${serverName}/${imagePath}`}
+              fallback={noImage}
+              preview={{
+                imageRender: (originalNode) => (
+                  <div className={styles.previewImageWrapper}>
+                    {originalNode}
+                  </div>
+                ),
+              }}
+            />
+            <InputRadio
+              key={answerId}
+              className={styles.input}
+              value={answerId}
+              onChange={onRadioInputChange}
+              checked={state === answerId}
+              name={answerText}
+              labelText={`${getLetterVatiantsByIndex(index)} ${answerText}`}
+            />
           </div>
         );
       }

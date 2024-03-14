@@ -1,6 +1,7 @@
 import React from "react";
 import { getLetterVatiantsByIndex } from "../../../../utils/getLetterVatiantsByIndex";
 import styles from "./QuestionTest.module.scss";
+import InputRadio from "../../../shared/InputRadio/InputRadio";
 
 const QuestionTest = ({ answers, state, setState, id }) => {
   const onRadioInputChange = (e) => {
@@ -15,23 +16,14 @@ const QuestionTest = ({ answers, state, setState, id }) => {
 
     return answers.map(({ a_id: answerId, a_text: answerText }, index) => {
       return (
-        <label
+        <InputRadio
           key={answerId}
-          className={
-            state === answerId
-              ? `${styles.option} ${styles.optionChecked}`
-              : styles.option
-          }
-        >
-          <input
-            type="radio"
-            name={`answerText`}
-            value={answerId}
-            checked={state === answerId}
-            onChange={onRadioInputChange}
-          />
-          {getLetterVatiantsByIndex(index)} {answerText}
-        </label>
+          value={answerId}
+          onChange={onRadioInputChange}
+          checked={state === answerId}
+          name={answerText}
+          labelText={`${getLetterVatiantsByIndex(index)} ${answerText}`}
+        />
       );
     });
   };

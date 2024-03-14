@@ -1,6 +1,7 @@
 import React from "react";
 import { getLetterVatiantsByIndex } from "../../../../utils/getLetterVatiantsByIndex";
 import styles from "./QuestionMultipleChoice.module.scss";
+import InputCheckbox from "../../../shared/InputCheckbox/InputCheckbox";
 
 const QuestionMultipleChoice = ({ answers, state, setState, id }) => {
   const onCheckboxInputChange = (e) => {
@@ -14,23 +15,14 @@ const QuestionMultipleChoice = ({ answers, state, setState, id }) => {
     }
 
     return answers.map(({ a_id: answerId, a_text: answerText }, index) => (
-      <label
+      <InputCheckbox
         key={answerId}
-        className={
-          state.includes(answerId)
-            ? `${styles.option} ${styles.optionChecked}`
-            : styles.option
-        }
-      >
-        <input
-          type="checkbox"
-          name={`answerText`}
-          value={answerId}
-          checked={state.includes(answerId)}
-          onChange={onCheckboxInputChange}
-        />
-        {getLetterVatiantsByIndex(index)} {answerText}
-      </label>
+        value={answerId}
+        onChange={onCheckboxInputChange}
+        checked={state.includes(answerId)}
+        name={answerText}
+        labelText={`${getLetterVatiantsByIndex(index)} ${answerText}`}
+      />
     ));
   };
 

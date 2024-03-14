@@ -1,0 +1,37 @@
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12rem;
+
+  color: var(--content-datail-secondary);
+  font-size: 14rem;
+  font-weight: 500;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+}
+.optionChecked {
+  color: var(--content-main);
+
+  .ckeckbox {
+    border-color: var(--content-main);
+    background-color: var(--content-main);
+  }
+}
+
+.ckeckbox {
+  width: 12rem;
+  height: 12rem;
+  flex-shrink: 0;
+  border: 1.4rem solid var(--content-datail-secondary);
+  background-color: transparent;
+  border-radius: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg * {
+    fill: var(--content-contr-color);
+  }
+}

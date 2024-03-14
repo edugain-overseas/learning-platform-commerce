@@ -4,6 +4,7 @@ import { getLetterVatiantsByIndex } from "../../../../utils/getLetterVatiantsByI
 import noImage from "../../../../images/noImage.jpeg";
 import { serverName } from "../../../../http/sever";
 import styles from "./QuestionPhoto.module.scss";
+import InputRadio from "../../../shared/InputRadio/InputRadio";
 
 const QuestionPhoto = ({ answers, state, setState, id, imagePath }) => {
   const onRadioInputChange = (e) => {
@@ -20,30 +21,27 @@ const QuestionPhoto = ({ answers, state, setState, id, imagePath }) => {
     return answers.map(({ a_id: answerId, a_text: answerText }, index) => {
       console.log(answerText);
       return (
-        <label
+        <InputRadio
           key={answerId}
-          className={
-            state === answerId
-              ? `${styles.option} ${styles.optionChecked}`
-              : styles.option
-          }
-        >
-          <input
-            type="radio"
-            name={`answerText`}
-            value={answerId}
-            checked={state === answerId}
-            onChange={onRadioInputChange}
-          />
-          {getLetterVatiantsByIndex(index)} {answerText}
-        </label>
+          value={answerId}
+          onChange={onRadioInputChange}
+          checked={state === answerId}
+          name={answerText}
+          labelText={`${getLetterVatiantsByIndex(index)} ${answerText}`}
+        />
       );
     });
   };
   return (
     <div className={styles.questionBody}>
       <div className={styles.imageWrapper}>
-        <Image src={`${serverName}/${imagePath}`} fallback={noImage} />
+        <Image
+          src={`${serverName}/${imagePath}`}
+          fallback={noImage}
+          preview={{
+            imageRender: (originalNode) => <div className={styles.previewImageWrapper}>{originalNode}</div>,
+          }}
+        />
       </div>
       <form className={styles.answersWrapper}>{renderAnswers()}</form>
     </div>

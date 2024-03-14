@@ -1,0 +1,45 @@
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12rem;
+
+  color: var(--content-datail-secondary);
+  font-size: 14rem;
+  font-weight: 500;
+
+  input[type="radio"] {
+    display: none;
+  }
+}
+.optionChecked {
+  color: var(--content-main);
+
+  .radioBtn {
+    border-color: var(--content-main);
+
+    &:before {
+      background-color: var(--content-main);
+    }
+  }
+}
+
+.radioBtn {
+  width: 12rem;
+  height: 12rem;
+  flex-shrink: 0;
+  border: 1.4rem solid var(--content-datail-secondary);
+  border-radius: 50%;
+  position: relative;
+
+  &:before {
+    content: "";
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    background-color: transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

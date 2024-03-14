@@ -25,6 +25,7 @@ const handleProgressColor = (value) => {
 };
 
 const ProgressBar = ({ width = 171, height = 24, value, disabled }) => {
+  console.log(value);
   return (
     <div
       className={styles.outerWrapper}
@@ -54,7 +55,7 @@ const ProgressBar = ({ width = 171, height = 24, value, disabled }) => {
             ? "Not purchased"
             : value >= 100
             ? "Completed"
-            : `${value} / 100 %`}
+            : `${value ? value : 0  } / 100 %`}
         </span>
       </div>
     </div>
