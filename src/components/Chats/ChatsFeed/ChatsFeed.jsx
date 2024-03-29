@@ -7,9 +7,18 @@ import { useSelector } from "react-redux";
 import { getUserId } from "../../../redux/user/selectors";
 
 const ChatsFeed = () => {
-  const { messages } = useChats();
+  const {
+    messages,
+    chats,
+    selectedChatId,
+    sendToWebsocket,
+    closeChat,
+    resumeChat,
+  } = useChats();
   const userId = useSelector(getUserId);
   const chatScrollerRef = useRef(null);
+
+  const chat = chats.find(({ id }) => id === selectedChatId);
 
   useEffect(() => {
     if (chatScrollerRef.current) {
@@ -17,20 +26,40 @@ const ChatsFeed = () => {
     }
   }, [messages.length]);
 
+  const handleApproveClosing = () => {
+    const data = JSON.stringify({ type: "approve" });
+    try {
+      sendToWebsocket(data, chat.id);
+      closeChat(chat.id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleRejectClosing = () => {
+    const data = JSON.stringify({ type: "reject" });
+    try {
+      sendToWebsocket(data, chat.id);
+      resumeChat(chat.id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   console.log(messages);
   return (
     <div className={styles.chatFeedWrapper} ref={chatScrollerRef}>
       <div className={styles.chatScroller}>
         {messages.map(
           (
-            { message, id, files, timestamp, username, user_image, sender_id },
+            { message, id, files, timestamp, fullname, user_image, sender_id },
             index,
             array
           ) => (
             <ChatMessage
               key={id}
               message={message}
-              senderName={username}
+              senderName={fullname}
               files={files}
               time={getFormattedStrFromDate(timestamp, "HH:mm")}
               avatar={user_image}
@@ -40,6 +69,15 @@ const ChatsFeed = () => {
           )
         )}
       </div>
+      {chat.status === "closing" && (
+        <div>
+          <p>Do you want to close this chat?</p>
+          <div>
+            <button onClick={handleApproveClosing}>Yes</button>
+            <button onClick={handleRejectClosing}>No</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

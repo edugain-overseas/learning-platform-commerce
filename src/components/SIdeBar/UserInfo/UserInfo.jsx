@@ -11,7 +11,8 @@ const UserInfo = () => {
 
   const userInfo = useSelector(getUserInfo);
 
-  const userFullName = userInfo.name + " " + userInfo.surname;
+  // const userFullName = userInfo.name + " " + userInfo.surname;
+  const username = userInfo.username;
 
   const handleUploadAvatar = (file) => {
     console.log(file);
@@ -29,7 +30,12 @@ const UserInfo = () => {
         }
       />
       <span className={styles.fullName}>
-        {userFullName === " " ? "User Name" : userFullName}
+        {/* {userFullName === " "
+          ? username
+            ? username
+            : "User Name"
+          : userFullName} */}
+        {username === "" ? "User Name" : username}
       </span>
       {accessToken && (
         <div className={styles.studyInfo}>

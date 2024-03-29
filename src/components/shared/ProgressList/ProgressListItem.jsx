@@ -15,7 +15,7 @@ const ProgressListItem = ({ item }) => {
       >
         <div className={styles.progressIconInner}></div>
       </div>
-      <span>{item.label}</span>
+      <span title={item.label}>{item.label}</span>
     </li>
   );
 };

@@ -28,7 +28,7 @@ export const ChatProvider = ({ children }) => {
       ? chats
       : chats.filter(({ status }) => {
           return typeFilter === "active"
-            ? status === typeFilter || status === "new"
+            ? status === typeFilter || status === "new" || status === "closing"
             : status === typeFilter;
         });
 
@@ -60,6 +60,9 @@ export const ChatProvider = ({ children }) => {
           };
           ws.onmessage = (event) => {
             const data = JSON.parse(event.data);
+            console.log('on message');
+
+            // recieve chat history
             if (data.type === "chat-history") {
               const incomigMessages = data.data.reverse();
               setChats((prev) =>
@@ -69,6 +72,7 @@ export const ChatProvider = ({ children }) => {
               );
               return;
             }
+            // recieve new message
             if (data.type === "new-message") {
               const newMessages = data.data;
               setChats((prev) =>
@@ -83,12 +87,23 @@ export const ChatProvider = ({ children }) => {
               );
               return;
             }
+
+            // revieve close chat offer from moder
+            if (data.type === "close-chat") {
+              setChats((prev) =>
+                prev.map((chat) =>
+                  chat.id === id ? { ...chat, status: "closing" } : chat
+                )
+              );
+            }
           };
           return { id, websocket: ws };
         });
 
       setWebSockets((prev) => [...prev, ...newWebSockets]);
     }
+
+    console.log(chats);
 
     return () => {
       webSockets.forEach(({ websocket }) => {
@@ -142,6 +157,22 @@ export const ChatProvider = ({ children }) => {
     setChats((prev) => prev.filter(({ id }) => id !== chatId));
   };
 
+  const closeChat = (chatId) => {
+    setChats((prev) =>
+      prev.map((chat) =>
+        chat.id === chatId ? { ...chat, status: "archive" } : chat
+      )
+    );
+  };
+
+  const resumeChat = (chatId) => {
+    setChats((prev) =>
+      prev.map((chat) =>
+        chat.id === chatId ? { ...chat, status: "active" } : chat
+      )
+    );
+  };
+
   return (
     <ChatContext.Provider
       value={{
@@ -157,6 +188,8 @@ export const ChatProvider = ({ children }) => {
         messages,
         sendToWebsocket,
         deleteChat,
+        closeChat,
+        resumeChat,
       }}
     >
       {children}

@@ -46,6 +46,13 @@ const userSlice = createSlice({
       state.accessToken = payload.access_token;
       state.error = null;
     },
+    refreshTonkenExpiredAction(state, _) {
+      Object.keys(initialState).forEach(
+        (key) => (state[key] = initialState[key])
+      );
+      window.location.href =
+        "http://localhost:3000/learning-platform-commerce/login";
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -270,7 +277,7 @@ const userSlice = createSlice({
       })
       .addCase(initializationChatThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.chats.push(payload)
+        state.chats.push(payload);
       })
       .addCase(initializationChatThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -279,5 +286,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { refreshTokenAction } = userSlice.actions;
+export const { refreshTokenAction, refreshTonkenExpiredAction } = userSlice.actions;
 export default userSlice;

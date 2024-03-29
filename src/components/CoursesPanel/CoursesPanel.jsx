@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useListMode } from "../../context/ListModeContext";
-import { courseLinks, coursesLinks } from "../../costants/nav";
+import {
+  courseLinks,
+  courseLinksPublic,
+  coursesLinks,
+  coursesLinksPublic,
+} from "../../costants/nav";
 import { ReactComponent as GridIcon } from "../../images/icons/grid.svg";
 import { ReactComponent as ListIcon } from "../../images/icons/list.svg";
 import { ReactComponent as FiltersIcon } from "../../images/icons/filters.svg";
@@ -10,6 +15,8 @@ import Switcher from "../shared/Switcher/Switcher";
 import DropDownFilter from "../shared/DropDownFilter/DropDownFilter";
 import SearchBar from "../shared/SearchBar/SearchBar";
 import styles from "./CoursesPanel.module.scss";
+import { useSelector } from "react-redux";
+import { getAccessToken } from "../../redux/user/selectors";
 
 const switchItems = [<GridIcon />, <ListIcon />];
 const filters = [
@@ -25,10 +32,21 @@ const CoursesPanel = () => {
   const [searchValue, setSerchValue] = useState("");
   const { setSelecteListModeIndex, selectedListModeIndex } = useListMode();
   const { courseId } = useParams();
+  const token = useSelector(getAccessToken);
 
   return (
     <div className={styles.wrapper}>
-      <NavLinksPanel renderLinks={courseId ? courseLinks : coursesLinks} />
+      <NavLinksPanel
+        renderLinks={
+          courseId
+            ? token
+              ? courseLinks
+              : courseLinksPublic
+            : token
+            ? coursesLinks
+            : coursesLinksPublic
+        }
+      />
       <div className={styles.tools}>
         <Switcher
           onChange={(index) => setSelecteListModeIndex(index)}

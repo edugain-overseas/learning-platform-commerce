@@ -27,7 +27,7 @@ const TaskCard = ({ task }) => {
         />
         <div className={styles.infoWrapper}>
           <div className={styles.titleWrapper}>
-            <span className={styles.taskTitle}>
+            <span className={styles.taskTitle} title={task.title}>
               {task.title}
               <span className={styles.openBtn}>
                 <ArrowRightIcon />

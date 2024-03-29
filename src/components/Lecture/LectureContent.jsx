@@ -22,7 +22,7 @@ const LectureContent = ({ lecture }) => {
 
   const dispatch = useDispatch();
 
-  const { number, courseName, status, id } = lecture;
+  const { number, courseName, status, id, course_id: courseId } = lecture;
 
   const lectureContent = [...lecture.lecture_info.attributes].sort(
     (itemA, itemB) => itemA.a_number - itemB.a_number
@@ -310,6 +310,7 @@ const LectureContent = ({ lecture }) => {
           <LessonNavigateBtn
             forward={false}
             currentNumber={lecture.number}
+            courseId={courseId}
             label="Return to previous"
             width="200rem"
             height="38rem"
@@ -325,6 +326,7 @@ const LectureContent = ({ lecture }) => {
           <LessonNavigateBtn
             forward={true}
             currentNumber={lecture.number}
+            courseId={courseId}
             label="Move on to next"
             width="200rem"
             height="38rem"

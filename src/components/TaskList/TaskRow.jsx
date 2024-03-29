@@ -21,7 +21,7 @@ const TaskRow = ({ task }) => {
         className={styles.rowLink}
       >
         <div className={styles.titleWrapper}>
-          <span className={styles.taskTitle}>
+          <span className={styles.taskTitle} title={task.title}>
             <span className={styles.pointer}></span>
             {task.title}
             <span className={styles.openBtn}>

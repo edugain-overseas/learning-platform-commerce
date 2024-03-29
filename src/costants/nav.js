@@ -12,7 +12,7 @@ export const sidebarNav = [
   {
     label: "Courses",
     icon: <CoursesIcon />,
-    link: "/courses/my",
+    link: "/courses/available",
     children: null,
   },
   { label: "My profile", icon: <MyProfileIcon />, link: "/me", children: null },
@@ -45,6 +45,13 @@ export const coursesLinks = [
   },
 ];
 
+export const coursesLinksPublic = [
+  {
+    to: "available",
+    content: "available courses",
+  },
+];
+
 export const courseLinks = [
   {
     to: "intro",
@@ -60,6 +67,14 @@ export const courseLinks = [
     to: "exam-certificate",
     content: "exam | certificate",
     element: <CourseCerificatePage />,
+  },
+];
+
+export const courseLinksPublic = [
+  {
+    to: "intro",
+    content: `intro`,
+    element: <CourseIntroPage />,
   },
 ];
 

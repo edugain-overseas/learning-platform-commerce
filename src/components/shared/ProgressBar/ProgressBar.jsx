@@ -21,11 +21,10 @@ const handleProgressColor = (value) => {
   if (value >= 100) {
     return colors.full;
   }
-  return "transparrent";
+  return "transparent";
 };
 
 const ProgressBar = ({ width = 171, height = 24, value, disabled }) => {
-  console.log(value);
   return (
     <div
       className={styles.outerWrapper}
@@ -45,9 +44,7 @@ const ProgressBar = ({ width = 171, height = 24, value, disabled }) => {
           style={{
             width: value <= 100 ? `${value}%` : "100%",
             borderRadius: `${width * 0.023}rem`,
-            backgroundColor: `${
-              !value ? "transparrent" : handleProgressColor(value)
-            }`,
+            backgroundColor: `${handleProgressColor(value)}`,
           }}
         ></div>
         <span style={{ fontSize: `${(10 / 24) * height}rem` }}>
@@ -55,7 +52,7 @@ const ProgressBar = ({ width = 171, height = 24, value, disabled }) => {
             ? "Not purchased"
             : value >= 100
             ? "Completed"
-            : `${value ? value : 0  } / 100 %`}
+            : `${value ? value : 0} / 100 %`}
         </span>
       </div>
     </div>

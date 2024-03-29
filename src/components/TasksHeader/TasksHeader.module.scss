@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 40rem;
   margin-bottom: 16rem;
   height: 44rem;
   padding-inline: 14rem;
@@ -25,12 +26,14 @@
     font-size: 12rem;
     color: var(--content-datail-secondary);
     padding-inline: 16rem;
+    flex-shrink: 0;
   }
 
   .type {
     font-size: 16rem;
     color: var(--content-datail-secondary);
     text-transform: capitalize;
+    overflow: visible;
   }
 }
 
