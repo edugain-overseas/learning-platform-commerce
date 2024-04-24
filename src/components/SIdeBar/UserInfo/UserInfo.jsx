@@ -11,7 +11,6 @@ const UserInfo = () => {
 
   const userInfo = useSelector(getUserInfo);
 
-  // const userFullName = userInfo.name + " " + userInfo.surname;
   const username = userInfo.username;
 
   const handleUploadAvatar = (file) => {
@@ -30,11 +29,6 @@ const UserInfo = () => {
         }
       />
       <span className={styles.fullName}>
-        {/* {userFullName === " "
-          ? username
-            ? username
-            : "User Name"
-          : userFullName} */}
         {username === "" ? "User Name" : username}
       </span>
       {accessToken && (
