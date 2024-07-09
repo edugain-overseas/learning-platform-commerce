@@ -12,9 +12,12 @@ import CardGrade from "../../shared/CardGrade/CardGrade";
 import CardPrice from "../../shared/CardPrice/CardPrice";
 import styles from "./CourseCard.module.scss";
 import { serverName } from "../../../http/sever";
+import { useSelector } from "react-redux";
+import { getUserType } from "../../../redux/user/selectors";
 
 const CourseCard = ({ course, purchased, disabled }) => {
   const { addItem, removeItem, cartItems } = useCart();
+  const isModer = useSelector(getUserType) === "moder";
 
   const {
     image_path: coursePoster,
@@ -26,9 +29,10 @@ const CourseCard = ({ course, purchased, disabled }) => {
     price,
     id,
     progress,
+    is_published: isPublished,
   } = course;
 
-  const isItemInCart = cartItems.find((item) => item === id) && true;
+  const isItemInCart = cartItems?.find((item) => item === id) && true;
 
   const handleAddToCart = (e, id) => {
     e.preventDefault();
@@ -41,7 +45,11 @@ const CourseCard = ({ course, purchased, disabled }) => {
   };
 
   return (
-    <li className={`${styles.courseCard} ${disabled ? styles.disabled : ""}`}>
+    <li
+      className={`${styles.courseCard} ${disabled ? styles.disabled : ""} ${
+        !isPublished ? styles.disabled : ""
+      }`}
+    >
       <Link className={styles.courseLink} to={`/course/${id}/intro`}>
         <div
           className={styles.posterWrapper}
@@ -76,15 +84,21 @@ const CourseCard = ({ course, purchased, disabled }) => {
             </span>
           </div>
           <div className={styles.courseInfo}>
-            <div className={styles.progressWrapper}>
-              <span>Progress:</span>
-              <ProgressBar
-                value={progress}
-                width={104}
-                height={14}
-                disabled={!purchased}
-              />
-            </div>
+            {isModer ? (
+              <div>
+                <span>{isPublished ? "Published" : "Not published"}</span>
+              </div>
+            ) : (
+              <div className={styles.progressWrapper}>
+                <span>Progress:</span>
+                <ProgressBar
+                  value={progress}
+                  width={104}
+                  height={14}
+                  disabled={!purchased}
+                />
+              </div>
+            )}
             <div className={styles.details}>
               <ClockIcon />
               <span>{courseDuration}</span>
@@ -105,7 +119,7 @@ const CourseCard = ({ course, purchased, disabled }) => {
           </div>
         </div>
       </Link>
-      {!purchased && (
+      {!purchased && !isModer && (
         <button
           className={styles.cardBtn}
           onClick={(e) =>

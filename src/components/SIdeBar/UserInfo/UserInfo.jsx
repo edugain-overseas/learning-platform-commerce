@@ -17,6 +17,8 @@ const UserInfo = () => {
     console.log(file);
   };
 
+  const isModer = userInfo.userType === "moder";
+
   return (
     <div className={styles.wrapper} id="expanded">
       <Avatar
@@ -31,7 +33,7 @@ const UserInfo = () => {
       <span className={styles.fullName}>
         {username === "" ? "User Name" : username}
       </span>
-      {accessToken && (
+      {accessToken && !isModer && (
         <div className={styles.studyInfo}>
           <span>{userInfo.courses.length} course</span>
           <span>0 certificate</span>

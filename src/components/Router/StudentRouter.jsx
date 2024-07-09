@@ -1,20 +1,20 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { courseLinks, coursesLinks, instructionsLinks } from "../costants/nav";
-import MainLayout from "./MainLayout/MainLayout";
-import SingUpForm from "./auth/SingUpForm/SingUpForm";
-import SingInForm from "./auth/SingInForm/SingInForm";
-import CreateLessonModal from "./CreateLessonModal/CreateLessonModal";
-import CoursesPage from "../pages/CoursesPage/CoursesPage";
-import CategoriesList from "./CategoriesList/CategoriesList";
-import CategoryDetailPage from "../pages/CategoryDetailPage/CategoryDetailPage";
-import CourseDetailPage from "../pages/CourseDetailPage/CourseDetailPage";
-import TaskPage from "../pages/TaskPage/TaskPage";
-import UserProfilePage from "../pages/UserProfilePage/UserProfilePage";
-import AboutIEUPage from "../pages/AboutIEUPage/AboutIEUPage";
-import InstructionsPage from "../pages/InstructionsPage/InstructionsPage";
-import InstructionsList from "./InstructionsList/InstructionsList";
-import InstructionContent from "./InstructionContent/InstructionContent";
+import { courseLinks, coursesLinks, instructionsLinks } from "../../costants/nav";
+import MainLayout from "../MainLayout/MainLayout";
+import SingUpForm from "../auth/SingUpForm/SingUpForm";
+import SingInForm from "../auth/SingInForm/SingInForm";
+import CreateLessonModal from "../CreateLessonModal/CreateLessonModal";
+import CoursesPage from "../../pages/CoursesPage/CoursesPage";
+import CategoriesList from "../CategoriesList/CategoriesList";
+import CategoryDetailPage from "../../pages/CategoryDetailPage/CategoryDetailPage";
+import CourseDetailPage from "../../pages/CourseDetailPage/CourseDetailPage";
+import TaskPage from "../../pages/TaskPage/TaskPage";
+import UserProfilePage from "../../pages/UserProfilePage/UserProfilePage";
+import AboutIEUPage from "../../pages/AboutIEUPage/AboutIEUPage";
+import InstructionsPage from "../../pages/InstructionsPage/InstructionsPage";
+import InstructionsList from "../InstructionsList/InstructionsList";
+import InstructionContent from "../InstructionContent/InstructionContent";
 
 const Router = () => {
   return (

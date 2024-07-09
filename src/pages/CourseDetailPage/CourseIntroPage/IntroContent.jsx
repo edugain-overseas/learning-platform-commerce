@@ -13,10 +13,11 @@ import CardPrice from "../../../components/shared/CardPrice/CardPrice";
 import CoursesList from "../../../components/CoursesList/CoursesList";
 import styles from "./CourseIntroPage.module.scss";
 import { useSelector } from "react-redux";
-import { getUserCourses } from "../../../redux/user/selectors";
+import { getUserCourses, getUserType } from "../../../redux/user/selectors";
 
 const IntroContent = ({ course = {}, courses = [] }) => {
   const userCourses = useSelector(getUserCourses);
+  const isModer = useSelector(getUserType) === "moder";
   const {
     title: courseName,
     image_path: coursePoster,
@@ -31,12 +32,14 @@ const IntroContent = ({ course = {}, courses = [] }) => {
     id,
   } = course;
 
-  const isUserCourse = userCourses.find(({ course_id }) => course_id === id);
+  
+
+  const isUserCourse = userCourses?.find(({ course_id }) => course_id === id);
 
   const otherCoursesThisCategory = courses.filter(
     ({ categoryId, id }) =>
       course.categoryId === categoryId &&
-      !userCourses.find(({ course_id }) => course_id === id) &&
+      !userCourses?.find(({ course_id }) => course_id === id) &&
       course.id !== id
   );
 
@@ -136,7 +139,7 @@ const IntroContent = ({ course = {}, courses = [] }) => {
                 <span className={styles.value}>{courseAccess}</span>
               </li>
             </ul>
-            {!isUserCourse && (
+            {!isUserCourse && !isModer && (
               <div className={styles.itemsTools}>
                 <button className={styles.butBtn}>
                   <span>Buy</span>
@@ -204,24 +207,26 @@ const IntroContent = ({ course = {}, courses = [] }) => {
         </div>
       </section>
 
-      <div className={styles.navPanel}>
-        <Link to="/courses/my" className={styles.allCoursesLink}>
-          <ArrowLeftIcon />
-          <span>View all courses</span>
-        </Link>
-        <CardPrice
-          orientation="horizontal"
-          price={price}
-          oldPrice={oldPrice}
-          size="m"
-        />
-        <button className={styles.buyAllCoursesBtn}>
-          <span>Buy all courses</span>
-          <CartIcon />
-        </button>
-      </div>
+      {!isModer && (
+        <div className={styles.navPanel}>
+          <Link to="/courses/my" className={styles.allCoursesLink}>
+            <ArrowLeftIcon />
+            <span>View all courses</span>
+          </Link>
+          <CardPrice
+            orientation="horizontal"
+            price={price}
+            oldPrice={oldPrice}
+            size="m"
+          />
+          <button className={styles.buyAllCoursesBtn}>
+            <span>Buy all courses</span>
+            <CartIcon />
+          </button>
+        </div>
+      )}
 
-      {studentsAlsoBuyCourses.length !== 0 && (
+      {studentsAlsoBuyCourses.length !== 0 && !isModer && (
         <div className={styles.otherCourses}>
           <h2>Students also bought</h2>
           <CoursesList courses={studentsAlsoBuyCourses} />

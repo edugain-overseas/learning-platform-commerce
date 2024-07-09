@@ -117,7 +117,8 @@ const LectureContent = ({ lecture }) => {
             </section>
           );
         case "audio":
-          const encodedFilePathAudio = filePath?.replace(/ /g, "%20");
+          console.log(section);
+          const encodedFilePathAudio = files[0].file_path?.replace(/ /g, "%20");
           return (
             <section
               key={id}
@@ -131,7 +132,7 @@ const LectureContent = ({ lecture }) => {
                 dangerouslySetInnerHTML={{ __html: title }}
               ></h3>
               <audio
-                src={`${serverName}${encodedFilePathAudio}`}
+                src={`${serverName}/${encodedFilePathAudio}`}
                 controls={true}
                 width="true"
                 height="auto"

@@ -10,10 +10,8 @@ import { getAllCourses } from "../../redux/course/selectors";
 const CourseDetailPage = () => {
   const { courseId } = useParams();
   const courses = useSelector(getAllCourses);
-  // const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(getCourseDetailThunk(+courseId));
     // eslint-disable-next-line
   }, [courseId, courses.length]);
 

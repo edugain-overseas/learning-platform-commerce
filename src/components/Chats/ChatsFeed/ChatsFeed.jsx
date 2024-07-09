@@ -69,7 +69,7 @@ const ChatsFeed = () => {
           )
         )}
       </div>
-      {chat.status === "closing" && (
+      {chat?.status === "closing" && (
         <div>
           <p>Do you want to close this chat?</p>
           <div>

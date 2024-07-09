@@ -1,16 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { getUserCourses } from "../../redux/user/selectors";
+import { getUserCourses, getUserType } from "../../redux/user/selectors";
 import { useListMode } from "../../context/ListModeContext";
 import CourseCard from "./CourseCard/CourseCard";
 import CourseRow from "./CourseRow/CourseRow";
 import styles from "./CoursesList.module.scss";
+import CreateNewCourseItem from "./CreateNewCourseItem/CreateNewCourseItem";
 
 const CoursesList = ({ courses }) => {
   const { selectedListModeIndex } = useListMode();
   const { pathname } = useLocation();
-  const userCourses = useSelector(getUserCourses);
+  const userCourses = useSelector(getUserCourses) ?? [];
+  const isModer = useSelector(getUserType) === "moder";
 
   return (
     <ul
@@ -40,6 +42,7 @@ const CoursesList = ({ courses }) => {
           />
         );
       })}
+      {isModer && <CreateNewCourseItem />}
     </ul>
   );
 };

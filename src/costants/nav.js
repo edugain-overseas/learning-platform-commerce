@@ -6,6 +6,7 @@ import { ReactComponent as InstructionsIcon } from "../images/icons/instructions
 import CourseIntroPage from "../pages/CourseDetailPage/CourseIntroPage/CourseIntroPage";
 import CourseTasksPage from "../pages/CourseDetailPage/CourseTasksPage/CourseTasksPage";
 import CourseCerificatePage from "../pages/CourseDetailPage/CourseCerificatePage/CourseCerificatePage";
+import AdminCourseConstructorPage from "../pages/AdminCourseConstructorPage/AdminCourseConstructorPage";
 
 export const sidebarNav = [
   { label: "Home", icon: <HomeIcon />, link: "/", children: null },
@@ -16,6 +17,28 @@ export const sidebarNav = [
     children: null,
   },
   { label: "My profile", icon: <MyProfileIcon />, link: "/me", children: null },
+  {
+    label: "About IEU",
+    icon: <AboutIEUIcon />,
+    link: "/aboutIEU",
+    children: null,
+  },
+  {
+    label: "Instructions",
+    icon: <InstructionsIcon />,
+    link: "/instructions/general",
+    children: null,
+  },
+];
+
+export const adminSidebarNav = [
+  { label: "Home", icon: <HomeIcon />, link: "/", children: null },
+  {
+    label: "Courses",
+    icon: <CoursesIcon />,
+    link: "/courses",
+    children: null,
+  },
   {
     label: "About IEU",
     icon: <AboutIEUIcon />,
@@ -49,6 +72,29 @@ export const coursesLinksPublic = [
   {
     to: "available",
     content: "available courses",
+  },
+];
+
+export const adminCourseLinks = [
+  {
+    to: "intro",
+    content: `intro`,
+    element: <CourseIntroPage />,
+  },
+  {
+    to: "tasks",
+    content: "tasks",
+    element: <CourseTasksPage />,
+  },
+  {
+    to: "exam-certificate",
+    content: "exam | certificate",
+    element: <CourseCerificatePage />,
+  },
+  {
+    to: "constructor",
+    content: "Edit",
+    element: <AdminCourseConstructorPage />,
   },
 ];
 

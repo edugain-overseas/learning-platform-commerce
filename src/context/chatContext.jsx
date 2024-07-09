@@ -103,7 +103,6 @@ export const ChatProvider = ({ children }) => {
       setWebSockets((prev) => [...prev, ...newWebSockets]);
     }
 
-    console.log(chats);
 
     return () => {
       webSockets.forEach(({ websocket }) => {

@@ -6,10 +6,14 @@ import SupportBtn from "./SupportBtn/SupportBtn";
 import styles from "./SideBar.module.scss";
 import UserInfo from "./UserInfo/UserInfo";
 import { useSelector } from "react-redux";
-import { getAccessToken } from "../../redux/user/selectors";
+import { getAccessToken, getUserType } from "../../redux/user/selectors";
+import { adminSidebarNav, sidebarNav } from "../../costants/nav";
 
 const SideBar = () => {
   const accessToken = useSelector(getAccessToken);
+  const isModer = useSelector(getUserType) === "moder";
+
+  const navItems = isModer ? adminSidebarNav : sidebarNav;
 
   const [isExpandedFixed, setIsExpandedFixed] = useState(true);
   const [isNarrowedFixed, setIsNarrowedFixed] = useState(false);
@@ -45,9 +49,9 @@ const SideBar = () => {
         </button>
         <p className={styles.officialLabel}>Official Platform</p>
         <div className={styles.itemsWrapper}>
-          <NavBar />
+          <NavBar navItems={navItems} />
           <div className={styles.bottomItemsWrapper}>
-            {accessToken && <SupportBtn />}
+            {accessToken && !isModer && <SupportBtn />}
             <LogoutButton />
           </div>
         </div>

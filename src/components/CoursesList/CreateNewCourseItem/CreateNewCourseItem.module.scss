@@ -1,0 +1,43 @@
+.courseCard {
+  width: calc(100% / 4 - 16rem * 3 / 4);
+  flex-shrink: 0;
+  margin-bottom: 16rem;
+  position: relative;
+}
+
+.courseLink {
+  display: block;
+  height: 100%;
+  padding: 8rem;
+  border-radius: 5rem;
+  background-color: var(--bg-rgba-default);
+  box-shadow: var(--drop-shadow-button-main);
+  backdrop-filter: blur(16rem);
+
+  transition: background-color var(--transition-time-min) ease;
+
+  &:hover {
+    background-color: var(--bg-rgba-primary);
+    box-shadow: var(--drop-shadow-button-main-hover);
+
+    .createBtn {
+      --color: var(--content-main);
+    }
+  }
+}
+
+.createBtn {
+  --color: var(--content-datail-secondary);
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  font-size: 16rem;
+  color: var(--color);
+  transition: color var(--transition-time-min) ease;
+
+  svg path {
+    stroke: var(--color);
+    stroke-opacity: 1;
+    transition: stroke var(--transition-time-min) ease;
+  }
+}

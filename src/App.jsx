@@ -4,7 +4,7 @@ import { ActiveTimeProvider } from "./context/activeTimeContext";
 import { CartProvider } from "./context/cartContext";
 import { ChatProvider } from "./context/chatContext";
 import { instance } from "./http/instance";
-import { getAccessToken } from "./redux/user/selectors";
+import { getAccessToken, getUserType } from "./redux/user/selectors";
 import { getUserInfoThunk } from "./redux/user/operations";
 import { getCategoriesThunk } from "./redux/category/operations";
 import { getCoursesThunk } from "./redux/course/operations";
@@ -14,12 +14,14 @@ import {
 } from "./redux/instruction/operations";
 import useAdjustFontSize from "./hooks/useAdjustFontSize";
 import useGoogleAuthentication from "./hooks/useGoogleAuthentication";
-import Router from "./components/Router";
+import Router from "./components/Router/StudentRouter";
+import AdminRouter from "./components/Router/AdminRouter";
 
 function App() {
   useGoogleAuthentication();
   const dispatch = useDispatch();
   const accessToken = useSelector(getAccessToken);
+  const userType = useSelector(getUserType);
 
   useEffect(() => {
     if (accessToken) {
@@ -37,15 +39,18 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
-  // console.log(user);
   useAdjustFontSize();
   return (
     <ChatProvider>
-      <CartProvider>
-        <ActiveTimeProvider>
-          <Router />
-        </ActiveTimeProvider>
-      </CartProvider>
+      {userType === "moder" ? (
+        <AdminRouter />
+      ) : (
+        <CartProvider>
+          <ActiveTimeProvider>
+            <Router />
+          </ActiveTimeProvider>
+        </CartProvider>
+      )}
     </ChatProvider>
   );
 }

@@ -82,7 +82,7 @@
   height: 100%;
   display: block;
   object-fit: cover;
-  transition: transform var(--transition-time-max) linear;
+  transition: transform var(--transition-time-min) ease-in;
 }
 
 .textWrapper {

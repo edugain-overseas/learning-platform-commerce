@@ -1,14 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { sidebarNav } from "../../../costants/nav";
 import { ReactComponent as NavTriangleIcon } from "../../../images/icons/navTriangle.svg";
 import styles from "./NavBar.module.scss";
 
-const NavBar = () => {
+const NavBar = ({navItems}) => {
   return (
     <nav className={styles.nav}>
       <ul className={styles.navItems}>
-        {sidebarNav.map(({ label, link, icon }) => (
+        {navItems.map(({ label, link, icon }) => (
           <li key={label} title={`${label} page`} className={styles.navItem}>
             <NavLink to={link} className={styles.navLink}>
               <div className={styles.narrowed}>

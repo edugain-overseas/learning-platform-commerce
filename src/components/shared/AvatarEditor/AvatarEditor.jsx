@@ -101,8 +101,6 @@ const AvatarEditor = () => {
             border={[remToPx(73), remToPx(30)]}
             borderRadius={remToPx(100)}
             scale={scale}
-            // disableHiDPIScaling={true}
-            // disableBoundaryChecks={true}
           />
         ) : (
           <div className={styles.avatarWrapper}>
