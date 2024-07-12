@@ -85,6 +85,8 @@
   max-width: 200%;
   max-height: 200rem;
 
+  font-size: 12rem;
+
   position: absolute;
   top: calc(100% + 8rem);
   left: 0;
@@ -123,7 +125,7 @@
       display: block;
 
       color: var(--content-datail-secondary);
-      font-size: 12rem;
+      font-size: inherit;
       cursor: pointer;
     }
 

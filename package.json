@@ -17,6 +17,8 @@
     "react": "^18.2.0",
     "react-avatar-editor": "^13.0.2",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-hook-form": "^7.52.1",
     "react-pdf": "^7.7.0",
     "react-phone-input-2": "^2.15.1",
     "react-redux": "^9.0.2",
@@ -25,6 +27,7 @@
     "react-spinners": "^0.13.8",
     "redux-persist": "^6.0.0",
     "sass": "^1.69.5",
+    "use-mask-input": "^3.3.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

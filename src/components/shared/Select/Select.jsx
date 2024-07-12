@@ -55,6 +55,7 @@ const Select = ({
   useEffect(() => {
     const ref = selectRef.current;
     const handleKeydown = (e) => {
+      e.preventDefault()
       if (e.target !== ref) return;
       switch (e.code) {
         case "Enter":

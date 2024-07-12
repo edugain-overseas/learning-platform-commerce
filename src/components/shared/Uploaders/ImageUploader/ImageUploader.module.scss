@@ -1,0 +1,91 @@
+.imageUploader {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.dropzone {
+  --color: var(--content-datail-secondary);
+  position: absolute;
+  inset: 4rem;
+  padding: 16rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5rem;
+  border: 2rem dashed var(--color);
+  background-color: var(--bg-rgba-default);
+  backdrop-filter: blur(16rem);
+  transition: border-color var(--transition-time-default) ease;
+  cursor: pointer;
+
+  &:hover {
+    --color: var(--content-main);
+  }
+
+  .labelWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4rem;
+    color: var(--color);
+    transition: color var(--transition-time-default) ease;
+  }
+
+  .uploadIcon path {
+    fill-opacity: 0.5;
+  }
+  .uploadIcon path:last-child {
+    stroke-opacity: 0.5;
+  }
+
+  p {
+    font-size: 20rem;
+  }
+}
+
+.progressBar {
+  position: absolute;
+  top: 20rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.uploadedImage {
+  position: absolute;
+  inset: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .deleteButton {
+    position: absolute;
+    bottom: 12rem;
+    right: 12rem;
+    width: 32rem;
+    height: 32rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 5rem;
+    background-color: var(--content-nav-hover);
+    opacity: 0.5;
+
+    transition: opacity var(--transition-time-default) ease;
+
+    &:hover {
+        opacity: 1;
+    }
+  }
+
+  .deleteIcon {
+    width: 16rem;
+    height: 16rem;
+    color: var(--content-contr-color);
+  }
+}

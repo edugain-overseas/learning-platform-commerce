@@ -19,7 +19,7 @@ import instructionSlice from "./instruction/slice";
 const persistConfig = {
   key: "persisted-user",
   storage,
-  whitelist: ["accessToken"],
+  whitelist: ["accessToken", "userType"],
 };
 
 const persistedReducer = persistReducer(persistConfig, userSlice.reducer);

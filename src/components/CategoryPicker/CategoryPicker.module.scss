@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8rem;
+  padding-inline: 32rem;
+  width: 100%;
+}
+
+.label {
+  color: var(--content-datail-secondary);
+}
+
+.createNewCategoryBtn {
+    --color: var(--content-datail-secondary);
+    width: 32rem;
+    height: 32rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    &:hover {
+        --color: var(--content-main);
+    }
+
+    svg {
+        width: 24rem;
+        height: 24rem;
+
+        path {
+            stroke: var(--color);
+            stroke-opacity: 1;
+            transition: stroke var(--transition-time-min) ease;
+        }
+    }
+}

@@ -24,10 +24,16 @@ const handleProgressColor = (value) => {
   return "transparent";
 };
 
-const ProgressBar = ({ width = 171, height = 24, value, disabled }) => {
+const ProgressBar = ({
+  width = 171,
+  height = 24,
+  value,
+  disabled,
+  className = "",
+}) => {
   return (
     <div
-      className={styles.outerWrapper}
+      className={`${styles.outerWrapper} ${className}`}
       style={{
         width: `${width}rem`,
         height: `${height}rem`,

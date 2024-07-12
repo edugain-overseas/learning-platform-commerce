@@ -6,7 +6,7 @@ import { ReactComponent as InstructionsIcon } from "../images/icons/instructions
 import CourseIntroPage from "../pages/CourseDetailPage/CourseIntroPage/CourseIntroPage";
 import CourseTasksPage from "../pages/CourseDetailPage/CourseTasksPage/CourseTasksPage";
 import CourseCerificatePage from "../pages/CourseDetailPage/CourseCerificatePage/CourseCerificatePage";
-import AdminCourseConstructorPage from "../pages/AdminCourseConstructorPage/AdminCourseConstructorPage";
+import AdminCourseEditPage from "../pages/AdminCourseEditPage/AdminCourseEditPage";
 
 export const sidebarNav = [
   { label: "Home", icon: <HomeIcon />, link: "/", children: null },
@@ -94,7 +94,7 @@ export const adminCourseLinks = [
   {
     to: "constructor",
     content: "Edit",
-    element: <AdminCourseConstructorPage />,
+    element: <AdminCourseEditPage />,
   },
 ];
 

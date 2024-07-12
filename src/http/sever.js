@@ -1,3 +1,3 @@
-export const serverBaseUrl = "https://ac09e65144df.ngrok.app/api/v1";
-export const serverName = "https://ac09e65144df.ngrok.app";
-export const webSocketUrl = "wss://ac09e65144df.ngrok.app/api/v1/chat";
+export const serverBaseUrl = "https://2052c7ccf17d.ngrok.app/api/v1";
+export const serverName = "https://2052c7ccf17d.ngrok.app";
+export const webSocketUrl = "wss://2052c7ccf17d.ngrok.app/api/v1/chat";
