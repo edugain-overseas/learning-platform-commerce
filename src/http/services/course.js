@@ -17,3 +17,12 @@ export const getCourseDetail = async (courseId) => {
     throw error;
   }
 };
+
+export const createNewCourse = async (course) => {
+  try {
+    const data = privateRoutesHandler("post", `/course/create`, course);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

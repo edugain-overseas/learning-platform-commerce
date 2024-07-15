@@ -1,0 +1,28 @@
+.labelWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4rem;
+  color: var(--color);
+  transition: color var(--transition-time-default) ease;
+}
+
+.uploadIcon {
+  width: min(60%, 130rem);
+  aspect-ratio: 1;
+}
+
+.uploadIcon path {
+  fill-opacity: 0.5;
+}
+.uploadIcon path:last-child {
+  stroke-opacity: 0.5;
+}
+
+p {
+  font-size: inherit;
+  text-align: center;
+}

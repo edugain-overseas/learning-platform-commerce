@@ -8,14 +8,15 @@ import { ReactComponent as TranslationIcon } from "../../../images/icons/transla
 import TaskList from "../../../components/TaskList/TaskList";
 import CourseAsideProgressPanel from "../../../components/CourseAsideProgressPanel/CourseAsideProgressPanel";
 import styles from "./CourseTasksPage.module.scss";
+import { getUserType } from "../../../redux/user/selectors";
 
 const CourseTasksPage = () => {
   const { courseId } = useParams();
   const courses = useSelector(getAllCourses);
+  const isModer = useSelector(getUserType) === "moder";
   const course = courses.find(({ id }) => id === +courseId);
   const courseLessons = course?.lessons;
   const progress = course?.progress;
-
 
   const lectures = courseLessons?.filter(({ type }) => type === "lecture");
   const tests = courseLessons?.filter(({ type }) => type === "test");
@@ -44,7 +45,7 @@ const CourseTasksPage = () => {
           {courseLessons?.length && <TaskList tasks={courseLessons} />}
         </div>
       </div>
-      {courseLessons?.length && (
+      {courseLessons?.length && !isModer && (
         <CourseAsideProgressPanel
           courseLessons={courseLessons}
           courseId={courseId}

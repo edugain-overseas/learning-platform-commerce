@@ -17,6 +17,8 @@
       height: auto;
       opacity: 1;
       padding-block: 10rem;
+      pointer-events: all;
+
       transition: opacity var(--transition-time-min) ease-out;
     }
 
@@ -96,7 +98,7 @@
   background: var(--bg-rgba-primary);
   box-shadow: var(--drop-shadow-button-main);
   backdrop-filter: blur(16rem);
-
+  pointer-events: none;
   overflow-x: hidden;
   overflow-y: hidden;
   transition: opacity var(--transition-time-min) ease,

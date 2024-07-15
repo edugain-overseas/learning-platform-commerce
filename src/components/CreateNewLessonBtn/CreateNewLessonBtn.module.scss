@@ -1,0 +1,47 @@
+.createLessonBtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16rem;
+  width: 100%;
+  height: 100%;
+  padding: 12rem;
+  border-radius: 5rem;
+  transition: box-shadow var(--transition-time-min) ease;
+
+  &:hover {
+    border-color: var(--content-main);
+    box-shadow: var(--box-shadow-button-inset);
+    path {
+      fill-opacity: 1;
+    }
+    span {
+      opacity: 1;
+    }
+  }
+
+  svg {
+    width: 32rem;
+    height: 32rem;
+  }
+
+  path {
+    fill: var(--content-main);
+    transition: fill-opacity var(--transition-time-min) ease;
+  }
+
+  span {
+    font-size: 24rem;
+    color: var(--content-main);
+    opacity: 0.5;
+    transition: opacity var(--transition-time-min) ease;
+  }
+}
+
+.modalHeader {
+  margin-bottom: 16rem;
+  font-weight: 500;
+  font-size: 24rem;
+  color: var(--content-main);
+}

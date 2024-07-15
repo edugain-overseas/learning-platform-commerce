@@ -53,13 +53,18 @@
     line-height: 18rem;
     padding-inline-start: 2rem;
     margin-bottom: 20rem;
+    position: relative;
+  }
+
+  .inputWrapper {
+    position: relative;
   }
 
   .listWrapper {
-    padding-inline-start: 12rem;
     margin-bottom: 24rem;
 
     .listTitle {
+      padding-inline-start: 12rem;  
       font-weight: 600;
       margin-bottom: 4rem;
     }
@@ -362,4 +367,12 @@ div.priceWrapper {
       fill: var(--content-datail-secondary);
     }
   }
+}
+
+.error {
+  color: var(--content-failture);
+  font-size: 14rem;
+  font-weight: 400;
+  position: absolute;
+  top: 100%;
 }

@@ -243,3 +243,9 @@
     text-transform: capitalize;
   }
 }
+
+.CreateNewLessonItem {
+  background-color: var(--bg-rgba-default);
+  backdrop-filter: blur(16rem);
+  border-radius: 5rem;
+}

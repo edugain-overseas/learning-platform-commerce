@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import { instance } from "../../../../http/instance";
-import Dropzone from "./Dropzone";
+import Dropzone from "../DropZone/Dropzone";
 import UploadedImage from "./UploadedImage";
 import ProgressBar from "../../ProgressBar/ProgressBar";
 import styles from "./ImageUploader.module.scss";
 import { serverName } from "../../../../http/sever";
 
-const ImageUploader = ({ uploadedImage, setUploadedImage }) => {
+const defaultRequestConfig = {
+  url: "/upload/course/image",
+  formDataKey: "file",
+};
+
+const ImageUploader = ({
+  uploadedImage,
+  setUploadedImage,
+  requestConfig = defaultRequestConfig,
+}) => {
   const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(0);
 
@@ -18,24 +27,20 @@ const ImageUploader = ({ uploadedImage, setUploadedImage }) => {
 
   const uploadImage = async (file) => {
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append(requestConfig.formDataKey, file);
     setProgress(0);
     try {
-      const { data } = await instance.post(
-        "course/upload/course/image",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          onUploadProgress: (progressEvent) => {
-            const percentComplete = Math.round(
-              (progressEvent.loaded / progressEvent.total) * 100
-            );
-            setProgress(percentComplete);
-          },
-        }
-      );
+      const { data } = await instance.post(requestConfig.url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (progressEvent) => {
+          const percentComplete = Math.round(
+            (progressEvent.loaded / progressEvent.total) * 100
+          );
+          setProgress(percentComplete);
+        },
+      });
 
       setUploadedImage(data.image_path);
     } catch (error) {
@@ -58,7 +63,11 @@ const ImageUploader = ({ uploadedImage, setUploadedImage }) => {
         />
       ) : (
         <>
-          <Dropzone onDrop={handleDrop} />
+          <Dropzone
+            onDrop={handleDrop}
+            accept="image/*"
+            className={styles.dropzone}
+          />
           {file && (
             <ProgressBar
               value={progress}

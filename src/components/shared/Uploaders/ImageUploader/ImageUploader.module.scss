@@ -15,33 +15,12 @@
   border-radius: 5rem;
   border: 2rem dashed var(--color);
   background-color: var(--bg-rgba-default);
-  backdrop-filter: blur(16rem);
   transition: border-color var(--transition-time-default) ease;
+  font-size: 20rem;
   cursor: pointer;
 
   &:hover {
     --color: var(--content-main);
-  }
-
-  .labelWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 4rem;
-    color: var(--color);
-    transition: color var(--transition-time-default) ease;
-  }
-
-  .uploadIcon path {
-    fill-opacity: 0.5;
-  }
-  .uploadIcon path:last-child {
-    stroke-opacity: 0.5;
-  }
-
-  p {
-    font-size: 20rem;
   }
 }
 
@@ -79,7 +58,7 @@
     transition: opacity var(--transition-time-default) ease;
 
     &:hover {
-        opacity: 1;
+      opacity: 1;
     }
   }
 

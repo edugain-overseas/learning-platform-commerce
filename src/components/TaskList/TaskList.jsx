@@ -1,10 +1,14 @@
 import React from "react";
-import styles from "./TaskList.module.scss";
-import TaskCard from "./TaskCard";
+import { useSelector } from "react-redux";
+import { getUserType } from "../../redux/user/selectors";
 import { useListMode } from "../../context/ListModeContext";
+import TaskCard from "./TaskCard";
 import TaskRow from "./TaskRow";
+import styles from "./TaskList.module.scss";
+import CreateNewLessonBtn from "../CreateNewLessonBtn/CreateNewLessonBtn";
 
 const TaskList = ({ tasks }) => {
+  const isModer = useSelector(getUserType) === "moder";
   const { selectedListModeIndex } = useListMode();
 
   const sortedItemsByNumber = [...tasks].sort(
@@ -23,6 +27,11 @@ const TaskList = ({ tasks }) => {
         ) : (
           <TaskCard key={task.id} task={task} />
         )
+      )}
+      {isModer && (
+        <li className={styles.CreateNewLessonItem}>
+          <CreateNewLessonBtn />
+        </li>
       )}
     </ul>
   );

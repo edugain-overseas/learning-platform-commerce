@@ -23,7 +23,7 @@ const CreateNewCategoryModal = ({ isOpenModal, setIsOpenModal }) => {
   return (
     <Modal isOpen={isOpenModal} closeModal={() => setIsOpenModal(false)}>
       <div className={styles.modalHeader}>
-        <span>Create new category</span>
+        <span>New category</span>
       </div>
       <div className={styles.modalBody}>
         <form onSubmit={handleFormSubmit}>
@@ -31,15 +31,18 @@ const CreateNewCategoryModal = ({ isOpenModal, setIsOpenModal }) => {
             maxRows={1}
             placeholder="Category title"
             {...register("title", { required: true })}
+            fontSize={20}
           />
           {errors.title && <span>This field is required</span>}
           <Textarea
-            maxRows={5}
+            minRows={5}
+            maxRows={10}
             placeholder="Category description"
             {...register("description", { required: true })}
+            fontSize={16}
           />
           {errors.description && <span>This field is required</span>}
-          <button type="submit">Submit</button>
+          <button type="submit">Create</button>
         </form>
       </div>
     </Modal>

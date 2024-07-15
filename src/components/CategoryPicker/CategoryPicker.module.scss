@@ -12,26 +12,56 @@
 }
 
 .createNewCategoryBtn {
-    --color: var(--content-datail-secondary);
-    width: 32rem;
-    height: 32rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  --color: var(--content-datail-secondary);
+  width: 32rem;
+  height: 32rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  &:hover {
+    --color: var(--content-main);
+  }
+
+  svg {
+    width: 24rem;
+    height: 24rem;
+
+    path {
+      stroke: var(--color);
+      stroke-opacity: 1;
+      transition: stroke var(--transition-time-min) ease;
+    }
+  }
+}
+
+.modalHeader {
+  margin-bottom: 16rem;
+  font-weight: 500;
+  font-size: 24rem;
+  color: var(--content-main);
+}
+
+.modalBody {
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8rem;
+  }
+
+  button {
+    --color: var(--content-datail-secondary);
+    padding: 8rem 32rem;
+    border-radius: 32rem;
+    border: 1rem solid var(--color);
+    box-shadow: none;
+    transition: border-color, color var(--transition-time-min) ease;
+    color: var(--color);
 
     &:hover {
-        --color: var(--content-main);
+      --color: var(--content-main);
+      box-shadow: var(--box-shadow-button-inset);
     }
-
-    svg {
-        width: 24rem;
-        height: 24rem;
-
-        path {
-            stroke: var(--color);
-            stroke-opacity: 1;
-            transition: stroke var(--transition-time-min) ease;
-        }
-    }
+  }
 }
