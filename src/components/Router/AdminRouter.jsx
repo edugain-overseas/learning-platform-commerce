@@ -11,6 +11,7 @@ import InstructionsList from "../InstructionsList/InstructionsList";
 import InstructionContent from "../InstructionContent/InstructionContent";
 import AdminCourseConstructorPage from "../../pages/AdminCourseConstructorPage/AdminCourseConstructorPage";
 import CourseDetailPage from "../../pages/CourseDetailPage/CourseDetailPage";
+import TaskContructor from "../TaskConstructor/TaskContructor";
 
 const AdminRouter = () => {
   return (
@@ -30,6 +31,7 @@ const AdminRouter = () => {
             ))}
           </Route>
         </Route>
+        <Route path="/task/:taskId" element={<TaskContructor />} />
         <Route path="/aboutIEU" element={<AboutIEUPage />} />
         <Route path="/instructions" element={<InstructionsPage />}>
           {instructionsLinks.map(({ to }) => (

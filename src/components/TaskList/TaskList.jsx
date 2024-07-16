@@ -15,6 +15,10 @@ const TaskList = ({ tasks }) => {
     (itemA, itemB) => itemA.number - itemB.number
   );
 
+  console.log(isModer);
+
+  console.log(sortedItemsByNumber);
+
   return (
     <ul
       className={`${styles.listWrapper} ${

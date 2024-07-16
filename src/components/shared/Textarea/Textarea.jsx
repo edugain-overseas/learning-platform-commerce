@@ -74,7 +74,9 @@ const Textarea = forwardRef(
         return;
       }
 
-      onChange && onChange(e);
+      if (onChange) {
+        value !== undefined ? onChange(e.target.value) : onChange(e);
+      }
     };
 
     return (

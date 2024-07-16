@@ -2,7 +2,7 @@
   width: 400rem;
   display: flex;
   flex-direction: column;
-  gap: 8rem;
+  gap: 12rem;
 
   input {
     width: 100%;
@@ -29,6 +29,7 @@
     align-items: center;
     gap: 4rem;
     padding-inline: 8rem;
+    color: var(--content-datail-secondary);
 
     input {
       width: 3em;
