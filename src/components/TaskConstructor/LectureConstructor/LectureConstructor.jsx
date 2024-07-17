@@ -4,6 +4,10 @@ import { generateId } from "../../../utils/generateIdBasedOnTime";
 import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
 import Text from "./parts/Text";
 import styles from "./LectureConstructor.module.scss";
+import Present from "./parts/Present";
+import Video from "./parts/Video";
+import Audio from "./parts/Audio";
+import Picture from "./parts/Picture";
 
 const LectureConstructor = () => {
   const [blocks, setBlocks] = useState([]);
@@ -43,14 +47,83 @@ const LectureConstructor = () => {
       });
     });
 
+  const setFilePath = (id, filePath) =>
+    setBlocks((prev) => {
+      console.log(filePath);
+      return prev.map((block) => {
+        if (block.id !== id) return block;
+        return {
+          ...block,
+          file_path: filePath,
+        };
+      });
+    });
+
+  const addNewFile = (id, file) => {
+    setBlocks((prev) => {
+      return prev.map((block) => {
+        if (block.id !== id) return block;
+        return {
+          ...block,
+          files: [
+            ...block.files,
+            { ...file, file_description: "", download_allowed: false },
+          ],
+        };
+      });
+    });
+  };
+
+  const deleteFile = (id, filename) => {
+    setBlocks((prev) => {
+      return prev.map((block) => {
+        if (block.id !== id) return block;
+        return {
+          ...block,
+          files: block.files.filter((file) => file.filename !== filename),
+        };
+      });
+    });
+  };
+
+  const setDescriptionToFile = (id, filename, value) => {
+    setBlocks((prev) => {
+      return prev.map((block) => {
+        if (block.id !== id) return block;
+        return {
+          ...block,
+          files: block.files.map((file) => {
+            if (file.filename === filename) {
+              return { ...file, file_description: value };
+            }
+            return file;
+          }),
+        };
+      });
+    });
+  };
+
   const getComponent = (block) => {
+    const setters = {
+      title: (value) => setTitle(block.id, value),
+      text: (value) => setText(block.id, value),
+      filePath: (value) => setFilePath(block.id, value),
+      addFile: (file) => addNewFile(block.id, file),
+      deleteFile: (filename) => deleteFile(block.id, filename),
+      setDescription: (filename, value) =>
+        setDescriptionToFile(block.id, filename, value),
+    };
     switch (block.a_type) {
       case "text":
-        const setters = {
-          title: (value) => setTitle(block.id, value),
-          text: (value) => setText(block.id, value),
-        };
         return <Text partData={block} setters={setters} />;
+      case "present":
+        return <Present partData={block} setters={setters} />;
+      case "video":
+        return <Video partData={block} setters={setters} />;
+      case "audio":
+        return <Audio partData={block} setters={setters} />;
+      case "picture":
+        return <Picture partData={block} setters={setters} />;
       default:
         break;
     }

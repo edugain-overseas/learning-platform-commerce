@@ -5,17 +5,20 @@ import { serverName } from "../../../http/sever";
 // import { getIsEdit } from "../../../redux/config/configSelectors";
 import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
 import noImage from "../../../images/noImage.jpeg";
+import Textarea from "../Textarea/Textarea";
+import { useSelector } from "react-redux";
+import { getUserType } from "../../../redux/user/selectors";
 
 const ImageGroup = ({
   imagesData,
-  setState = () => {},
-  styles = {},
   isDesc,
+  styles = {},
+  setDescription = () => {},
   handleDeleteFile = () => {},
-  handleInputBlur = () => {},
+  // handleInputBlur = () => {},
 }) => {
   // const isEdit = useSelector(getIsEdit);
-  const isEdit = false;
+  const isEdit = useSelector(getUserType) === "moder";
 
   return (
     <div>
@@ -24,18 +27,19 @@ const ImageGroup = ({
           {imagesData.map((imageData, index) => (
             <div key={index} className={styles.imageWrapper}>
               <Image
-                src={`${serverName}${imageData.imagePath}`}
-                alt={`${imageData.imageName}`}
+                src={`${serverName}/${imageData.file_path}`}
+                alt={`${imageData.filename}`}
                 fallback={noImage}
               />
               {isDesc && (
                 <div className={styles.descWrapper}>
                   {isEdit ? (
-                    <input
-                      value={imageData.imageDescription}
-                      onChange={(e) => setState(index, e)}
-                      placeholder="Please write your text here..."
-                      onBlur={handleInputBlur}
+                    <Textarea
+                      value={imageData.file_description}
+                      maxRows={1}
+                      onChange={(value) =>
+                        setDescription(imageData.filename, value)
+                      }
                     />
                   ) : (
                     <p>{imageData.imageDescription}</p>
@@ -45,9 +49,9 @@ const ImageGroup = ({
               {isEdit && (
                 <button
                   className={styles.deleteBtn}
-                  onClick={() => handleDeleteFile(imageData.imagePath)}
+                  onClick={() => handleDeleteFile(imageData.filename)}
                 >
-                  <TrashIcon />
+                  <TrashIcon className={styles.deleteIcon} />
                 </button>
               )}
             </div>

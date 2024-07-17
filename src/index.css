@@ -140,3 +140,7 @@ span {
     scrollbar-width: thin;
   }
 }
+
+.ant-image-preview-root img {
+  width: auto;
+}

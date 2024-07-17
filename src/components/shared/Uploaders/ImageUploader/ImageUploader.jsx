@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { instance } from "../../../../http/instance";
 import Dropzone from "../DropZone/Dropzone";
-import UploadedImage from "./UploadedImage";
+import UploadedImage from "../FileUploader/UploadedImage";
 import ProgressBar from "../../ProgressBar/ProgressBar";
 import styles from "./ImageUploader.module.scss";
 import { serverName } from "../../../../http/sever";

@@ -21,6 +21,8 @@ const VideoPlayer = ({ file }) => {
     }
   };
 
+  console.log(file);
+
   return (
     <>
       <video

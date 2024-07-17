@@ -17,7 +17,7 @@
 
 .toolsWrapper {
   width: 25%;
-  height: auto;
+  height: fit-content;
 }
 
 .blocksWrapper,
@@ -27,7 +27,6 @@
   background: var(--bg-rgba-default);
   box-shadow: var(--drop-shadow-button-main-hover);
   backdrop-filter: blur(16rem);
-  height: 100%;
   overflow: auto;
 }
 
@@ -48,7 +47,7 @@
     background-color: var(--bg-rgba-secondary);
     border-radius: 16rem;
     color: var(--content-datail-secondary);
-    font-size: 20rem;
+    font-size: 14rem;
     text-transform: uppercase;
     box-shadow: var(--box-shadow-button);
     transition: all var(--transition-time-min) ease;
@@ -69,6 +68,10 @@
   box-shadow: var(--drop-shadow-middle);
   border-radius: 5rem;
   background-color: var(--bg-rgba-detail);
+
+  & > * {
+    flex-shrink: 0;
+  }
 }
 
 .titleInput {
@@ -110,5 +113,94 @@
     color: var(--content-nav-hover);
     border: 1px solid transparent;
     height: 24rem;
+  }
+}
+
+.uploaderWrapper {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1.61;
+  position: relative;
+}
+
+.imagesWrapper {
+  width: 100%;
+  margin: 0 auto 24rem;
+  display: flex;
+  justify-content: center;
+  gap: 64rem;
+}
+
+.imageWrapper {
+  width: 290rem;
+  border-radius: 2rem;
+  overflow: hidden;
+  position: relative;
+
+  border-radius: 4rem;
+  background: #fff;
+  box-shadow: 0 0 3.70673rem 0 rgba(0, 0, 0, 0.12);
+
+  & > div:first-child {
+    width: 100%;
+    aspect-ratio: 290/195;
+  }
+
+  & img {
+    display: block;
+    width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: cover;
+  }
+
+  .descWrapper {
+    padding: 8rem 16rem;
+
+    & input,
+    & p {
+      width: 100%;
+      color: #000;
+      font-family: Inter, sans-serif;
+      font-size: 16rem;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+
+    & input::placeholder {
+      color: #d9d9d9;
+    }
+  }
+
+  .deleteBtn {
+    position: absolute;
+    top: 12rem;
+    right: 12rem;
+    // transform: translateY(-50%);
+    width: 36rem;
+    height: 36rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 5rem;
+    background-color: var(--content-nav-hover);
+    opacity: 0.5;
+
+    transition: opacity var(--transition-time-default) ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .deleteIcon {
+    width: 22rem;
+    height: 22rem;
+
+    path {
+      fill: var(--content-contr-color);
+    }
   }
 }

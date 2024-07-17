@@ -23,13 +23,13 @@ const lecturePartsTemplates = {
     a_text: "",
     hidden: false,
     files: [
-      {
-        filename: "",
-        file_path: "",
-        file_size: 0,
-        file_description: "",
-        download_allowed: false,
-      },
+    //   {
+    //     filename: "",
+    //     file_path: "",
+    //     file_size: 0,
+    //     file_description: "",
+    //     download_allowed: false,
+    //   },
     ],
   },
   links: {

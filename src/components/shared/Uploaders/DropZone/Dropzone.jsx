@@ -12,15 +12,16 @@ const DropZone = ({ onDrop, accept, className = "" }) => {
   });
 
   const fileType = accept.split("/")[0] === "*" ? "file" : accept.split("/")[0];
-
-  console.log(getInputProps());
+  const fileExtension = accept.split("/")[1];
 
   return (
     <div {...getRootProps({ className })}>
       <input {...getInputProps()} accept={accept} />
       <div className={styles.labelWrapper}>
         <UploadIcon className={styles.uploadIcon} />
-        <p>{`Click or drag ${fileType} to this area to upload`}</p>
+        <p>{`Click or drag ${
+          fileType === "application" ? fileExtension : fileType
+        } to this area to upload`}</p>
       </div>
     </div>
   );

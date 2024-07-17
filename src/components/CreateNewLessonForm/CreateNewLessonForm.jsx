@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Select from "../shared/Select/Select";
 import styles from "./CreateNewLessonForm.module.scss";
-import ImageUploader from "../shared/Uploaders/ImageUploader/ImageUploader";
+// import ImageUploader from "../shared/Uploaders/ImageUploader/ImageUploader";
+import FileUploader from "../shared/Uploaders/FileUploader/FileUploader";
 
 const CreateNewLessonForm = () => {
   const { register, handleSubmit } = useForm();
@@ -50,9 +51,11 @@ const CreateNewLessonForm = () => {
         minutes
       </label>
       <div className={styles.lessonImage}>
-        <ImageUploader
-          uploadedImage={uploadedImage}
-          setUploadedImage={setUploadedImage}
+        <FileUploader
+          type="image"
+          accept="image/*"
+          uploadedFilePath={uploadedImage}
+          setUploadedFilePath={setUploadedImage}
           requestConfig={{ url: "/lesson/upload/file", formDataKey: "file" }}
         />
       </div>

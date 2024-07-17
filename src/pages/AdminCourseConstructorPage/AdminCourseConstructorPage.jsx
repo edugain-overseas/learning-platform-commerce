@@ -8,13 +8,13 @@ import { ReactComponent as SchoolOnlineIcon } from "../../images/icons/courseIco
 import { ReactComponent as ClockDarkIcon } from "../../images/icons/courseIcons/clock-dark.svg";
 import { ReactComponent as CertificateIcon } from "../../images/icons/courseIcons/certificate.svg";
 import { priceFormatter } from "../../utils/priceFormatter";
+import { courseProperties } from "../../costants/courseProperties";
 import devices from "../../images/devices.png";
 import Textarea from "../../components/shared/Textarea/Textarea";
-import ImageUploader from "../../components/shared/Uploaders/ImageUploader/ImageUploader";
 import CategoryPicker from "../../components/CategoryPicker/CategoryPicker";
-import styles from "./AdminCourseConstructorPage.module.scss";
-import { courseProperties } from "../../costants/courseProperties";
 import useMessage from "antd/es/message/useMessage";
+import FileUploader from "../../components/shared/Uploaders/FileUploader/FileUploader";
+import styles from "./AdminCourseConstructorPage.module.scss";
 
 const AdminCourseConstructorPage = ({ courseData }) => {
   const { courseId } = useParams();
@@ -143,9 +143,11 @@ const AdminCourseConstructorPage = ({ courseData }) => {
             </div>
             <div className={styles.visualContentWrapper}>
               <div className={styles.posterWrapper}>
-                <ImageUploader
-                  uploadedImage={imagePath}
-                  setUploadedImage={setImagePath}
+                <FileUploader
+                  type="image"
+                  accept="image/*"
+                  uploadedFilePath={imagePath}
+                  setUploadedFilePath={setImagePath}
                 />
               </div>
             </div>
