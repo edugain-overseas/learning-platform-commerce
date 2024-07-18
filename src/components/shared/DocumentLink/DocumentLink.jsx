@@ -6,11 +6,11 @@ import { formatFileSize } from "../../../utils/formatFileSize";
 import { serverName } from "../../../http/sever";
 
 const DocumentLink = ({ file }) => {
-  const { file_name, file_size, file_path } = file;
+  const { file_name, file_size, file_path, filename } = file;
   return (
     <div className={styles.attachedDocumentWrapper}>
       <DocumentPDFIcon />
-      <span className={styles.documentName}>{file_name}</span>
+      <span className={styles.documentName}>{file_name || filename}</span>
       <span className={styles.documentSize}>{`(${formatFileSize(
         file_size
       )})`}</span>

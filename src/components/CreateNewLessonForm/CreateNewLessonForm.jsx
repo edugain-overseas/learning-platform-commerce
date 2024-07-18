@@ -13,8 +13,9 @@ const CreateNewLessonForm = () => {
   const onSubmit = (data) => {
     console.log(data);
   };
+  
   return (
-    <form onSumbit={handleSubmit(onSubmit)} className={styles.form}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <Select
         options={[
           { value: "lecture", label: "Lecture" },

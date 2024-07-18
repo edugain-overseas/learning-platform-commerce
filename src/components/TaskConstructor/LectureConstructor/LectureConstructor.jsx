@@ -8,6 +8,8 @@ import Present from "./parts/Present";
 import Video from "./parts/Video";
 import Audio from "./parts/Audio";
 import Picture from "./parts/Picture";
+import File from "./parts/File";
+import Link from "./parts/Link";
 
 const LectureConstructor = () => {
   const [blocks, setBlocks] = useState([]);
@@ -103,16 +105,69 @@ const LectureConstructor = () => {
     });
   };
 
+  const addNewLink = (id) => {
+    setBlocks((prev) => {
+      return prev.map((block) => {
+        if (block.id !== id) return block;
+        return {
+          ...block,
+          links: [...block.links, { link: "", anchor: "" }],
+        };
+      });
+    });
+  };
+
+  const deleteLink = (id, linkIndex) => {
+    setBlocks((prev) => {
+      return prev.map((block) => {
+        if (block.id !== id) return block;
+        return {
+          ...block,
+          links: block.links.filter((link, index) => index !== linkIndex),
+        };
+      });
+    });
+  };
+
+  const onChangeLinksProperty = (id, linkIndex, property, value) => {
+    setBlocks((prev) => {
+      return prev.map((block) => {
+        if (block.id !== id) return block;
+        return {
+          ...block,
+          links: block.links.map((link, index) => {
+            if (index === linkIndex) {
+              return { ...link, [property]: value };
+            }
+            return link;
+          }),
+        };
+      });
+    });
+  };
+
   const getComponent = (block) => {
     const setters = {
       title: (value) => setTitle(block.id, value),
+
       text: (value) => setText(block.id, value),
+
       filePath: (value) => setFilePath(block.id, value),
+
       addFile: (file) => addNewFile(block.id, file),
+
       deleteFile: (filename) => deleteFile(block.id, filename),
+
       setDescription: (filename, value) =>
         setDescriptionToFile(block.id, filename, value),
+
+      addLink: () => addNewLink(block.id),
+      deleteLink: (link) => deleteLink(block.id, link),
+
+      onChangeLink: (linkIndex, property, value) =>
+        onChangeLinksProperty(block.id, linkIndex, property, value),
     };
+
     switch (block.a_type) {
       case "text":
         return <Text partData={block} setters={setters} />;
@@ -124,8 +179,12 @@ const LectureConstructor = () => {
         return <Audio partData={block} setters={setters} />;
       case "picture":
         return <Picture partData={block} setters={setters} />;
+      case "file":
+        return <File partData={block} setters={setters} />;
+      case "link":
+        return <Link partData={block} setters={setters} />;
       default:
-        break;
+        return null;
     }
   };
 
@@ -149,7 +208,7 @@ const LectureConstructor = () => {
       <div className={styles.toolsWrapper}>
         <ul className={styles.addBlockBtns}>
           {lectureParts.map((part) => (
-            <li key={part.a_type}>
+            <li key={`${part.a_type}.${generateId()}`}>
               <button onClick={() => handleAddBlock(part)}>
                 {part.a_type}
               </button>

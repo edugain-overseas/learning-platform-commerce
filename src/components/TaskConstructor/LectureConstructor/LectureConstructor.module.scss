@@ -178,8 +178,8 @@
     top: 12rem;
     right: 12rem;
     // transform: translateY(-50%);
-    width: 36rem;
-    height: 36rem;
+    width: 32rem;
+    height: 32rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -196,11 +196,80 @@
   }
 
   .deleteIcon {
-    width: 22rem;
-    height: 22rem;
+    width: 20rem;
+    height: 20rem;
 
     path {
       fill: var(--content-contr-color);
     }
+  }
+}
+// File section
+.uploadedDocsWrapper {
+  display: flex;
+  gap: 40rem;
+  flex-wrap: wrap;
+}
+
+//Link section
+.linksWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10rem;
+  margin-bottom: 16rem;
+}
+
+.link {
+  display: flex;
+  gap: 8rem;
+  align-items: center;
+
+  .linkIcon {
+    width: 28rem;
+    height: 28rem;
+    flex-shrink: 0;
+  }
+
+  .deleteLinkBtn {
+    flex-shrink: 0;
+
+    &:hover path {
+      fill: var(--content-nav-hover);
+    }
+    svg {
+      width: 24rem;
+      height: 24rem;
+    }
+
+    path {
+      transition: fill var(--transition-time-min) ease;
+    }
+  }
+}
+
+.addNewLinkBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8rem;
+  background-color: var(--content-success);
+  border-radius: 5rem;
+  color: var(--content-contr-color);
+  width: 132rem;
+  height: 40rem;
+  margin: 0 auto;
+  opacity: 0.5;
+  transition: opacity var(--transition-time-min) ease;
+
+  &:hover {
+    opacity: 1;
+    box-shadow: var(--box-shadow-button-inset);
+  }
+
+  svg path {
+    stroke-opacity: 1;
+
+    stroke: var(--content-contr-color);
   }
 }

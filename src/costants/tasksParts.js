@@ -38,10 +38,10 @@ const lecturePartsTemplates = {
     a_text: "",
     hidden: false,
     links: [
-      {
-        link: "",
-        anchor: "",
-      },
+    //   {
+    //     link: "",
+    //     anchor: "",
+    //   },
     ],
   },
 };

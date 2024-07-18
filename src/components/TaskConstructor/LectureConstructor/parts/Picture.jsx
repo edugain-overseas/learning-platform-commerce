@@ -1,9 +1,9 @@
 import React from "react";
 import TitleInput from "./shared/TitleInput";
 import TextInput from "./shared/TextInput";
-import styles from "../LectureConstructor.module.scss";
 import FileUploader from "../../../shared/Uploaders/FileUploader/FileUploader";
 import ImageGroup from "../../../shared/ImageGroup/ImageGroup";
+import styles from "../LectureConstructor.module.scss";
 
 const Picture = ({ partData, setters }) => {
   return (
@@ -18,13 +18,16 @@ const Picture = ({ partData, setters }) => {
           handleDeleteFile={setters.deleteFile}
         />
       )}
-      <FileUploader
-        className={styles.uploaderWrapper}
-        type="image"
-        accept="image/*"
-        setUploadedFile={setters.addFile}
-        requestConfig={{ url: "lesson/upload/file", formDataKey: "file" }}
-      />
+      {partData.files.length < 3 && (
+        <FileUploader
+          className={styles.uploaderWrapper}
+          type="image"
+          accept="image/*"
+          setUploadedFile={setters.addFile}
+          requestConfig={{ url: "lesson/upload/file", formDataKey: "file" }}
+        />
+      )}
+
       <TextInput value={partData.a_text} setValue={setters.text} />
     </>
   );
