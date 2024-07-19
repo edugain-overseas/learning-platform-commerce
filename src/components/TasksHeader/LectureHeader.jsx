@@ -3,6 +3,8 @@ import { ReactComponent as NoteIcon } from "../../images/icons/note.svg";
 import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
 import styles from "./TasksHeader.module.scss";
 import LectureAudioPlayer from "../LectureAudioPlayer/LectureAudioPlayer";
+import { useSelector } from "react-redux";
+import { getUserType } from "../../redux/user/selectors";
 
 const LectureHeader = ({ lecture }) => {
   const {
@@ -15,6 +17,8 @@ const LectureHeader = ({ lecture }) => {
 
   const lectureSpeech = lectureInfo?.lecture_speeches;
 
+  const isModer = useSelector(getUserType) === "moder";
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.titleWrapper}>
@@ -23,11 +27,13 @@ const LectureHeader = ({ lecture }) => {
         <span className={styles.type}>{type}</span>
       </div>
       <div className={styles.toolsWrapper}>
-        <div className={styles.note}>
-          <span>The note:</span>
-          <NoteIcon />
-        </div>
-        {lectureSpeech && lectureSpeech?.length !== 0 && (
+        {!isModer && (
+          <div className={styles.note}>
+            <span>The note:</span>
+            <NoteIcon />
+          </div>
+        )}
+        {lectureSpeech && lectureSpeech?.length !== 0 && !isModer && (
           <LectureAudioPlayer lectureSpeeches={lectureInfo.lecture_speeches} />
         )}
         <div className={styles.navBtnsWrapper}>

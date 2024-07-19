@@ -6,6 +6,8 @@ import LectureConstructor from "./LectureConstructor/LectureConstructor";
 import TestConstructor from "./TestConstructor/TestConstructor";
 import { getAllLessons } from "../../redux/lesson/selectors";
 import styles from "./TaskConstructor.module.scss";
+import LectureHeader from "../TasksHeader/LectureHeader";
+import TestHeader from "../TasksHeader/TestHeader";
 
 const TaskContructor = () => {
   const { taskId } = useParams();
@@ -24,20 +26,27 @@ const TaskContructor = () => {
   const getConstructorByType = () => {
     switch (taskType) {
       case "lecture":
-        return <LectureConstructor />;
+        return (
+          <>
+            <LectureHeader lecture={task} />
+            <LectureConstructor />
+          </>
+        );
       case "test":
-        return <TestConstructor />;
+        return (
+          <>
+            <TestHeader test={task} />
+            <TestConstructor />
+          </>
+        );
       default:
-        //   return <p>Unknown lesson</p>;
-        return <LectureConstructor />;
+        return <p>Unknown lesson</p>
+      // return <LectureConstructor />
     }
   };
 
   return (
-    <div className={styles.constructorWrapper}>
-      <div>Header</div>
-      {getConstructorByType()}
-    </div>
+    <div className={styles.constructorWrapper}>{getConstructorByType()}</div>
   );
 };
 

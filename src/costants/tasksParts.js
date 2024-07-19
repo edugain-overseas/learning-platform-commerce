@@ -1,3 +1,16 @@
+/* Types of lecturePartsTemplateKeys:
+   files: [{
+        filename: string,
+        file_path: string,
+        file_size: number,
+        file_description: string,
+        download_allowed: boolean,
+      },]
+    links: [{
+        link: string,
+        anchor: string,
+        },]
+*/
 
 const lecturePartsTemplates = {
   text: {
@@ -22,27 +35,14 @@ const lecturePartsTemplates = {
     a_number: 0,
     a_text: "",
     hidden: false,
-    files: [
-    //   {
-    //     filename: "",
-    //     file_path: "",
-    //     file_size: 0,
-    //     file_description: "",
-    //     download_allowed: false,
-    //   },
-    ],
+    files: [],
   },
   links: {
     a_title: "",
     a_number: 0,
     a_text: "",
     hidden: false,
-    links: [
-    //   {
-    //     link: "",
-    //     anchor: "",
-    //   },
-    ],
+    links: [],
   },
 };
 
@@ -74,5 +74,98 @@ export const lectureParts = [
   {
     a_type: "link",
     template: lecturePartsTemplates.links,
+  },
+];
+
+/* Types of testPartsTemplateKeys:
+   answers: [ anyOf ->  {
+        a_text: string,
+        is_corrent: false,
+        image_path: string
+      } or {
+        right_text: string,
+        left_text: string
+      },]
+*/
+
+const testPartsTemplates = {
+  test: {
+    q_text: "",
+    q_number: 0,
+    q_score: 0,
+    hedden: false,
+    answers: [],
+  },
+  boolean: {
+    q_text: "",
+    q_number: 0,
+    q_score: 0,
+    hedden: false,
+    answers: [
+      { a_text: "true", is_corrent: false },
+      { a_text: "false", is_corrent: false },
+    ],
+  },
+  answer_with_photo: {
+    q_text: "",
+    q_number: 0,
+    q_score: 0,
+    hedden: false,
+    answers: [],
+  },
+  question_with_photo: {
+    q_text: "",
+    q_number: 0,
+    q_score: 0,
+    hedden: false,
+    image_path: "",
+    answers: [],
+  },
+  multiple_choice: {
+    q_text: "",
+    q_number: 0,
+    q_score: 0,
+    hedden: false,
+    answers: [],
+  },
+  matching: {
+    q_text: "",
+    q_number: 0,
+    q_score: 0,
+    hedden: false,
+    answers: [],
+  },
+};
+
+export const testParts = [
+  {
+    q_type: "test",
+    label: "classic",
+    template: testPartsTemplates.test,
+  },
+  {
+    q_type: "boolean",
+    label: "true or false",
+    template: testPartsTemplates.boolean,
+  },
+  {
+    q_type: "answer_with_photo",
+    label: "photo answers",
+    template: testPartsTemplates.answer_with_photo,
+  },
+  {
+    q_type: "question_with_photo",
+    label: "photo question",
+    template: testPartsTemplates.question_with_photo,
+  },
+  {
+    q_type: "multiple_choice",
+    label: "multiple choice",
+    template: testPartsTemplates.multiple_choice,
+  },
+  {
+    q_type: "matching",
+    label: "matching",
+    template: testPartsTemplates.matching,
   },
 ];

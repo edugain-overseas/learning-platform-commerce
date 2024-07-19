@@ -6,6 +6,7 @@
   margin-bottom: 16rem;
   height: 44rem;
   padding-inline: 14rem;
+  flex-shrink: 0;
 
   background-color: var(--bg-rgba-default);
   box-shadow: var(--drop-shadow-button-main);
