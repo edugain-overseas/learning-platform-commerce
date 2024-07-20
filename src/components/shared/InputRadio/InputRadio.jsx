@@ -7,7 +7,7 @@ const InputRadio = ({
   value,
   checked,
   onChange,
-  labelText,
+  labelText = null,
 }) => {
   return (
     <label

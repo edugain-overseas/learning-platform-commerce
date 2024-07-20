@@ -13,6 +13,8 @@ import Matching from "./parts/Matching";
 const TestConstructor = () => {
   const [blocks, setBlocks] = useState([]);
 
+  console.log(blocks);
+
   const handleAddBlock = (part) => {
     setBlocks((prev) => [
       ...prev,
@@ -28,34 +30,86 @@ const TestConstructor = () => {
     setBlocks((prev) => prev.filter((block) => block.id !== id));
   };
 
-  const setNewQuestionText = (id, value) => {
+  const setNewQuestionProperty = (id, propertyName, value) => {
     setBlocks((prev) =>
       prev.map((block) => {
         if (block.id !== id) return block;
         return {
           ...block,
-          q_text: value,
+          [propertyName]: value,
         };
       })
     );
   };
 
-  const setNewScore = (id, value) => {
+  const addNewOption = (id) => {
+    setBlocks((prev) =>
+      prev.map((block) => {
+        console.log(block);
+        if (block.id !== id) return block;
+        return {
+          ...block,
+          answers: [
+            ...block.answers,
+            { a_text: "", is_correct: false, image_path: "" },
+          ],
+        };
+      })
+    );
+  };
+
+  const addNewMatchingPair = (id) => {
+    setBlocks((prev) => {
+      prev.map((block) => {
+        if (block.id !== id) return block;
+        return {
+          ...block,
+          answers: [...block.answers, { right_text: "", left_text: "" }],
+        };
+      });
+    });
+  };
+
+  const deleteOption = (id, optionIndex) => {
     setBlocks((prev) =>
       prev.map((block) => {
         if (block.id !== id) return block;
         return {
           ...block,
-          q_score: value,
+          answers: [
+            ...block.answers.filter((_, index) => index !== optionIndex),
+          ],
         };
       })
     );
   };
 
-  const getComponent = (block) => {
+  const setOptionProperty = (blockId, optionIndex, propertyName, value) => {
+    setBlocks((prev) =>
+      prev.map((block) => {
+        if (block.id !== blockId) return block;
+        return {
+          ...block,
+          answers: block.answers.map((answer, index) => {
+            if (index !== optionIndex) return answer;
+            return {
+              ...answer,
+              [propertyName]: value,
+            };
+          }),
+        };
+      })
+    );
+  };
+
+  const getComponent = (block, index) => {
     const setters = {
-      setQuestionText: (value) => setNewQuestionText(block.id, value),
-      setScore: (value) => setNewScore(block.id, value),
+      setQuestionProperty: (...args) =>
+        setNewQuestionProperty(block.id, ...args),
+      addOption: () => addNewOption(block.id),
+      addMatchingPair: () => addNewMatchingPair(block.id),
+      deleteOption: (optionIndex) => deleteOption(block.id, optionIndex),
+      setOptionProperty: (...args) => setOptionProperty(block.id, ...args),
     };
 
     const maxScore =
@@ -65,10 +119,22 @@ const TestConstructor = () => {
 
     switch (block.q_type) {
       case "test":
-        return <Test partData={block} setters={setters} maxScore={maxScore} />;
+        return (
+          <Test
+            partData={block}
+            setters={setters}
+            maxScore={maxScore}
+            index={index}
+          />
+        );
       case "boolean":
         return (
-          <Boolean partData={block} setters={setters} maxScore={maxScore} />
+          <Boolean
+            partData={block}
+            setters={setters}
+            maxScore={maxScore}
+            index={index}
+          />
         );
       case "answer_with_photo":
         return (
@@ -76,6 +142,7 @@ const TestConstructor = () => {
             partData={block}
             setters={setters}
             maxScore={maxScore}
+            index={index}
           />
         );
       case "question_with_photo":
@@ -84,6 +151,7 @@ const TestConstructor = () => {
             partData={block}
             setters={setters}
             maxScore={maxScore}
+            index={index}
           />
         );
       case "multiple_choice":
@@ -92,11 +160,17 @@ const TestConstructor = () => {
             partData={block}
             setters={setters}
             maxScore={maxScore}
+            index={index}
           />
         );
       case "matching":
         return (
-          <Matching partData={block} setters={setters} maxScore={maxScore} />
+          <Matching
+            partData={block}
+            setters={setters}
+            maxScore={maxScore}
+            index={index}
+          />
         );
 
       default:
@@ -107,9 +181,9 @@ const TestConstructor = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.blocksWrapper}>
-        {blocks.map((block) => (
+        {blocks.map((block, index) => (
           <div key={block.id} className={styles.block}>
-            {getComponent(block)}
+            {getComponent(block, index)}
             <button
               className={styles.deleteBtn}
               onClick={() => handleDeleteBlock(block.id)}

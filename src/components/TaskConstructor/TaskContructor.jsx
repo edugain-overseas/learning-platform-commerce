@@ -40,8 +40,13 @@ const TaskContructor = () => {
           </>
         );
       default:
-        return <p>Unknown lesson</p>
-      // return <LectureConstructor />
+        // return <p>Unknown lesson</p>
+        return (
+          <>
+            {/* <TestHeader test={task} /> */}
+            <TestConstructor />
+          </>
+        );
     }
   };
 

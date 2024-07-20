@@ -1,6 +1,6 @@
 .wrapper {
   flex-grow: 1;
-  max-height: calc(100% - 40rem);
+  max-height: calc(100% - 44rem);
   padding-right: 16rem;
   display: flex;
   gap: 16rem;
@@ -125,4 +125,98 @@
   position: absolute;
   bottom: 20rem;
   left: 20rem;
+}
+
+.questionWrapper {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  padding-bottom: 16rem;
+  border-bottom: 1rem solid var(--content-datail-secondary);
+}
+
+// option wrapper
+
+.optionsWrapper {
+  padding-inline: 12rem;
+}
+
+.optionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12rem;
+  margin-bottom: 12rem;
+
+  li {
+    display: flex;
+    align-items: center;
+  }
+
+  .optionLetter {
+    flex-shrink: 0;
+    font-size: 14rem;
+    color: var(--content-main);
+    margin-right: 0.5em;
+  }
+
+  textarea {
+    margin-right: 1em;
+  }
+
+  .optionCheckbox {
+    width: 20rem;
+    height: 20rem;
+    margin-right: 1em;
+    flex-shrink: 0;
+
+    span {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .deleteOptionBtn {
+    flex-shrink: 0;
+    width: 20rem;
+    height: 20rem;
+
+    &:hover path {
+      fill: var(--content-nav-hover);
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    path {
+      transition: fill var(--transition-time-min) ease;
+    }
+  }
+}
+
+.addNewOptionBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8rem;
+  background-color: var(--content-success);
+  border-radius: 5rem;
+  color: var(--content-contr-color);
+  width: 140rem;
+  height: 40rem;
+  margin: 0 auto;
+  opacity: 0.5;
+  transition: opacity var(--transition-time-min) ease;
+
+  &:hover {
+    opacity: 1;
+    box-shadow: var(--box-shadow-button-inset);
+  }
+
+  svg path {
+    stroke-opacity: 1;
+
+    stroke: var(--content-contr-color);
+  }
 }

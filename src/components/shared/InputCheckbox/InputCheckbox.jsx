@@ -5,7 +5,7 @@ import styles from "./InputCheckbox.module.scss";
 const InputCheckbox = ({
   className,
   name,
-  value,
+  // value,
   checked,
   onChange,
   labelText,
@@ -20,7 +20,7 @@ const InputCheckbox = ({
       <input
         type="checkbox"
         name={name}
-        value={value}
+        // value={value}
         checked={checked}
         onChange={onChange}
       />

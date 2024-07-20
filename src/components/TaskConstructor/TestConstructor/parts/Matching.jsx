@@ -7,12 +7,12 @@ const Matching = ({ partData, setters, maxScore }) => {
     <>
       <ScoreInput
         value={partData.q_score}
-        setValue={setters.setScore}
+        setValue={(value) => setters.setQuestionProperty("q_score", value)}
         maxValue={maxScore}
       />
       <QuestionInput
         value={partData.q_text}
-        setValue={setters.setQuestionText}
+        setValue={(value) => setters.setQuestionProperty("q_text", value)}
       />
     </>
   );
