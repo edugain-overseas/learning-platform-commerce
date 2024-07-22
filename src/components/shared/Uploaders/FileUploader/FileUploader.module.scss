@@ -22,6 +22,11 @@
   &:hover {
     --color: var(--content-main);
   }
+
+
+  &:has(div:has(:only-child)) {
+    padding: 0;
+  }
 }
 
 .progressBar {
@@ -61,7 +66,7 @@
 
     border-radius: 5rem;
     background-color: var(--content-nav-hover);
-    opacity: 0.5;
+    opacity: 0.2;
 
     transition: opacity var(--transition-time-default) ease;
 

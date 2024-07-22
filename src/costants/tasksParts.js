@@ -80,7 +80,7 @@ export const lectureParts = [
 /* Types of testPartsTemplateKeys:
    answers: [ anyOf ->  {
         a_text: string,
-        is_corrent: false,
+        is_correct: false,
         image_path: string
       } or {
         right_text: string,
@@ -102,8 +102,8 @@ const testPartsTemplates = {
     q_score: 0,
     hedden: false,
     answers: [
-      { a_text: "true", is_corrent: false },
-      { a_text: "false", is_corrent: false },
+      { a_text: "true", is_correct: false },
+      { a_text: "false", is_correct: false },
     ],
   },
   answer_with_photo: {
@@ -118,7 +118,7 @@ const testPartsTemplates = {
     q_number: 0,
     q_score: 0,
     hedden: false,
-    image_path: "",
+    image_path: undefined,
     answers: [],
   },
   multiple_choice: {
@@ -129,7 +129,7 @@ const testPartsTemplates = {
     answers: [],
   },
   matching: {
-    q_text: "",
+    q_text: "Please make the correct pairs",
     q_number: 0,
     q_score: 0,
     hedden: false,

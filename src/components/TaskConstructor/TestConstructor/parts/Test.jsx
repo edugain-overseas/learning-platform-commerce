@@ -5,8 +5,8 @@ import ScoreInput from "./shared/ScoreInput";
 import OptionsWrapper from "./shared/OptionsWrapper";
 import Textarea from "../../../shared/Textarea/Textarea";
 import DeleteOptionBtn from "./shared/DeleteOptionBtn";
-import styles from "../TestConstructor.module.scss";
 import InputCheckbox from "../../../shared/InputCheckbox/InputCheckbox";
+import styles from "../TestConstructor.module.scss";
 
 const Test = ({ partData, setters, maxScore, index }) => {
   return (
@@ -33,6 +33,7 @@ const Test = ({ partData, setters, maxScore, index }) => {
               {getLetterVatiantsByIndex(index)}
             </span>
             <Textarea
+              placeholder="Please write answer's option here..."
               value={answer.a_text}
               onChange={(value) =>
                 setters.setOptionProperty(index, "a_text", value)
@@ -41,13 +42,9 @@ const Test = ({ partData, setters, maxScore, index }) => {
             <InputCheckbox
               className={styles.optionCheckbox}
               checked={answer.is_correct}
-              onChange={(e) => {
-                setters.setOptionProperty(
-                  index,
-                  "is_correct",
-                  e.target.checked
-                );
-              }}
+              onChange={(e) =>
+                setters.setCorrectAnswer(index, e.target.checked)
+              }
             />
             <DeleteOptionBtn
               handleDeleteOption={() => setters.deleteOption(index)}

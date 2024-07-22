@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { ReactComponent as UploadIcon } from "../../../../images/icons/uploadBig.svg";
 import styles from "./DropZone.module.scss";
 
-const DropZone = ({ onDrop, accept, className = "" }) => {
+const DropZone = ({ onDrop, accept, className = "", renderLabel = true }) => {
   const acceptDropzoneProp = { [accept]: [] };
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -19,9 +19,11 @@ const DropZone = ({ onDrop, accept, className = "" }) => {
       <input {...getInputProps()} accept={accept} />
       <div className={styles.labelWrapper}>
         <UploadIcon className={styles.uploadIcon} />
-        <p>{`Click or drag ${
-          fileType === "application" ? fileExtension : fileType
-        } to this area to upload`}</p>
+        {renderLabel && (
+          <p>{`Click or drag ${
+            fileType === "application" ? fileExtension : fileType
+          } to this area to upload`}</p>
+        )}
       </div>
     </div>
   );

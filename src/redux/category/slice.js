@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCategoriesThunk } from "./operations";
+import { createCategoryThunk, getCategoriesThunk } from "./operations";
 
 const initialState = {
   isLoading: false,
@@ -22,6 +22,19 @@ const categorySlice = createSlice({
         state.categories = payload;
       })
       .addCase(getCategoriesThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
+      .addCase(createCategoryThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(createCategoryThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.categories.push(payload);
+      })
+      .addCase(createCategoryThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = { code: payload.code, message: payload.message };
       });

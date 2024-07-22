@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCourseDetailThunk, getCoursesThunk } from "./operations";
+import {
+  createCourseThunk,
+  getCourseDetailThunk,
+  getCoursesThunk,
+} from "./operations";
 import { confirmLectureThunk } from "../lesson/operation";
 
 const initialState = {
@@ -61,6 +65,19 @@ const courseSlice = createSlice({
       .addCase(confirmLectureThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = { code: payload.code, message: payload.message };
+      })
+
+      .addCase(createCourseThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(createCourseThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.courses.push({ ...payload, lessons: [], quantity_test: 0 });
+      })
+      .addCase(createCourseThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        // state.error = { code: payload.code, message: payload.message };
       });
   },
 });

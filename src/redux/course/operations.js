@@ -1,5 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getCourseDetail, getCourses } from "../../http/services/course";
+import {
+  createNewCourse,
+  getCourseDetail,
+  getCourses,
+} from "../../http/services/course";
 
 export const getCoursesThunk = createAsyncThunk(
   "course/getAll",
@@ -24,7 +28,22 @@ export const getCourseDetailThunk = createAsyncThunk(
       return response;
     } catch (error) {
       return rejectWithValue({
-        message: error.response ? error.response.data.detail : error.message,
+        message: error.response ? error.response.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const createCourseThunk = createAsyncThunk(
+  "course/createCourse",
+  async (courseData, { rejectWithValue }) => {
+    try {
+      const response = await createNewCourse(courseData);
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.detail : error.message,
         status: error.response ? error.response.status : null,
       });
     }

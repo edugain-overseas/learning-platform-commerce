@@ -51,7 +51,7 @@ const TestConstructor = () => {
           ...block,
           answers: [
             ...block.answers,
-            { a_text: "", is_correct: false, image_path: "" },
+            { a_text: "", is_correct: false, image_path: undefined },
           ],
         };
       })
@@ -59,15 +59,15 @@ const TestConstructor = () => {
   };
 
   const addNewMatchingPair = (id) => {
-    setBlocks((prev) => {
+    setBlocks((prev) =>
       prev.map((block) => {
         if (block.id !== id) return block;
         return {
           ...block,
           answers: [...block.answers, { right_text: "", left_text: "" }],
         };
-      });
-    });
+      })
+    );
   };
 
   const deleteOption = (id, optionIndex) => {
@@ -102,6 +102,31 @@ const TestConstructor = () => {
     );
   };
 
+  const setCorrectAnswer = (blockId, blockType, optionIndex, value) => {
+    setBlocks((prev) =>
+      prev.map((block) => {
+        if (blockId !== block.id) return block;
+        return {
+          ...block,
+          answers: block.answers.map((answer, index) => {
+            if (blockType === "multiple_choice") {
+              if (optionIndex !== index) return answer;
+              return { ...answer, is_correct: value };
+            } else {
+              if (optionIndex === index) {
+                return { ...answer, is_correct: value };
+              }
+              return {
+                ...answer,
+                is_correct: value === true ? false : answer.is_correct,
+              };
+            }
+          }),
+        };
+      })
+    );
+  };
+
   const getComponent = (block, index) => {
     const setters = {
       setQuestionProperty: (...args) =>
@@ -110,6 +135,8 @@ const TestConstructor = () => {
       addMatchingPair: () => addNewMatchingPair(block.id),
       deleteOption: (optionIndex) => deleteOption(block.id, optionIndex),
       setOptionProperty: (...args) => setOptionProperty(block.id, ...args),
+      setCorrectAnswer: (...args) =>
+        setCorrectAnswer(block.id, block.q_type, ...args),
     };
 
     const maxScore =

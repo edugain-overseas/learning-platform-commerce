@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useHookFormMask } from "use-mask-input";
 import { ReactComponent as LaptopIcon } from "../../images/icons/laptop.svg";
@@ -15,12 +15,20 @@ import CategoryPicker from "../../components/CategoryPicker/CategoryPicker";
 import useMessage from "antd/es/message/useMessage";
 import FileUploader from "../../components/shared/Uploaders/FileUploader/FileUploader";
 import styles from "./AdminCourseConstructorPage.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { createCourseThunk } from "../../redux/course/operations";
+import { getIsLoading } from "../../redux/course/selectors";
+import Spinner from "../../components/Spinner/Spinner";
 
 const AdminCourseConstructorPage = ({ courseData }) => {
   const { courseId } = useParams();
   const [imagePath, setImagePath] = useState(courseData?.image_path);
   const [categoryId, setCategoryId] = useState(courseData?.category_id || null);
   const [messageApi, contextHolder] = useMessage();
+  const isLoading = useSelector(getIsLoading);
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   console.log(courseData);
 
@@ -63,7 +71,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
     }
 
     courseData.price = +data.price;
-    courseData.old_price = +data.old_price;
+    courseData.old_price = courseData.old_price === "" ? null : +data.old_price;
     console.log("courseData: ", courseData);
 
     if (!courseData.image_path) {
@@ -79,6 +87,21 @@ const AdminCourseConstructorPage = ({ courseData }) => {
         content: "Please select course category",
         duration: 2.5,
       });
+    }
+
+    if (!courseData.image_path || !courseData.category_id) return;
+
+    try {
+      dispatch(createCourseThunk({ data: courseData })).then(() =>
+        navigate("/courses")
+      );
+    } catch (error) {
+      console.log(error);
+      // messageApi.open({
+      //   type: "error",
+      //   content: error.message,
+      //   duration: 2.5,
+      // });
     }
   };
 
@@ -310,7 +333,8 @@ const AdminCourseConstructorPage = ({ courseData }) => {
             </div>
           </div>
           <button type="submit" className={styles.createCourseBtn}>
-            Create course
+            <span>Create course</span>
+            {isLoading && <Spinner contrastColor={true} />}
           </button>
         </form>
       </div>

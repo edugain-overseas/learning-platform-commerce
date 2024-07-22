@@ -64,7 +64,7 @@
     margin-bottom: 24rem;
 
     .listTitle {
-      padding-inline-start: 12rem;  
+      padding-inline-start: 12rem;
       font-weight: 600;
       margin-bottom: 4rem;
     }
@@ -302,77 +302,30 @@ div.priceWrapper {
   }
 }
 
-.navPanel {
-  padding-block: 12rem;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-
-  border-radius: 5rem;
-  background-color: var(--bg-rgba-default);
-  box-shadow: var(--drop-shadow-button-main);
-  backdrop-filter: blur(16rem);
-  margin-bottom: 24rem;
-
-  .allCoursesLink {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8rem;
-    width: 180rem;
-    height: 40rem;
-
-    border-radius: 5rem;
-    background: var(--content-datail-secondary);
-
-    svg {
-      width: 18rem;
-      height: 18rem;
-      * {
-        fill: var(--content-light-secondary);
-      }
-    }
-
-    span {
-      color: var(--content-light-secondary);
-      font-family: Inter, sans-serif;
-      font-size: 16rem;
-      font-weight: 500;
-    }
-  }
-}
-
-.buyAllCoursesBtn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8rem;
-  width: 180rem;
-  height: 40rem;
-
-  border-radius: 5rem;
-  background: var(--bg-button-disabled);
-
-  span {
-    color: var(--content-datail-secondary);
-    font-family: Inter, sans-serif;
-    font-size: 16rem;
-    font-weight: 500;
-  }
-
-  svg {
-    width: 18rem;
-    height: 18rem;
-    * {
-      fill: var(--content-datail-secondary);
-    }
-  }
-}
-
 .error {
   color: var(--content-failture);
   font-size: 14rem;
   font-weight: 400;
   position: absolute;
   top: 100%;
+}
+
+.createCourseBtn {
+  width: 90%;
+  height: 40rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8rem;
+  background-color: var(--bg-button-success);
+  color: var(--content-contr-color);
+  box-shadow: var(--drop-shadow-button-main);
+  border-radius: 5rem;
+  opacity: 0.8;
+  transition: opacity var(--transition-time-min) ease;
+
+  &:hover {
+    opacity: 1;
+  }
 }

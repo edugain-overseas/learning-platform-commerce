@@ -55,8 +55,8 @@ const Textarea = forwardRef(
     const handleChange = (e) => {
       const newValue = e.target.value;
 
-      const originalHeight = fontSize * minRows * 1.2 + 8;
-      const maxHeight = maxRows ? fontSize * maxRows * 1.2 + 8 : null;
+      const originalHeight = fontSize * minRows * 1.2 + 10;
+      const maxHeight = maxRows ? fontSize * maxRows * 1.2 + 10 : null;
       textareaRef.current.style.height = originalHeight + "rem";
       textareaRef.current.style.height =
         newValue === ""
@@ -67,6 +67,7 @@ const Textarea = forwardRef(
                 ? Math.min(pxToRem(textareaRef.current.scrollHeight), maxHeight)
                 : pxToRem(textareaRef.current.scrollHeight)
             ) + "rem";
+
       if (
         prefixStr !== "" &&
         newValue === prefixStr.slice(0, prefixStr.length - 1)
@@ -75,7 +76,7 @@ const Textarea = forwardRef(
       }
 
       if (onChange) {
-        value !== undefined ? onChange(e.target.value) : onChange(e);
+        value !== undefined ? onChange(newValue) : onChange(e);
       }
     };
 

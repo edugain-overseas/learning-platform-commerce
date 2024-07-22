@@ -52,12 +52,18 @@
 
   button {
     --color: var(--content-datail-secondary);
+    width: 160rem;
+    height: 40rem;
     padding: 8rem 32rem;
     border-radius: 32rem;
     border: 1rem solid var(--color);
     box-shadow: none;
     transition: border-color, color var(--transition-time-min) ease;
     color: var(--color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
 
     &:hover {
       --color: var(--content-main);

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { instance } from "../../../../http/instance";
 import { serverName } from "../../../../http/sever";
 import UploadedPDF from "./UploadedPDF";
 import UploadedImage from "./UploadedImage";
@@ -8,6 +7,7 @@ import ProgressBar from "../../ProgressBar/ProgressBar";
 import styles from "./FileUploader.module.scss";
 import UploadedVideo from "./UploadedVideo";
 import UploadedAudio from "./UploadedAudio";
+import { privateRoutesHandler } from "../../../../http/privateRoutesHandler";
 
 const defaultRequestConfig = {
   url: "/course/upload/course/image",
@@ -22,6 +22,8 @@ const FileUploader = ({
   setUploadedFilePath,
   setUploadedFile,
   requestConfig = defaultRequestConfig,
+  renderDropZoneLabel,
+  renderProgressBar = true,
 }) => {
   const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(0);
@@ -39,17 +41,22 @@ const FileUploader = ({
     formData.append(requestConfig.formDataKey, file);
     setProgress(0);
     try {
-      const { data } = await instance.post(requestConfig.url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        onUploadProgress: (progressEvent) => {
-          const percentComplete = Math.round(
-            (progressEvent.loaded / progressEvent.total) * 100
-          );
-          setProgress(percentComplete);
-        },
-      });
+      const data = await privateRoutesHandler(
+        "post",
+        requestConfig.url,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: (progressEvent) => {
+            const percentComplete = Math.round(
+              (progressEvent.loaded / progressEvent.total) * 100
+            );
+            setProgress(percentComplete);
+          },
+        }
+      );
 
       if (data.image_path) {
         setUploadedFilePath && setUploadedFilePath(data.image_path);
@@ -110,14 +117,14 @@ const FileUploader = ({
       {uploadedFilePath ? (
         renderComponentByType()
       ) : (
-        //component by type render
         <>
           <DropZone
             onDrop={handleDrop}
             accept={accept}
             className={styles.dropzone}
+            renderLabel={renderDropZoneLabel}
           />
-          {file && (
+          {file && renderProgressBar && (
             <ProgressBar
               value={progress}
               width={200}
