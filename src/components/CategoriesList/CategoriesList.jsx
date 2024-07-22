@@ -13,10 +13,16 @@ const CategoriesList = () => {
   const allCourses = useSelector(getAllCourses);
   const { pathname } = useLocation();
 
+  const categoriesWithCourses = categories.filter(({ id }) => {
+    return allCourses.find(({ category_id }) => category_id === id);
+  });
+
+  console.log(categoriesWithCourses);
+
   const filterCategoriesForPage = () => {
     switch (pathname) {
       case "/courses/my":
-        return categories.filter(({ id: categoryId }) => {
+        return categoriesWithCourses.filter(({ id: categoryId }) => {
           const categoryCourses = allCourses.filter(
             ({ category_id }) => category_id === categoryId
           );
@@ -25,9 +31,9 @@ const CategoriesList = () => {
           );
         });
       case "/courses/available":
-        return categories;
+        return categoriesWithCourses;
       case "/courses/completed":
-        return categories.filter(({ id: categoryId }) => {
+        return categoriesWithCourses.filter(({ id: categoryId }) => {
           const categoryCourses = allCourses.filter(
             ({ category_id }) => category_id === categoryId
           );

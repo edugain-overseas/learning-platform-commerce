@@ -7,17 +7,13 @@ import TaskRow from "./TaskRow";
 import styles from "./TaskList.module.scss";
 import CreateNewLessonBtn from "../CreateNewLessonBtn/CreateNewLessonBtn";
 
-const TaskList = ({ tasks }) => {
+const TaskList = ({ tasks = [] }) => {
   const isModer = useSelector(getUserType) === "moder";
   const { selectedListModeIndex } = useListMode();
 
-  const sortedItemsByNumber = [...tasks].sort(
+  const sortedItemsByNumber = [...tasks]?.sort(
     (itemA, itemB) => itemA.number - itemB.number
   );
-
-  console.log(isModer);
-
-  console.log(sortedItemsByNumber);
 
   return (
     <ul
@@ -34,7 +30,11 @@ const TaskList = ({ tasks }) => {
       )}
       {isModer && (
         <li className={styles.CreateNewLessonItem}>
-          <CreateNewLessonBtn />
+          <CreateNewLessonBtn
+            lessonNumber={
+              sortedItemsByNumber[sortedItemsByNumber.length - 1].number + 1
+            }
+          />
         </li>
       )}
     </ul>

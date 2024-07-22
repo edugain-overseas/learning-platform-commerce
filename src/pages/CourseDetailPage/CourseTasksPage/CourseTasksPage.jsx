@@ -42,8 +42,7 @@ const CourseTasksPage = () => {
           </ul>
         </div>
         <div className={styles.listWrapper}>
-          {courseLessons?.length && <TaskList tasks={courseLessons} />}
-          {/* {<TaskList tasks={[]} />} */}
+          <TaskList tasks={courseLessons} />
         </div>
       </div>
       {courseLessons?.length && !isModer && (

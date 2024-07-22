@@ -4,7 +4,7 @@ import styles from "./CreateNewLessonBtn.module.scss";
 import Modal from "../shared/Modal/Modal";
 import CreateNewLessonForm from "../CreateNewLessonForm/CreateNewLessonForm";
 
-const CreateNewLessonBtn = () => {
+const CreateNewLessonBtn = ({ lessonNumber }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -19,7 +19,7 @@ const CreateNewLessonBtn = () => {
         <div className={styles.modalHeader}>
           <h4>New Lesson</h4>
         </div>
-        <CreateNewLessonForm />
+        <CreateNewLessonForm lessonNumber={lessonNumber} />
       </Modal>
     </>
   );

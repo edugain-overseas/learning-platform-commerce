@@ -21,7 +21,7 @@ import InstructionsList from "../InstructionsList/InstructionsList";
 import InstructionContent from "../InstructionContent/InstructionContent";
 // import AdminCourseConstructorPage from "../../pages/AdminCourseConstructorPage/AdminCourseConstructorPage";
 
-const Router = () => {
+const StudentRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
@@ -56,4 +56,4 @@ const Router = () => {
   );
 };
 
-export default Router;
+export default StudentRouter;

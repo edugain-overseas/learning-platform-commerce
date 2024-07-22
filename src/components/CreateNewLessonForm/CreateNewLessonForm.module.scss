@@ -24,8 +24,8 @@
   }
 
   .scheduledTime {
+    position: relative;
     display: flex;
-
     align-items: center;
     gap: 4rem;
     padding-inline: 8rem;
@@ -50,9 +50,8 @@
   }
 
   .createLessonBtn {
-    margin-bottom: 0 auto 24rem;
     width: 120rem;
-    height: 32rem;
+    height: 40rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,4 +70,17 @@
       color: var(--content-main);
     }
   }
+}
+
+.inputWrapper {
+  position: relative;
+  padding-block: 4rem;
+}
+
+.error {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  font-size: 12rem;
+  color: var(--content-failture);
 }
