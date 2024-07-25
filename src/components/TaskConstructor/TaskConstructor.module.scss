@@ -1,6 +1,12 @@
 .constructorWrapper {
-    height: 100%;
-    padding: 16rem;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  padding: 16rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.lectureContentWrapper {
+  max-height: calc(100% - 60rem);
+  overflow: auto;
+  margin-inline: 12.5%;
 }

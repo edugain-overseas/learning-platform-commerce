@@ -19,7 +19,10 @@ const CreateNewLessonBtn = ({ lessonNumber }) => {
         <div className={styles.modalHeader}>
           <h4>New Lesson</h4>
         </div>
-        <CreateNewLessonForm lessonNumber={lessonNumber} />
+        <CreateNewLessonForm
+          lessonNumber={lessonNumber}
+          closeModal={() => setIsOpen(false)}
+        />
       </Modal>
     </>
   );

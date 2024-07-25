@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   confirmLecture,
   confirmTest,
+  createLectureAttribute,
   getLessonById,
 } from "../../http/services/lesson";
 import { store } from "../store";
@@ -48,6 +49,45 @@ export const confirmTestThunk = createAsyncThunk(
       store.dispatch(getCoursesThunk());
       // await getCourses();
       return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const createLectureAttributesThunk = createAsyncThunk(
+  "lesson/createLectureAttributes",
+  async ({ lectureId, attrsData }, { rejectWithValue }) => {
+    try {
+      const attrsRequests = attrsData.map((attrData) =>
+        createLectureAttribute(lectureId, attrData)
+      );
+      const response = await Promise.all(attrsRequests);
+      console.log(response);
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const updateLectureAttributesThunk = createAsyncThunk(
+  "lesson/updateLectureAttributes",
+  async ({ attrsData }, { rejectWithValue }) => {
+    try {
+      console.log(attrsData);
+      // const attrsRequests = attrsData.map((attrData) =>
+      //   createLectureAttribute(attrData)
+      // );
+      // const response = await Promise.all(attrsRequests);
+      // console.log(response);
+      // return response;
     } catch (error) {
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,

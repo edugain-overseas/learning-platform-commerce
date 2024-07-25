@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  createLessonInCourse,
   createNewCourse,
   getCourseDetail,
   getCourses,
@@ -40,6 +41,21 @@ export const createCourseThunk = createAsyncThunk(
   async (courseData, { rejectWithValue }) => {
     try {
       const response = await createNewCourse(courseData);
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const createLessonInCourseThunk = createAsyncThunk(
+  "course/createLessonInCourse",
+  async (lessonData, { rejectWithValue }) => {
+    try {
+      const response = await createLessonInCourse(lessonData);
       return response;
     } catch (error) {
       return rejectWithValue({

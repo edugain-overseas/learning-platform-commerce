@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { lectureParts } from "../../../costants/tasksParts";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllLessons } from "../../../redux/lesson/selectors";
+import {
+  createLectureAttributesThunk,
+  updateLectureAttributesThunk,
+} from "../../../redux/lesson/operation";
 import { generateId } from "../../../utils/generateIdBasedOnTime";
 import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
 import Text from "./parts/Text";
@@ -10,16 +16,37 @@ import Audio from "./parts/Audio";
 import Picture from "./parts/Picture";
 import File from "./parts/File";
 import Link from "./parts/Link";
+import ToolsPanel from "./ToolsPanel";
+import { lectureAttributesToBlocks } from "../../../utils/lectureAttributesToBlocks";
+import useMessage from "antd/es/message/useMessage";
+import { compareLecturePart } from "../../../utils/compareObjectsByKeys";
 
-const LectureConstructor = () => {
-  const [blocks, setBlocks] = useState([]);
+const LectureConstructor = ({ initialBlocks = [] }) => {
+  const [blocks, setBlocks] = useState([
+    ...lectureAttributesToBlocks(initialBlocks),
+  ]);
+  const allLessons = useSelector(getAllLessons);
+  const { taskId } = useParams();
+  const lectureData = allLessons.find(({ id }) => id === +taskId);
+  const lectureId = lectureData?.lecture_info?.lecture_id;
+  const lectureAttrMaxNumber = blocks.reduce((maxNum, attr) => {
+    return Math.max(attr.a_number, maxNum);
+  }, 0);
+
+  const dispatch = useDispatch();
+  const [messageApi, contextHolder] = useMessage();
 
   console.log(blocks);
 
   const handleAddBlock = (part) => {
     setBlocks((prev) => [
       ...prev,
-      { id: generateId(), a_type: part.a_type, ...part.template },
+      {
+        id: generateId(),
+        a_type: part.a_type,
+        a_number: lectureAttrMaxNumber + 1,
+        ...part.template,
+      },
     ]);
   };
 
@@ -188,24 +215,71 @@ const LectureConstructor = () => {
     }
   };
 
+  const handleSaveLectureParts = () => {
+    const newAttrsData = blocks
+      .filter((attr) => !attr.a_id)
+      .map(({ id, ...rest }) => {
+        return { ...rest };
+      });
+
+    const initialAttrsData = blocks
+      .filter((attr) => attr.a_id)
+      .map(({ id, ...rest }) => {
+        return { ...rest };
+      });
+
+    const initialBlocksToUpdate = initialAttrsData.filter((block) => {
+      return compareLecturePart(
+        block,
+        lectureAttributesToBlocks(initialBlocks).find(
+          (initBlock) => initBlock.a_id === block.a_id
+        ),
+        block.a_type
+      );
+    });
+
+    dispatch(
+      updateLectureAttributesThunk({
+        lectureId,
+        attrsData: initialBlocksToUpdate,
+      })
+    );
+
+    if (newAttrsData.length) {
+      dispatch(
+        createLectureAttributesThunk({ lectureId, attrsData: newAttrsData })
+      ).then(() => {
+        messageApi.success({
+          content: `Lecture part${
+            newAttrsData.length !== 1 ? "s" : ""
+          } has been created`,
+          duration: 3,
+        });
+      });
+    }
+  };
+
   return (
     <div className={styles.wrapper}>
+      {contextHolder}
       <div className={styles.blocksWrapper}>
-        {blocks.map((block) => (
-          <div key={block.id} className={styles.block}>
-            {getComponent(block)}
-            <button
-              className={styles.deleteBtn}
-              onClick={() => handleDeleteBlock(block.id)}
-            >
-              <span>Delete this block</span>
-              <TrashIcon />
-            </button>
-          </div>
-        ))}
+        {[...blocks]
+          .sort((itemA, itemB) => itemA.a_number - itemB.a_number)
+          .map((block) => (
+            <div key={block.id} className={styles.block}>
+              {getComponent(block)}
+              <button
+                className={styles.deleteBtn}
+                onClick={() => handleDeleteBlock(block.id)}
+              >
+                <span>Delete this block</span>
+                <TrashIcon />
+              </button>
+            </div>
+          ))}
       </div>
 
-      <div className={styles.toolsWrapper}>
+      {/* <div className={styles.toolsWrapper}>
         <ul className={styles.addBlockBtns}>
           {lectureParts.map((part) => (
             <li key={`${part.a_type}.${generateId()}`}>
@@ -215,7 +289,21 @@ const LectureConstructor = () => {
             </li>
           ))}
         </ul>
-      </div>
+        <button className={styles.saveBtn} onClick={handleSaveLectureParts}>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <>
+              <SaveIcon className={styles.saveIcon} />
+              <span>Save</span>
+            </>
+          )}
+        </button>
+      </div> */}
+      <ToolsPanel
+        handleAddBlock={handleAddBlock}
+        handleSaveLectureParts={handleSaveLectureParts}
+      />
     </div>
   );
 };

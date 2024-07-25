@@ -26,3 +26,12 @@ export const createNewCourse = async (course) => {
     throw error;
   }
 };
+
+export const createLessonInCourse = async (lessonData) => {
+  try {
+    const data = privateRoutesHandler("post", "/lesson/create", lessonData);
+    return data
+  } catch (error) {
+    throw error;
+  }
+};

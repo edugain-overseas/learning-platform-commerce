@@ -1,13 +1,9 @@
 import React from "react";
 import { Image } from "antd";
 import { serverName } from "../../../http/sever";
-// import { useSelector } from "react-redux";
-// import { getIsEdit } from "../../../redux/config/configSelectors";
 import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
 import noImage from "../../../images/noImage.jpeg";
 import Textarea from "../Textarea/Textarea";
-import { useSelector } from "react-redux";
-import { getUserType } from "../../../redux/user/selectors";
 
 const ImageGroup = ({
   imagesData,
@@ -16,10 +12,8 @@ const ImageGroup = ({
   setDescription = () => {},
   handleDeleteFile = () => {},
   // handleInputBlur = () => {},
+  disabled = true,
 }) => {
-  // const isEdit = useSelector(getIsEdit);
-  const isEdit = useSelector(getUserType) === "moder";
-
   return (
     <div>
       <Image.PreviewGroup>
@@ -33,7 +27,7 @@ const ImageGroup = ({
               />
               {isDesc && (
                 <div className={styles.descWrapper}>
-                  {isEdit ? (
+                  {!disabled ? (
                     <Textarea
                       value={imageData.file_description}
                       maxRows={1}
@@ -42,11 +36,11 @@ const ImageGroup = ({
                       }
                     />
                   ) : (
-                    <p>{imageData.imageDescription}</p>
+                    <p>{imageData.file_description}</p>
                   )}
                 </div>
               )}
-              {isEdit && (
+              {!disabled && (
                 <button
                   className={styles.deleteBtn}
                   onClick={() => handleDeleteFile(imageData.filename)}

@@ -16,6 +16,7 @@ const Picture = ({ partData, setters }) => {
           isDesc={true}
           setDescription={setters.setDescription}
           handleDeleteFile={setters.deleteFile}
+          disabled={false}
         />
       )}
       {partData.files.length < 3 && (

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   createCourseThunk,
+  createLessonInCourseThunk,
   getCourseDetailThunk,
   getCoursesThunk,
 } from "./operations";
@@ -77,7 +78,25 @@ const courseSlice = createSlice({
       })
       .addCase(createCourseThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
-        // state.error = { code: payload.code, message: payload.message };
+        state.error = { code: payload.code, message: payload.message };
+      })
+
+      .addCase(createLessonInCourseThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(createLessonInCourseThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+
+        const courseIndex = state.courses.findIndex(
+          ({ id }) => id === action.meta.arg.course_id
+        );
+        if (!courseIndex) return;
+        state.courses[courseIndex].lessons.push(action.payload);
+      })
+      .addCase(createLessonInCourseThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
       });
   },
 });

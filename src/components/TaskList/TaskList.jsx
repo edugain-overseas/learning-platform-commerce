@@ -11,7 +11,7 @@ const TaskList = ({ tasks = [] }) => {
   const isModer = useSelector(getUserType) === "moder";
   const { selectedListModeIndex } = useListMode();
 
-  const sortedItemsByNumber = [...tasks]?.sort(
+  const sortedItemsByNumber = [...tasks].sort(
     (itemA, itemB) => itemA.number - itemB.number
   );
 
@@ -32,7 +32,7 @@ const TaskList = ({ tasks = [] }) => {
         <li className={styles.CreateNewLessonItem}>
           <CreateNewLessonBtn
             lessonNumber={
-              sortedItemsByNumber[sortedItemsByNumber.length - 1].number + 1
+              sortedItemsByNumber[sortedItemsByNumber.length - 1]?.number + 1
             }
           />
         </li>

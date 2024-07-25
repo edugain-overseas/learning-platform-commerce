@@ -2,24 +2,27 @@ import React, { useState } from "react";
 import useMessage from "antd/es/message/useMessage";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { getIsLoading } from "../../redux/lesson/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { createLessonInCourseThunk } from "../../redux/course/operations";
 import Select from "../shared/Select/Select";
 import FileUploader from "../shared/Uploaders/FileUploader/FileUploader";
 import Spinner from "../Spinner/Spinner";
 import styles from "./CreateNewLessonForm.module.scss";
+import { getIsLoading } from "../../redux/course/selectors";
 
-const CreateNewLessonForm = ({ lessonNumber }) => {
+const CreateNewLessonForm = ({ lessonNumber, closeModal }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   const [lessonType, setLessonType] = useState();
   const [uploadedImage, setUploadedImage] = useState();
   const [messageApi, contextHolder] = useMessage();
   const { courseId } = useParams();
   const isLoading = useSelector(getIsLoading);
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     if (!lessonType) {
@@ -40,11 +43,22 @@ const CreateNewLessonForm = ({ lessonNumber }) => {
 
     const lessonData = {
       ...data,
-      number: lessonNumber,
       course_id: +courseId,
+      image_path: uploadedImage,
+      number: lessonNumber ? lessonNumber : 1,
+      type: lessonType,
     };
 
-    console.log(lessonData);
+    dispatch(createLessonInCourseThunk(lessonData)).then(() => {
+      setInitialState();
+      closeModal();
+      reset();
+    });
+  };
+
+  const setInitialState = () => {
+    setLessonType(undefined);
+    setUploadedImage(undefined);
   };
 
   return (
@@ -76,11 +90,11 @@ const CreateNewLessonForm = ({ lessonNumber }) => {
       <div className={styles.inputWrapper}>
         <input
           type="text"
-          {...register("descripton", { required: "Description is required" })}
+          {...register("description", { required: "Description is required" })}
           placeholder="Lesson description"
         />
-        {errors.descripton && (
-          <span className={styles.error}>{errors.descripton.message}</span>
+        {errors.description && (
+          <span className={styles.error}>{errors.description.message}</span>
         )}
       </div>
       <label className={styles.scheduledTime}>

@@ -5,8 +5,14 @@ import styles from "./TasksHeader.module.scss";
 import LectureAudioPlayer from "../LectureAudioPlayer/LectureAudioPlayer";
 import { useSelector } from "react-redux";
 import { getUserType } from "../../redux/user/selectors";
+import Switcher from "../shared/Switcher/Switcher";
 
-const LectureHeader = ({ lecture }) => {
+const LectureHeader = ({
+  lecture,
+  switcherItems,
+  switcherValue,
+  switcherOnChange,
+}) => {
   const {
     title,
     type,
@@ -26,6 +32,13 @@ const LectureHeader = ({ lecture }) => {
         <span className={styles.divider}>|</span>
         <span className={styles.type}>{type}</span>
       </div>
+      {isModer && (
+        <Switcher
+          items={switcherItems}
+          value={switcherValue}
+          onChange={switcherOnChange}
+        />
+      )}
       <div className={styles.toolsWrapper}>
         {!isModer && (
           <div className={styles.note}>

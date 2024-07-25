@@ -15,31 +15,27 @@
 const lecturePartsTemplates = {
   text: {
     a_title: "",
-    a_number: 0,
     a_text: "",
     hidden: false,
   },
   file: {
     a_title: "",
-    a_number: 0,
     a_text: "",
     hidden: false,
     filename: "",
     file_path: "",
-    file_size: 0,
+    file_size: 1,
     file_description: "",
     download_allowed: false,
   },
   files: {
     a_title: "",
-    a_number: 0,
     a_text: "",
     hidden: false,
     files: [],
   },
   links: {
     a_title: "",
-    a_number: 0,
     a_text: "",
     hidden: false,
     links: [],
