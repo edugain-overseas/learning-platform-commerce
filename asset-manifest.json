@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/learning-platform-commerce/static/css/main.5db6be1a.css",
-    "main.js": "/learning-platform-commerce/static/js/main.ada3d9c9.js",
+    "main.css": "/learning-platform-commerce/static/css/main.b4072e46.css",
+    "main.js": "/learning-platform-commerce/static/js/main.624e6bfb.js",
     "static/media/auth-bg-destop.png": "/learning-platform-commerce/static/media/auth-bg-destop.a7ee9a4152329293a4e6.png",
     "static/media/body-bg-desktop.png": "/learning-platform-commerce/static/media/body-bg-desktop.fc47d0198aebfcf1f931.png",
     "static/media/aboutIEU-bg-desktop.png": "/learning-platform-commerce/static/media/aboutIEU-bg-desktop.af0832d1f0c499f18b0c.png",
@@ -55,6 +55,7 @@
     "static/media/reload.svg": "/learning-platform-commerce/static/media/reload.3a5fcd68d8c7832fdfbcddd415b40e10.svg",
     "static/media/clock.svg": "/learning-platform-commerce/static/media/clock.80031d1270424429e43c30c5e4290216.svg",
     "index.html": "/learning-platform-commerce/index.html",
+    "static/media/editBlack.svg": "/learning-platform-commerce/static/media/editBlack.5c3f35005b096993465fad0c3f321e98.svg",
     "static/media/send.svg": "/learning-platform-commerce/static/media/send.75084a63625879b1ed808ad366c608f6.svg",
     "static/media/cross.svg": "/learning-platform-commerce/static/media/cross.0fd84febb660c7e60d7ad35ba59c6cb4.svg",
     "static/media/uploadBig.svg": "/learning-platform-commerce/static/media/uploadBig.c9c350da2dad68f84e6d06dd173c2f34.svg",
@@ -78,11 +79,11 @@
     "static/media/plus.svg": "/learning-platform-commerce/static/media/plus.bac7ca3fd00c967f77b9bf9dc377004e.svg",
     "static/media/minus.svg": "/learning-platform-commerce/static/media/minus.6829807e839d65449d2502544aafce3e.svg",
     "static/media/pause.svg": "/learning-platform-commerce/static/media/pause.9a6ded2dd70f0d03cac8f26aa28df0e5.svg",
-    "main.5db6be1a.css.map": "/learning-platform-commerce/static/css/main.5db6be1a.css.map",
-    "main.ada3d9c9.js.map": "/learning-platform-commerce/static/js/main.ada3d9c9.js.map"
+    "main.b4072e46.css.map": "/learning-platform-commerce/static/css/main.b4072e46.css.map",
+    "main.624e6bfb.js.map": "/learning-platform-commerce/static/js/main.624e6bfb.js.map"
   },
   "entrypoints": [
-    "static/css/main.5db6be1a.css",
-    "static/js/main.ada3d9c9.js"
+    "static/css/main.b4072e46.css",
+    "static/js/main.624e6bfb.js"
   ]
 }
