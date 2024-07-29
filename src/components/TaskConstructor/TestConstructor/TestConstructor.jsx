@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { generateId } from "../../../utils/generateIdBasedOnTime";
-import { testParts } from "../../../costants/tasksParts";
 import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
 import styles from "./TestConstructor.module.scss";
 import Test from "./parts/Test";
@@ -9,11 +8,37 @@ import AnswerWithPhoto from "./parts/AnswerWithPhoto";
 import QuestionWithPhoto from "./parts/QuestionWithPhoto";
 import MultipleChoice from "./parts/MultipleChoice";
 import Matching from "./parts/Matching";
+import ToolsPanel from "./ToolsPanel";
+import useMessage from "antd/es/message/useMessage";
+import { useDispatch } from "react-redux";
+import { updateTestMetaDataThunk } from "../../../redux/lesson/operation";
 
-const TestConstructor = () => {
-  const [blocks, setBlocks] = useState([]);
+const TestConstructor = ({ attempts, initialBlocks, score, testId }) => {
+  const [blocks, setBlocks] = useState([
+    ...initialBlocks.map((block) => ({ ...block, id: block.q_id })),
+  ]);
+  const [messageApi, contextHolder] = useMessage();
+
+  const dispatch = useDispatch();
+
+  const blocksScore = blocks.reduce((score, { q_score }) => score + q_score, 0);
 
   console.log(blocks);
+
+  const changeTestMetaData = (newTestMetaData) => {
+    return dispatch(
+      updateTestMetaDataThunk({
+        testId,
+        newTestMetaData,
+      })
+    )
+      .unwrap()
+      .then(() => {
+        messageApi.success({
+          content: `Test ${Object.keys(newTestMetaData)[0]} has been updated`,
+        });
+      });
+  };
 
   const handleAddBlock = (part) => {
     setBlocks((prev) => [
@@ -142,8 +167,7 @@ const TestConstructor = () => {
     const maxScore =
       blocks.reduce((maxScore, block) => {
         return maxScore - block.q_score;
-      }, 40) + block.q_score;
-
+      }, score) + block.q_score;
     switch (block.q_type) {
       case "test":
         return (
@@ -152,6 +176,7 @@ const TestConstructor = () => {
             setters={setters}
             maxScore={maxScore}
             index={index}
+            testScore={score}
           />
         );
       case "boolean":
@@ -161,6 +186,7 @@ const TestConstructor = () => {
             setters={setters}
             maxScore={maxScore}
             index={index}
+            testScore={score}
           />
         );
       case "answer_with_photo":
@@ -170,6 +196,7 @@ const TestConstructor = () => {
             setters={setters}
             maxScore={maxScore}
             index={index}
+            testScore={score}
           />
         );
       case "question_with_photo":
@@ -179,6 +206,7 @@ const TestConstructor = () => {
             setters={setters}
             maxScore={maxScore}
             index={index}
+            testScore={score}
           />
         );
       case "multiple_choice":
@@ -188,6 +216,7 @@ const TestConstructor = () => {
             setters={setters}
             maxScore={maxScore}
             index={index}
+            testScore={score}
           />
         );
       case "matching":
@@ -197,6 +226,7 @@ const TestConstructor = () => {
             setters={setters}
             maxScore={maxScore}
             index={index}
+            textScore={score}
           />
         );
 
@@ -207,6 +237,7 @@ const TestConstructor = () => {
 
   return (
     <div className={styles.wrapper}>
+      {contextHolder}
       <div className={styles.blocksWrapper}>
         {blocks.map((block, index) => (
           <div key={block.id} className={styles.block}>
@@ -221,16 +252,13 @@ const TestConstructor = () => {
           </div>
         ))}
       </div>
-
-      <div className={styles.toolsWrapper}>
-        <ul className={styles.addBlockBtns}>
-          {testParts.map((part) => (
-            <li key={`${part.q_type}`}>
-              <button onClick={() => handleAddBlock(part)}>{part.label}</button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ToolsPanel
+        handleAddBlock={handleAddBlock}
+        attempts={attempts}
+        score={score}
+        changeTestMetaData={changeTestMetaData}
+        blocksScore={blocksScore}
+      />
     </div>
   );
 };

@@ -51,7 +51,7 @@ export const confirmTest = async (lessonId, studentTest) => {
 
 export const createLectureAttribute = async (lectureId, attrData) => {
   try {
-    const data = privateRoutesHandler(
+    const data = await privateRoutesHandler(
       "post",
       `lecture/create/${createLectureAttributeUrlOption[attrData.a_type]}`,
       attrData,
@@ -59,6 +59,49 @@ export const createLectureAttribute = async (lectureId, attrData) => {
         params: {
           lecture_id: lectureId,
         },
+      }
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateLectureAttribute = async (attr_id, attrData) => {
+  try {
+    await privateRoutesHandler(
+      "patch",
+      `lecture/update/${createLectureAttributeUrlOption[attrData.a_type]}`,
+      attrData,
+      {
+        params: { attr_id },
+      }
+    );
+    return { a_id: attr_id, ...attrData };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteLectureAttribute = async (attr_id) => {
+  try {
+    const data = await privateRoutesHandler("delete", `lecture/delete/attr`, {
+      params: { attr_id },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateTestMetaData = async (test_id, newTestMetaData) => {
+  try {
+    const data = await privateRoutesHandler(
+      "patch",
+      "test/update",
+      newTestMetaData,
+      {
+        params: { test_id },
       }
     );
     return data;

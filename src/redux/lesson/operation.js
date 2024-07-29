@@ -3,10 +3,14 @@ import {
   confirmLecture,
   confirmTest,
   createLectureAttribute,
+  deleteLectureAttribute,
   getLessonById,
+  updateLectureAttribute,
+  updateTestMetaData,
 } from "../../http/services/lesson";
 import { store } from "../store";
 import { getCoursesThunk } from "../course/operations";
+import { blocksToLectureAttributes } from "../../utils/lectureAttributesToBlocks";
 
 export const getLessonByIdThunk = createAsyncThunk(
   "lesson/getLesson",
@@ -81,13 +85,39 @@ export const updateLectureAttributesThunk = createAsyncThunk(
   "lesson/updateLectureAttributes",
   async ({ attrsData }, { rejectWithValue }) => {
     try {
-      console.log(attrsData);
-      // const attrsRequests = attrsData.map((attrData) =>
-      //   createLectureAttribute(attrData)
-      // );
-      // const response = await Promise.all(attrsRequests);
-      // console.log(response);
-      // return response;
+      const attrsRequests = attrsData.map(({ a_id, ...rest }) => {
+        return updateLectureAttribute(a_id, rest);
+      });
+      const response = await Promise.all(attrsRequests);
+      return blocksToLectureAttributes(response);
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const deleteLectureAttributeThunk = createAsyncThunk(
+  "lesson/deleteLectureAttribute",
+  async ({ attrId }, { rejectWithValue }) => {
+    try {
+      await deleteLectureAttribute(attrId);
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const updateTestMetaDataThunk = createAsyncThunk(
+  "lesson/updateTestMetaData",
+  async ({ testId, newTestMetaData }, { rejectWithValue }) => {
+    try {
+      await updateTestMetaData(testId, newTestMetaData);
     } catch (error) {
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,

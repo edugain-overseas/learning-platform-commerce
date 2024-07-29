@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useHookFormMask } from "use-mask-input";
+import { useDispatch, useSelector } from "react-redux";
+import { createCourseThunk } from "../../redux/course/operations";
+import { getIsLoading } from "../../redux/course/selectors";
 import { ReactComponent as LaptopIcon } from "../../images/icons/laptop.svg";
 import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
 import { ReactComponent as SchoolOnlineIcon } from "../../images/icons/courseIcons/school-online.svg";
@@ -14,11 +17,8 @@ import Textarea from "../../components/shared/Textarea/Textarea";
 import CategoryPicker from "../../components/CategoryPicker/CategoryPicker";
 import useMessage from "antd/es/message/useMessage";
 import FileUploader from "../../components/shared/Uploaders/FileUploader/FileUploader";
-import styles from "./AdminCourseConstructorPage.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { createCourseThunk } from "../../redux/course/operations";
-import { getIsLoading } from "../../redux/course/selectors";
 import Spinner from "../../components/Spinner/Spinner";
+import styles from "./AdminCourseConstructorPage.module.scss";
 
 const AdminCourseConstructorPage = ({ courseData }) => {
   const { courseId } = useParams();

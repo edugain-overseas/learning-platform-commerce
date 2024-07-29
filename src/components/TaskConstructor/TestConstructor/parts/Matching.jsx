@@ -6,13 +6,14 @@ import Textarea from "../../../shared/Textarea/Textarea";
 import DeleteOptionBtn from "./shared/DeleteOptionBtn";
 import styles from "../TestConstructor.module.scss";
 
-const Matching = ({ partData, setters, maxScore, index }) => {
+const Matching = ({ partData, setters, maxScore, index, testScore }) => {
   return (
     <>
       <ScoreInput
         value={partData.q_score}
         setValue={(value) => setters.setQuestionProperty("q_score", value)}
         maxValue={maxScore}
+        score={testScore}
       />
       <div className={styles.questionWrapper}>
         <span>{`${index + 1})`}</span>

@@ -43,7 +43,7 @@ export const compareLecturePart = (obj1, obj2, a_type) => {
     case "file":
       return compareObjectsByKeys(obj1, obj2, [
         ...textBaseValues,
-        fileBaseValues,
+        ...fileBaseValues,
       ]);
 
     case "files":

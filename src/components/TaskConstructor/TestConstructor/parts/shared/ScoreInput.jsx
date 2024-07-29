@@ -2,10 +2,8 @@ import React from "react";
 import { InputNumber } from "antd";
 import styles from "../../TestConstructor.module.scss";
 
-const ScoreInput = ({ value, maxValue, setValue }) => {
+const ScoreInput = ({ value, maxValue, setValue, score }) => {
   return (
-    // <label className={styles.scoreWrapper}>
-    //   <span>Score:</span>
     <InputNumber
       min={1}
       max={maxValue}
@@ -14,9 +12,8 @@ const ScoreInput = ({ value, maxValue, setValue }) => {
       size="small"
       className={styles.scoreInput}
       addonBefore="Score:"
-      addonAfter="/ 40"
+      addonAfter={`/ ${score}`}
     />
-    // </label>
   );
 };
 

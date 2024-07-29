@@ -56,22 +56,29 @@ const TaskContructor = () => {
           </>
         );
       case "test":
+        console.log(task);
+        const { attempts, questions, score, test_id } = task.test_data;
         return (
           <>
             <TestHeader test={task} />
-            <TestConstructor />
+            <TestConstructor
+              attempts={attempts}
+              initialBlocks={questions}
+              score={score}
+              testId={test_id}
+            />
           </>
         );
       default:
-        // return <p>Unknown lesson</p>;
-        return (
-          <>
-            {/* <TestHeader test={task} />
-            <TestConstructor /> */}
-            {/* <LectureHeader lecture={task} /> */}
-            <LectureConstructor />
-          </>
-        );
+        return <p>Unknown lesson</p>;
+      // return (
+      //   <>
+      //     {/* <TestHeader test={task} />
+      //     <TestConstructor /> */}
+      //     {/* <LectureHeader lecture={task} /> */}
+      //     <LectureConstructor />
+      //   </>
+      // );
     }
   };
 

@@ -4,12 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllLessons } from "../../../redux/lesson/selectors";
 import {
   createLectureAttributesThunk,
+  deleteLectureAttributeThunk,
   updateLectureAttributesThunk,
 } from "../../../redux/lesson/operation";
+import useMessage from "antd/es/message/useMessage";
 import { generateId } from "../../../utils/generateIdBasedOnTime";
+import { compareLecturePart } from "../../../utils/compareObjectsByKeys";
+import { lectureAttributesToBlocks } from "../../../utils/lectureAttributesToBlocks";
 import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
 import Text from "./parts/Text";
-import styles from "./LectureConstructor.module.scss";
 import Present from "./parts/Present";
 import Video from "./parts/Video";
 import Audio from "./parts/Audio";
@@ -17,9 +20,7 @@ import Picture from "./parts/Picture";
 import File from "./parts/File";
 import Link from "./parts/Link";
 import ToolsPanel from "./ToolsPanel";
-import { lectureAttributesToBlocks } from "../../../utils/lectureAttributesToBlocks";
-import useMessage from "antd/es/message/useMessage";
-import { compareLecturePart } from "../../../utils/compareObjectsByKeys";
+import styles from "./LectureConstructor.module.scss";
 
 const LectureConstructor = ({ initialBlocks = [] }) => {
   const [blocks, setBlocks] = useState([
@@ -51,7 +52,23 @@ const LectureConstructor = ({ initialBlocks = [] }) => {
   };
 
   const handleDeleteBlock = (partId) => {
-    setBlocks((prev) => prev.filter(({ id }) => id !== partId));
+    setBlocks((prev) =>
+      prev.filter((block) => {
+        if (block.id === partId && block.a_id) {
+          dispatch(
+            deleteLectureAttributeThunk({ lectureId, attrId: block.a_id })
+          )
+            .unwrap()
+            .then(() => {
+              messageApi.success({
+                content: "Lecture part has been deleted",
+                duration: 3,
+              });
+            });
+        }
+        return block.id !== partId;
+      })
+    );
   };
 
   const setTitle = (id, value) =>
@@ -238,24 +255,49 @@ const LectureConstructor = ({ initialBlocks = [] }) => {
       );
     });
 
-    dispatch(
-      updateLectureAttributesThunk({
-        lectureId,
-        attrsData: initialBlocksToUpdate,
-      })
-    );
+    console.log(initialBlocksToUpdate);
+
+    if (initialBlocksToUpdate.length) {
+      dispatch(
+        updateLectureAttributesThunk({
+          lectureId,
+          attrsData: initialBlocksToUpdate,
+        })
+      )
+        .unwrap()
+        .then(() => {
+          messageApi.success({
+            content: `Lecture part${
+              initialBlocksToUpdate.length !== 1 ? "s" : ""
+            } ha${
+              initialBlocksToUpdate.length !== 1 ? "s" : "ve"
+            } been updated`,
+            duration: 3,
+          });
+        });
+    }
 
     if (newAttrsData.length) {
       dispatch(
         createLectureAttributesThunk({ lectureId, attrsData: newAttrsData })
-      ).then(() => {
-        messageApi.success({
-          content: `Lecture part${
-            newAttrsData.length !== 1 ? "s" : ""
-          } has been created`,
-          duration: 3,
+      )
+        .unwrap()
+        .then((response) => {
+          setBlocks((prev) => {
+            const blocksWithoutNewBlocks = prev.filter((block) => block.a_id);
+            console.log(blocksWithoutNewBlocks);
+            return [
+              ...blocksWithoutNewBlocks,
+              ...lectureAttributesToBlocks(response),
+            ];
+          });
+          messageApi.success({
+            content: `Lecture part${
+              newAttrsData.length !== 1 ? "s" : ""
+            } has been created`,
+            duration: 3,
+          });
         });
-      });
     }
   };
 
@@ -278,28 +320,6 @@ const LectureConstructor = ({ initialBlocks = [] }) => {
             </div>
           ))}
       </div>
-
-      {/* <div className={styles.toolsWrapper}>
-        <ul className={styles.addBlockBtns}>
-          {lectureParts.map((part) => (
-            <li key={`${part.a_type}.${generateId()}`}>
-              <button onClick={() => handleAddBlock(part)}>
-                {part.a_type}
-              </button>
-            </li>
-          ))}
-        </ul>
-        <button className={styles.saveBtn} onClick={handleSaveLectureParts}>
-          {isLoading ? (
-            <Spinner />
-          ) : (
-            <>
-              <SaveIcon className={styles.saveIcon} />
-              <span>Save</span>
-            </>
-          )}
-        </button>
-      </div> */}
       <ToolsPanel
         handleAddBlock={handleAddBlock}
         handleSaveLectureParts={handleSaveLectureParts}
