@@ -109,3 +109,29 @@ export const updateTestMetaData = async (test_id, newTestMetaData) => {
     throw error;
   }
 };
+
+export const createTestQuestions = async (test_id, questionsData) => {
+  try {
+    const data = await privateRoutesHandler(
+      "post",
+      "test/question/add",
+      questionsData,
+      {
+        params: { test_id },
+      }
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteTestQuestion = async (question_id) => {
+  try {
+    await privateRoutesHandler("delete", "test/question/delete", {
+      params: { question_id },
+    });
+  } catch (error) {
+    throw error;
+  }
+};

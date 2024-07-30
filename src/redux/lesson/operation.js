@@ -3,7 +3,9 @@ import {
   confirmLecture,
   confirmTest,
   createLectureAttribute,
+  createTestQuestions,
   deleteLectureAttribute,
+  deleteTestQuestion,
   getLessonById,
   updateLectureAttribute,
   updateTestMetaData,
@@ -118,6 +120,35 @@ export const updateTestMetaDataThunk = createAsyncThunk(
   async ({ testId, newTestMetaData }, { rejectWithValue }) => {
     try {
       await updateTestMetaData(testId, newTestMetaData);
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const createTestQuestionsThunk = createAsyncThunk(
+  "lesson/createTestQuestions",
+  async ({ testId, questionsData }, { rejectWithValue }) => {
+    try {
+      const data = await createTestQuestions(testId, questionsData);
+      return data.questions;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const deleteTestQuestionThunk = createAsyncThunk(
+  "lesson/deleteTestQuestion",
+  async ({ question_id }, { rejectWithValue }) => {
+    try {
+      await deleteTestQuestion(question_id);
     } catch (error) {
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,

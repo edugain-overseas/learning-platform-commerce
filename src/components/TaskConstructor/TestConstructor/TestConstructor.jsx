@@ -11,7 +11,11 @@ import Matching from "./parts/Matching";
 import ToolsPanel from "./ToolsPanel";
 import useMessage from "antd/es/message/useMessage";
 import { useDispatch } from "react-redux";
-import { updateTestMetaDataThunk } from "../../../redux/lesson/operation";
+import {
+  createTestQuestionsThunk,
+  deleteTestQuestionThunk,
+  updateTestMetaDataThunk,
+} from "../../../redux/lesson/operation";
 
 const TestConstructor = ({ attempts, initialBlocks, score, testId }) => {
   const [blocks, setBlocks] = useState([
@@ -23,7 +27,13 @@ const TestConstructor = ({ attempts, initialBlocks, score, testId }) => {
 
   const blocksScore = blocks.reduce((score, { q_score }) => score + q_score, 0);
 
+  const testQuestionMaxNumber = blocks.reduce((maxNum, question) => {
+    return Math.max(question.q_number, maxNum);
+  }, 0);
+
   console.log(blocks);
+
+  console.log(score);
 
   const changeTestMetaData = (newTestMetaData) => {
     return dispatch(
@@ -46,13 +56,41 @@ const TestConstructor = ({ attempts, initialBlocks, score, testId }) => {
       {
         id: generateId(),
         q_type: part.q_type,
+        q_number: testQuestionMaxNumber + 1,
         ...part.template,
       },
     ]);
   };
 
   const handleDeleteBlock = (id) => {
-    setBlocks((prev) => prev.filter((block) => block.id !== id));
+    setBlocks((prev) =>
+      prev.filter((block) => {
+        if (block.id === id) {
+          if (block.q_id) {
+            try {
+              dispatch(
+                deleteTestQuestionThunk({ testId, question_id: block.q_id })
+              )
+                .unwrap()
+                .then(() => {
+                  messageApi.success({
+                    content: "Block has been deleted",
+                    duration: 3,
+                  });
+                });
+              return false;
+            } catch (error) {
+              messageApi.error({
+                content: error.message || error.detail.message,
+                duration: 3,
+              });
+              return true;
+            }
+          }
+        }
+        return true;
+      })
+    );
   };
 
   const setNewQuestionProperty = (id, propertyName, value) => {
@@ -235,12 +273,50 @@ const TestConstructor = ({ attempts, initialBlocks, score, testId }) => {
     }
   };
 
+  const handleSave = () => {
+    const blocksToCreate = blocks.filter((block) => !block.q_id);
+    try {
+      dispatch(
+        createTestQuestionsThunk({ testId, questionsData: blocksToCreate })
+      )
+        .unwrap()
+        .then((response) => {
+          setBlocks((prev) => {
+            const oldBlocks = prev.filter((block) => block.q_id);
+            return [
+              ...oldBlocks,
+              ...response.map((newBlock) => ({
+                ...newBlock,
+                id: newBlock.q_id,
+              })),
+            ];
+          });
+          messageApi.success({
+            content: `Block${blocksToCreate.length !== 1 ? "s" : ""} ha${
+              blocksToCreate.length !== 1 ? "ve" : "s"
+            } been created`,
+            duration: 3,
+          });
+        });
+    } catch (error) {
+      messageApi.error({
+        content: error.message || error.detail.message,
+        duration: 3,
+      });
+    }
+  };
+
   return (
     <div className={styles.wrapper}>
       {contextHolder}
       <div className={styles.blocksWrapper}>
         {blocks.map((block, index) => (
-          <div key={block.id} className={styles.block}>
+          <div
+            key={block.id}
+            className={`${styles.block} ${
+              block.q_id ? styles.edit : styles.new
+            }`}
+          >
             {getComponent(block, index)}
             <button
               className={styles.deleteBtn}
@@ -258,6 +334,7 @@ const TestConstructor = ({ attempts, initialBlocks, score, testId }) => {
         score={score}
         changeTestMetaData={changeTestMetaData}
         blocksScore={blocksScore}
+        handleSaveTestParts={handleSave}
       />
     </div>
   );

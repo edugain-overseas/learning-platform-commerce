@@ -87,14 +87,12 @@ export const lectureParts = [
 const testPartsTemplates = {
   test: {
     q_text: "",
-    q_number: 0,
     q_score: 0,
     hedden: false,
     answers: [],
   },
   boolean: {
     q_text: "",
-    q_number: 0,
     q_score: 0,
     hedden: false,
     answers: [
@@ -104,14 +102,12 @@ const testPartsTemplates = {
   },
   answer_with_photo: {
     q_text: "",
-    q_number: 0,
     q_score: 0,
     hedden: false,
     answers: [],
   },
   question_with_photo: {
     q_text: "",
-    q_number: 0,
     q_score: 0,
     hedden: false,
     image_path: undefined,
@@ -119,14 +115,12 @@ const testPartsTemplates = {
   },
   multiple_choice: {
     q_text: "",
-    q_number: 0,
     q_score: 0,
     hedden: false,
     answers: [],
   },
   matching: {
     q_text: "Please make the correct pairs",
-    q_number: 0,
     q_score: 0,
     hedden: false,
     answers: [],

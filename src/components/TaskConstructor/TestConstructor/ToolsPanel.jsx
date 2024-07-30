@@ -4,6 +4,7 @@ import { testParts } from "../../../costants/tasksParts";
 import { ReactComponent as EditIcon } from "../../../images/icons/editBlack.svg";
 import { ReactComponent as SaveIcon } from "../../../images/icons/save.svg";
 import styles from "./TestConstructor.module.scss";
+import SaveBtn from "../../shared/SaveBtn/SaveBtn";
 
 const ToolsPanel = ({
   handleAddBlock,
@@ -11,6 +12,7 @@ const ToolsPanel = ({
   score: defaultScore,
   changeTestMetaData,
   blocksScore,
+  handleSaveTestParts,
 }) => {
   const [attemptsDisabled, setAttemptsDisabled] = useState(true);
   const [scoreDisabled, setScoreDisabled] = useState(true);
@@ -32,7 +34,11 @@ const ToolsPanel = ({
   const handleScoreChange = () => {
     if (!scoreDisabled) {
       if (score !== defaultScore) {
-        changeTestMetaData({ score }).then(() => setScoreDisabled(true));
+        changeTestMetaData({ score }).then(() => {
+          if (blocksScore === score) {
+            setScoreDisabled(true);
+          }
+        });
       } else {
         setScoreDisabled(true);
       }
@@ -91,6 +97,7 @@ const ToolsPanel = ({
           </li>
         ))}
       </ul>
+      <SaveBtn handleClick={handleSaveTestParts} />
     </div>
   );
 };

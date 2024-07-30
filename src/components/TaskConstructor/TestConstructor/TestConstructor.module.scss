@@ -34,6 +34,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8rem;
+  margin-bottom: 16rem;
 
   li {
     width: calc(50% - 4rem);
@@ -89,6 +90,14 @@
 
   & > * {
     flex-shrink: 0;
+  }
+
+  &.new {
+    box-shadow: 0 0 10rem rgba($color: #39ba6d, $alpha: 0.7);
+  }
+
+  &.edit {
+    box-shadow: var(--drop-shadow-middle);
   }
 }
 
@@ -150,6 +159,10 @@
   align-items: center;
   padding-bottom: 16rem;
   border-bottom: 1rem solid var(--content-datail-secondary);
+
+  & > span {
+    overflow: visible;
+  }
 }
 
 // option wrapper
