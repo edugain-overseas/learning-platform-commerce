@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/learning-platform-commerce/static/css/main.2a2a5ac1.css",
-    "main.js": "/learning-platform-commerce/static/js/main.8506f951.js",
+    "main.js": "/learning-platform-commerce/static/js/main.97cf4b27.js",
     "static/media/auth-bg-destop.png": "/learning-platform-commerce/static/media/auth-bg-destop.a7ee9a4152329293a4e6.png",
     "static/media/body-bg-desktop.png": "/learning-platform-commerce/static/media/body-bg-desktop.fc47d0198aebfcf1f931.png",
     "static/media/aboutIEU-bg-desktop.png": "/learning-platform-commerce/static/media/aboutIEU-bg-desktop.af0832d1f0c499f18b0c.png",
@@ -80,10 +80,10 @@
     "static/media/minus.svg": "/learning-platform-commerce/static/media/minus.6829807e839d65449d2502544aafce3e.svg",
     "static/media/pause.svg": "/learning-platform-commerce/static/media/pause.9a6ded2dd70f0d03cac8f26aa28df0e5.svg",
     "main.2a2a5ac1.css.map": "/learning-platform-commerce/static/css/main.2a2a5ac1.css.map",
-    "main.8506f951.js.map": "/learning-platform-commerce/static/js/main.8506f951.js.map"
+    "main.97cf4b27.js.map": "/learning-platform-commerce/static/js/main.97cf4b27.js.map"
   },
   "entrypoints": [
     "static/css/main.2a2a5ac1.css",
-    "static/js/main.8506f951.js"
+    "static/js/main.97cf4b27.js"
   ]
 }
