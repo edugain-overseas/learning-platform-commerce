@@ -13,6 +13,7 @@ const ToolsPanel = ({
   changeTestMetaData,
   blocksScore,
   handleSaveTestParts,
+  isLoading,
 }) => {
   const [attemptsDisabled, setAttemptsDisabled] = useState(true);
   const [scoreDisabled, setScoreDisabled] = useState(true);
@@ -97,7 +98,7 @@ const ToolsPanel = ({
           </li>
         ))}
       </ul>
-      <SaveBtn handleClick={handleSaveTestParts} />
+      <SaveBtn handleClick={handleSaveTestParts} isLoading={isLoading} />
     </div>
   );
 };

@@ -3,10 +3,12 @@ import {
   createLectureAttributesThunk,
   createTestQuestionsThunk,
   deleteLectureAttributeThunk,
+  deleteTestAnswerThunk,
   deleteTestQuestionThunk,
   getLessonByIdThunk,
   updateLectureAttributesThunk,
   updateTestMetaDataThunk,
+  updateTestQuestionThunk,
 } from "./operation";
 
 const initialState = {
@@ -160,6 +162,37 @@ const lessonSlice = createSlice({
         state.error = { code: payload.code, message: payload.message };
       })
 
+      .addCase(updateTestQuestionThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateTestQuestionThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { testId, question_id, questionData } = action.meta.arg;
+
+        const lessonIndex = state.lessons.findIndex(
+          (lesson) => lesson.test_data?.test_id === testId
+        );
+        if (lessonIndex !== -1) {
+          const questionIndex = state.lessons[
+            lessonIndex
+          ].test_data.questions.findIndex(
+            (question) => question.q_id === question_id
+          );
+
+          if (questionIndex !== -1) {
+            state.lessons[lessonIndex].test_data.questions[questionIndex] = {
+              ...state.lessons[lessonIndex].test_data.questions[questionIndex],
+              ...questionData,
+            };
+          }
+        }
+      })
+      .addCase(updateTestQuestionThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
       .addCase(deleteTestQuestionThunk.pending, (state, _) => {
         state.isLoading = true;
         state.error = null;
@@ -180,6 +213,33 @@ const lessonSlice = createSlice({
         }
       })
       .addCase(deleteTestQuestionThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
+      .addCase(deleteTestAnswerThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteTestAnswerThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { testId, answer_id } = action.meta.arg;
+
+        const lessonIndex = state.lessons.findIndex(
+          (lesson) => lesson.test_data?.test_id === testId
+        );
+        if (lessonIndex !== -1) {
+          state.lessons[lessonIndex].test_data.questions = state.lessons[
+            lessonIndex
+          ].test_data.questions.map((question) => ({
+            ...question,
+            answers: question.answers.filter(
+              (answer) => answer.a_id !== answer_id
+            ),
+          }));
+        }
+      })
+      .addCase(deleteTestAnswerThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = { code: payload.code, message: payload.message };
       });

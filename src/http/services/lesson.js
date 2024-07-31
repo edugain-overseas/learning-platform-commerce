@@ -126,10 +126,31 @@ export const createTestQuestions = async (test_id, questionsData) => {
   }
 };
 
+export const updateTestQuestion = async (question_id, questionData) => {
+  try {
+    console.log(question_id);
+    await privateRoutesHandler("patch", "test/question/update", questionData, {
+      params: { question_id },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const deleteTestQuestion = async (question_id) => {
   try {
     await privateRoutesHandler("delete", "test/question/delete", {
       params: { question_id },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteTestAnswer = async (answer_id) => {
+  try {
+    await privateRoutesHandler("delete", "test/answer/delete", {
+      params: { answer_id },
     });
   } catch (error) {
     throw error;

@@ -10,20 +10,28 @@ import MultipleChoice from "./parts/MultipleChoice";
 import Matching from "./parts/Matching";
 import ToolsPanel from "./ToolsPanel";
 import useMessage from "antd/es/message/useMessage";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   createTestQuestionsThunk,
+  deleteTestAnswerThunk,
   deleteTestQuestionThunk,
   updateTestMetaDataThunk,
+  updateTestQuestionThunk,
 } from "../../../redux/lesson/operation";
+import {
+  compareTestAnswer,
+  compareTestQuestion,
+} from "../../../utils/compareObjectsByKeys";
+import { getIsLoading } from "../../../redux/lesson/selectors";
+import { testQuestionsToBlocks } from "../../../utils/testQuestionsToBlocks";
 
-const TestConstructor = ({ attempts, initialBlocks, score, testId }) => {
-  const [blocks, setBlocks] = useState([
-    ...initialBlocks.map((block) => ({ ...block, id: block.q_id })),
-  ]);
+const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
+  const [blocks, setBlocks] = useState(testQuestionsToBlocks(initialBlocks));
   const [messageApi, contextHolder] = useMessage();
 
   const dispatch = useDispatch();
+
+  const isLoading = useSelector(getIsLoading);
 
   const blocksScore = blocks.reduce((score, { q_score }) => score + q_score, 0);
 
@@ -32,8 +40,6 @@ const TestConstructor = ({ attempts, initialBlocks, score, testId }) => {
   }, 0);
 
   console.log(blocks);
-
-  console.log(score);
 
   const changeTestMetaData = (newTestMetaData) => {
     return dispatch(
@@ -87,6 +93,7 @@ const TestConstructor = ({ attempts, initialBlocks, score, testId }) => {
               return true;
             }
           }
+          return false;
         }
         return true;
       })
@@ -114,7 +121,7 @@ const TestConstructor = ({ attempts, initialBlocks, score, testId }) => {
           ...block,
           answers: [
             ...block.answers,
-            { a_text: "", is_correct: false, image_path: undefined },
+            { a_text: "", is_correct: false, image_path: null },
           ],
         };
       })
@@ -137,6 +144,31 @@ const TestConstructor = ({ attempts, initialBlocks, score, testId }) => {
     setBlocks((prev) =>
       prev.map((block) => {
         if (block.id !== id) return block;
+
+        if (block.answers[optionIndex].a_id) {
+          try {
+            dispatch(
+              deleteTestAnswerThunk({
+                testId,
+                answer_id: block.answers[optionIndex].a_id,
+              })
+            )
+              .unwrap()
+              .then(() => {
+                messageApi.success({
+                  content: "Answer has been deleted",
+                  duration: 3,
+                });
+              });
+          } catch (error) {
+            messageApi.error({
+              content: error.message || error.detail.message,
+              duration: 3,
+            });
+            return block;
+          }
+        }
+
         return {
           ...block,
           answers: [
@@ -264,7 +296,7 @@ const TestConstructor = ({ attempts, initialBlocks, score, testId }) => {
             setters={setters}
             maxScore={maxScore}
             index={index}
-            textScore={score}
+            testScore={score}
           />
         );
 
@@ -275,33 +307,98 @@ const TestConstructor = ({ attempts, initialBlocks, score, testId }) => {
 
   const handleSave = () => {
     const blocksToCreate = blocks.filter((block) => !block.q_id);
-    try {
-      dispatch(
-        createTestQuestionsThunk({ testId, questionsData: blocksToCreate })
-      )
-        .unwrap()
-        .then((response) => {
-          setBlocks((prev) => {
-            const oldBlocks = prev.filter((block) => block.q_id);
-            return [
-              ...oldBlocks,
-              ...response.map((newBlock) => ({
-                ...newBlock,
-                id: newBlock.q_id,
-              })),
-            ];
+
+    // Save blocks to create on server
+    if (blocksToCreate.length !== 0) {
+      try {
+        dispatch(
+          createTestQuestionsThunk({ testId, questionsData: blocksToCreate })
+        )
+          .unwrap()
+          .then((response) => {
+            setBlocks((prev) => {
+              const oldBlocks = prev.filter((block) => block.q_id);
+              console.log(response);
+              return [
+                ...oldBlocks,
+                ...response.map((newBlock) => ({
+                  ...newBlock,
+                  id: newBlock.q_id,
+                })),
+              ];
+            });
+            messageApi.success({
+              content: `Block${blocksToCreate.length !== 1 ? "s" : ""} ha${
+                blocksToCreate.length !== 1 ? "ve" : "s"
+              } been created`,
+              duration: 3,
+            });
           });
-          messageApi.success({
-            content: `Block${blocksToCreate.length !== 1 ? "s" : ""} ha${
-              blocksToCreate.length !== 1 ? "ve" : "s"
-            } been created`,
-            duration: 3,
-          });
+      } catch (error) {
+        messageApi.error({
+          content: error.message || error.detail.message,
+          duration: 3,
         });
-    } catch (error) {
-      messageApi.error({
-        content: error.message || error.detail.message,
-        duration: 3,
+      }
+    }
+
+    const blocksToCompare = blocks.filter((block) => block.q_id);
+
+    if (blocksToCompare.length !== 0) {
+      blocksToCompare.forEach((block) => {
+        const initialBlock = initialBlocks.find(
+          ({ q_id }) => q_id === block.q_id
+        );
+        if (compareTestQuestion(block, initialBlock)) {
+          // update question on server
+          const {
+            q_id: question_id,
+            q_text,
+            q_score,
+            q_number,
+            image_path,
+          } = block;
+
+          const questionData =
+            block.q_type === "question_with_photo"
+              ? { q_text, q_score, q_number, image_path }
+              : { q_text, q_score, q_number };
+
+          try {
+            dispatch(
+              updateTestQuestionThunk({ testId, question_id, questionData })
+            )
+              .unwrap()
+              .then(() => {
+                messageApi.success({
+                  content: "Question has been updated",
+                  duration: 3,
+                });
+              });
+          } catch (error) {
+            messageApi.error({
+              content: error.message,
+              duration: 3,
+            });
+          }
+        }
+
+        const answersToCreate = block.answers.filter((answer) => !answer.a_id);
+        if (answersToCreate.length !== 0) {
+          // create new answers on server
+        }
+        const answersToCompare = block.answers.filter((answer) => answer.a_id);
+
+        if (answersToCompare.length !== 0) {
+          answersToCompare.forEach((answer) => {
+            const initialAnswer = initialBlock.answers.find(
+              ({ a_id }) => answer.a_id === a_id
+            );
+            if (compareTestAnswer(answer, initialAnswer, block.q_type)) {
+              // update answer on server
+            }
+          });
+        }
       });
     }
   };
@@ -335,6 +432,7 @@ const TestConstructor = ({ attempts, initialBlocks, score, testId }) => {
         changeTestMetaData={changeTestMetaData}
         blocksScore={blocksScore}
         handleSaveTestParts={handleSave}
+        isLoading={isLoading}
       />
     </div>
   );

@@ -57,15 +57,14 @@ const TaskContructor = () => {
         );
       case "test":
         console.log(task);
-        const { attempts, questions, score, test_id } = task.test_data;
         return (
           <>
             <TestHeader test={task} />
             <TestConstructor
-              attempts={attempts}
-              initialBlocks={questions}
-              score={score}
-              testId={test_id}
+              attempts={task.test_data?.attempts}
+              initialBlocks={task.test_data?.questions}
+              score={task.test_data?.score}
+              testId={task.test_data?.test_id}
             />
           </>
         );

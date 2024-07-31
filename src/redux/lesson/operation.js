@@ -5,10 +5,12 @@ import {
   createLectureAttribute,
   createTestQuestions,
   deleteLectureAttribute,
+  deleteTestAnswer,
   deleteTestQuestion,
   getLessonById,
   updateLectureAttribute,
   updateTestMetaData,
+  updateTestQuestion,
 } from "../../http/services/lesson";
 import { store } from "../store";
 import { getCoursesThunk } from "../course/operations";
@@ -149,6 +151,34 @@ export const deleteTestQuestionThunk = createAsyncThunk(
   async ({ question_id }, { rejectWithValue }) => {
     try {
       await deleteTestQuestion(question_id);
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const deleteTestAnswerThunk = createAsyncThunk(
+  "lesson/deleteTestAnswer",
+  async ({ answer_id }, { rejectWithValue }) => {
+    try {
+      await deleteTestAnswer(answer_id);
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const updateTestQuestionThunk = createAsyncThunk(
+  "lesson/updateTestQuestion",
+  async ({ question_id, questionData }, { rejectWithValue }) => {
+    try {
+      await updateTestQuestion(question_id, questionData);
     } catch (error) {
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,

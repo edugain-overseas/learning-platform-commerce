@@ -68,3 +68,50 @@ export const compareLecturePart = (obj1, obj2, a_type) => {
       return false;
   }
 };
+
+export const compareTestQuestion = (questionFromClient, questionFromServer) => {
+  const baseKeysToCompare = ["q_text", "q_score", "q_number"];
+
+  switch (questionFromClient.q_type) {
+    case "question_with_photo":
+      return compareObjectsByKeys(questionFromClient, questionFromServer, [
+        ...baseKeysToCompare,
+        "image_path",
+      ]);
+
+    default:
+      return compareObjectsByKeys(
+        questionFromClient,
+        questionFromServer,
+        baseKeysToCompare
+      );
+  }
+};
+
+export const compareTestAnswer = (
+  answerFromClient,
+  answerFromServer,
+  q_type
+) => {
+  const baseKeysToCompare = ["a_text", "is_correct"];
+
+  switch (q_type) {
+    case "answer_with_photo":
+      return compareObjectsByKeys(answerFromClient, answerFromServer, [
+        ...baseKeysToCompare,
+        "image_path",
+      ]);
+    case "matching":
+      return compareObjectsByKeys(answerFromClient, answerFromServer, [
+        "right_text",
+        "left_text",
+      ]);
+
+    default:
+      return compareObjectsByKeys(
+        answerFromClient,
+        answerFromServer,
+        baseKeysToCompare
+      );
+  }
+};
