@@ -1,12 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   createLectureAttributesThunk,
+  createTestAnswerThunk,
+  createTestMatchingPairThunk,
   createTestQuestionsThunk,
   deleteLectureAttributeThunk,
   deleteTestAnswerThunk,
+  deleteTestMatchingPairThunk,
   deleteTestQuestionThunk,
   getLessonByIdThunk,
   updateLectureAttributesThunk,
+  updateTestAnswerThunk,
+  updateTestMatchingPairThunk,
   updateTestMetaDataThunk,
   updateTestQuestionThunk,
 } from "./operation";
@@ -217,6 +222,159 @@ const lessonSlice = createSlice({
         state.error = { code: payload.code, message: payload.message };
       })
 
+      .addCase(createTestAnswerThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(createTestAnswerThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { testId, question_id } = action.meta.arg;
+
+        const lessonIndex = state.lessons.findIndex(
+          (lesson) => lesson.test_data?.test_id === testId
+        );
+        if (lessonIndex !== -1) {
+          const questionIndex = state.lessons[
+            lessonIndex
+          ].test_data.questions.findIndex(
+            (question) => question.q_id === question_id
+          );
+
+          if (questionIndex !== -1) {
+            state.lessons[lessonIndex].test_data.questions[
+              questionIndex
+            ].answers.push(action.payload);
+          }
+        }
+      })
+      .addCase(createTestAnswerThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
+      .addCase(createTestMatchingPairThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(createTestMatchingPairThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { testId, question_id } = action.meta.arg;
+
+        const lessonIndex = state.lessons.findIndex(
+          (lesson) => lesson.test_data?.test_id === testId
+        );
+        if (lessonIndex !== -1) {
+          const questionIndex = state.lessons[
+            lessonIndex
+          ].test_data.questions.findIndex(
+            (question) => question.q_id === question_id
+          );
+
+          if (questionIndex !== -1) {
+            state.lessons[lessonIndex].test_data.questions[
+              questionIndex
+            ].answers.left.push({
+              value: action.payload.left_text,
+              id: action.payload.left_id,
+            });
+            state.lessons[lessonIndex].test_data.questions[
+              questionIndex
+            ].answers.right.push({
+              value: action.payload.right_text,
+              id: action.payload.right_id,
+            });
+          }
+        }
+      })
+      .addCase(createTestMatchingPairThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
+      .addCase(updateTestAnswerThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateTestAnswerThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { testId, question_id, answer_id, answerData } = action.meta.arg;
+
+        const lessonIndex = state.lessons.findIndex(
+          (lesson) => lesson.test_data?.test_id === testId
+        );
+        if (lessonIndex !== -1) {
+          const questionIndex = state.lessons[
+            lessonIndex
+          ].test_data.questions.findIndex(
+            (question) => question.q_id === question_id
+          );
+
+          if (questionIndex !== -1) {
+            const answerIndex = state.lessons[lessonIndex].test_data.questions[
+              questionIndex
+            ].answers.findIndex((answer) => answer.a_id === answer_id);
+
+            if (answerIndex !== -1) {
+              state.lessons[lessonIndex].test_data.questions[
+                questionIndex
+              ].answers[answerIndex] = { a_id: answer_id, ...answerData };
+            }
+          }
+        }
+      })
+      .addCase(updateTestAnswerThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
+      .addCase(updateTestMatchingPairThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateTestMatchingPairThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { testId, question_id, left_option_id, pairData } =
+          action.meta.arg;
+
+        const lessonIndex = state.lessons.findIndex(
+          (lesson) => lesson.test_data?.test_id === testId
+        );
+        if (lessonIndex !== -1) {
+          const questionIndex = state.lessons[
+            lessonIndex
+          ].test_data.questions.findIndex(
+            (question) => question.q_id === question_id
+          );
+
+          if (questionIndex !== -1) {
+            const leftOptionIndex = state.lessons[
+              lessonIndex
+            ].test_data.questions[questionIndex].answers.left.find(
+              ({ id }) => id === left_option_id
+            );
+            const rightOptionIndex = state.lessons[
+              lessonIndex
+            ].test_data.questions[questionIndex].answers.right.find(
+              ({ id }) => id === left_option_id
+            );
+            if (leftOptionIndex) {
+              state.lessons[lessonIndex].test_data.questions[
+                questionIndex
+              ].answers.left[leftOptionIndex].value = pairData.left_text;
+            }
+            if (rightOptionIndex) {
+              state.lessons[lessonIndex].test_data.questions[
+                questionIndex
+              ].answers.right[rightOptionIndex].value = pairData.right_text;
+            }
+          }
+        }
+      })
+      .addCase(updateTestMatchingPairThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
       .addCase(deleteTestAnswerThunk.pending, (state, _) => {
         state.isLoading = true;
         state.error = null;
@@ -231,15 +389,57 @@ const lessonSlice = createSlice({
         if (lessonIndex !== -1) {
           state.lessons[lessonIndex].test_data.questions = state.lessons[
             lessonIndex
-          ].test_data.questions.map((question) => ({
-            ...question,
-            answers: question.answers.filter(
-              (answer) => answer.a_id !== answer_id
-            ),
-          }));
+          ].test_data.questions.map((question) => {
+            if (question.q_type !== "matching") {
+              return {
+                ...question,
+                answers: question.answers.filter(
+                  (answer) => answer.a_id !== answer_id
+                ),
+              };
+            }
+            return question;
+          });
         }
       })
       .addCase(deleteTestAnswerThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
+      .addCase(deleteTestMatchingPairThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteTestMatchingPairThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { testId, left_option_id } = action.meta.arg;
+
+        const lessonIndex = state.lessons.findIndex(
+          (lesson) => lesson.test_data?.test_id === testId
+        );
+        if (lessonIndex !== -1) {
+          state.lessons[lessonIndex].test_data.questions = state.lessons[
+            lessonIndex
+          ].test_data.questions.map((question) => {
+            if (question.q_type === "matching") {
+              return {
+                ...question,
+                answers: {
+                  left: question.answers.left.filter(
+                    ({ id }) => id !== left_option_id
+                  ),
+                  right: question.answers.right.filter(
+                    ({ id }) => id !== left_option_id
+                  ),
+                },
+              };
+            }
+            return question;
+          });
+        }
+      })
+      .addCase(deleteTestMatchingPairThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = { code: payload.code, message: payload.message };
       });

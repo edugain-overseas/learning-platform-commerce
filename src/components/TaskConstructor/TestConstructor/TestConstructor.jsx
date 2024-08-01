@@ -12,9 +12,14 @@ import ToolsPanel from "./ToolsPanel";
 import useMessage from "antd/es/message/useMessage";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  createTestAnswerThunk,
+  createTestMatchingPairThunk,
   createTestQuestionsThunk,
   deleteTestAnswerThunk,
+  deleteTestMatchingPairThunk,
   deleteTestQuestionThunk,
+  updateTestAnswerThunk,
+  updateTestMatchingPairThunk,
   updateTestMetaDataThunk,
   updateTestQuestionThunk,
 } from "../../../redux/lesson/operation";
@@ -145,7 +150,7 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
       prev.map((block) => {
         if (block.id !== id) return block;
 
-        if (block.answers[optionIndex].a_id) {
+        if (block.answers[optionIndex].a_id && block.q_type !== "matching") {
           try {
             dispatch(
               deleteTestAnswerThunk({
@@ -157,6 +162,30 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
               .then(() => {
                 messageApi.success({
                   content: "Answer has been deleted",
+                  duration: 3,
+                });
+              });
+          } catch (error) {
+            messageApi.error({
+              content: error.message || error.detail.message,
+              duration: 3,
+            });
+            return block;
+          }
+        }
+
+        if (block.answers[optionIndex].a_id && block.q_type === "matching") {
+          try {
+            dispatch(
+              deleteTestMatchingPairThunk({
+                testId,
+                left_option_id: block.answers[optionIndex].a_id,
+              })
+            )
+              .unwrap()
+              .then(() => {
+                messageApi.success({
+                  content: "Pair has been deleted",
                   duration: 3,
                 });
               });
@@ -345,8 +374,9 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
     const blocksToCompare = blocks.filter((block) => block.q_id);
 
     if (blocksToCompare.length !== 0) {
+      const formattedInitialBlocks = testQuestionsToBlocks(initialBlocks);
       blocksToCompare.forEach((block) => {
-        const initialBlock = initialBlocks.find(
+        const initialBlock = formattedInitialBlocks.find(
           ({ q_id }) => q_id === block.q_id
         );
         if (compareTestQuestion(block, initialBlock)) {
@@ -386,7 +416,83 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
         const answersToCreate = block.answers.filter((answer) => !answer.a_id);
         if (answersToCreate.length !== 0) {
           // create new answers on server
+          answersToCreate.forEach((answer) => {
+            if (block.q_type !== "matching") {
+              dispatch(
+                createTestAnswerThunk({
+                  testId,
+                  question_id: block.q_id,
+                  answerData: answer,
+                })
+              )
+                .unwrap()
+                .then((response) => {
+                  setBlocks((prev) =>
+                    prev.map((question) => {
+                      if (question.q_id !== block.q_id) {
+                        return question;
+                      }
+                      const prevAnswers = question.answers.filter(
+                        (answer) =>
+                          answer.a_text !== response.a_text ||
+                          answer.image_path !== response.image_path
+                      );
+                      return {
+                        ...question,
+                        answers: [...prevAnswers, response],
+                      };
+                    })
+                  );
+
+                  messageApi.success({
+                    content: "Answers has been added",
+                    duration: 3,
+                  });
+                });
+            }
+
+            if (block.q_type === "matching") {
+              dispatch(
+                createTestMatchingPairThunk({
+                  testId,
+                  question_id: block.q_id,
+                  pairData: answer,
+                })
+              )
+                .unwrap()
+                .then((response) => {
+                  setBlocks((prev) =>
+                    prev.map((question) => {
+                      if (question.q_id !== block.q_id) {
+                        return question;
+                      }
+                      const prevAnswers = question.answers.filter(
+                        (answer) =>
+                          answer.left_text !== response.left_text ||
+                          answer.right_text !== response.right_text
+                      );
+                      return {
+                        ...question,
+                        answers: [
+                          ...prevAnswers,
+                          {
+                            left_text: response.left_text,
+                            right_text: response.right_text,
+                            a_id: response.left_id,
+                          },
+                        ],
+                      };
+                    })
+                  );
+                  messageApi.success({
+                    content: "Pair has been created",
+                    duration: 3,
+                  });
+                });
+            }
+          });
         }
+
         const answersToCompare = block.answers.filter((answer) => answer.a_id);
 
         if (answersToCompare.length !== 0) {
@@ -396,6 +502,41 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
             );
             if (compareTestAnswer(answer, initialAnswer, block.q_type)) {
               // update answer on server
+              const { a_id, ...rest } = answer;
+              if (block.q_type !== "matching") {
+                dispatch(
+                  updateTestAnswerThunk({
+                    testId,
+                    question_id: block.q_id,
+                    answer_id: a_id,
+                    answerData: rest,
+                  })
+                )
+                  .unwrap()
+                  .then(() => {
+                    messageApi.success({
+                      content: "Answer has been updated",
+                      duration: 3,
+                    });
+                  });
+              }
+              if (block.q_type === "matching") {
+                dispatch(
+                  updateTestMatchingPairThunk({
+                    testId,
+                    question_id: block.q_id,
+                    left_option_id: a_id,
+                    pairData: rest,
+                  })
+                )
+                  .unwrap()
+                  .then(() => {
+                    messageApi.success({
+                      content: "Pair has been updated",
+                      duration: 3,
+                    });
+                  });
+              }
             }
           });
         }

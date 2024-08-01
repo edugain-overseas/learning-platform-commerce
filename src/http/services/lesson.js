@@ -147,10 +147,72 @@ export const deleteTestQuestion = async (question_id) => {
   }
 };
 
+export const createTestAnswer = async (answerData) => {
+  try {
+    const data = await privateRoutesHandler(
+      "post",
+      "test/answer/add",
+      answerData
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createTestMatchingPair = async (pairData) => {
+  try {
+    const data = await privateRoutesHandler(
+      "post",
+      "test/matching/add",
+      pairData
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+export const updateTestAnswer = async (answer_id, answerData) => {
+  try {
+    const data = await privateRoutesHandler(
+      "patch",
+      "test/answer/update",
+      answerData,
+      { params: { answer_id } }
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+export const updateTestMatchingPair = async (left_option_id, pairData) => {
+  try {
+    const data = await privateRoutesHandler(
+      "patch",
+      "test/matching/update",
+      pairData,
+      { params: { left_option_id } }
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const deleteTestAnswer = async (answer_id) => {
   try {
     await privateRoutesHandler("delete", "test/answer/delete", {
       params: { answer_id },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteTestMatchingPair = async (left_option_id) => {
+  try {
+    await privateRoutesHandler("delete", "test/matching/delete", {
+      params: { left_option_id },
     });
   } catch (error) {
     throw error;

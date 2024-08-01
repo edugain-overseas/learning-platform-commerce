@@ -3,12 +3,17 @@ import {
   confirmLecture,
   confirmTest,
   createLectureAttribute,
+  createTestAnswer,
+  createTestMatchingPair,
   createTestQuestions,
   deleteLectureAttribute,
   deleteTestAnswer,
+  deleteTestMatchingPair,
   deleteTestQuestion,
   getLessonById,
   updateLectureAttribute,
+  updateTestAnswer,
+  updateTestMatchingPair,
   updateTestMetaData,
   updateTestQuestion,
 } from "../../http/services/lesson";
@@ -160,6 +165,67 @@ export const deleteTestQuestionThunk = createAsyncThunk(
   }
 );
 
+export const createTestAnswerThunk = createAsyncThunk(
+  "lesson/createTestAnswer",
+  async ({ answerData, question_id }, { rejectWithValue }) => {
+    try {
+      const response = await createTestAnswer({ ...answerData, question_id });
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const createTestMatchingPairThunk = createAsyncThunk(
+  "lesson/createTestMatchingPair",
+  async ({ pairData, question_id }, { rejectWithValue }) => {
+    try {
+      const response = await createTestMatchingPair({
+        ...pairData,
+        question_id,
+      });
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const updateTestAnswerThunk = createAsyncThunk(
+  "lesson/updateTestAnswer",
+  async ({ answer_id, answerData }, { rejectWithValue }) => {
+    try {
+      await updateTestAnswer(answer_id, answerData);
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const updateTestMatchingPairThunk = createAsyncThunk(
+  "lesson/updateTestMatchingPair",
+  async ({ left_option_id, pairData }, { rejectWithValue }) => {
+    try {
+      await updateTestMatchingPair(left_option_id, pairData);
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
 export const deleteTestAnswerThunk = createAsyncThunk(
   "lesson/deleteTestAnswer",
   async ({ answer_id }, { rejectWithValue }) => {
@@ -179,6 +245,20 @@ export const updateTestQuestionThunk = createAsyncThunk(
   async ({ question_id, questionData }, { rejectWithValue }) => {
     try {
       await updateTestQuestion(question_id, questionData);
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const deleteTestMatchingPairThunk = createAsyncThunk(
+  "lesson/deleteTestMatchingPair",
+  async ({ left_option_id }, { rejectWithValue }) => {
+    try {
+      await deleteTestMatchingPair(left_option_id);
     } catch (error) {
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,

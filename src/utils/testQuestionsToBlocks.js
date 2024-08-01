@@ -3,7 +3,7 @@ export const testQuestionsToBlocks = (questions) => {
     if (question.q_type === "matching") {
       console.log(question);
       const answers = question.answers.left.map(({ id, value }) => ({
-        id: id,
+        a_id: id,
         left_text: value,
         right_text: question.answers.right.find(
           ({ id: rightId }) => rightId === id
