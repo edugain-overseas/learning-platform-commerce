@@ -4,6 +4,7 @@ import {
   createLessonInCourseThunk,
   getCourseDetailThunk,
   getCoursesThunk,
+  updateCourseThunk,
 } from "./operations";
 import { confirmLectureThunk } from "../lesson/operation";
 
@@ -77,6 +78,29 @@ const courseSlice = createSlice({
         state.courses.push({ ...payload, lessons: [], quantity_test: 0 });
       })
       .addCase(createCourseThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
+      .addCase(updateCourseThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateCourseThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { courseId, courseData } = action.meta.arg;
+        const courseIndex = state.courses.findIndex(
+          (course) => course.id === +courseId
+        );
+
+        if (courseIndex !== -1) {
+          state.courses[courseIndex] = {
+            ...state.courses[courseIndex],
+            ...courseData,
+          };
+        }
+      })
+      .addCase(updateCourseThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = { code: payload.code, message: payload.message };
       })

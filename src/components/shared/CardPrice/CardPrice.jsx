@@ -26,7 +26,7 @@ const CardPrice = ({
         transform: `scale(${size === "s" ? 1 : size === "m" ? 1.3 : 1.6})`,
       }}
     >
-      {oldPrice && (
+      {oldPrice ? (
         <div className={styles.oldPriceWrapper}>
           <span className={styles.dollarSign}>$</span>
           <div className={styles.info}>
@@ -34,7 +34,7 @@ const CardPrice = ({
             <span className={styles.value}>{priceFormatter(oldPrice)}</span>
           </div>
         </div>
-      )}
+      ) : null}
       <div className={styles.priceWrapper}>
         <span className={styles.dollarSign}>$</span>
         <div className={styles.info}>

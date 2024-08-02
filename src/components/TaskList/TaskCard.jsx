@@ -10,6 +10,7 @@ import styles from "./TaskList.module.scss";
 import { serverName } from "../../http/sever";
 
 const TaskCard = ({ task }) => {
+  console.log(task);
   return (
     <li
       className={`${styles.card} ${
@@ -54,7 +55,7 @@ const TaskCard = ({ task }) => {
               {task.type === "test" && (
                 <div className={styles.secondaryWrapper}>
                   <QuestionsIcon />
-                  <span>{`Questions: ${task.q_count}`}</span>
+                  <span>{`Questions: ${task.count_questions}`}</span>
                 </div>
               )}
             </>

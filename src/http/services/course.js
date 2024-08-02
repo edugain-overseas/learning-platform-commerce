@@ -27,10 +27,23 @@ export const createNewCourse = async (course) => {
   }
 };
 
+export const updateCourse = async (courseId, course) => {
+  try {
+    const data = privateRoutesHandler(
+      "put",
+      `/course/update/${courseId}`,
+      course
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const createLessonInCourse = async (lessonData) => {
   try {
     const data = privateRoutesHandler("post", "/lesson/create", lessonData);
-    return data
+    return data;
   } catch (error) {
     throw error;
   }

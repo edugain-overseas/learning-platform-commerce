@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useCart } from "../../../context/cartContext";
 import { ReactComponent as ArrowRightIcon } from "../../../images/icons/arrow-left.svg";
 import { ReactComponent as ClockIcon } from "../../../images/icons/clock.svg";
@@ -10,10 +11,9 @@ import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import CardGrade from "../../shared/CardGrade/CardGrade";
 import CardPrice from "../../shared/CardPrice/CardPrice";
-import styles from "./CourseCard.module.scss";
 import { serverName } from "../../../http/sever";
-import { useSelector } from "react-redux";
 import { getUserType } from "../../../redux/user/selectors";
+import styles from "./CourseCard.module.scss";
 
 const CourseCard = ({ course, purchased, disabled }) => {
   const { addItem, removeItem, cartItems } = useCart();

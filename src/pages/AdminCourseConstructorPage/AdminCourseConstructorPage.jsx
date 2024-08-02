@@ -3,7 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useHookFormMask } from "use-mask-input";
 import { useDispatch, useSelector } from "react-redux";
-import { createCourseThunk } from "../../redux/course/operations";
+import {
+  createCourseThunk,
+  updateCourseThunk,
+} from "../../redux/course/operations";
 import { getIsLoading } from "../../redux/course/selectors";
 import { ReactComponent as LaptopIcon } from "../../images/icons/laptop.svg";
 import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
@@ -27,10 +30,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const [messageApi, contextHolder] = useMessage();
   const isLoading = useSelector(getIsLoading);
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
-
-  console.log(courseData);
 
   const {
     register,
@@ -58,7 +58,6 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const registerWithMask = useHookFormMask(register);
 
   const onSubmit = (data) => {
-    console.log("formData: ", data);
     const courseData = {
       ...data,
       category_id: categoryId,
@@ -72,7 +71,6 @@ const AdminCourseConstructorPage = ({ courseData }) => {
 
     courseData.price = +data.price;
     courseData.old_price = courseData.old_price === "" ? null : +data.old_price;
-    console.log("courseData: ", courseData);
 
     if (!courseData.image_path) {
       messageApi.open({
@@ -91,17 +89,33 @@ const AdminCourseConstructorPage = ({ courseData }) => {
 
     if (!courseData.image_path || !courseData.category_id) return;
 
-    try {
-      dispatch(createCourseThunk({ data: courseData })).then(() =>
-        navigate("/courses")
-      );
-    } catch (error) {
-      console.log(error);
-      // messageApi.open({
-      //   type: "error",
-      //   content: error.message,
-      //   duration: 2.5,
-      // });
+    if (courseId) {
+      try {
+        dispatch(updateCourseThunk({ courseId, courseData }))
+          .unwrap()
+          .then(() => {
+            messageApi.success({
+              content: "Course succesfully updated",
+              duration: 3,
+            });
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        dispatch(createCourseThunk({ data: courseData }))
+          .unwrap()
+          .then(() => {
+            messageApi.success({
+              content: "Course has been created",
+              duration: 3,
+            });
+            navigate("/courses");
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -332,8 +346,13 @@ const AdminCourseConstructorPage = ({ courseData }) => {
               <img src={devices} alt="devices" />
             </div>
           </div>
-          <button type="submit" className={styles.createCourseBtn}>
-            <span>Create course</span>
+          <button
+            type="submit"
+            className={`${styles.createCourseBtn} ${
+              courseId ? styles.update : ""
+            }`}
+          >
+            <span>{`${courseId ? "Update" : "Create"}`} course</span>
             {isLoading && <Spinner contrastColor={true} />}
           </button>
         </form>

@@ -13,6 +13,9 @@
   background-color: var(--bg-rgba-default);
   box-shadow: var(--drop-shadow-button-main);
   backdrop-filter: blur(16rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   transition: background-color var(--transition-time-min) ease;
 
@@ -29,15 +32,21 @@
 .createBtn {
   --color: var(--content-datail-secondary);
   display: flex;
-  gap: 4rem;
   align-items: center;
-  font-size: 16rem;
+  flex-direction: column;
+  gap: 16rem;
+  font-size: 24rem;
   color: var(--color);
   transition: color var(--transition-time-min) ease;
 
+  svg {
+    width: 32rem;
+    height: 32rem;
+  }
+
   svg path {
-    stroke: var(--color);
-    stroke-opacity: 1;
-    transition: stroke var(--transition-time-min) ease;
+    fill: var(--color);
+    fill-opacity: 1;
+    transition: fill var(--transition-time-min) ease;
   }
 }

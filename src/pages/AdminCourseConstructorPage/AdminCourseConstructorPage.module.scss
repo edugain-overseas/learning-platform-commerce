@@ -328,4 +328,8 @@ div.priceWrapper {
   &:hover {
     opacity: 1;
   }
+
+  &.update {
+    background-color: var(--bg-button-edit);
+  }
 }

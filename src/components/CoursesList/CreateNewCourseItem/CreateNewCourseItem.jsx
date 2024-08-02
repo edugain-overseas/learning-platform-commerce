@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ReactComponent as PlusIcon } from "../../../images/icons/plusRounded.svg";
+import { ReactComponent as PlusIcon } from "../../../images/icons/plus.svg";
 import styles from "./CreateNewCourseItem.module.scss";
 
 const CreateNewCourseItem = () => {
@@ -9,7 +9,7 @@ const CreateNewCourseItem = () => {
       <Link className={styles.courseLink} to={`/course/constructor/new`}>
         <button className={styles.createBtn}>
           <PlusIcon />
-          <span>Create new Course</span>
+          <span>Create new course</span>
         </button>
       </Link>
     </li>
