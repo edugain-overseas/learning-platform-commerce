@@ -46,7 +46,6 @@ const ChatsFeed = () => {
     }
   };
 
-  console.log(messages);
   return (
     <div className={styles.chatFeedWrapper} ref={chatScrollerRef}>
       <div className={styles.chatScroller}>

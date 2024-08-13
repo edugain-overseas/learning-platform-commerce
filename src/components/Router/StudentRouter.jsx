@@ -19,7 +19,6 @@ import AboutIEUPage from "../../pages/AboutIEUPage/AboutIEUPage";
 import InstructionsPage from "../../pages/InstructionsPage/InstructionsPage";
 import InstructionsList from "../InstructionsList/InstructionsList";
 import InstructionContent from "../InstructionContent/InstructionContent";
-// import AdminCourseConstructorPage from "../../pages/AdminCourseConstructorPage/AdminCourseConstructorPage";
 
 const StudentRouter = () => {
   return (
@@ -50,7 +49,6 @@ const StudentRouter = () => {
           ))}
         </Route>
         <Route path="/*" element={<div>Not Found Page</div>} />
-        {/* <Route path="/*" element={<AdminCourseConstructorPage />} /> */}
       </Route>
     </Routes>
   );

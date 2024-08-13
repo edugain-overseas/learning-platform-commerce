@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./AdminCoursesDashboard.module.scss";
 import { useSelector } from "react-redux";
 import { getAllCourses } from "../../redux/course/selectors";
 import CoursesList from "../../components/CoursesList/CoursesList";
+import styles from "./AdminCoursesDashboard.module.scss";
 
 const AdminCoursesDashboard = () => {
   const courses = useSelector(getAllCourses);

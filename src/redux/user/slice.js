@@ -53,6 +53,13 @@ const userSlice = createSlice({
       window.location.href =
         "http://localhost:3000/learning-platform-commerce/login";
     },
+    moderJoinChat(state, { payload }) {
+      const chatId = payload;
+      const chatIndex = state.chats.findIndex((chat) => chat.id === chatId);
+      if (chatIndex !== -1) {
+        state.chats[chatIndex].status = "active";
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -286,5 +293,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { refreshTokenAction, refreshTonkenExpiredAction } = userSlice.actions;
+export const { refreshTokenAction, refreshTonkenExpiredAction, moderJoinChat } =
+  userSlice.actions;
 export default userSlice;

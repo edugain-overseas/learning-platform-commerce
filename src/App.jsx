@@ -1,10 +1,9 @@
 import { useSelector } from "react-redux";
-import { ChatProvider } from "./context/chatContext";
 import { getUserType } from "./redux/user/selectors";
 import { getRouterByUserType } from "./utils/getRouterByUserType";
+import { useInitialData } from "./hooks/useInitialData";
 import useAdjustFontSize from "./hooks/useAdjustFontSize";
 import useGoogleAuthentication from "./hooks/useGoogleAuthentication";
-import { useInitialData } from "./hooks/useInitialData";
 
 function App() {
   useGoogleAuthentication();
@@ -13,7 +12,7 @@ function App() {
 
   const userType = useSelector(getUserType);
 
-  return <ChatProvider>{getRouterByUserType(userType)}</ChatProvider>;
+  return getRouterByUserType(userType);
 }
 
 export default App;

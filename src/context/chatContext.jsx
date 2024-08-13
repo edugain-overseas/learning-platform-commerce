@@ -35,15 +35,18 @@ export const ChatProvider = ({ children }) => {
   const messages =
     chats.find(({ id }) => id === selectedChatId)?.messages || [];
 
+  // console.log(accessToken, userChats);
+
   useEffect(() => {
     if (accessToken) {
       const existingChatIds = webSockets.map(({ id }) => id);
 
-      webSockets.forEach(({ websocket }) => {
-        if (!userChats.some(({ id }) => id === websocket.id)) {
-          websocket.close();
-        }
-      });
+      // webSockets.forEach(({ websocket }) => {
+      //   if (!userChats.some(({ id }) => id === websocket.id)) {
+      //     console.log("close chats");
+      //     websocket.close();
+      //   }
+      // });
 
       const newWebSockets = userChats
         .filter(({ id }) => !existingChatIds.includes(id))
@@ -60,7 +63,7 @@ export const ChatProvider = ({ children }) => {
           };
           ws.onmessage = (event) => {
             const data = JSON.parse(event.data);
-            console.log('on message');
+            console.log("on message");
 
             // recieve chat history
             if (data.type === "chat-history") {
@@ -102,7 +105,6 @@ export const ChatProvider = ({ children }) => {
 
       setWebSockets((prev) => [...prev, ...newWebSockets]);
     }
-
 
     return () => {
       webSockets.forEach(({ websocket }) => {
