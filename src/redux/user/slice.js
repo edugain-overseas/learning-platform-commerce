@@ -147,6 +147,22 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(logoutThunk.rejected, (state, { payload }) => {
+        state.userId = null;
+        state.userType = null;
+        state.name = "";
+        state.username = "";
+        state.surname = "";
+        state.email = "";
+        state.phone = "";
+        state.country = "";
+        state.avatarURL = "";
+        state.activeTime = null;
+        state.accessToken = null;
+        state.courses = [];
+        state.balance = 0;
+        state.changedName = false;
+        state.changedSurname = false;
+
         state.isLoading = false;
         state.error = payload;
       })

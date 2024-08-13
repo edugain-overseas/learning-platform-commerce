@@ -115,8 +115,10 @@ const courseSlice = createSlice({
         const courseIndex = state.courses.findIndex(
           ({ id }) => id === action.meta.arg.course_id
         );
-        if (!courseIndex) return;
-        state.courses[courseIndex].lessons.push(action.payload);
+
+        if (courseIndex !== -1) {
+          state.courses[courseIndex].lessons.push(action.payload);
+        }
       })
       .addCase(createLessonInCourseThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
