@@ -1,14 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getUserType } from "../../redux/user/selectors";
 import { ReactComponent as ArrowRightIcon } from "../../images/icons/arrow-left.svg";
 import { ReactComponent as TaskViewIcon } from "../../images/icons/task-view.svg";
 import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
 import { ReactComponent as QuestionsIcon } from "../../images/icons/document-question.svg";
 import { ReactComponent as ComplietedIcon } from "../../images/icons/task-check.svg";
-import { Link } from "react-router-dom";
 import styles from "./TaskList.module.scss";
 
 const TaskRow = ({ task }) => {
-  console.log(task);
+  const isModer = useSelector(getUserType) === "moder";
+  const canUserGoToTask = (task.status && task.status !== "blocked") || isModer;
+
   return (
     <li
       className={`${styles.row} ${
@@ -16,8 +20,7 @@ const TaskRow = ({ task }) => {
       }`}
     >
       <Link
-        to={task.status ? `/task/${task.id}` : null}
-        // to={`/task/${task.id}`}
+        to={canUserGoToTask ? `/task/${task.id}` : null}
         className={styles.rowLink}
       >
         <div className={styles.titleWrapper}>

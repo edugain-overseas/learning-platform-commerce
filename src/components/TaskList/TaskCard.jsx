@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getUserType } from "../../redux/user/selectors";
+import { serverName } from "../../http/sever";
 import { ReactComponent as ArrowRightIcon } from "../../images/icons/arrow-left.svg";
 import { ReactComponent as TaskViewIcon } from "../../images/icons/task-view.svg";
 import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
@@ -7,10 +10,11 @@ import { ReactComponent as QuestionsIcon } from "../../images/icons/document-que
 import { ReactComponent as ComplietedIcon } from "../../images/icons/task-check.svg";
 import poster from "../../images/MedicineBackground.png";
 import styles from "./TaskList.module.scss";
-import { serverName } from "../../http/sever";
 
 const TaskCard = ({ task }) => {
-  console.log(task);
+  const isModer = useSelector(getUserType) === "moder";
+  const canUserGoToTask = (task.status && task.status !== "blocked") || isModer;
+
   return (
     <li
       className={`${styles.card} ${
@@ -18,7 +22,7 @@ const TaskCard = ({ task }) => {
       }`}
     >
       <Link
-        to={task.status !== "blocked" ? `/task/${task.id}` : null}
+        to={canUserGoToTask ? `/task/${task.id}` : null}
         className={styles.cardLink}
       >
         <img

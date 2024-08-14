@@ -27,6 +27,7 @@
   background: var(--bg-rgba-default);
   box-shadow: var(--drop-shadow-button-main-hover);
   backdrop-filter: blur(16rem);
+  max-height: 100%;
   overflow: auto;
 }
 

@@ -20,38 +20,36 @@ import InstructionsPage from "../../pages/InstructionsPage/InstructionsPage";
 import InstructionsList from "../InstructionsList/InstructionsList";
 import InstructionContent from "../InstructionContent/InstructionContent";
 
-const StudentRouter = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<CreateLessonModal />} />
-        <Route path="/registration" element={<SingUpForm />} />
-        <Route path="/login" element={<SingInForm />} />
-        <Route path="/courses" element={<CoursesPage />}>
-          {coursesLinks.map(({ to }) => (
-            <Route key={to} path={to} element={<CategoriesList />} />
-          ))}
-          <Route path="category/:categoryId" element={<CategoryDetailPage />} />
-        </Route>
-        <Route path="/course/:courseId" element={<CourseDetailPage />}>
-          {courseLinks.map(({ to, element }) => (
-            <Route key={to} path={to} element={element} />
-          ))}
-        </Route>
-        <Route path="/task/:taskId" element={<TaskPage />} />
-        <Route path="/me" element={<UserProfilePage />} />
-        <Route path="/aboutIEU" element={<AboutIEUPage />} />
-        <Route path="/instructions" element={<InstructionsPage />}>
-          {instructionsLinks.map(({ to }) => (
-            <Route path={to} key={to} element={<InstructionsList />}>
-              <Route path=":instructionId" element={<InstructionContent />} />
-            </Route>
-          ))}
-        </Route>
-        <Route path="/*" element={<div>Not Found Page</div>} />
+const StudentRouter = () => (
+  <Routes>
+    <Route path="/" element={<MainLayout />}>
+      <Route index element={<CreateLessonModal />} />
+      <Route path="/registration" element={<SingUpForm />} />
+      <Route path="/login" element={<SingInForm />} />
+      <Route path="/courses" element={<CoursesPage />}>
+        {coursesLinks.map(({ to }) => (
+          <Route key={to} path={to} element={<CategoriesList />} />
+        ))}
+        <Route path="category/:categoryId" element={<CategoryDetailPage />} />
       </Route>
-    </Routes>
-  );
-};
+      <Route path="/course/:courseId" element={<CourseDetailPage />}>
+        {courseLinks.map(({ to, element }) => (
+          <Route key={to} path={to} element={element} />
+        ))}
+      </Route>
+      <Route path="/task/:taskId" element={<TaskPage />} />
+      <Route path="/me" element={<UserProfilePage />} />
+      <Route path="/aboutIEU" element={<AboutIEUPage />} />
+      <Route path="/instructions" element={<InstructionsPage />}>
+        {instructionsLinks.map(({ to }) => (
+          <Route path={to} key={to} element={<InstructionsList />}>
+            <Route path=":instructionId" element={<InstructionContent />} />
+          </Route>
+        ))}
+      </Route>
+      <Route path="/*" element={<div>Not Found Page</div>} />
+    </Route>
+  </Routes>
+);
 
 export default StudentRouter;
