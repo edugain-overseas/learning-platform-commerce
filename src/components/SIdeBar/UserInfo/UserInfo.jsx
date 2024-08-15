@@ -3,8 +3,6 @@ import { useSelector } from "react-redux";
 import { getAccessToken, getUserInfo } from "../../../redux/user/selectors";
 import Avatar from "../../shared/Avatar/Avatar";
 import styles from "./UserInfo.module.scss";
-import { serverName } from "../../../http/sever";
-// import AvatarFallback from "../../shared/AvatarFallback/AvatarFallback";
 
 const UserInfo = () => {
   const accessToken = useSelector(getAccessToken);
@@ -13,22 +11,12 @@ const UserInfo = () => {
 
   const username = userInfo.username;
 
-  const handleUploadAvatar = (file) => {
-    console.log(file);
-  };
-
   const isModer = userInfo.userType === "moder";
 
   return (
     <div className={styles.wrapper} id="expanded">
       <Avatar
-        handleUpload={handleUploadAvatar}
-        editable={false}
-        src={
-          userInfo.avatarURL !== ""
-            ? `${serverName}/${userInfo.avatarURL}`
-            : null
-        }
+        src={userInfo.avatarURL}
       />
       <span className={styles.fullName}>
         {username === "" ? "User Name" : username}

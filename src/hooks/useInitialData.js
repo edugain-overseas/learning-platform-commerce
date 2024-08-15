@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getAccessToken, getUserType } from "../redux/user/selectors";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { instance } from "../http/instance";
 import { getUserInfoThunk } from "../redux/user/operations";
 import {
@@ -15,7 +15,7 @@ export const useInitialData = () => {
   const accessToken = useSelector(getAccessToken);
   const userType = useSelector(getUserType);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (accessToken) {
       instance.defaults.headers.Authorization = `Bearer ${accessToken}`;
       dispatch(getUserInfoThunk());

@@ -12,6 +12,7 @@ import styles from "./TaskList.module.scss";
 const TaskRow = ({ task }) => {
   const isModer = useSelector(getUserType) === "moder";
   const canUserGoToTask = (task.status && task.status !== "blocked") || isModer;
+  
 
   return (
     <li

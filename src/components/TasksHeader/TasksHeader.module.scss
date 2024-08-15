@@ -85,7 +85,113 @@
     }
   }
 
-  .complieteBtn {
+  .attemptsBtn {
+    width: 114rem;
+    height: 28rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8rem;
+    border-radius: 5rem;
+    border: 1rem solid var(--content-success);
+
+    span {
+      font-size: 14rem;
+      font-weight: 500;
+      color: var(--content-success);
+    }
+
+    svg {
+      width: 14rem;
+      height: 14rem;
+      color: var(--content-success);
+
+      g {
+        opacity: 1;
+      }
+    }
+  }
+
+  //test
+}
+
+// test attempts
+
+.attemptsTitle {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  span {
+    font-size: 16rem;
+    color: var(--content-main);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    width: 100%;
+    height: 1px;
+    border-radius: 30px;
+    background-color: var(--content-main);
+  }
+}
+
+.attemptsList {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 8rem;
+
+  li {
+    display: flex;
+    align-items: center;
+    padding-block: 8rem;
+
+    &:not(:last-child) {
+      border-bottom: 1rem solid var(--content-datail-secondary);
+    }
+  }
+
+  .marker {
+    font-size: 14rem;
+    color: var(--content-main);
+    margin-right: 2rem;
+    width: 1.5em;
+  }
+
+  .scoreData {
+    font-size: 16rem;
+    color: var(--content-main);
+    margin-right: 24rem;
+  }
+
+  .showAttemptDetailBtn {
+    width: 114rem;
+    height: 28rem;
+    border-radius: 5rem;
+    border: 1rem solid var(--content-datail-secondary);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+
+    margin-right: 12rem;
+
+    span {
+      font-size: 14rem;
+      font-weight: 500;
+      color: var(--content-datail-secondary);
+    }
+
+    svg {
+      width: 16rem;
+      height: 16rem;
+    }
+  }
+
+  .submitAttemptBtn {
     width: 114rem;
     height: 28rem;
     display: flex;
@@ -110,5 +216,10 @@
       }
     }
   }
-  //test
+}
+
+.testContentWrapper {
+  padding: 16rem;
+  height: 100%;
+  overflow-y: auto;
 }

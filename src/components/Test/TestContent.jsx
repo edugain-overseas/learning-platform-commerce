@@ -5,7 +5,6 @@ import QuestionMultipleChoice from "./Questions/QuestionMultipleChoice/QuestionM
 import QuestionPhotoAnswers from "./Questions/QuestionPhotoAnswers/QuestionPhotoAnswers";
 import QuestionPhoto from "./Questions/QuestionPhoto/QuestionPhoto";
 import QuestionMatching from "./Questions/QuestionMatching/QuestionMatching";
-import Textarea from "../shared/Textarea/Textarea";
 import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
 import styles from "./Test.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,12 +13,15 @@ import { getLessonNumberByType } from "../../utils/getLessonNumberByType";
 import CompleteBtn from "../shared/CompleteBtn/CompleteBtn";
 import { confirmTestThunk } from "../../redux/lesson/operation";
 
-const TestContent = ({ test, setStudentAnswersLength = () => {} }) => {
-  const [testTitle, setTestTitle] = useState(test?.title || "");
-  const [discription, setDiscription] = useState(test?.description || "");
+const TestContent = ({
+  test,
+  setStudentAnswersLength = () => {},
+  answers = null,
+}) => {
   const [confirmBtnState, setConfirmBtnState] = useState("default");
-  const [studentAnswers, setStudentAnswers] = useState([]);
-  const isEdit = false;
+  const [studentAnswers, setStudentAnswers] = useState(answers ? answers : []);
+
+  console.log(studentAnswers);
 
   const dispatch = useDispatch();
 
@@ -37,15 +39,6 @@ const TestContent = ({ test, setStudentAnswersLength = () => {} }) => {
   );
   const courseName = course?.title;
   const courseLessons = course?.lessons;
-
-  const onTitleChange = (value) => {
-    const valueWithoutPrefix = value.replace(`${courseName}: `, "");
-    setTestTitle(valueWithoutPrefix);
-  };
-
-  const onDiscriptionChange = (value) => {
-    setDiscription(value);
-  };
 
   const setSingleAnswerState = (id, value) => {
     setStudentAnswers((prev) => {
@@ -353,23 +346,17 @@ const TestContent = ({ test, setStudentAnswersLength = () => {} }) => {
   }, [studentAnswers]);
 
   return (
-    <div className={styles.contentWrapper}>
+    <div
+      className={styles.contentWrapper}
+      style={answers && { maxWidth: "100%", pointerEvents: "none" }}
+    >
       <div className={styles.testContent}>
         <div className={styles.header}>
-          {isEdit ? (
-            <Textarea
-              className={styles.titleInput}
-              fontSize={18}
-              value={`${courseName}: ${testTitle}`}
-              onChange={onTitleChange}
-              prefixStr={`${courseName}: `}
-            />
-          ) : (
-            <div className={styles.testName}>
-              <span className={styles.prefix}>{courseName}: </span>
-              <span className={styles.title}>{testTitle}</span>
-            </div>
-          )}
+          <div className={styles.testName}>
+            <span className={styles.prefix}>{courseName}: </span>
+            <span className={styles.title}>{test.title ? test.title : ""}</span>
+          </div>
+
           {courseLessons && courseLessons.length && (
             <div className={styles.testName}>
               <h2 className={styles.title}>
@@ -378,52 +365,37 @@ const TestContent = ({ test, setStudentAnswersLength = () => {} }) => {
               </h2>
             </div>
           )}
-          {isEdit ? (
-            <Textarea
-              className={styles.titleInput}
-              fontSize={14}
-              value={discription}
-              onChange={onDiscriptionChange}
+          <div className={styles.testName}>
+            <span className={styles.description}>
+              {test.description ? test.description : ""}
+            </span>
+          </div>
+        </div>
+        {testContent?.length !== 0 ? renderTestContent() : <Empty />}
+        {!answers && (
+          <div className={styles.bottomNavBtnsWrapper}>
+            <LessonNavigateBtn
+              forward={false}
+              currentNumber={test.number}
+              label="Return to previous"
+              width="200rem"
+              height="38rem"
             />
-          ) : (
-            <div className={styles.testName}>
-              <span className={styles.description}>{discription}</span>
-            </div>
-          )}
-        </div>
-        {isEdit ? (
-          //   <LectureConstructor
-          //     lectureId={lectureId}
-          //     lectureContent={lectureContent.map((item) => ({
-          //       ...item,
-          //       id: item.attributeId,
-          //     }))}
-          //   />
-          <div></div>
-        ) : testContent?.length !== 0 ? (
-          renderTestContent()
-        ) : (
-          <Empty />
+            {(status === "active" || status === "completed") && (
+              <CompleteBtn
+                onClick={handleConfirmTest}
+                state={confirmBtnState}
+              />
+            )}
+            <LessonNavigateBtn
+              forward={true}
+              currentNumber={test.number}
+              label="Move on to next"
+              width="200rem"
+              height="38rem"
+            />
+          </div>
         )}
-        <div className={styles.bottomNavBtnsWrapper}>
-          <LessonNavigateBtn
-            forward={false}
-            currentNumber={test.number}
-            label="Return to previous"
-            width="200rem"
-            height="38rem"
-          />
-          {(status === "active" || status === "completed") && (
-            <CompleteBtn onClick={handleConfirmTest} state={confirmBtnState} />
-          )}
-          <LessonNavigateBtn
-            forward={true}
-            currentNumber={test.number}
-            label="Move on to next"
-            width="200rem"
-            height="38rem"
-          />
-        </div>
       </div>
     </div>
   );

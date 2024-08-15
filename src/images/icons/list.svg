@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
     <g opacity="0.5" clip-path="url(#clip0_3134_6776)">
         <rect x="0.5" y="0.5" width="5.85714" height="5.85714" rx="1.78571"
-            stroke="#001C54" />
+            stroke="currentColor" />
         <rect x="0.5" y="9.64258" width="5.85714" height="5.85714" rx="1.78571"
-            stroke="#001C54" />
-        <rect x="9" y="2.5" width="6.85714" height="2" rx="1" fill="#001C54" />
+            stroke="currentColor" />
+        <rect x="9" y="2.5" width="6.85714" height="2" rx="1" fill="currentColor" />
         <rect x="9.14258" y="11.5" width="6.85714" height="2" rx="1"
-            fill="#001C54" />
+            fill="currentColor" />
     </g>
 </svg>

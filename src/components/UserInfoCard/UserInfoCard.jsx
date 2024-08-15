@@ -19,7 +19,6 @@ import {
   updateUsernameThunk,
 } from "../../redux/user/operations";
 import { validatePassword } from "../../utils/inputsValidateHandler";
-import { serverName } from "../../http/sever";
 
 const UserInfoCard = ({ userInfo }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -82,15 +81,7 @@ const UserInfoCard = ({ userInfo }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.avatarWrapper}>
-        <Avatar
-          size="117rem"
-          editable={false}
-          src={
-            userInfo.avatarURL !== ""
-              ? `${serverName}/${userInfo.avatarURL}`
-              : null
-          }
-        />
+        <Avatar size="117rem" editable={false} src={userInfo.avatarURL} />
         {isEdit && (
           <>
             <button className={styles.editBtn} onClick={handleOpenModal}>

@@ -9,6 +9,7 @@ import {
   deleteTestMatchingPairThunk,
   deleteTestQuestionThunk,
   getLessonByIdThunk,
+  getTestAttemptsThunk,
   updateLectureAttributesThunk,
   updateTestAnswerThunk,
   updateTestMatchingPairThunk,
@@ -121,7 +122,30 @@ const lessonSlice = createSlice({
         state.isLoading = false;
         state.error = { code: payload.code, message: payload.message };
       })
-      // Test reducers
+      // test reducers
+      .addCase(getTestAttemptsThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getTestAttemptsThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { test_id } = action.meta.arg;
+
+        const lessonIndex = state.lessons.findIndex(
+          (lesson) => lesson.test_data?.test_id === test_id
+        );
+        if (lessonIndex !== -1) {
+          state.lessons[lessonIndex].test_data = {
+            ...state.lessons[lessonIndex].test_data,
+            attempts_data: action.payload,
+          };
+        }
+      })
+      .addCase(getTestAttemptsThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
       .addCase(updateTestMetaDataThunk.pending, (state, _) => {
         state.isLoading = true;
         state.error = null;

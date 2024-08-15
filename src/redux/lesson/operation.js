@@ -11,6 +11,7 @@ import {
   deleteTestMatchingPair,
   deleteTestQuestion,
   getLessonById,
+  getTestAttempts,
   updateLectureAttribute,
   updateTestAnswer,
   updateTestMatchingPair,
@@ -63,6 +64,23 @@ export const confirmTestThunk = createAsyncThunk(
       // await getCourses();
       return response;
     } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const getTestAttemptsThunk = createAsyncThunk(
+  "lesson/getTestAttempts",
+  async ({ test_id }, { rejectWithValue }) => {
+    try {
+      const response = await getTestAttempts(test_id);
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,
         status: error.response ? error.response.status : null,

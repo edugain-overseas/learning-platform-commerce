@@ -31,6 +31,8 @@ const ProgressBar = ({
   disabled,
   className = "",
 }) => {
+
+  console.log(value);
   return (
     <div
       className={`${styles.outerWrapper} ${className}`}

@@ -7,7 +7,6 @@ import { ReactComponent as TaskViewIcon } from "../../images/icons/task-view.svg
 import { ReactComponent as TaskCompletedIcon } from "../../images/icons/task-completed.svg";
 import CircleProgressCard from "../../components/CircleProgressCard/CircleProgressCard";
 import InfoBtn from "../../components/shared/InfoBtn/InfoBtn";
-import styles from "./UserProfilePage.module.scss";
 import { useSelector } from "react-redux";
 import {
   getActiveTime,
@@ -16,6 +15,7 @@ import {
 } from "../../redux/user/selectors";
 import { useActiveTime } from "../../context/activeTimeContext";
 import { convertMillisecondsToHoursAndMinutes } from "../../utils/millisecondsToSrt";
+import styles from "./UserProfilePage.module.scss";
 
 const UserProfilePage = () => {
   const [isOpen, setIsOpen] = useState(false);

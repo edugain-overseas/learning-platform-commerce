@@ -21,16 +21,11 @@ export const getLessonById = async (lessonId) => {
 
 export const confirmLecture = async (lessonId) => {
   try {
-    const data = await privateRoutesHandler(
-      "post",
-      "/lesson/lecture/confirm",
-      null,
-      {
-        params: {
-          lesson_id: lessonId,
-        },
-      }
-    );
+    const data = await privateRoutesHandler("post", "/lecture/confirm", null, {
+      params: {
+        lesson_id: lessonId,
+      },
+    });
     return data;
   } catch (error) {
     throw error;
@@ -39,9 +34,48 @@ export const confirmLecture = async (lessonId) => {
 
 export const confirmTest = async (lessonId, studentTest) => {
   try {
-    const data = await privateRoutesHandler("post", "/lesson/student-test", {
+    const data = await privateRoutesHandler("post", "/student-test/send", {
       lesson_id: lessonId,
       student_answers: studentTest,
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getTestAttempts = async (test_id) => {
+  try {
+    console.log(test_id);
+
+    const data = await privateRoutesHandler(
+      "get",
+      `/student-test/attempts?test_id=${test_id}`
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getTestAttemptById = async (attempt_id) => {
+  try {
+    const data = await privateRoutesHandler(
+      "get",
+      `/student-test/attempt/${attempt_id}`
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const submitTestAttempt = async (attempt_id, student_id, lesson_id) => {
+  try {
+    const data = await privateRoutesHandler("get", "/student-test/submit/", {
+      attempt_id,
+      student_id,
+      lesson_id,
     });
     return data;
   } catch (error) {

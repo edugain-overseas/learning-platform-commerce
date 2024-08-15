@@ -1,0 +1,8 @@
+.custom-popover .ant-popover-content .ant-popover-inner,
+.custom-popover .ant-popover-content .ant-popover-inner {
+  background-color: var(--bg-rgba-primary);
+  backdrop-filter: blur(28rem);
+  border-radius: 5rem;
+
+  /* --antd-arrow-background-color: var(--bg-rgba-default); */
+}

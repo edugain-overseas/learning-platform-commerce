@@ -15,6 +15,7 @@ const useGoogleAuthentication = () => {
       const IdConfiguration = {
         client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
         callback: handleCredentialResponse,
+        use_fedcm_for_prompt: false,
       };
 
       try {

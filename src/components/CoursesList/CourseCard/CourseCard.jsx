@@ -92,7 +92,7 @@ const CourseCard = ({ course, purchased, disabled }) => {
               <div className={styles.progressWrapper}>
                 <span>Progress:</span>
                 <ProgressBar
-                  value={progress}
+                  value={purchased ? progress : 0}
                   width={104}
                   height={14}
                   disabled={!purchased}

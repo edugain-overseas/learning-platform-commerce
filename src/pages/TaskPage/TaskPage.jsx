@@ -11,17 +11,17 @@ const TaskPage = () => {
   const { taskId } = useParams();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (taskId) {
-      dispatch(getLessonByIdThunk(+taskId));
-    }
-    // eslint-disable-next-line
-  }, [taskId]);
-
   const lessons = useSelector(getAllLessons);
 
   const task = lessons.find(({ id }) => id === +taskId);
   const taskType = task?.type;
+
+  useEffect(() => {
+    if (taskId && !task) {
+      dispatch(getLessonByIdThunk(+taskId));
+    }
+    // eslint-disable-next-line
+  }, [taskId]);
 
   return (
     <div className={styles.pageWrapper}>

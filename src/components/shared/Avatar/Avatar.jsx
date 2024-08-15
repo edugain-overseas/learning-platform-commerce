@@ -1,22 +1,27 @@
-import React, { useRef } from "react";
-import { ReactComponent as EditIcon } from "../../../images/icons/edit.svg";
+import React from "react";
 import styles from "./Avatar.module.scss";
 import AvatarFallback from "../AvatarFallback/AvatarFallback";
+import { serverName } from "../../../http/sever";
 
-const Avatar = ({
-  size = "76rem",
-  src,
-  handleUpload = () => {},
-  editable = true,
-  alt,
-}) => {
-  const inputRef = useRef(null);
+const Avatar = ({ size = "76rem", src, alt = "" }) => {
+  if (!src) {
+    return (
+      <div
+        className={styles.avatarWrapper}
+        style={{
+          width: size,
+          height: size,
+        }}
+      >
+        <AvatarFallback size={size} />
+      </div>
+    );
+  }
 
-  const onChange = (e) => {
-    const file = e.target.files[0];
-    console.log(file);
-    handleUpload(file);
-  };
+  const isGoogleAvatar = src.includes("https://");
+  const googleSrc = src;
+  const notGoogleSrc = `${serverName}/${src}`;
+  const avatarSrc = isGoogleAvatar ? googleSrc : notGoogleSrc;
 
   return (
     <div
@@ -24,23 +29,9 @@ const Avatar = ({
       style={{
         width: size,
         height: size,
-        pointerEvents: editable ? "auto" : "none",
       }}
     >
-      {src ? <img src={src} alt={alt} /> : <AvatarFallback size={size} />}
-      <button
-        className={styles.editBtn}
-        onClick={() => inputRef.current.click()}
-      >
-        <EditIcon />
-        <span>Edit</span>
-        <input
-          type="file"
-          accept="image/*"
-          ref={inputRef}
-          onChange={onChange}
-        />
-      </button>
+      <img src={avatarSrc} alt={alt} />
     </div>
   );
 };

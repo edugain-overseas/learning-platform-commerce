@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { getAllCourses } from "../../../redux/course/selectors";
 import { ReactComponent as ArrowDownIcon } from "../../../images/icons/arrow-left.svg";
 import styles from "./LessonNavigateBtn.module.scss";
+import useMessage from "antd/es/message/useMessage";
 
 const LessonNavigateBtn = ({
   forward = false,
@@ -17,6 +18,7 @@ const LessonNavigateBtn = ({
   const courses = useSelector(getAllCourses);
   const course = courses.find(({ id }) => id === +courseId);
   const courseLessons = course?.lessons || [];
+  const [messageApi, contextHolder] = useMessage();
 
   const courseSortedLessons = [...courseLessons]?.sort(
     (a, b) => a.number - b.number
@@ -30,25 +32,36 @@ const LessonNavigateBtn = ({
   });
 
   const handleNavigate = () => {
+    console.log(targetLesson);
+    if (targetLesson.status === "blocked") {
+      messageApi.info({
+        content: "You can not access this lesson becouse it is blocked",
+        duration: 3,
+      });
+      return;
+    }
     const targetLessonId = targetLesson.id;
     navigate(`/task/${targetLessonId}`);
   };
 
   return (
-    <button
-      className={`${styles.btn} ${forward ? styles.next : styles.prev}`}
-      onClick={handleNavigate}
-      style={{
-        width,
-        height,
-        flexDirection: forward ? "row-reverse" : "row",
-        opacity: targetLesson ? "1" : "0",
-        pointerEvents: targetLesson ? "auto" : "none",
-      }}
-    >
-      <ArrowDownIcon />
-      <span>{label}</span>
-    </button>
+    <>
+      {contextHolder}
+      <button
+        className={`${styles.btn} ${forward ? styles.next : styles.prev}`}
+        onClick={handleNavigate}
+        style={{
+          width,
+          height,
+          flexDirection: forward ? "row-reverse" : "row",
+          opacity: targetLesson ? "1" : "0",
+          pointerEvents: targetLesson ? "auto" : "none",
+        }}
+      >
+        <ArrowDownIcon />
+        <span>{label}</span>
+      </button>
+    </>
   );
 };
 
