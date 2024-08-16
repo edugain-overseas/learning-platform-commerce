@@ -144,3 +144,14 @@ span {
 .ant-image-preview-root img {
   width: auto;
 }
+
+/* rich text editor styles */
+.ql-align-center {
+  text-align: center;
+}
+.ql-align-right {
+  text-align: right;
+}
+.ql-align-justify {
+  text-align: justify;
+}

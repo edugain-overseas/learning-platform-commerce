@@ -59,9 +59,6 @@ export const confirmTestThunk = createAsyncThunk(
   async ({ lessonId, studentTest }, { rejectWithValue }) => {
     try {
       const response = await confirmTest(lessonId, studentTest);
-      console.log(response);
-      store.dispatch(getCoursesThunk());
-      // await getCourses();
       return response;
     } catch (error) {
       return rejectWithValue({
@@ -77,7 +74,6 @@ export const getTestAttemptsThunk = createAsyncThunk(
   async ({ test_id }, { rejectWithValue }) => {
     try {
       const response = await getTestAttempts(test_id);
-      console.log(response);
       return response;
     } catch (error) {
       console.log(error);

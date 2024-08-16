@@ -59,7 +59,7 @@ const TaskCard = ({ task }) => {
               {task.type === "test" && (
                 <div className={styles.secondaryWrapper}>
                   <QuestionsIcon />
-                  <span>{`Questions: ${task.count_questions}`}</span>
+                  <span>{`Questions: ${task.count_questions || 0}`}</span>
                 </div>
               )}
             </>

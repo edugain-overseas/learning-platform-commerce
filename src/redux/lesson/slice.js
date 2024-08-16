@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  confirmTestThunk,
   createLectureAttributesThunk,
   createTestAnswerThunk,
   createTestMatchingPairThunk,
@@ -123,6 +124,28 @@ const lessonSlice = createSlice({
         state.error = { code: payload.code, message: payload.message };
       })
       // test reducers
+      .addCase(confirmTestThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(confirmTestThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { lessonId } = action.meta.arg;
+
+        const { message, ...newAttempt } = action.payload;
+
+        const lessonIndex = state.lessons.findIndex(
+          (lesson) => lesson.id === lessonId
+        );
+        if (lessonIndex !== -1) {
+          state.lessons[lessonIndex].test_data.attempts_data.push(newAttempt);
+        }
+      })
+      .addCase(confirmTestThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
       .addCase(getTestAttemptsThunk.pending, (state, _) => {
         state.isLoading = true;
         state.error = null;

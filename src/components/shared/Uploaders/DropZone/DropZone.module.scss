@@ -8,6 +8,11 @@
   gap: 4rem;
   color: var(--color);
   transition: color var(--transition-time-default) ease;
+
+  p {
+    font-size: inherit;
+    text-align: center;
+  }
 }
 
 .uploadIcon {
@@ -20,9 +25,4 @@
 }
 .uploadIcon path:last-child {
   stroke-opacity: 0.5;
-}
-
-p {
-  font-size: inherit;
-  text-align: center;
 }

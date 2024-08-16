@@ -23,11 +23,10 @@ const AttemptsList = ({ test }) => {
     return null;
   }
 
-  const answers = attemptsDetails
-    .find(({ id }) => id === selectedAttemptId)
-    ?.data?.map(({ answer, ...rest }) => ({ ...rest, a_id: answer }));
+  const answers = attemptsDetails.find(
+    ({ id }) => id === selectedAttemptId
+  )?.data;
 
-  console.log(attemptsDetails);
 
   const handleOpenDetails = async (attempt) => {
     setSelectedAttemptId(attempt.id);
@@ -82,7 +81,7 @@ const AttemptsList = ({ test }) => {
       {answers && (
         <Modal
           width="80%"
-          height="60%"
+          height="80%"
           isOpen={isOpenModal}
           closeModal={() => setIsOpenModal(false)}
         >
@@ -95,9 +94,8 @@ const AttemptsList = ({ test }) => {
   );
 };
 
-const SumbitTest = ({ test }) => {
+const SubmitTest = ({ test }) => {
   const [isOpen, setIsOpen] = useState(false);
-  console.log(test);
 
   const handleOpenChange = (newOpen) => {
     setIsOpen(newOpen);
@@ -140,4 +138,4 @@ const SumbitTest = ({ test }) => {
   );
 };
 
-export default SumbitTest;
+export default SubmitTest;

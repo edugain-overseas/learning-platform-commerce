@@ -60,33 +60,15 @@ const IntroContent = ({ course = {}, courses = [] }) => {
         <div className={styles.textContentWrapper}>
           <h2 className={styles.courseName}>{courseName}</h2>
           <p
-            className={styles.courseAbout}
+            className={`${styles.courseAbout} ${styles.richTextWrapper}`}
             dangerouslySetInnerHTML={{ __html: introText }}
-          >
-            {/* In this course, you will learn the skills to understand today’s
-            economy and to succeed in today’s interconnected business world. In
-            this course, you will learn the skills to understand today’s economy
-            and to succeed in today’s interconnected business world. */}
-          </p>
+          ></p>
           <div className={styles.listWrapper}>
             <h4 className={styles.listTitle}>Skills you will learn:</h4>
             <div
-              className={styles.listItems}
+              className={`${styles.listItems} ${styles.richTextWrapper}`}
               dangerouslySetInnerHTML={{ __html: skillsText }}
-            >
-              {/* <ul>
-                <li className={styles.listItem}>
-                  Understanding essential economic principles and concepts;
-                </li>
-                <li className={styles.listItem}>
-                  Analyzing the production and consumption of goods and
-                  services;
-                </li>
-                <li className={styles.listItem}>
-                  Evaluation of international business strategies.
-                </li>
-              </ul> */}
-            </div>
+            ></div>
           </div>
           <p className={styles.programInfo}>
             This course is part of the <u>Mini-MBA</u> and{" "}
@@ -171,29 +153,9 @@ const IntroContent = ({ course = {}, courses = [] }) => {
         <div className={styles.textContentWrapper}>
           <h2 className={styles.courseName}>About this course</h2>
           <div
-            className={styles.textInfo}
+            className={`${styles.textInfo} ${styles.richTextWrapper}`}
             dangerouslySetInnerHTML={{ __html: aboutText }}
-          >
-            {/* <p className={styles.courseAbout}>
-              This course introduces basic economic concepts that are
-              fundamental to understand many of the issues faced by business
-              firms. Learn the processes that govern the production and
-              consumption of goods and services in a global economy:
-              Microeconomics and Macroeconomics.
-            </p>
-            <p className={styles.courseAbout}>
-              Understand important principles like price elasticity and the law
-              of supply and demand. This course also includes the different
-              economic systems around the globe, the essential business cycle
-              phases, the country analysis tool, and international business
-              strategies.
-            </p>
-            <p className={styles.courseAbout}>
-              You will also receive a short case study of the European Union
-              (EU) and the World Trade Organization (WTO) that summarizes the
-              key takeaways of this course.
-            </p> */}
-          </div>
+          ></div>
           <ul className={styles.advantagesList}>
             <li>
               <SchoolOnlineIcon />

@@ -6,3 +6,7 @@
 
   /* --antd-arrow-background-color: var(--bg-rgba-default); */
 }
+
+.ant-popover-content .ant-popover-inner .ant-popover-title {
+  margin-bottom: 20rem;
+}

@@ -12,16 +12,17 @@ import { getAllCourses } from "../../redux/course/selectors";
 import { getLessonNumberByType } from "../../utils/getLessonNumberByType";
 import CompleteBtn from "../shared/CompleteBtn/CompleteBtn";
 import { confirmTestThunk } from "../../redux/lesson/operation";
+import useMessage from "antd/es/message/useMessage";
 
 const TestContent = ({
   test,
   setStudentAnswersLength = () => {},
   answers = null,
+  closed = false,
 }) => {
   const [confirmBtnState, setConfirmBtnState] = useState("default");
   const [studentAnswers, setStudentAnswers] = useState(answers ? answers : []);
-
-  console.log(studentAnswers);
+  const [messageApi, contextHolder] = useMessage();
 
   const dispatch = useDispatch();
 
@@ -320,14 +321,27 @@ const TestContent = ({
     setConfirmBtnState("pending");
     dispatch(
       confirmTestThunk({ lessonId: testId, studentTest: studentAnswers })
-    ).then(() => {
-      setConfirmBtnState("fulfilled");
-      setStudentAnswers([]);
-    });
+    )
+      .unwrap()
+      .then((response) => {
+        // setConfirmBtnState("fulfilled");
+        setConfirmBtnState("default");
+        setStudentAnswers([]);
+
+        messageApi.success({
+          content: response.message,
+          duration: 5,
+        });
+      })
+      .catch((err) => {
+        messageApi.error({
+          content: err?.message,
+          duration: 3,
+        });
+      });
   };
 
   useEffect(() => {
-    console.log("update");
     setStudentAnswersLength(
       studentAnswers.filter((ans) => {
         if (
@@ -345,59 +359,75 @@ const TestContent = ({
     // eslint-disable-next-line
   }, [studentAnswers]);
 
-  return (
-    <div
-      className={styles.contentWrapper}
-      style={answers && { maxWidth: "100%", pointerEvents: "none" }}
-    >
-      <div className={styles.testContent}>
-        <div className={styles.header}>
-          <div className={styles.testName}>
-            <span className={styles.prefix}>{courseName}: </span>
-            <span className={styles.title}>{test.title ? test.title : ""}</span>
-          </div>
+  useEffect(() => {
+    setConfirmBtnState("fulfilled");
+  }, [closed]);
 
-          {courseLessons && courseLessons.length && (
+  return (
+    <>
+      {contextHolder}
+
+      <div
+        className={styles.contentWrapper}
+        style={
+          answers
+            ? { maxWidth: "100%", pointerEvents: "none" }
+            : closed
+            ? { pointerEvents: "none" }
+            : {}
+        }
+      >
+        <div className={styles.testContent}>
+          <div className={styles.header}>
             <div className={styles.testName}>
-              <h2 className={styles.title}>
-                <span className={styles.prefix}>Test №:</span>
-                {getLessonNumberByType(courseLessons, lessonType, testId)}
-              </h2>
+              <span className={styles.prefix}>{courseName}: </span>
+              <span className={styles.title}>
+                {test.title ? test.title : ""}
+              </span>
+            </div>
+
+            {courseLessons && courseLessons.length && (
+              <div className={styles.testName}>
+                <h2 className={styles.title}>
+                  <span className={styles.prefix}>Test №:</span>
+                  {getLessonNumberByType(courseLessons, lessonType, testId)}
+                </h2>
+              </div>
+            )}
+            <div className={styles.testName}>
+              <span className={styles.description}>
+                {test.description ? test.description : ""}
+              </span>
+            </div>
+          </div>
+          {testContent?.length !== 0 ? renderTestContent() : <Empty />}
+          {!answers && (
+            <div className={styles.bottomNavBtnsWrapper}>
+              <LessonNavigateBtn
+                forward={false}
+                currentNumber={test.number}
+                label="Return to previous"
+                width="200rem"
+                height="38rem"
+              />
+              {(status === "active" || status === "completed") && (
+                <CompleteBtn
+                  onClick={handleConfirmTest}
+                  state={confirmBtnState}
+                />
+              )}
+              <LessonNavigateBtn
+                forward={true}
+                currentNumber={test.number}
+                label="Move on to next"
+                width="200rem"
+                height="38rem"
+              />
             </div>
           )}
-          <div className={styles.testName}>
-            <span className={styles.description}>
-              {test.description ? test.description : ""}
-            </span>
-          </div>
         </div>
-        {testContent?.length !== 0 ? renderTestContent() : <Empty />}
-        {!answers && (
-          <div className={styles.bottomNavBtnsWrapper}>
-            <LessonNavigateBtn
-              forward={false}
-              currentNumber={test.number}
-              label="Return to previous"
-              width="200rem"
-              height="38rem"
-            />
-            {(status === "active" || status === "completed") && (
-              <CompleteBtn
-                onClick={handleConfirmTest}
-                state={confirmBtnState}
-              />
-            )}
-            <LessonNavigateBtn
-              forward={true}
-              currentNumber={test.number}
-              label="Move on to next"
-              width="200rem"
-              height="38rem"
-            />
-          </div>
-        )}
       </div>
-    </div>
+    </>
   );
 };
 

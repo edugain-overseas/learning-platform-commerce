@@ -22,6 +22,7 @@ import useMessage from "antd/es/message/useMessage";
 import FileUploader from "../../components/shared/Uploaders/FileUploader/FileUploader";
 import Spinner from "../../components/Spinner/Spinner";
 import styles from "./AdminCourseConstructorPage.module.scss";
+import RichInput from "./RichInput";
 
 const AdminCourseConstructorPage = ({ courseData }) => {
   const { courseId } = useParams();
@@ -36,6 +37,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm({
     defaultValues: courseData
       ? {
@@ -145,13 +147,18 @@ const AdminCourseConstructorPage = ({ courseData }) => {
               </div>
 
               <div className={styles.courseAbout}>
-                <Textarea
+                {/* <Textarea
                   placeholder="Course main information"
                   minRows={4}
                   maxRows={8}
                   {...register("intro_text", {
                     required: "Course main information is required",
                   })}
+                /> */}
+                <RichInput
+                  control={control}
+                  name="intro_text"
+                  placeholder="Course main information"
                 />
                 {errors.intro_text && (
                   <p className={styles.error}>{errors.intro_text.message}</p>
@@ -160,13 +167,18 @@ const AdminCourseConstructorPage = ({ courseData }) => {
               <div className={styles.listWrapper}>
                 <h4 className={styles.listTitle}>Skills you will learn:</h4>
                 <div className={styles.inputWrapper}>
-                  <Textarea
+                  {/* <Textarea
                     placeholder="Course skills information"
                     minRows={4}
                     maxRows={8}
                     {...register("skills_text", {
                       required: "Course skills information is required",
                     })}
+                  /> */}
+                  <RichInput
+                    control={control}
+                    name="skills_text"
+                    placeholder="Course skills information"
                   />
                   {errors.intro_text && (
                     <p className={styles.error}>{errors.skills_text.message}</p>
@@ -305,12 +317,17 @@ const AdminCourseConstructorPage = ({ courseData }) => {
               <h2 className={styles.courseName}>About this course</h2>
               <div className={styles.textInfo}>
                 <div className={styles.inputWrapper}>
-                  <Textarea
+                  {/* <Textarea
                     minRows={10}
                     maxRows={20}
                     {...register("about_text", {
                       required: "Course description is required",
                     })}
+                  /> */}
+                  <RichInput
+                    control={control}
+                    name="about_text"
+                    placeholder="Course about text"
                   />
                   {errors.about_text && (
                     <p className={styles.error}>{errors.about_text.message}</p>

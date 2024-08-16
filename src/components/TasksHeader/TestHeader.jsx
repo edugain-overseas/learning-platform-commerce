@@ -5,7 +5,7 @@ import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
 import styles from "./TasksHeader.module.scss";
 import { useSelector } from "react-redux";
 import { getUserType } from "../../redux/user/selectors";
-import SumbitTest from "./SumbitTest";
+import SubmitTest from "./SubmitTest";
 
 const TestHeader = ({ test, questionsDoneAmount = 0, testScore }) => {
   const { title, type, number, test_data: testData } = test;
@@ -28,7 +28,7 @@ const TestHeader = ({ test, questionsDoneAmount = 0, testScore }) => {
             {testScore ? (
               <CardGrade grade={testScore} maxGrade={testData?.score} />
             ) : (
-              <SumbitTest test={test} />
+              <SubmitTest test={test} />
             )}
           </>
         )}

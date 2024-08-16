@@ -142,11 +142,13 @@
   display: flex;
   flex-direction: column;
   padding-inline: 8rem;
+  max-height: 500rem;
+  overflow: auto;
 
   li {
     display: flex;
     align-items: center;
-    padding-block: 8rem;
+    padding-block: 12rem;
 
     &:not(:last-child) {
       border-bottom: 1rem solid var(--content-datail-secondary);
@@ -164,6 +166,7 @@
     font-size: 16rem;
     color: var(--content-main);
     margin-right: 24rem;
+    width: 4em;
   }
 
   .showAttemptDetailBtn {

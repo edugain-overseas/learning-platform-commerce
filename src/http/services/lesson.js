@@ -46,8 +46,6 @@ export const confirmTest = async (lessonId, studentTest) => {
 
 export const getTestAttempts = async (test_id) => {
   try {
-    console.log(test_id);
-
     const data = await privateRoutesHandler(
       "get",
       `/student-test/attempts?test_id=${test_id}`

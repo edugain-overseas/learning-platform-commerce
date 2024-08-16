@@ -19,6 +19,9 @@ const Test = ({ test }) => {
 
   const testId = test.test_data.test_id;
 
+  const isTestClosed =
+    test.test_data.attempts <= test.test_data.attempts_data?.length;
+
   useEffect(() => {
     if (testId) {
       dispatch(getTestAttemptsThunk({ test_id: testId }));
@@ -37,6 +40,7 @@ const Test = ({ test }) => {
         <TestContent
           test={{ ...test, status }}
           setStudentAnswersLength={setStudentAnswersLength}
+          closed={isTestClosed}
         />
         <div className={styles.progressWrapper}>
           <CourseAsideProgressPanel

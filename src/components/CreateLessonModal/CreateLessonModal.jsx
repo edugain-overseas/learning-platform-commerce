@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Select from "../shared/Select/Select";
 import CircleProgressBar from "../shared/CircleProgressBar/CircleProgressBar";
 import Textarea from "../shared/Textarea/Textarea";
+import RichTextEditor from "../shared/RichTextEditor/RichTextEditor";
 // import TextReader from "../TextReader/TextReader";
 
 const options = [
@@ -46,7 +47,7 @@ const CreateLessonModal = () => {
       <div>
         <CircleProgressBar strokeColor="#B8EAFF" strokeWidth={8} />
       </div>
-      <div>
+      <div style={{marginBottom: 50}}>
         <Textarea
           width="300rem"
           minRows={4}
@@ -54,6 +55,7 @@ const CreateLessonModal = () => {
           onChange={setTeaxtareaValue}
         />
       </div>
+      <RichTextEditor />
     </div>
   );
 };
