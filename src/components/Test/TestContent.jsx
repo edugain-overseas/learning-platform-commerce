@@ -1,40 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { Empty } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { confirmTestThunk } from "../../redux/lesson/operation";
+import { getAllCourses } from "../../redux/course/selectors";
+import { getLessonNumberByType } from "../../utils/getLessonNumberByType";
 import QuestionTest from "./Questions/QuestionTest/QuestionTest";
 import QuestionMultipleChoice from "./Questions/QuestionMultipleChoice/QuestionMultipleChoice";
 import QuestionPhotoAnswers from "./Questions/QuestionPhotoAnswers/QuestionPhotoAnswers";
 import QuestionPhoto from "./Questions/QuestionPhoto/QuestionPhoto";
 import QuestionMatching from "./Questions/QuestionMatching/QuestionMatching";
 import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
-import styles from "./Test.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllCourses } from "../../redux/course/selectors";
-import { getLessonNumberByType } from "../../utils/getLessonNumberByType";
 import CompleteBtn from "../shared/CompleteBtn/CompleteBtn";
-import { confirmTestThunk } from "../../redux/lesson/operation";
-import useMessage from "antd/es/message/useMessage";
+import styles from "./Test.module.scss";
+import {
+  convertMillisecondsToMinutesAndSeconds,
+  minutesToMilliseconds,
+} from "../../utils/formatTime";
 
 const TestContent = ({
   test,
   setStudentAnswersLength = () => {},
   answers = null,
   closed = false,
+  isExam = false,
+  attemptTime = null,
+  setAnswersToLocalStorage,
+  closeAttempt,
+  attemptFinished,
+  setAttemptFinished,
+  messageApi,
 }) => {
   const [confirmBtnState, setConfirmBtnState] = useState("default");
   const [studentAnswers, setStudentAnswers] = useState(answers ? answers : []);
-  const [messageApi, contextHolder] = useMessage();
 
   const dispatch = useDispatch();
 
-  const {
-    id: testId,
-    course_id: courseId,
-    type: lessonType,
-    test_data: testData,
-    status,
-  } = test;
+  const { id: testId, course_id: courseId, type: lessonType, status } = test;
+
+  const testData = lessonType === "exam" ? test.exam_data : test.test_data;
 
   const course = useSelector(getAllCourses)?.find(({ id }) => id === courseId);
+
   const testContent = [...testData?.questions].sort(
     (itemA, itemB) => itemA.a_number - itemB.a_number
   );
@@ -320,26 +326,52 @@ const TestContent = ({
   const handleConfirmTest = () => {
     setConfirmBtnState("pending");
     dispatch(
-      confirmTestThunk({ lessonId: testId, studentTest: studentAnswers })
+      confirmTestThunk({
+        lessonId: testId,
+        studentTest: studentAnswers,
+        lessonType,
+      })
     )
       .unwrap()
       .then((response) => {
-        // setConfirmBtnState("fulfilled");
-        setConfirmBtnState("default");
         setStudentAnswers([]);
 
         messageApi.success({
           content: response.message,
           duration: 5,
         });
+
+        if (isExam) {
+          closeAttempt();
+        }
       })
       .catch((err) => {
+        console.log(err);
         messageApi.error({
-          content: err?.message,
+          content: err?.detail,
           duration: 3,
         });
+      })
+      .finally(() => {
+        if (!closed) {
+          setConfirmBtnState("default");
+        } else {
+          setConfirmBtnState("fulfilled");
+        }
       });
   };
+
+  useEffect(() => {
+    if (attemptTime <= 0 && !attemptFinished) {
+      messageApi.info({
+        content: "Time is up!",
+        duration: 3,
+      });
+      setAttemptFinished(true);
+      handleConfirmTest();
+    }
+    // eslint-disable-next-line
+  }, [attemptTime]);
 
   useEffect(() => {
     setStudentAnswersLength(
@@ -356,21 +388,32 @@ const TestContent = ({
         return false;
       }).length
     );
+
+    if (isExam) {
+      setAnswersToLocalStorage(studentAnswers);
+    }
     // eslint-disable-next-line
   }, [studentAnswers]);
 
   useEffect(() => {
-    setConfirmBtnState("fulfilled");
+    if (closed) {
+      setConfirmBtnState("fulfilled");
+    }
   }, [closed]);
+
+  useEffect(() => {
+    if (answers) {
+      setStudentAnswers(answers);
+    }
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>
-      {contextHolder}
-
       <div
         className={styles.contentWrapper}
         style={
-          answers
+          answers && !isExam
             ? { maxWidth: "100%", pointerEvents: "none" }
             : closed
             ? { pointerEvents: "none" }
@@ -386,13 +429,43 @@ const TestContent = ({
               </span>
             </div>
 
-            {courseLessons && courseLessons.length && (
-              <div className={styles.testName}>
-                <h2 className={styles.title}>
-                  <span className={styles.prefix}>Test №:</span>
-                  {getLessonNumberByType(courseLessons, lessonType, testId)}
-                </h2>
+            {isExam ? (
+              <div className={`${styles.testName} ${styles.examTime}`}>
+                <span className={styles.prefix}>
+                  {`${
+                    convertMillisecondsToMinutesAndSeconds(
+                      minutesToMilliseconds(testData.timer)
+                    ).minutes
+                  }`.padStart(2, "0") +
+                    ":" +
+                    `${
+                      convertMillisecondsToMinutesAndSeconds(
+                        minutesToMilliseconds(testData.timer)
+                      ).seconds
+                    }`.padStart(2, "0")}
+                </span>
+                <span className={styles.divider}>/</span>
+                <span className={styles.currentTime}>
+                  {`${
+                    convertMillisecondsToMinutesAndSeconds(attemptTime).minutes
+                  }`.padStart(2, "0") +
+                    ":" +
+                    `${
+                      convertMillisecondsToMinutesAndSeconds(attemptTime)
+                        .seconds
+                    }`.padStart(2, "0")}
+                </span>
               </div>
+            ) : (
+              courseLessons &&
+              courseLessons.length && (
+                <div className={styles.testName}>
+                  <h2 className={styles.title}>
+                    <span className={styles.prefix}>Test №:</span>
+                    {getLessonNumberByType(courseLessons, lessonType, testId)}
+                  </h2>
+                </div>
+              )
             )}
             <div className={styles.testName}>
               <span className={styles.description}>
@@ -401,7 +474,7 @@ const TestContent = ({
             </div>
           </div>
           {testContent?.length !== 0 ? renderTestContent() : <Empty />}
-          {!answers && (
+          {(!answers || isExam) && (
             <div className={styles.bottomNavBtnsWrapper}>
               <LessonNavigateBtn
                 forward={false}

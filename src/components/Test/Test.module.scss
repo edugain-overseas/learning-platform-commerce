@@ -27,18 +27,8 @@
 .testContent {
   label {
     width: fit-content;
-    cursor: pointer
+    cursor: pointer;
   }
-  
-  // input[type="radio"] {
-  //   width: 12rem;
-  //   height: 12rem;
-  // }
-
-  // input[type="checkbox"] {
-  //   width: 12rem;
-  //   height: 12rem;
-  // }
 }
 
 .header {
@@ -61,6 +51,26 @@
 
   & > span {
     white-space: normal;
+  }
+}
+
+.examTime {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+
+  font-size: 18rem;
+  font-weight: 500;
+  line-height: 1.2;
+
+  .divider {
+    color: var(--content-datail-secondary);
+  }
+
+  .currentTime {
+    color: var(--content-main);
+    font-variant-numeric: tabular-nums;
   }
 }
 

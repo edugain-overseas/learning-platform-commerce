@@ -10,8 +10,22 @@ const useLocalStorage = (key, initialValue) => {
   });
 
   useEffect(() => {
+    if (key === null) {
+      return;
+    }
     localStorage.setItem(key, JSON.stringify(value));
-  }, [key, value]);
+    
+    // eslint-disable-next-line
+  }, [value]);
+
+  useEffect(() => {
+    if (key) {
+      const jsonValue = localStorage.getItem(key);
+      if (jsonValue !== null) {
+        setValue(JSON.parse(jsonValue));
+      }
+    }
+  }, [key]);
 
   return [value, setValue];
 };

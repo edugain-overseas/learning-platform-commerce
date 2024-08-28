@@ -17,6 +17,7 @@
 
 .toolsWrapper {
   width: 25%;
+  flex-shrink: 0;
   height: fit-content;
   max-height: 100%;
 }

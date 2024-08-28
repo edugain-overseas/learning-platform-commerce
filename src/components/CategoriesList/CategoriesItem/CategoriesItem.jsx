@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import CoursesList from "../../CoursesList/CoursesList";
 import { useSelector } from "react-redux";
 import { getAllCourses } from "../../../redux/course/selectors";
-import { getUserCourses } from "../../../redux/user/selectors";
+import { getUserCourses, getUserType } from "../../../redux/user/selectors";
 import { useListMode } from "../../../context/ListModeContext";
 import { ReactComponent as BMIcon } from "../../../images/icons/bm.svg";
 import { ReactComponent as ChevronIcon } from "../../../images/icons/arrowDown.svg";
@@ -17,6 +17,7 @@ const CategoriesItem = ({ category }) => {
 
   const courses = useSelector(getAllCourses);
   const userCourses = useSelector(getUserCourses);
+  const isModer = useSelector(getUserType) === "moder";
 
   const { listModeIndex } = useListMode();
 
@@ -25,7 +26,7 @@ const CategoriesItem = ({ category }) => {
   );
 
   const userCoursesinCategory = categoryCourses.filter(({ id }) =>
-    userCourses.find(({ course_id }) => course_id === id)
+    userCourses?.find(({ course_id }) => course_id === id)
   );
 
   const progress =
@@ -62,17 +63,21 @@ const CategoriesItem = ({ category }) => {
           </div>
         </Link>
         <div className={styles.tools}>
-          <p>
-            <span>Purchased: </span>
-            {`${userCoursesinCategory.length} / ${categoryCourses.length}`}
-          </p>
-          <div className={styles.progressWrapper}>
-            <span>Progress:</span>
-            <ProgressBar
-              value={progress}
-              disabled={userCoursesinCategory.length === 0}
-            />
-          </div>
+          {!isModer && (
+            <>
+              <p>
+                <span>Purchased: </span>
+                {`${userCoursesinCategory.length} / ${categoryCourses.length}`}
+              </p>
+              <div className={styles.progressWrapper}>
+                <span>Progress:</span>
+                <ProgressBar
+                  value={progress}
+                  disabled={userCoursesinCategory.length === 0}
+                />
+              </div>
+            </>
+          )}
           <div className={styles.infoWrapper}>
             <span>Info the courses</span>
             <InfoBtn infoContent={category.description} orientation="bottom" />

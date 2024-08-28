@@ -23,7 +23,8 @@ const CoursesList = ({ courses }) => {
         const purchased = userCourses.find(
           (userCourse) =>
             userCourse.course_id === course.id &&
-            userCourse.status === "in_progress"
+            (userCourse.status === "in_progress" ||
+              userCourse.status === "completed")
         );
         const disabled = !purchased && pathname === "/courses/my";
         return selectedListModeIndex ? (

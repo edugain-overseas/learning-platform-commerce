@@ -18,6 +18,7 @@ import {
 
 const initialState = {
   userId: null,
+  studentId: null,
   userType: null,
   name: "",
   surname: "",
@@ -173,6 +174,9 @@ const userSlice = createSlice({
       })
       .addCase(getUserInfoThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+        state.userId = payload.user_id;
+        state.studentId = payload.student_id;
+        state.userType = payload.user_type;
         state.name = payload.name;
         state.username = payload.username;
         state.surname = payload.surname;
@@ -180,8 +184,6 @@ const userSlice = createSlice({
         state.email = payload.email;
         state.phone = payload.phone ? payload.phone : "";
         state.country = payload.country ? payload.country : "";
-        state.userType = payload.user_type;
-        state.userId = payload.user_id;
         state.activeTime = payload.studying_time;
         state.courses = payload.courses;
         state.balance = payload.balance;

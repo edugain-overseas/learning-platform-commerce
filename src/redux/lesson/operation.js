@@ -10,8 +10,10 @@ import {
   deleteTestAnswer,
   deleteTestMatchingPair,
   deleteTestQuestion,
+  getExamAttempts,
   getLessonById,
   getTestAttempts,
+  submitTestAttempt,
   updateLectureAttribute,
   updateTestAnswer,
   updateTestMatchingPair,
@@ -56,9 +58,12 @@ export const confirmLectureThunk = createAsyncThunk(
 
 export const confirmTestThunk = createAsyncThunk(
   "lesson/confirmTest",
-  async ({ lessonId, studentTest }, { rejectWithValue }) => {
+  async (
+    { lessonId, studentTest, lessonType = "test" },
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await confirmTest(lessonId, studentTest);
+      const response = await confirmTest(lessonId, studentTest, lessonType);
       return response;
     } catch (error) {
       return rejectWithValue({
@@ -74,6 +79,39 @@ export const getTestAttemptsThunk = createAsyncThunk(
   async ({ test_id }, { rejectWithValue }) => {
     try {
       const response = await getTestAttempts(test_id);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const getExamAttemptsThunk = createAsyncThunk(
+  "lesson/getExamAttempts",
+  async ({ exam_id }, { rejectWithValue }) => {
+    try {
+      const response = await getExamAttempts(exam_id);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const submitTestAttemptThunk = createAsyncThunk(
+  "lesson/submitTestAttempt",
+  async (attemptData, { rejectWithValue }) => {
+    try {
+      const response = await submitTestAttempt(attemptData);
+      store.dispatch(getCoursesThunk());
       return response;
     } catch (error) {
       console.log(error);

@@ -5,6 +5,7 @@ import { getLessonByIdThunk } from "../../redux/lesson/operation";
 import { getAllLessons } from "../../redux/lesson/selectors";
 import Lecture from "../../components/Lecture/Lecture";
 import Test from "../../components/Test/Test";
+import Exam from "../../components/Exam/Exam";
 import styles from "./TaskPage.module.scss";
 
 const TaskPage = () => {
@@ -27,6 +28,7 @@ const TaskPage = () => {
     <div className={styles.pageWrapper}>
       {taskType === "lecture" && <Lecture lecture={task} />}
       {taskType === "test" && <Test test={task} />}
+      {taskType === "exam" && <Exam exam={task} />}
     </div>
   );
 };

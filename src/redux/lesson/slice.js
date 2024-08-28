@@ -9,8 +9,10 @@ import {
   deleteTestAnswerThunk,
   deleteTestMatchingPairThunk,
   deleteTestQuestionThunk,
+  getExamAttemptsThunk,
   getLessonByIdThunk,
   getTestAttemptsThunk,
+  submitTestAttemptThunk,
   updateLectureAttributesThunk,
   updateTestAnswerThunk,
   updateTestMatchingPairThunk,
@@ -130,7 +132,7 @@ const lessonSlice = createSlice({
       })
       .addCase(confirmTestThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { lessonId } = action.meta.arg;
+        const { lessonId, lessonType } = action.meta.arg;
 
         const { message, ...newAttempt } = action.payload;
 
@@ -138,7 +140,7 @@ const lessonSlice = createSlice({
           (lesson) => lesson.id === lessonId
         );
         if (lessonIndex !== -1) {
-          state.lessons[lessonIndex].test_data.attempts_data.push(newAttempt);
+          state.lessons[lessonIndex][`${lessonType}_data`].attempts_data.push(newAttempt);
         }
       })
       .addCase(confirmTestThunk.rejected, (state, { payload }) => {
@@ -160,11 +162,54 @@ const lessonSlice = createSlice({
         if (lessonIndex !== -1) {
           state.lessons[lessonIndex].test_data = {
             ...state.lessons[lessonIndex].test_data,
-            attempts_data: action.payload,
+            attempts_data: action.payload ? action.payload : [],
           };
         }
       })
       .addCase(getTestAttemptsThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
+      .addCase(getExamAttemptsThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getExamAttemptsThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { exam_id } = action.meta.arg;
+
+        const lessonIndex = state.lessons.findIndex(
+          (lesson) => lesson.exam_data?.exam_id === exam_id
+        );
+        if (lessonIndex !== -1) {
+          state.lessons[lessonIndex].exam_data = {
+            ...state.lessons[lessonIndex].exam_data,
+            attempts_data: action.payload ? action.payload : [],
+          };
+        }
+      })
+      .addCase(getExamAttemptsThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
+      .addCase(submitTestAttemptThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(submitTestAttemptThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { lesson_id, attempt_id, lessonType } = action.meta.arg;
+
+        const lessonIndex = state.lessons.findIndex(
+          (lesson) => lesson.id === lesson_id
+        );
+        if (lessonIndex !== -1) {
+          state.lessons[lessonIndex][`${lessonType}_data`].my_attempt_id = attempt_id;
+        }
+      })
+      .addCase(submitTestAttemptThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = { code: payload.code, message: payload.message };
       })

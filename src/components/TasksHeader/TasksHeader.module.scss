@@ -149,9 +149,14 @@
     display: flex;
     align-items: center;
     padding-block: 12rem;
+    padding-inline-start: 4rem;
 
     &:not(:last-child) {
       border-bottom: 1rem solid var(--content-datail-secondary);
+    }
+
+    &.sumbitedAttempt {
+      background-color: rgba($color: #39ba6d, $alpha: 0.3);
     }
   }
 
@@ -159,7 +164,8 @@
     font-size: 14rem;
     color: var(--content-main);
     margin-right: 2rem;
-    width: 1.5em;
+    width: 2em;
+    overflow: visible;
   }
 
   .scoreData {
@@ -225,4 +231,10 @@
   padding: 16rem;
   height: 100%;
   overflow-y: auto;
+}
+
+.emptyDescription {
+  color: var(--content-datail-secondary);
+  font-size: 14rem;
+  font-weight: 500;
 }

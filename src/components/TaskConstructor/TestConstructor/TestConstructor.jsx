@@ -365,7 +365,8 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
           });
       } catch (error) {
         messageApi.error({
-          content: error.message || error.detail.message,
+          content:
+            error.message || error.detail.message || "Something went wrong",
           duration: 3,
         });
       }

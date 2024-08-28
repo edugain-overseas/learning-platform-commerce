@@ -1,0 +1,69 @@
+.examWrapper {
+  height: 100%;
+}
+
+.bodyWrapper {
+  display: flex;
+  gap: 16rem;
+  position: relative;
+  height: calc(100% - 60rem);
+  overflow-y: auto;
+  padding-bottom: 40rem;
+  justify-content: flex-end;
+}
+
+.contentWrapper {
+  flex-grow: 1;
+  height: fit-content;
+  max-width: calc(100% - 16rem - 270rem);
+}
+
+.progressWrapper {
+  width: 270rem;
+  display: flex;
+  position: sticky;
+  top: 0;
+}
+
+.closedExamPanel {
+  flex-grow: 1;
+  max-width: calc(100% - 16rem - 270rem);
+  height: 100%;
+  padding: 24rem;
+
+  border-radius: 5rem;
+  background-color: var(--bg-rgba-default);
+  box-shadow: var(--drop-shadow-button-main);
+
+  font-size: 20rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8rem;
+
+  p {
+    text-align: center;
+  }
+
+  .startBtn {
+    width: 144rem;
+    height: 44rem;
+    padding: 8rem 16rem;
+    border-radius: 5rem;
+    background-color: rgba($color: #001c54, $alpha: 1);
+    color: var(--content-contr-color);
+    font-size: 18rem;
+    text-transform: uppercase;
+    box-shadow: var(--drop-shadow-button-main);
+
+    transition: background-color var(--transition-time-min) ease,
+      box-shadow var(--transition-time-min) ease;
+
+    &:hover {
+      background-color: rgba($color: #001c54, $alpha: 0.9);
+      box-shadow: var(--drop-shadow-button-main-hover);
+    }
+  }
+}

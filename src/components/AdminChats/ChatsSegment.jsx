@@ -7,7 +7,7 @@ import styles from "./AdminChatsComponent.module.scss";
 const designTokens = {
   itemActiveBg: "rgba(208, 0, 0, 1)",
   itemColor: "#7e8ca8",
-  itemHoverBg: "rgba(208, 0, 0, 0.05)",
+  itemHoverBg: "transparent",
   itemHoverColor: "#001c54",
   itemSelectedBg: "rgba(208, 0, 0, 9)",
   itemSelectedColor: "#fff",

@@ -7,8 +7,14 @@ import { useSelector } from "react-redux";
 import { getUserType } from "../../redux/user/selectors";
 import SubmitTest from "./SubmitTest";
 
-const TestHeader = ({ test, questionsDoneAmount = 0, testScore }) => {
-  const { title, type, number, test_data: testData } = test;
+const TestHeader = ({
+  test,
+  questionsDoneAmount = 0,
+  testScore,
+  isExam = false,
+}) => {
+  const { title, type, number } = test;
+  const testData = isExam ? test.exam_data : test.test_data;
   const isModer = useSelector(getUserType) === "moder";
 
   return (
@@ -21,14 +27,19 @@ const TestHeader = ({ test, questionsDoneAmount = 0, testScore }) => {
       <div className={styles.toolsWrapper}>
         {!isModer && (
           <>
-            <div className={styles.questionsDoneWrapper}>
-              <DocQuestionIcon />
-              <span>{`Questions: ${questionsDoneAmount}/${testData?.questions?.length}`}</span>
-            </div>
             {testScore ? (
-              <CardGrade grade={testScore} maxGrade={testData?.score} />
+              <>
+                <SubmitTest test={test} />
+                <CardGrade grade={testScore} maxGrade={testData?.score} />
+              </>
             ) : (
-              <SubmitTest test={test} />
+              <>
+                <div className={styles.questionsDoneWrapper}>
+                  <DocQuestionIcon />
+                  <span>{`Questions: ${questionsDoneAmount}/${testData?.questions?.length}`}</span>
+                </div>
+                <SubmitTest test={test} />
+              </>
             )}
           </>
         )}

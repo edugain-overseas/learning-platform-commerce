@@ -14,7 +14,7 @@ import {
   getUserInfo,
 } from "../../redux/user/selectors";
 import { useActiveTime } from "../../context/activeTimeContext";
-import { convertMillisecondsToHoursAndMinutes } from "../../utils/millisecondsToSrt";
+import { convertMillisecondsToHoursAndMinutes } from "../../utils/formatTime";
 import styles from "./UserProfilePage.module.scss";
 
 const UserProfilePage = () => {

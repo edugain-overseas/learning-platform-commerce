@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import InputText from "../InputText/InputText";
-import AuthFormLink from "../AuthFormLink/AuthFormLink";
-import InputPassword from "../InputPassword/InputPassword";
+import { useLocation } from "react-router-dom";
 import {
   validateEmail,
   validatePassword,
   validateText,
 } from "../../../../utils/inputsValidateHandler";
 import { ReactComponent as GoogleIcon } from "../../../../images/icons/google.svg";
+import InputText from "../InputText/InputText";
+import AuthFormLink from "../AuthFormLink/AuthFormLink";
+import InputPassword from "../InputPassword/InputPassword";
 import styles from "./AuthForm.module.scss";
-import { useLocation } from "react-router-dom";
 
 const AuthForm = ({
   handleSubmit,
@@ -126,7 +126,6 @@ const AuthForm = ({
         <div className={styles.row}>
           <InputText
             name="Username"
-            // value={usernameFromParams ? usernameFromParams : username}
             value={usernameFromQueryParams ? usernameFromQueryParams : username}
             onChange={setUsername}
             isError={errorField === "username"}

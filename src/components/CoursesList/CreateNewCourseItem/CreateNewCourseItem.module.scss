@@ -1,6 +1,7 @@
 .courseCard {
   width: calc(100% / 4 - 16rem * 3 / 4);
   flex-shrink: 0;
+  aspect-ratio: 1;
   margin-bottom: 16rem;
   position: relative;
 }

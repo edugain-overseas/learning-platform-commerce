@@ -18,16 +18,17 @@
   }
 
   & > .ql-toolbar {
-    border-radius: 5rem 5rem 0 0;
+    min-width: fit-content;
+    width: 100%;
+    padding: 4rem 8rem;
     position: absolute;
     bottom: 100%;
-    background-color: #fff;
-    width: 100%;
-    opacity: 0;
-    transition: opacity var(--transition-time-min) ease;
     border: 1rem solid var(--content-datail-secondary);
     border-bottom: 0;
-    padding: 4rem 8rem;
+    border-radius: 5rem 5rem 0 0;
+    background-color: #fff;
+    opacity: 0;
+    transition: opacity var(--transition-time-min) ease;
   }
 
   & > .ql-toolbar.ql-snow + .ql-container.ql-snow {

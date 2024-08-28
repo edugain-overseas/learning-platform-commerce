@@ -108,11 +108,42 @@ h4.sectionSubTitle {
 .sectionContentWrapper {
   color: #000;
   text-align: justify;
-  font-family: Inter, sans-serif;
+  // font-family: Inter, sans-serif;
   font-size: 14rem;
   font-style: normal;
   font-weight: 400;
   line-height: 22rem;
+
+  blockquote {
+    border-left: 4px solid var(--content-datail-secondary);
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 16px;
+  }
+
+  ul li:not(.ql-direction-rtl) {
+    padding-left: 20rem;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 8rem;
+      width: 4rem;
+      height: 4rem;
+      background-color: var(--content-nav-hover);
+      top: 50%;
+      border-radius: 1rem;
+      transform: translateY(-50%);
+    }
+  }
+
+  ol {
+    padding-inline-start: 2em;
+    li {
+      list-style: auto;
+    }
+  }
 }
 
 .modalWrap {

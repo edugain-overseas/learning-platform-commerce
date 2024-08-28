@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Popover } from "antd";
+import { Empty, Popover } from "antd";
 import { ReactComponent as ListIcon } from "../../images/icons/list.svg";
 import { ReactComponent as ComplieteIcon } from "../../images/icons/task-check.svg";
 import { ReactComponent as EyeIcon } from "../../images/icons/eye.svg";
@@ -9,31 +9,45 @@ import Spinner from "../Spinner/Spinner";
 import Modal from "../shared/Modal/Modal";
 import TestContent from "../Test/TestContent";
 import "./AntPopoverStyles.css";
+import { useDispatch, useSelector } from "react-redux";
+import { submitTestAttemptThunk } from "../../redux/lesson/operation";
+import useMessage from "antd/es/message/useMessage";
+import { getUserInfo } from "../../redux/user/selectors";
 
-const AttemptsList = ({ test }) => {
+const AttemptsList = ({ test, closePopOver }) => {
   const [attemptsDetails, setAttemptsDetails] = useState([]);
   const [selectedAttemptId, setSelectedAttemptId] = useState(null);
   const [isLoadingAttemptId, setIsLoadingAttemptId] = useState(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [messageApi, contextHolder] = useMessage();
+  const dispatch = useDispatch();
+  const lessonType = test.type;
 
-  const attempts = test.test_data.attempts_data;
-  const maxScore = test.test_data.score;
+  const student_id = useSelector(getUserInfo).studentId;
 
-  if (!attempts || attempts.length === 0) {
-    return null;
+  const attempts = test[`${lessonType}_data`]?.attempts_data;
+  const maxScore = test[`${lessonType}_data`]?.score;
+
+  if (!attempts || attempts.length === 0 || !lessonType) {
+    return (
+      <Empty
+        description={
+          <span className={styles.emptyDescription}>You have no attempts</span>
+        }
+      />
+    );
   }
 
   const answers = attemptsDetails.find(
     ({ id }) => id === selectedAttemptId
   )?.data;
 
-
   const handleOpenDetails = async (attempt) => {
     setSelectedAttemptId(attempt.id);
     setIsLoadingAttemptId(attempt.id);
     try {
       if (!attemptsDetails.find(({ id }) => id === attempt.id)) {
-        const attemptData = await getTestAttemptById(attempt.id);
+        const attemptData = await getTestAttemptById(attempt.id, lessonType);
         setAttemptsDetails((prev) => [
           ...prev,
           { id: attempt.id, data: attemptData },
@@ -47,11 +61,41 @@ const AttemptsList = ({ test }) => {
     }
   };
 
+  const handleSubmitAttempt = (attempt_id) => {
+    const attemptData = {
+      attempt_id,
+      lesson_id: test.id,
+      student_id,
+      lessonType
+    };
+    try {
+      dispatch(submitTestAttemptThunk(attemptData))
+        .unwrap()
+        .then((r) => {
+          messageApi.success({
+            content: r.Message,
+            duration: 5,
+          });
+          closePopOver();
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
+      {contextHolder}
       <ul className={styles.attemptsList}>
         {attempts.map((attempt) => (
-          <li key={attempt.id}>
+          <li
+            key={attempt.id}
+            className={
+              test[`${lessonType}_data`]?.my_attempt_id === attempt.id
+                ? styles.sumbitedAttempt
+                : ""
+            }
+          >
             <span
               className={styles.marker}
             >{`${attempt.attempt_number})`}</span>
@@ -71,10 +115,15 @@ const AttemptsList = ({ test }) => {
                 <Spinner />
               )}
             </button>
-            <button className={styles.submitAttemptBtn}>
-              <span>Submit</span>
-              <ComplieteIcon />
-            </button>
+            {!test[`${lessonType}_data`].my_attempt_id && (
+              <button
+                className={styles.submitAttemptBtn}
+                onClick={() => handleSubmitAttempt(attempt.id)}
+              >
+                <span>Submit</span>
+                <ComplieteIcon />
+              </button>
+            )}
           </li>
         ))}
       </ul>
@@ -97,9 +146,13 @@ const AttemptsList = ({ test }) => {
 const SubmitTest = ({ test }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const lessonType = test.type;
+
   const handleOpenChange = (newOpen) => {
     setIsOpen(newOpen);
   };
+
+  const closePopOver = () => handleOpenChange(false);
 
   return (
     <Popover
@@ -109,23 +162,16 @@ const SubmitTest = ({ test }) => {
       title={
         <div className={styles.attemptsTitle}>
           <span>Your attempts:</span>
-          {test.test_data.attempts_data && (
+          {test[`${lessonType}_data`]?.attempts_data && (
             <span
               title={`You can do ${
-                test.test_data.attempts - test.test_data.attempts_data.length
+                test[`${lessonType}_data`].attempts - test[`${lessonType}_data`].attempts_data.length
               } attempts more`}
-            >{`${test.test_data.attempts_data.length}/${test.test_data.attempts}`}</span>
+            >{`${test[`${lessonType}_data`].attempts_data.length}/${test[`${lessonType}_data`].attempts}`}</span>
           )}
         </div>
       }
-      content={
-        <AttemptsList
-          test={test}
-          attempts={test.test_data.attempts_data}
-          attemptsAmount={test.test_data.attempts}
-          maxScore={test.test_data.score}
-        />
-      }
+      content={<AttemptsList test={test} closePopOver={closePopOver} />}
       trigger="click"
       open={isOpen}
       onOpenChange={handleOpenChange}

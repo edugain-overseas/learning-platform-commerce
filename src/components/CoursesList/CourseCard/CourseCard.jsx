@@ -7,7 +7,6 @@ import { ReactComponent as ClockIcon } from "../../../images/icons/clock.svg";
 import { ReactComponent as LaptopIcon } from "../../../images/icons/laptop.svg";
 import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";
 import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
-// import RatingStars from "../../shared/RatingStars/RatingStars";
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import CardGrade from "../../shared/CardGrade/CardGrade";
 import CardPrice from "../../shared/CardPrice/CardPrice";
@@ -30,6 +29,7 @@ const CourseCard = ({ course, purchased, disabled }) => {
     id,
     progress,
     is_published: isPublished,
+    grade
   } = course;
 
   const isItemInCart = cartItems?.find((item) => item === id) && true;
@@ -111,7 +111,7 @@ const CourseCard = ({ course, purchased, disabled }) => {
             </div>
             <div className={styles.gradePriceContainer}>
               {purchased ? (
-                <CardGrade grade={0} />
+                <CardGrade grade={grade} />
               ) : (
                 <CardPrice price={price} oldPrice={oldPrice} />
               )}

@@ -23,6 +23,7 @@ const CourseRow = ({ course, purchased, disabled }) => {
     price,
     id,
     progress,
+    grade
   } = course;
 
   console.log(course);
@@ -69,7 +70,7 @@ const CourseRow = ({ course, purchased, disabled }) => {
           </div>
           <div className={styles.gradePriceContainer}>
             {purchased ? (
-              <CardGrade grade={192} />
+              <CardGrade grade={grade} />
             ) : (
               <CardPrice
                 price={price}
