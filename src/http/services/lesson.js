@@ -34,10 +34,14 @@ export const confirmLecture = async (lessonId) => {
 
 export const confirmTest = async (lessonId, studentTest, lessonType) => {
   try {
-    const data = await privateRoutesHandler("post", `/student-${lessonType}/send`, {
-      lesson_id: lessonId,
-      student_answers: studentTest,
-    });
+    const data = await privateRoutesHandler(
+      "post",
+      `/student-${lessonType}/send`,
+      {
+        lesson_id: lessonId,
+        student_answers: studentTest,
+      }
+    );
     return data;
   } catch (error) {
     throw error;
@@ -68,7 +72,7 @@ export const getExamAttempts = async (exam_id) => {
   }
 };
 
-export const getTestAttemptById = async (attempt_id, lessonType='test') => {
+export const getTestAttemptById = async (attempt_id, lessonType = "test") => {
   try {
     const data = await privateRoutesHandler(
       "get",
@@ -80,13 +84,22 @@ export const getTestAttemptById = async (attempt_id, lessonType='test') => {
   }
 };
 
-export const submitTestAttempt = async ({attempt_id, student_id, lesson_id, lessonType='test'}) => {
+export const submitTestAttempt = async ({
+  attempt_id,
+  student_id,
+  lesson_id,
+  lessonType = "test",
+}) => {
   try {
-    const data = await privateRoutesHandler("post", `/student-${lessonType}/submit/`, {
-      attempt_id,
-      student_id,
-      lesson_id,
-    });
+    const data = await privateRoutesHandler(
+      "post",
+      `/student-${lessonType}/submit/`,
+      {
+        attempt_id,
+        student_id,
+        lesson_id,
+      }
+    );
     return data;
   } catch (error) {
     throw error;
@@ -138,14 +151,18 @@ export const deleteLectureAttribute = async (attr_id) => {
   }
 };
 
-export const updateTestMetaData = async (test_id, newTestMetaData) => {
+export const updateTestMetaData = async (
+  test_id,
+  newTestMetaData,
+  lessonType = "test"
+) => {
   try {
     const data = await privateRoutesHandler(
       "patch",
-      "test/update",
+      `${lessonType}/update`,
       newTestMetaData,
       {
-        params: { test_id },
+        params: { [`${lessonType}_id`]: test_id },
       }
     );
     return data;
@@ -154,14 +171,18 @@ export const updateTestMetaData = async (test_id, newTestMetaData) => {
   }
 };
 
-export const createTestQuestions = async (test_id, questionsData) => {
+export const createTestQuestions = async (
+  test_id,
+  questionsData,
+  lessonType = "test"
+) => {
   try {
     const data = await privateRoutesHandler(
       "post",
-      "test/question/add",
+      `${lessonType}/question/add`,
       questionsData,
       {
-        params: { test_id },
+        params: { [`${lessonType}_id`]: test_id },
       }
     );
     return data;
@@ -170,20 +191,29 @@ export const createTestQuestions = async (test_id, questionsData) => {
   }
 };
 
-export const updateTestQuestion = async (question_id, questionData) => {
+export const updateTestQuestion = async (
+  question_id,
+  questionData,
+  lessonType = "test"
+) => {
   try {
     console.log(question_id);
-    await privateRoutesHandler("patch", "test/question/update", questionData, {
-      params: { question_id },
-    });
+    await privateRoutesHandler(
+      "patch",
+      `${lessonType}/question/update`,
+      questionData,
+      {
+        params: { question_id },
+      }
+    );
   } catch (error) {
     throw error;
   }
 };
 
-export const deleteTestQuestion = async (question_id) => {
+export const deleteTestQuestion = async (question_id, lessonType = "test") => {
   try {
-    await privateRoutesHandler("delete", "test/question/delete", {
+    await privateRoutesHandler("delete", `${lessonType}/question/delete`, {
       params: { question_id },
     });
   } catch (error) {
@@ -191,11 +221,11 @@ export const deleteTestQuestion = async (question_id) => {
   }
 };
 
-export const createTestAnswer = async (answerData) => {
+export const createTestAnswer = async (answerData, lessonType = "test") => {
   try {
     const data = await privateRoutesHandler(
       "post",
-      "test/answer/add",
+      `${lessonType}/answer/add`,
       answerData
     );
     return data;
@@ -204,11 +234,11 @@ export const createTestAnswer = async (answerData) => {
   }
 };
 
-export const createTestMatchingPair = async (pairData) => {
+export const createTestMatchingPair = async (pairData, lessonType = "test") => {
   try {
     const data = await privateRoutesHandler(
       "post",
-      "test/matching/add",
+      `${lessonType}/matching/add`,
       pairData
     );
     return data;
@@ -216,11 +246,15 @@ export const createTestMatchingPair = async (pairData) => {
     throw error;
   }
 };
-export const updateTestAnswer = async (answer_id, answerData) => {
+export const updateTestAnswer = async (
+  answer_id,
+  answerData,
+  lessonType = "test"
+) => {
   try {
     const data = await privateRoutesHandler(
       "patch",
-      "test/answer/update",
+      `${lessonType}/answer/update`,
       answerData,
       { params: { answer_id } }
     );
@@ -229,11 +263,15 @@ export const updateTestAnswer = async (answer_id, answerData) => {
     throw error;
   }
 };
-export const updateTestMatchingPair = async (left_option_id, pairData) => {
+export const updateTestMatchingPair = async (
+  left_option_id,
+  pairData,
+  lessonType = "test"
+) => {
   try {
     const data = await privateRoutesHandler(
       "patch",
-      "test/matching/update",
+      `${lessonType}/matching/update`,
       pairData,
       { params: { left_option_id } }
     );
@@ -243,9 +281,9 @@ export const updateTestMatchingPair = async (left_option_id, pairData) => {
   }
 };
 
-export const deleteTestAnswer = async (answer_id) => {
+export const deleteTestAnswer = async (answer_id, lessonType = "test") => {
   try {
-    await privateRoutesHandler("delete", "test/answer/delete", {
+    await privateRoutesHandler("delete", `${lessonType}/answer/delete`, {
       params: { answer_id },
     });
   } catch (error) {
@@ -253,9 +291,12 @@ export const deleteTestAnswer = async (answer_id) => {
   }
 };
 
-export const deleteTestMatchingPair = async (left_option_id) => {
+export const deleteTestMatchingPair = async (
+  left_option_id,
+  lessonType = "test"
+) => {
   try {
-    await privateRoutesHandler("delete", "test/matching/delete", {
+    await privateRoutesHandler("delete", `${lessonType}/matching/delete`, {
       params: { left_option_id },
     });
   } catch (error) {

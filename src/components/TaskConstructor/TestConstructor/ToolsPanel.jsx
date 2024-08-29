@@ -10,6 +10,7 @@ const ToolsPanel = ({
   handleAddBlock,
   attempts: defaultAttempts,
   score: defaultScore,
+  timer: defaultTimer,
   changeTestMetaData,
   blocksScore,
   handleSaveTestParts,
@@ -17,8 +18,10 @@ const ToolsPanel = ({
 }) => {
   const [attemptsDisabled, setAttemptsDisabled] = useState(true);
   const [scoreDisabled, setScoreDisabled] = useState(true);
+  const [timerDisabled, setTimerDisabled] = useState(true);
   const [attempts, setAttempts] = useState(defaultAttempts || 10);
-  const [score, setScore] = useState(defaultScore || 40);
+  const [score, setScore] = useState(defaultScore || 120);
+  const [timer, setTimer] = useState(defaultTimer || 40);
 
   const handleAttemptsChange = () => {
     if (!attemptsDisabled) {
@@ -48,7 +51,17 @@ const ToolsPanel = ({
     }
   };
 
-  console.log(blocksScore, score);
+  const handleTimerChange = () => {
+    if (!timerDisabled) {
+      if (timer !== defaultTimer) {
+        changeTestMetaData({ timer }).then(() => setTimerDisabled(true));
+      } else {
+        setTimerDisabled(true);
+      }
+    } else {
+      setTimerDisabled(false);
+    }
+  };
 
   return (
     <div className={styles.toolsWrapper}>
@@ -85,6 +98,23 @@ const ToolsPanel = ({
           title={scoreDisabled ? "change score" : "save changes"}
         >
           {scoreDisabled ? <EditIcon /> : <SaveIcon />}
+        </button>
+      </div>
+      <div className={styles.attemptsWrapper}>
+        <InputNumber
+          min={1}
+          value={timer}
+          onChange={(value) => setTimer(value)}
+          addonBefore="Timer:"
+          disabled={timerDisabled}
+          className={styles.toolsInputNumber}
+        />
+        <button
+          className={styles.changeValueBtn}
+          onClick={handleTimerChange}
+          title={timerDisabled ? "change timer" : "save changes"}
+        >
+          {timerDisabled ? <EditIcon /> : <SaveIcon />}
         </button>
       </div>
       <ul className={styles.addBlockBtns}>

@@ -30,7 +30,7 @@ import {
 import { getIsLoading } from "../../../redux/lesson/selectors";
 import { testQuestionsToBlocks } from "../../../utils/testQuestionsToBlocks";
 
-const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
+const TestConstructor = ({ attempts, initialBlocks = [], score, timer, testId, lessonType }) => {
   const [blocks, setBlocks] = useState(testQuestionsToBlocks(initialBlocks));
   const [messageApi, contextHolder] = useMessage();
 
@@ -44,13 +44,12 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
     return Math.max(question.q_number, maxNum);
   }, 0);
 
-  console.log(blocks);
-
   const changeTestMetaData = (newTestMetaData) => {
     return dispatch(
       updateTestMetaDataThunk({
         testId,
         newTestMetaData,
+        lessonType
       })
     )
       .unwrap()
@@ -80,7 +79,7 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
           if (block.q_id) {
             try {
               dispatch(
-                deleteTestQuestionThunk({ testId, question_id: block.q_id })
+                deleteTestQuestionThunk({ testId, question_id: block.q_id, lessonType })
               )
                 .unwrap()
                 .then(() => {
@@ -156,6 +155,7 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
               deleteTestAnswerThunk({
                 testId,
                 answer_id: block.answers[optionIndex].a_id,
+                lessonType
               })
             )
               .unwrap()
@@ -180,6 +180,7 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
               deleteTestMatchingPairThunk({
                 testId,
                 left_option_id: block.answers[optionIndex].a_id,
+                lessonType
               })
             )
               .unwrap()
@@ -341,7 +342,7 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
     if (blocksToCreate.length !== 0) {
       try {
         dispatch(
-          createTestQuestionsThunk({ testId, questionsData: blocksToCreate })
+          createTestQuestionsThunk({ testId, questionsData: blocksToCreate, lessonType })
         )
           .unwrap()
           .then((response) => {
@@ -397,7 +398,7 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
 
           try {
             dispatch(
-              updateTestQuestionThunk({ testId, question_id, questionData })
+              updateTestQuestionThunk({ testId, question_id, questionData, lessonType })
             )
               .unwrap()
               .then(() => {
@@ -424,6 +425,7 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
                   testId,
                   question_id: block.q_id,
                   answerData: answer,
+                  lessonType
                 })
               )
                 .unwrap()
@@ -458,6 +460,7 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
                   testId,
                   question_id: block.q_id,
                   pairData: answer,
+                  lessonType
                 })
               )
                 .unwrap()
@@ -511,6 +514,7 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
                     question_id: block.q_id,
                     answer_id: a_id,
                     answerData: rest,
+                    lessonType
                   })
                 )
                   .unwrap()
@@ -528,6 +532,7 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
                     question_id: block.q_id,
                     left_option_id: a_id,
                     pairData: rest,
+                    lessonType
                   })
                 )
                   .unwrap()
@@ -571,6 +576,7 @@ const TestConstructor = ({ attempts, initialBlocks = [], score, testId }) => {
         handleAddBlock={handleAddBlock}
         attempts={attempts}
         score={score}
+        timer={timer}
         changeTestMetaData={changeTestMetaData}
         blocksScore={blocksScore}
         handleSaveTestParts={handleSave}

@@ -26,8 +26,8 @@ const TestContent = ({
   attemptTime = null,
   setAnswersToLocalStorage,
   closeAttempt,
-  attemptFinished,
-  setAttemptFinished,
+  attemptFinished = false,
+  setAttemptFinished = () => {},
   messageApi,
 }) => {
   const [confirmBtnState, setConfirmBtnState] = useState("default");
@@ -347,7 +347,7 @@ const TestContent = ({
       })
       .catch((err) => {
         console.log(err);
-        messageApi.error({
+        messageApi?.error({
           content: err?.detail,
           duration: 3,
         });
@@ -362,11 +362,12 @@ const TestContent = ({
   };
 
   useEffect(() => {
-    if (attemptTime <= 0 && !attemptFinished) {
-      messageApi.info({
+    if (attemptTime <= 0 && attemptFinished === false) {
+      messageApi?.info({
         content: "Time is up!",
         duration: 3,
       });
+      console.log(setAttemptFinished, attemptFinished);
       setAttemptFinished(true);
       handleConfirmTest();
     }

@@ -13,13 +13,16 @@ const CoursesList = ({ courses }) => {
   const { pathname } = useLocation();
   const userCourses = useSelector(getUserCourses) ?? [];
   const isModer = useSelector(getUserType) === "moder";
+  const coursesToDisplay = isModer
+    ? courses
+    : courses.filter(({ is_published }) => is_published);
 
   return (
     <ul
       className={styles.coursesList}
       style={{ gap: selectedListModeIndex ? "8rem" : "16rem" }}
     >
-      {courses.map((course) => {
+      {coursesToDisplay.map((course) => {
         const purchased = userCourses.find(
           (userCourse) =>
             userCourse.course_id === course.id &&

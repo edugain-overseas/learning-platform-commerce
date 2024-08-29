@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Exam.module.scss";
 
 const ClosedExamPanel = ({ examData, handleStartExam }) => {
-    console.log(examData);
+  console.log(examData);
   return (
     <div className={styles.closedExamPanel}>
       <p>
@@ -11,13 +11,14 @@ const ClosedExamPanel = ({ examData, handleStartExam }) => {
         Amount of time: <b>{examData.timer} minutes</b>.
         <br />
         You have{" "}
-        <b>
-          {examData.attempts - examData.attempts_data.length} more
-          attempts
-        </b>
+        <b>{examData.attempts - examData.attempts_data.length} more attempts</b>
         .
       </p>
-      <button className={styles.startBtn} onClick={handleStartExam}>
+      <button
+        className={styles.startBtn}
+        onClick={handleStartExam}
+        disabled={!(examData.attempts - examData.attempts_data.length)}
+      >
         <span>Start</span>
       </button>
     </div>

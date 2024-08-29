@@ -176,9 +176,9 @@ export const deleteLectureAttributeThunk = createAsyncThunk(
 
 export const updateTestMetaDataThunk = createAsyncThunk(
   "lesson/updateTestMetaData",
-  async ({ testId, newTestMetaData }, { rejectWithValue }) => {
+  async ({ testId, newTestMetaData, lessonType }, { rejectWithValue }) => {
     try {
-      await updateTestMetaData(testId, newTestMetaData);
+      await updateTestMetaData(testId, newTestMetaData, lessonType);
     } catch (error) {
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,
@@ -190,9 +190,9 @@ export const updateTestMetaDataThunk = createAsyncThunk(
 
 export const createTestQuestionsThunk = createAsyncThunk(
   "lesson/createTestQuestions",
-  async ({ testId, questionsData }, { rejectWithValue }) => {
+  async ({ testId, questionsData, lessonType }, { rejectWithValue }) => {
     try {
-      const data = await createTestQuestions(testId, questionsData);
+      const data = await createTestQuestions(testId, questionsData, lessonType);
       return data.questions;
     } catch (error) {
       return rejectWithValue({
@@ -205,9 +205,9 @@ export const createTestQuestionsThunk = createAsyncThunk(
 
 export const deleteTestQuestionThunk = createAsyncThunk(
   "lesson/deleteTestQuestion",
-  async ({ question_id }, { rejectWithValue }) => {
+  async ({ question_id, lessonType }, { rejectWithValue }) => {
     try {
-      await deleteTestQuestion(question_id);
+      await deleteTestQuestion(question_id, lessonType);
     } catch (error) {
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,
@@ -219,9 +219,9 @@ export const deleteTestQuestionThunk = createAsyncThunk(
 
 export const createTestAnswerThunk = createAsyncThunk(
   "lesson/createTestAnswer",
-  async ({ answerData, question_id }, { rejectWithValue }) => {
+  async ({ answerData, question_id, lessonType }, { rejectWithValue }) => {
     try {
-      const response = await createTestAnswer({ ...answerData, question_id });
+      const response = await createTestAnswer({ ...answerData, question_id, lessonType });
       return response;
     } catch (error) {
       return rejectWithValue({
@@ -234,11 +234,12 @@ export const createTestAnswerThunk = createAsyncThunk(
 
 export const createTestMatchingPairThunk = createAsyncThunk(
   "lesson/createTestMatchingPair",
-  async ({ pairData, question_id }, { rejectWithValue }) => {
+  async ({ pairData, question_id, lessonType }, { rejectWithValue }) => {
     try {
       const response = await createTestMatchingPair({
         ...pairData,
         question_id,
+        lessonType
       });
       return response;
     } catch (error) {
@@ -252,9 +253,9 @@ export const createTestMatchingPairThunk = createAsyncThunk(
 
 export const updateTestAnswerThunk = createAsyncThunk(
   "lesson/updateTestAnswer",
-  async ({ answer_id, answerData }, { rejectWithValue }) => {
+  async ({ answer_id, answerData, lessonType }, { rejectWithValue }) => {
     try {
-      await updateTestAnswer(answer_id, answerData);
+      await updateTestAnswer(answer_id, answerData, lessonType);
     } catch (error) {
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,
@@ -266,9 +267,9 @@ export const updateTestAnswerThunk = createAsyncThunk(
 
 export const updateTestMatchingPairThunk = createAsyncThunk(
   "lesson/updateTestMatchingPair",
-  async ({ left_option_id, pairData }, { rejectWithValue }) => {
+  async ({ left_option_id, pairData, lessonType }, { rejectWithValue }) => {
     try {
-      await updateTestMatchingPair(left_option_id, pairData);
+      await updateTestMatchingPair(left_option_id, pairData, lessonType);
     } catch (error) {
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,
@@ -280,9 +281,9 @@ export const updateTestMatchingPairThunk = createAsyncThunk(
 
 export const deleteTestAnswerThunk = createAsyncThunk(
   "lesson/deleteTestAnswer",
-  async ({ answer_id }, { rejectWithValue }) => {
+  async ({ answer_id, lessonType }, { rejectWithValue }) => {
     try {
-      await deleteTestAnswer(answer_id);
+      await deleteTestAnswer(answer_id, lessonType);
     } catch (error) {
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,
@@ -294,9 +295,9 @@ export const deleteTestAnswerThunk = createAsyncThunk(
 
 export const updateTestQuestionThunk = createAsyncThunk(
   "lesson/updateTestQuestion",
-  async ({ question_id, questionData }, { rejectWithValue }) => {
+  async ({ question_id, questionData, lessonType }, { rejectWithValue }) => {
     try {
-      await updateTestQuestion(question_id, questionData);
+      await updateTestQuestion(question_id, questionData, lessonType);
     } catch (error) {
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,
@@ -308,9 +309,9 @@ export const updateTestQuestionThunk = createAsyncThunk(
 
 export const deleteTestMatchingPairThunk = createAsyncThunk(
   "lesson/deleteTestMatchingPair",
-  async ({ left_option_id }, { rejectWithValue }) => {
+  async ({ left_option_id, lessonType }, { rejectWithValue }) => {
     try {
-      await deleteTestMatchingPair(left_option_id);
+      await deleteTestMatchingPair(left_option_id, lessonType);
     } catch (error) {
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,

@@ -19,6 +19,7 @@ import {
   updateUsernameThunk,
 } from "../../redux/user/operations";
 import { validatePassword } from "../../utils/inputsValidateHandler";
+import useMessage from "antd/es/message/useMessage";
 
 const UserInfoCard = ({ userInfo }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -31,6 +32,7 @@ const UserInfoCard = ({ userInfo }) => {
   const [phone, setPhone] = useState(userInfo.phone);
   const [country, setCountry] = useState(userInfo.country);
   const [isPasswordShown, setIsPasswrodSwown] = useState(false);
+  const [messageApi, contextHolder] = useMessage();
 
   const dispatch = useDispatch();
 
@@ -55,7 +57,15 @@ const UserInfoCard = ({ userInfo }) => {
     console.log(data);
 
     if (Object.keys(data).length !== 0) {
-      dispatch(updateUserInfoThunk(data)).then(() => setIsEdit(false));
+      dispatch(updateUserInfoThunk(data))
+        .unwrap()
+        .then(() => {
+          setIsEdit(false);
+          messageApi.success({
+            content: "Your profile was successfully updated",
+            duration: 3,
+          });
+        });
     } else {
       setIsEdit(false);
     }
@@ -80,6 +90,7 @@ const UserInfoCard = ({ userInfo }) => {
 
   return (
     <div className={styles.wrapper}>
+      {contextHolder}
       <div className={styles.avatarWrapper}>
         <Avatar size="117rem" editable={false} src={userInfo.avatarURL} />
         {isEdit && (

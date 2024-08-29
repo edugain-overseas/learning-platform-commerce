@@ -140,7 +140,9 @@ const lessonSlice = createSlice({
           (lesson) => lesson.id === lessonId
         );
         if (lessonIndex !== -1) {
-          state.lessons[lessonIndex][`${lessonType}_data`].attempts_data.push(newAttempt);
+          state.lessons[lessonIndex][`${lessonType}_data`].attempts_data.push(
+            newAttempt
+          );
         }
       })
       .addCase(confirmTestThunk.rejected, (state, { payload }) => {
@@ -206,7 +208,8 @@ const lessonSlice = createSlice({
           (lesson) => lesson.id === lesson_id
         );
         if (lessonIndex !== -1) {
-          state.lessons[lessonIndex][`${lessonType}_data`].my_attempt_id = attempt_id;
+          state.lessons[lessonIndex][`${lessonType}_data`].my_attempt_id =
+            attempt_id;
         }
       })
       .addCase(submitTestAttemptThunk.rejected, (state, { payload }) => {
@@ -220,14 +223,15 @@ const lessonSlice = createSlice({
       })
       .addCase(updateTestMetaDataThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { testId, newTestMetaData } = action.meta.arg;
+        const { testId, newTestMetaData, lessonType } = action.meta.arg;
 
         const lessonIndex = state.lessons.findIndex(
-          (lesson) => lesson.test_data?.test_id === testId
+          (lesson) =>
+            lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
         if (lessonIndex !== -1) {
-          state.lessons[lessonIndex].test_data = {
-            ...state.lessons[lessonIndex].test_data,
+          state.lessons[lessonIndex][`${lessonType}_data`] = {
+            ...state.lessons[lessonIndex][`${lessonType}_data`],
             ...newTestMetaData,
           };
         }
@@ -243,14 +247,17 @@ const lessonSlice = createSlice({
       })
       .addCase(createTestQuestionsThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { testId } = action.meta.arg;
+        const { testId, lessonType } = action.meta.arg;
 
         const lessonIndex = state.lessons.findIndex(
-          (lesson) => lesson.test_data?.test_id === testId
+          (lesson) =>
+            lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
         if (lessonIndex !== -1) {
           action.payload.forEach((question) =>
-            state.lessons[lessonIndex].test_data?.questions?.push(question)
+            state.lessons[lessonIndex][`${lessonType}_data`]?.questions?.push(
+              question
+            )
           );
         }
       })
@@ -265,21 +272,25 @@ const lessonSlice = createSlice({
       })
       .addCase(updateTestQuestionThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { testId, question_id, questionData } = action.meta.arg;
+        const { testId, question_id, questionData, lessonType } =
+          action.meta.arg;
 
         const lessonIndex = state.lessons.findIndex(
-          (lesson) => lesson.test_data?.test_id === testId
+          (lesson) =>
+            lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
         if (lessonIndex !== -1) {
-          const questionIndex = state.lessons[
-            lessonIndex
-          ].test_data.questions.findIndex(
-            (question) => question.q_id === question_id
-          );
+          const questionIndex = state.lessons[lessonIndex][
+            `${lessonType}_data`
+          ].questions.findIndex((question) => question.q_id === question_id);
 
           if (questionIndex !== -1) {
-            state.lessons[lessonIndex].test_data.questions[questionIndex] = {
-              ...state.lessons[lessonIndex].test_data.questions[questionIndex],
+            state.lessons[lessonIndex][`${lessonType}_data`].questions[
+              questionIndex
+            ] = {
+              ...state.lessons[lessonIndex][`${lessonType}_data`].questions[
+                questionIndex
+              ],
               ...questionData,
             };
           }
@@ -296,17 +307,17 @@ const lessonSlice = createSlice({
       })
       .addCase(deleteTestQuestionThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { testId, question_id } = action.meta.arg;
+        const { testId, question_id, lessonType } = action.meta.arg;
 
         const lessonIndex = state.lessons.findIndex(
-          (lesson) => lesson.test_data?.test_id === testId
+          (lesson) =>
+            lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
         if (lessonIndex !== -1) {
-          state.lessons[lessonIndex].test_data.questions = state.lessons[
-            lessonIndex
-          ].test_data.questions.filter(
-            (question) => question.q_id !== question_id
-          );
+          state.lessons[lessonIndex][`${lessonType}_data`].questions =
+            state.lessons[lessonIndex][`${lessonType}_data`].questions.filter(
+              (question) => question.q_id !== question_id
+            );
         }
       })
       .addCase(deleteTestQuestionThunk.rejected, (state, { payload }) => {
@@ -320,20 +331,19 @@ const lessonSlice = createSlice({
       })
       .addCase(createTestAnswerThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { testId, question_id } = action.meta.arg;
+        const { testId, question_id, lessonType } = action.meta.arg;
 
         const lessonIndex = state.lessons.findIndex(
-          (lesson) => lesson.test_data?.test_id === testId
+          (lesson) =>
+            lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
         if (lessonIndex !== -1) {
-          const questionIndex = state.lessons[
-            lessonIndex
-          ].test_data.questions.findIndex(
-            (question) => question.q_id === question_id
-          );
+          const questionIndex = state.lessons[lessonIndex][
+            `${lessonType}_data`
+          ].questions.findIndex((question) => question.q_id === question_id);
 
           if (questionIndex !== -1) {
-            state.lessons[lessonIndex].test_data.questions[
+            state.lessons[lessonIndex][`${lessonType}_data`].questions[
               questionIndex
             ].answers.push(action.payload);
           }
@@ -350,26 +360,25 @@ const lessonSlice = createSlice({
       })
       .addCase(createTestMatchingPairThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { testId, question_id } = action.meta.arg;
+        const { testId, question_id, lessonType } = action.meta.arg;
 
         const lessonIndex = state.lessons.findIndex(
-          (lesson) => lesson.test_data?.test_id === testId
+          (lesson) =>
+            lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
         if (lessonIndex !== -1) {
-          const questionIndex = state.lessons[
-            lessonIndex
-          ].test_data.questions.findIndex(
-            (question) => question.q_id === question_id
-          );
+          const questionIndex = state.lessons[lessonIndex][
+            `${lessonType}_data`
+          ].questions.findIndex((question) => question.q_id === question_id);
 
           if (questionIndex !== -1) {
-            state.lessons[lessonIndex].test_data.questions[
+            state.lessons[lessonIndex][`${lessonType}_data`].questions[
               questionIndex
             ].answers.left.push({
               value: action.payload.left_text,
               id: action.payload.left_id,
             });
-            state.lessons[lessonIndex].test_data.questions[
+            state.lessons[lessonIndex][`${lessonType}_data`].questions[
               questionIndex
             ].answers.right.push({
               value: action.payload.right_text,
@@ -389,25 +398,29 @@ const lessonSlice = createSlice({
       })
       .addCase(updateTestAnswerThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { testId, question_id, answer_id, answerData } = action.meta.arg;
+        const { testId, question_id, answer_id, answerData, lessonType } =
+          action.meta.arg;
 
         const lessonIndex = state.lessons.findIndex(
-          (lesson) => lesson.test_data?.test_id === testId
+          (lesson) =>
+            lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
+        
         if (lessonIndex !== -1) {
-          const questionIndex = state.lessons[
-            lessonIndex
-          ].test_data.questions.findIndex(
-            (question) => question.q_id === question_id
-          );
+          console.log(`${lessonType}_data`);
+          const questionIndex = state.lessons[lessonIndex][
+            `${lessonType}_data`
+          ]?.questions.findIndex((question) => question.q_id === question_id);
 
           if (questionIndex !== -1) {
-            const answerIndex = state.lessons[lessonIndex].test_data.questions[
-              questionIndex
-            ].answers.findIndex((answer) => answer.a_id === answer_id);
+            const answerIndex = state.lessons[lessonIndex][
+              `${lessonType}_data`
+            ].questions[questionIndex].answers.findIndex(
+              (answer) => answer.a_id === answer_id
+            );
 
             if (answerIndex !== -1) {
-              state.lessons[lessonIndex].test_data.questions[
+              state.lessons[lessonIndex][`${lessonType}_data`].questions[
                 questionIndex
               ].answers[answerIndex] = { a_id: answer_id, ...answerData };
             }
@@ -425,37 +438,36 @@ const lessonSlice = createSlice({
       })
       .addCase(updateTestMatchingPairThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { testId, question_id, left_option_id, pairData } =
+        const { testId, question_id, left_option_id, pairData, lessonType } =
           action.meta.arg;
 
         const lessonIndex = state.lessons.findIndex(
-          (lesson) => lesson.test_data?.test_id === testId
+          (lesson) =>
+            lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
         if (lessonIndex !== -1) {
-          const questionIndex = state.lessons[
-            lessonIndex
-          ].test_data.questions.findIndex(
-            (question) => question.q_id === question_id
-          );
+          const questionIndex = state.lessons[lessonIndex][
+            `${lessonType}_data`
+          ].questions.findIndex((question) => question.q_id === question_id);
 
           if (questionIndex !== -1) {
-            const leftOptionIndex = state.lessons[
-              lessonIndex
-            ].test_data.questions[questionIndex].answers.left.find(
+            const leftOptionIndex = state.lessons[lessonIndex][
+              `${lessonType}_data`
+            ].questions[questionIndex].answers.left.find(
               ({ id }) => id === left_option_id
             );
-            const rightOptionIndex = state.lessons[
-              lessonIndex
-            ].test_data.questions[questionIndex].answers.right.find(
+            const rightOptionIndex = state.lessons[lessonIndex][
+              `${lessonType}_data`
+            ].questions[questionIndex].answers.right.find(
               ({ id }) => id === left_option_id
             );
             if (leftOptionIndex) {
-              state.lessons[lessonIndex].test_data.questions[
+              state.lessons[lessonIndex][`${lessonType}_data`].questions[
                 questionIndex
               ].answers.left[leftOptionIndex].value = pairData.left_text;
             }
             if (rightOptionIndex) {
-              state.lessons[lessonIndex].test_data.questions[
+              state.lessons[lessonIndex][`${lessonType}_data`].questions[
                 questionIndex
               ].answers.right[rightOptionIndex].value = pairData.right_text;
             }
@@ -473,25 +485,27 @@ const lessonSlice = createSlice({
       })
       .addCase(deleteTestAnswerThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { testId, answer_id } = action.meta.arg;
+        const { testId, answer_id, lessonType } = action.meta.arg;
 
         const lessonIndex = state.lessons.findIndex(
-          (lesson) => lesson.test_data?.test_id === testId
+          (lesson) =>
+            lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
         if (lessonIndex !== -1) {
-          state.lessons[lessonIndex].test_data.questions = state.lessons[
-            lessonIndex
-          ].test_data.questions.map((question) => {
-            if (question.q_type !== "matching") {
-              return {
-                ...question,
-                answers: question.answers.filter(
-                  (answer) => answer.a_id !== answer_id
-                ),
-              };
-            }
-            return question;
-          });
+          state.lessons[lessonIndex][`${lessonType}_data`].questions =
+            state.lessons[lessonIndex][`${lessonType}_data`].questions.map(
+              (question) => {
+                if (question.q_type !== "matching") {
+                  return {
+                    ...question,
+                    answers: question.answers.filter(
+                      (answer) => answer.a_id !== answer_id
+                    ),
+                  };
+                }
+                return question;
+              }
+            );
         }
       })
       .addCase(deleteTestAnswerThunk.rejected, (state, { payload }) => {
@@ -505,30 +519,32 @@ const lessonSlice = createSlice({
       })
       .addCase(deleteTestMatchingPairThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { testId, left_option_id } = action.meta.arg;
+        const { testId, left_option_id, lessonType } = action.meta.arg;
 
         const lessonIndex = state.lessons.findIndex(
-          (lesson) => lesson.test_data?.test_id === testId
+          (lesson) =>
+            lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
         if (lessonIndex !== -1) {
-          state.lessons[lessonIndex].test_data.questions = state.lessons[
-            lessonIndex
-          ].test_data.questions.map((question) => {
-            if (question.q_type === "matching") {
-              return {
-                ...question,
-                answers: {
-                  left: question.answers.left.filter(
-                    ({ id }) => id !== left_option_id
-                  ),
-                  right: question.answers.right.filter(
-                    ({ id }) => id !== left_option_id
-                  ),
-                },
-              };
-            }
-            return question;
-          });
+          state.lessons[lessonIndex][`${lessonType}_data`].questions =
+            state.lessons[lessonIndex][`${lessonType}_data`].questions.map(
+              (question) => {
+                if (question.q_type === "matching") {
+                  return {
+                    ...question,
+                    answers: {
+                      left: question.answers.left.filter(
+                        ({ id }) => id !== left_option_id
+                      ),
+                      right: question.answers.right.filter(
+                        ({ id }) => id !== left_option_id
+                      ),
+                    },
+                  };
+                }
+                return question;
+              }
+            );
         }
       })
       .addCase(deleteTestMatchingPairThunk.rejected, (state, { payload }) => {

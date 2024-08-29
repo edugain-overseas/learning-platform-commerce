@@ -20,26 +20,18 @@ const Exam = ({ exam }) => {
   const [attemptTime, setAttemptTime] = useLocalStorage(
     `exam_${examData.exam_id}_timer`,
     minutesToMilliseconds(exam.exam_data.timer)
-    // 30000
   );
   const intervalId = useRef(null);
+
+  const handleUpdateTime = (prevTime) => {
+    const newTime = prevTime - INTERVAL_DELAY;
+    return newTime <= 0 ? 0 : newTime;
+  };
 
   const [showTestContent, setShowTestContent] = useState(() => {
     const resumeExam = () => {
       const changeExamTime = () => {
-        setAttemptTime((prevTime) => {
-          const newTime = prevTime - INTERVAL_DELAY;
-
-          // if (newTime <= 0) {
-          //   // send results to server.
-          //   // Show modal with message "time is over. Your score: score from server".
-          //   // setShowTestContent(false);
-          //   clearInterval(intervalId.current);
-          //   return 0;
-          // }
-
-          return newTime;
-        });
+        setAttemptTime(handleUpdateTime);
       };
       intervalId.current = setInterval(changeExamTime, INTERVAL_DELAY);
     };
@@ -70,23 +62,10 @@ const Exam = ({ exam }) => {
 
   const handleStartExam = () => {
     const changeExamTime = () => {
-      setAttemptTime((prevTime) => {
-        const newTime = prevTime - INTERVAL_DELAY;
-
-        if (newTime <= 0) {
-          // send results to server.
-          // Show modal with message "time is over. Your score: score from server".
-          // setShowTestContent(false);
-          // clearInterval(intervalId.current);
-          return 0;
-        }
-
-        return newTime;
-      });
+      setAttemptTime(handleUpdateTime);
     };
 
     try {
-      // send start attempt request on server
       setShowTestContent(true);
       intervalId.current = setInterval(changeExamTime, INTERVAL_DELAY);
     } catch (error) {}

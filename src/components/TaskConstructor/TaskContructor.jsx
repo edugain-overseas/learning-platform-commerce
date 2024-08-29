@@ -30,8 +30,6 @@ const TaskContructor = () => {
   const course = courses.find(({ id }) => id === +courseId);
   const courseName = course?.title;
 
-  console.log(username);
-
   useEffect(() => {
     if (taskId && username) {
       dispatch(getLessonByIdThunk(+taskId));
@@ -62,15 +60,17 @@ const TaskContructor = () => {
           </>
         );
       case "test":
-        console.log(task);
+      case "exam":
         return (
           <>
             <TestHeader test={task} />
             <TestConstructor
-              attempts={task.test_data?.attempts}
-              initialBlocks={task.test_data?.questions}
-              score={task.test_data?.score}
-              testId={task.test_data?.test_id}
+              attempts={task[`${taskType}_data`]?.attempts}
+              initialBlocks={task[`${taskType}_data`]?.questions}
+              score={task[`${taskType}_data`]?.score}
+              testId={task[`${taskType}_data`]?.[`${taskType}_id`]}
+              lessonType={task.type}
+              timer={task[`${taskType}_data`]?.timer}
             />
           </>
         );
