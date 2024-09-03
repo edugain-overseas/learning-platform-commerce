@@ -1,0 +1,32 @@
+.wrapper {
+  height: 28rem;
+  display: flex;
+  gap: 4rem;
+  padding: 3rem;
+
+  border-radius: 5rem;
+  box-shadow: var(--box-shadow-button-inset);
+}
+
+.openSaveNewTemplateModal,
+.openTemplatesBtn {
+  height: 100%;
+  aspect-ratio: 1;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5rem;
+  box-shadow: var(--box-shadow-button);
+  color: var(--content-datail-secondary);
+  transition: color var(--transition-time-min) ease;
+
+  svg {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  &:hover {
+    color: var(--content-main);
+  }
+}

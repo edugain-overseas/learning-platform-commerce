@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Empty, Popover } from "antd";
+import useMessage from "antd/es/message/useMessage";
+import { useDispatch, useSelector } from "react-redux";
+import { submitTestAttemptThunk } from "../../redux/lesson/operation";
+import { getUserInfo } from "../../redux/user/selectors";
 import { ReactComponent as ListIcon } from "../../images/icons/list.svg";
 import { ReactComponent as ComplieteIcon } from "../../images/icons/task-check.svg";
 import { ReactComponent as EyeIcon } from "../../images/icons/eye.svg";
-import styles from "./TasksHeader.module.scss";
 import { getTestAttemptById } from "../../http/services/lesson";
 import Spinner from "../Spinner/Spinner";
 import Modal from "../shared/Modal/Modal";
 import TestContent from "../Test/TestContent";
+import styles from "./TasksHeader.module.scss";
 import "./AntPopoverStyles.css";
-import { useDispatch, useSelector } from "react-redux";
-import { submitTestAttemptThunk } from "../../redux/lesson/operation";
-import useMessage from "antd/es/message/useMessage";
-import { getUserInfo } from "../../redux/user/selectors";
 
 const AttemptsList = ({ test, closePopOver }) => {
   const [attemptsDetails, setAttemptsDetails] = useState([]);
@@ -66,7 +66,7 @@ const AttemptsList = ({ test, closePopOver }) => {
       attempt_id,
       lesson_id: test.id,
       student_id,
-      lessonType
+      lessonType,
     };
     try {
       dispatch(submitTestAttemptThunk(attemptData))
@@ -135,7 +135,7 @@ const AttemptsList = ({ test, closePopOver }) => {
           closeModal={() => setIsOpenModal(false)}
         >
           <div className={styles.testContentWrapper}>
-            <TestContent test={test} answers={answers} />
+            <TestContent test={test} answers={answers} closed={true} />
           </div>
         </Modal>
       )}
@@ -165,9 +165,12 @@ const SubmitTest = ({ test }) => {
           {test[`${lessonType}_data`]?.attempts_data && (
             <span
               title={`You can do ${
-                test[`${lessonType}_data`].attempts - test[`${lessonType}_data`].attempts_data.length
+                test[`${lessonType}_data`].attempts -
+                test[`${lessonType}_data`].attempts_data.length
               } attempts more`}
-            >{`${test[`${lessonType}_data`].attempts_data.length}/${test[`${lessonType}_data`].attempts}`}</span>
+            >{`${test[`${lessonType}_data`].attempts_data.length}/${
+              test[`${lessonType}_data`].attempts
+            }`}</span>
           )}
         </div>
       }

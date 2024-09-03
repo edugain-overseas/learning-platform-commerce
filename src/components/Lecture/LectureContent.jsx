@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Empty } from "antd";
 import { serverName } from "../../http/sever";
@@ -20,9 +20,11 @@ const LectureContent = ({ lecture }) => {
   const [confirmBtnState, setConfirmBtnState] = useState("default");
   const isEdit = false;
 
+  
   const dispatch = useDispatch();
-
+  
   const { number, courseName, status, id, course_id: courseId } = lecture;
+  console.log(status, confirmBtnState);
 
   const lectureContent = [...lecture.lecture_info.attributes].sort(
     (itemA, itemB) => itemA.a_number - itemB.a_number
@@ -269,6 +271,12 @@ const LectureContent = ({ lecture }) => {
       setConfirmBtnState("fulfilled")
     );
   };
+
+  useEffect(()=>{
+    if (status === 'active') {
+      setConfirmBtnState('default')
+    }
+  },[status])
 
   return (
     <div className={styles.contentWrapper}>

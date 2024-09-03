@@ -35,6 +35,8 @@ const TestContent = ({
 
   const dispatch = useDispatch();
 
+  console.log(answers, closed);
+
   const { id: testId, course_id: courseId, type: lessonType, status } = test;
 
   const testData = lessonType === "exam" ? test.exam_data : test.test_data;
@@ -346,9 +348,8 @@ const TestContent = ({
         }
       })
       .catch((err) => {
-        console.log(err);
         messageApi?.error({
-          content: err?.detail,
+          content: err?.message ? err.message : "Something went wrong",
           duration: 3,
         });
       })
@@ -362,7 +363,7 @@ const TestContent = ({
   };
 
   useEffect(() => {
-    if (attemptTime <= 0 && attemptFinished === false) {
+    if (attemptTime <= 0 && attemptFinished === false && isExam) {
       messageApi?.info({
         content: "Time is up!",
         duration: 3,
@@ -390,7 +391,7 @@ const TestContent = ({
       }).length
     );
 
-    if (isExam) {
+    if (isExam && !closed) {
       setAnswersToLocalStorage(studentAnswers);
     }
     // eslint-disable-next-line
@@ -407,18 +408,23 @@ const TestContent = ({
       setStudentAnswers(answers);
     }
     // eslint-disable-next-line
-  }, []);
+  }, [closed ? answers : null]);
 
   return (
     <>
       <div
         className={styles.contentWrapper}
         style={
-          answers && !isExam
-            ? { maxWidth: "100%", pointerEvents: "none" }
-            : closed
-            ? { pointerEvents: "none" }
-            : {}
+          // answers && !isExam
+          //   ? { maxWidth: "100%", pointerEvents: "none" }
+          //   : closed
+          //   ? { pointerEvents: "none" }
+          //   : {}
+          {
+            pointerEvents: (answers && !isExam) || closed ? "none" : "auto",
+            opacity: (answers && !isExam) || closed ? "0.5" : "1",
+            maxWidth: answers && !isExam ? "100%" : "auto",
+          }
         }
       >
         <div className={styles.testContent}>
@@ -445,17 +451,22 @@ const TestContent = ({
                       ).seconds
                     }`.padStart(2, "0")}
                 </span>
-                <span className={styles.divider}>/</span>
-                <span className={styles.currentTime}>
-                  {`${
-                    convertMillisecondsToMinutesAndSeconds(attemptTime).minutes
-                  }`.padStart(2, "0") +
-                    ":" +
-                    `${
-                      convertMillisecondsToMinutesAndSeconds(attemptTime)
-                        .seconds
-                    }`.padStart(2, "0")}
-                </span>
+                {!closed && (
+                  <>
+                    <span className={styles.divider}>/</span>
+                    <span className={styles.currentTime}>
+                      {`${
+                        convertMillisecondsToMinutesAndSeconds(attemptTime)
+                          .minutes
+                      }`.padStart(2, "0") +
+                        ":" +
+                        `${
+                          convertMillisecondsToMinutesAndSeconds(attemptTime)
+                            .seconds
+                        }`.padStart(2, "0")}
+                    </span>
+                  </>
+                )}
               </div>
             ) : (
               courseLessons &&

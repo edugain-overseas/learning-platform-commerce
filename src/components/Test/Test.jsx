@@ -49,7 +49,6 @@ const Test = ({ test }) => {
     }
   }, [sumbittedAttemptId]);
 
-  console.log(submitedAttemptData);
 
   return (
     <div className={styles.testWrapper}>

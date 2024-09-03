@@ -32,7 +32,6 @@ const LessonNavigateBtn = ({
   });
 
   const handleNavigate = () => {
-    console.log(targetLesson);
     if (targetLesson.status === "blocked") {
       messageApi.info({
         content: "You can not access this lesson becouse it is blocked",

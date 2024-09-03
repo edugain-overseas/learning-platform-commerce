@@ -10,12 +10,14 @@ import { getExamAttemptsThunk } from "../../redux/lesson/operation";
 import ClosedExamPanel from "./ClosedExamPanel";
 import { minutesToMilliseconds } from "../../utils/formatTime";
 import useMessage from "antd/es/message/useMessage";
+import { getTestAttemptById } from "../../http/services/lesson";
 
 const INTERVAL_DELAY = 1000;
 
 const Exam = ({ exam }) => {
   const { course_id: courseId, id, exam_data: examData } = exam;
   const [studentAnswersLength, setStudentAnswersLength] = useState(0);
+  const [submitedAttemptData, setSubmitedAttemptData] = useState(null);
 
   const [attemptTime, setAttemptTime] = useLocalStorage(
     `exam_${examData.exam_id}_timer`,
@@ -59,6 +61,7 @@ const Exam = ({ exam }) => {
   const courseLessons = course?.lessons;
   const examScore = courseLessons?.find(({ id }) => id === exam.id)?.score;
   const status = courseLessons?.find(({ id: examId }) => examId === id)?.status;
+  const sumbittedAttemptId = examData?.my_attempt_id;
 
   const handleStartExam = () => {
     const changeExamTime = () => {
@@ -87,6 +90,20 @@ const Exam = ({ exam }) => {
     // eslint-disable-next-line
   }, [examData.exam_id]);
 
+  useEffect(() => {
+    const fetchAttemptId = async () => {
+      try {
+        const data = await getTestAttemptById(sumbittedAttemptId, "exam");
+        setSubmitedAttemptData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (sumbittedAttemptId) {
+      fetchAttemptId();
+    }
+  }, [sumbittedAttemptId]);
+
   return (
     <div className={styles.examWrapper}>
       {contextHolder}
@@ -97,27 +114,42 @@ const Exam = ({ exam }) => {
         isExam={true}
       />
       <div className={styles.bodyWrapper}>
-        {showTestContent ? (
+        {!examData.my_score ? (
+          showTestContent ? (
+            <TestContent
+              isExam={true}
+              test={{ ...exam, status }}
+              setStudentAnswersLength={setStudentAnswersLength}
+              attemptTime={attemptTime}
+              setAnswersToLocalStorage={setAnswers}
+              answers={answers}
+              closeAttempt={closeAttempt}
+              attemptFinished={attemptFinished}
+              setAttemptFinished={setAttemptFinished}
+              messageApi={messageApi}
+            />
+          ) : (
+            examData.attempts &&
+            examData.attempts_data && (
+              <ClosedExamPanel
+                examData={examData}
+                handleStartExam={handleStartExam}
+              />
+            )
+          )
+        ) : (
           <TestContent
             isExam={true}
+            closed={true}
             test={{ ...exam, status }}
-            setStudentAnswersLength={setStudentAnswersLength}
-            attemptTime={attemptTime}
-            setAnswersToLocalStorage={setAnswers}
-            answers={answers}
-            closeAttempt={closeAttempt}
-            attemptFinished={attemptFinished}
-            setAttemptFinished={setAttemptFinished}
-            messageApi={messageApi}
+            answers={submitedAttemptData}
+            // setStudentAnswersLength={setStudentAnswersLength}
+            // attemptTime={attemptTime}
+            // setAnswersToLocalStorage={setAnswers}
+            // closeAttempt={closeAttempt}
+            // attemptFinished={attemptFinished}
+            // setAttemptFinished={setAttemptFinished}
           />
-        ) : (
-          examData.attempts &&
-          examData.attempts_data && (
-            <ClosedExamPanel
-              examData={examData}
-              handleStartExam={handleStartExam}
-            />
-          )
         )}
         <div className={styles.progressWrapper}>
           <CourseAsideProgressPanel

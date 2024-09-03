@@ -15,6 +15,8 @@ import {
   updateUserInfo,
   updateUsername,
 } from "../../http/services/user";
+import { store } from "../store";
+import { setDefaultState } from "../lesson/slice";
 
 export const activateUserThunk = createAsyncThunk(
   "user/activate",
@@ -126,6 +128,7 @@ export const logoutThunk = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await logout();
+      store.dispatch(setDefaultState());
       return response;
     } catch (error) {
       return rejectWithValue({

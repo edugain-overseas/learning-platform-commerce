@@ -29,7 +29,11 @@ const initialState = {
 const lessonSlice = createSlice({
   name: "lesson",
   initialState,
-  reducers: {},
+  reducers: {
+    setDefaultState(state) {
+      state.lessons = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getLessonByIdThunk.pending, (state, _) => {
@@ -405,7 +409,7 @@ const lessonSlice = createSlice({
           (lesson) =>
             lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
-        
+
         if (lessonIndex !== -1) {
           console.log(`${lessonType}_data`);
           const questionIndex = state.lessons[lessonIndex][
@@ -553,5 +557,5 @@ const lessonSlice = createSlice({
       });
   },
 });
-
+export const { setDefaultState } = lessonSlice.actions;
 export default lessonSlice;
