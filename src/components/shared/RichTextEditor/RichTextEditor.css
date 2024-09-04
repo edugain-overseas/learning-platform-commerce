@@ -10,6 +10,7 @@
   &:focus-within {
     & > .ql-toolbar {
       opacity: 1;
+      pointer-events: all;
     }
 
     & > .ql-toolbar.ql-snow + .ql-container.ql-snow {
@@ -28,6 +29,7 @@
     border-radius: 5rem 5rem 0 0;
     background-color: #fff;
     opacity: 0;
+    pointer-events: none;
     transition: opacity var(--transition-time-min) ease;
   }
 

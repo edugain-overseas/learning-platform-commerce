@@ -19,7 +19,6 @@ const RichTextEditor = ({
   setValue = () => null,
   placeholder = "Write your text here...",
 }) => {
-  console.log(value);
   return (
     <ReactQuill
       theme="snow"

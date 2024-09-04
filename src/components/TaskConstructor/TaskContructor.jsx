@@ -5,15 +5,16 @@ import { getLessonByIdThunk } from "../../redux/lesson/operation";
 import { getAllLessons, getIsLoading } from "../../redux/lesson/selectors";
 import { ReactComponent as EditIcon } from "../../images/icons/editBlack.svg";
 import { ReactComponent as ReadIcon } from "../../images/icons/list.svg";
+import { LectureConstructorProvider } from "../../context/LectureConstructorContext";
+import { getAllCourses } from "../../redux/course/selectors";
+import { getUserInfo } from "../../redux/user/selectors";
 import LectureConstructor from "./LectureConstructor/LectureConstructor";
 import TestConstructor from "./TestConstructor/TestConstructor";
 import LectureHeader from "../TasksHeader/LectureHeader";
 import TestHeader from "../TasksHeader/TestHeader";
-import styles from "./TaskConstructor.module.scss";
 import LectureContent from "../Lecture/LectureContent";
-import { getAllCourses } from "../../redux/course/selectors";
-import { getUserInfo } from "../../redux/user/selectors";
 import Spinner from "../Spinner/Spinner";
+import styles from "./TaskConstructor.module.scss";
 
 const TaskContructor = () => {
   const [viewTypeIndex, setViewTypeIndex] = useState(0);
@@ -40,23 +41,24 @@ const TaskContructor = () => {
   const getConstructorByType = () => {
     switch (taskType) {
       case "lecture":
-        const lectureAttributes = task.lecture_info.attributes;
         return (
           <>
-            <LectureHeader
-              lecture={task}
-              switcherItems={[<EditIcon />, <ReadIcon />]}
-              switcherValue={viewTypeIndex}
-              switcherOnChange={setViewTypeIndex}
-            />
-            {viewTypeIndex === 0 && (
-              <LectureConstructor initialBlocks={lectureAttributes} />
-            )}
-            {viewTypeIndex === 1 && (
-              <div className={styles.lectureContentWrapper}>
-                <LectureContent lecture={{ courseName, ...task }} />
-              </div>
-            )}
+            <LectureConstructorProvider>
+              <LectureHeader
+                lecture={task}
+                switcherItems={[<EditIcon />, <ReadIcon />]}
+                switcherValue={viewTypeIndex}
+                switcherOnChange={setViewTypeIndex}
+              />
+              {viewTypeIndex === 0 && (
+                <LectureConstructor />
+              )}
+              {viewTypeIndex === 1 && (
+                <div className={styles.lectureContentWrapper}>
+                  <LectureContent lecture={{ courseName, ...task }} />
+                </div>
+              )}
+            </LectureConstructorProvider>
           </>
         );
       case "test":

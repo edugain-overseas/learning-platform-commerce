@@ -16,7 +16,7 @@ const Templates = ({ type }) => {
     setIsOpen(newOpen);
   };
 
-//   const closePopOver = () => handleOpenChange(false);
+  //   const closePopOver = () => handleOpenChange(false);
 
   return (
     <Popover

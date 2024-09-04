@@ -1,7 +1,6 @@
 .wrapper {
   height: 28rem;
   display: flex;
-  gap: 4rem;
   padding: 3rem;
 
   border-radius: 5rem;
@@ -11,7 +10,7 @@
 .openSaveNewTemplateModal,
 .openTemplatesBtn {
   height: 100%;
-  aspect-ratio: 1;
+  width: 32px;
   padding: 2rem;
   display: flex;
   justify-content: center;
@@ -28,5 +27,61 @@
 
   &:hover {
     color: var(--content-main);
+  }
+}
+
+.openSaveNewTemplateModal {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.openTemplatesBtn {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+// Save Template Form
+.saveTemplateForm {
+  padding: 16rem 20rem;
+
+  p {
+    font-size: 18rem;
+    font-weight: 500;
+    color: var(--content-main);
+    margin-bottom: 12rem;
+
+    span {
+      color: var(--content-secondary);
+    }
+  }
+
+  textarea {
+    margin-bottom: 24rem;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8rem;
+    min-width: 200px;
+    height: 40rem;
+    margin: 0 auto;
+    background-color: transparent;
+    color: var(--content-datail-secondary);
+    font-size: 18rem;
+    border-radius: 5rem;
+    border: 1rem solid var(--content-datail-secondary);
+    opacity: 0.7;
+    transition: opacity var(--transition-time-min) ease,
+      color var(--transition-time-min) ease,
+      border-color var(--transition-time-min) ease,
+      background-color var(--transition-time-min) ease;
+
+    &:hover {
+      background-color: var(--bg-button-default);
+      color: var(--content-main);
+      box-shadow: var(--box-shadow-button-inset);
+    }
   }
 }

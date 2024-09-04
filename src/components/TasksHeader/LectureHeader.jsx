@@ -35,7 +35,7 @@ const LectureHeader = ({
       </div>
       {isModer && (
         <>
-          <Template />
+          <Template type='lecture' />
           <Switcher
             items={switcherItems}
             value={switcherValue}
