@@ -9,47 +9,43 @@ import VideoPlayer from "../shared/VideoPlayer/VideoPlayer";
 import LinkCard from "../shared/LinkCard/LinkCard";
 import ImageGroup from "../shared/ImageGroup/ImageGroup";
 import DocumentLink from "../shared/DocumentLink/DocumentLink";
-import Textarea from "../shared/Textarea/Textarea";
 import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
 import CompleteBtn from "../shared/CompleteBtn/CompleteBtn";
 import styles from "./Lecture.module.scss";
 
-const LectureContent = ({ lecture }) => {
-  const [lectureTitle, setLectureTitle] = useState(lecture?.title || "");
+const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
   const [fullscreen, setFullscreen] = useState(false);
   const [confirmBtnState, setConfirmBtnState] = useState("default");
-  const isEdit = false;
 
-  
   const dispatch = useDispatch();
-  
-  const { number, courseName, status, id, course_id: courseId } = lecture;
-  console.log(status, confirmBtnState);
 
-  const lectureContent = [...lecture.lecture_info.attributes].sort(
-    (itemA, itemB) => itemA.a_number - itemB.a_number
-  );
+  const {
+    number,
+    courseName,
+    status,
+    id,
+    course_id: courseId,
+  } = isTemplate ? {} : lecture;
 
-  const onTitleChange = (value) => {
-    console.log(value);
-    const valueWithoutPrefix = value.replace(`${courseName}: `, "");
-    setLectureTitle(valueWithoutPrefix);
-  };
+  const lectureContent = isTemplate
+    ? tepmplateData
+    : [...lecture.lecture_info.attributes].sort(
+        (itemA, itemB) => itemA.a_number - itemB.a_number
+      );
 
   const renderLectureContent = () =>
     lectureContent?.map((section) => {
       const {
         a_type: type,
-        a_id: id,
+        // a_id: id,
         a_title: title,
         a_text: text,
         downloadAllowed,
-        // fileName,
-        // fileSize,
         hided,
         files,
         links,
       } = section;
+      const id = isTemplate ? section.id : section.a_id
       switch (type) {
         case "text":
           return (
@@ -272,75 +268,57 @@ const LectureContent = ({ lecture }) => {
     );
   };
 
-  useEffect(()=>{
-    if (status === 'active') {
-      setConfirmBtnState('default')
+  useEffect(() => {
+    if (status === "active") {
+      setConfirmBtnState("default");
     }
-  },[status])
+  }, [status]);
 
   return (
     <div className={styles.contentWrapper}>
       <div className={styles.lectureContent}>
-        <div className={styles.titleWrapper}>
-          {isEdit ? (
-            <Textarea
-              className={styles.titleInput}
-              fontSize={18}
-              value={`${courseName}: ${lectureTitle}`}
-              onChange={onTitleChange}
-              prefixStr={`${courseName}: `}
-            />
-          ) : (
+        {!isTemplate && (
+          <div className={styles.titleWrapper}>
             <div className={styles.lectureName}>
               <span className={styles.prefix}>{courseName}: </span>
-              <span className={styles.title}>{lectureTitle}</span>
+              <span className={styles.title}>{lecture?.title}</span>
             </div>
-          )}
-          <h2 className={styles.title}>
-            <span className={styles.prefix}>Lecture №:</span>
-            {number}
-          </h2>
-        </div>
-        {isEdit ? (
-          //   <LectureConstructor
-          //     lectureId={lectureId}
-          //     lectureContent={lectureContent.map((item) => ({
-          //       ...item,
-          //       id: item.attributeId,
-          //     }))}
-          //   />
-          <div></div>
-        ) : lectureContent?.length !== 0 ? (
-          renderLectureContent()
-        ) : (
-          <Empty />
+
+            <h2 className={styles.title}>
+              <span className={styles.prefix}>Lecture №:</span>
+              {number}
+            </h2>
+          </div>
         )}
-        <div className={styles.bottomNavBtnsWrapper}>
-          <LessonNavigateBtn
-            forward={false}
-            currentNumber={lecture.number}
-            courseId={courseId}
-            label="Return to previous"
-            width="200rem"
-            height="38rem"
-          />
-          {status === "active" ? (
-            <CompleteBtn
-              onClick={handleConfirmLecture}
-              state={confirmBtnState}
+        {lectureContent?.length !== 0 ? renderLectureContent() : <Empty />}
+        {!isTemplate && (
+          <div className={styles.bottomNavBtnsWrapper}>
+            <LessonNavigateBtn
+              forward={false}
+              currentNumber={lecture.number}
+              courseId={courseId}
+              label="Return to previous"
+              width="200rem"
+              height="38rem"
             />
-          ) : status === "completed" ? (
-            <CompleteBtn state={"fulfilled"} />
-          ) : null}
-          <LessonNavigateBtn
-            forward={true}
-            currentNumber={lecture.number}
-            courseId={courseId}
-            label="Move on to next"
-            width="200rem"
-            height="38rem"
-          />
-        </div>
+            {status === "active" ? (
+              <CompleteBtn
+                onClick={handleConfirmLecture}
+                state={confirmBtnState}
+              />
+            ) : status === "completed" ? (
+              <CompleteBtn state={"fulfilled"} />
+            ) : null}
+            <LessonNavigateBtn
+              forward={true}
+              currentNumber={lecture.number}
+              courseId={courseId}
+              label="Move on to next"
+              width="200rem"
+              height="38rem"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

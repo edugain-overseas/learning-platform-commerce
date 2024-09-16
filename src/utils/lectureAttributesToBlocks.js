@@ -1,7 +1,6 @@
 export const lectureAttributesToBlocks = (attrs) =>
   attrs.map((attr) => {
     let block = { ...attr, id: attr.a_id };
-    console.log(block);
     if (["present", "audio", "video"].includes(attr.a_type)) {
       if (block.files) {
         const {

@@ -22,7 +22,8 @@ export const privateRoutesHandler = async (method, url, ...args) => {
         const { data } = await instance[method](url, ...args);
         return data;
       } catch (refreshError) {
-        if (refreshError.response && refreshError.response.status === 403) {
+        console.log(refreshError);
+        if (refreshError.response && refreshError.response.status === 403 && refreshError.response) {
           store.dispatch(refreshTonkenExpiredAction());
         }
         throw refreshError;

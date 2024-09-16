@@ -15,6 +15,7 @@ import categorySlice from "./category/slice";
 import courseSlice from "./course/slice";
 import lessonSlice from "./lesson/slice";
 import instructionSlice from "./instruction/slice";
+import templateSlice from "./template/slice";
 
 const persistConfig = {
   key: "persisted-user",
@@ -31,6 +32,7 @@ export const store = configureStore({
     course: courseSlice.reducer,
     lesson: lessonSlice.reducer,
     instruction: instructionSlice.reducer,
+    template: templateSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

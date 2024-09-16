@@ -9,6 +9,7 @@ import {
 } from "../redux/instruction/operations";
 import { getCategoriesThunk } from "../redux/category/operations";
 import { getCoursesThunk } from "../redux/course/operations";
+import { getAllTemplatesThunk } from "../redux/template/operation";
 
 export const useInitialData = () => {
   const dispatch = useDispatch();
@@ -36,4 +37,11 @@ export const useInitialData = () => {
     dispatch(getGeneralInstuctionsThunk());
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (userType === "moder") {
+      dispatch(getAllTemplatesThunk());
+    }
+    // eslint-disable-next-line
+  }, [userType]);
 };

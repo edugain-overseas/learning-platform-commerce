@@ -195,6 +195,8 @@ export const LectureConstructorProvider = ({ children }) => {
         return { ...rest };
       });
 
+    console.log(newAttrsData);
+
     const initialAttrsData = blocks
       .filter((attr) => attr.a_id)
       .map(({ id, ...rest }) => {
@@ -211,7 +213,7 @@ export const LectureConstructorProvider = ({ children }) => {
       );
     });
 
-    console.log(initialBlocksToUpdate);
+    console.log(initialAttrsData);
 
     if (initialBlocksToUpdate.length) {
       dispatch(
@@ -284,6 +286,7 @@ export const LectureConstructorProvider = ({ children }) => {
     <LectureConstructorContext.Provider
       value={{
         blocks,
+        setBlocks,
         handleAddBlock,
         handleDeleteBlock,
         getSetters,

@@ -1,6 +1,6 @@
 export const compareObjectsByKeys = (obj1, obj2, keys) => {
   for (let key of keys) {
-    if (obj1[key] !== obj2?.[key]) {
+    if (obj1?.[key] !== obj2?.[key]) {
       return true;
     }
   }
@@ -56,15 +56,20 @@ export const compareLecturePart = (obj1, obj2, a_type) => {
       return compareObjectsByKeys(obj1, obj2, textBaseValues) || isFilesChanged;
 
     case "links":
-      console.log("1");
-      const isLinksChanged = obj1.links.reduce((changed, link, index) => {
-        console.log(link, obj2.links[index]);
-        return (
-          changed ||
-          compareObjectsByKeys(link, obj2.links[index], linksBaseValues)
-        );
-      }, false);
-      console.log("2");
+      let isLinksChanged = false;
+
+      if (obj1.links.length !== obj2.links.length) {
+        isLinksChanged = true;
+      } else {
+        isLinksChanged = obj1.links.reduce((changed, link, index) => {
+          console.log(link, obj2.links[index]);
+          return (
+            changed ||
+            compareObjectsByKeys(link, obj2.links[index], linksBaseValues)
+          );
+        }, false);
+      }
+      console.log("isLinksChanged: ", isLinksChanged);
       return compareObjectsByKeys(obj1, obj2, textBaseValues) || isLinksChanged;
 
     default:

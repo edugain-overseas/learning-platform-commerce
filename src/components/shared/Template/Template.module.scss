@@ -43,6 +43,10 @@
 // Save Template Form
 .saveTemplateForm {
   padding: 16rem 20rem;
+  margin: 44rem 0 12rem;
+  box-shadow: var(--drop-shadow-middle);
+  border-radius: 5rem;
+  background-color: var(--bg-rgba-default);
 
   p {
     font-size: 18rem;
@@ -84,4 +88,115 @@
       box-shadow: var(--box-shadow-button-inset);
     }
   }
+}
+
+.templatesTitle {
+  font-size: 22rem;
+  color: var(--content-main);
+}
+
+.templatesList {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+
+  li {
+    padding: 10rem;
+    background: var(--bg-rgba-default);
+    backdrop-filter: blur(16rem);
+
+    &:hover {
+      box-shadow: var(--drop-shadow-button-main-hover);
+    }
+  }
+
+  .templateHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16rem;
+    margin-bottom: 12rem;
+
+    .showBtn {
+      min-width: 200rem;
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      padding-bottom: 2rem;
+      position: relative;
+      color: var(--content-main);
+      font-size: 18px;
+      opacity: 0.7;
+      transition: opacity var(--transition-time-min) ease;
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 1rem;
+        background-color: var(--content-main);
+        border-radius: 30rem;
+      }
+
+      span:not([role="img"]) {
+        font-size: 18rem;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .deleteBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem;
+
+      &:hover {
+        box-shadow: var(--box-shadow-button);
+      }
+
+      path {
+        fill: var(--content-nav-hover);
+      }
+
+      svg {
+        width: 16rem;
+        height: 16rem;
+      }
+    }
+  }
+}
+
+.btnsWrapper, .modalBtnsWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.useBtn {
+  flex-grow: 1;
+  color: var(--content-datail-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding: 4rem 8rem;
+  transition: color var(--transition-time-min) ease;
+
+  &:hover {
+    color: var(--content-main);
+  }
+}
+
+.spinnerWrapper {
+  position: absolute;
+  inset: 0;
+  background-color: rgba($color: #000000, $alpha: 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

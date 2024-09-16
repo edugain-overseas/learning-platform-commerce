@@ -4,24 +4,45 @@ import Modal from "../Modal/Modal";
 import styles from "./Template.module.scss";
 import SaveTemplateForm from "./SaveTemplateForm";
 import { useLectureConstructor } from "../../../context/LectureConstructorContext";
+import { useDispatch, useSelector } from "react-redux";
+import { createTemplateByTypeThunk } from "../../../redux/template/operation";
+import useMessage from "antd/es/message/useMessage";
+import { getIsTemplateLoading } from "../../../redux/template/selectors";
 
 const SaveTemplate = ({ type }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [messageApi, contextHolder] = useMessage();
+  const isLoading = useSelector(getIsTemplateLoading)
+  const dispatch = useDispatch();
 
-  const {blocks} = useLectureConstructor();
+  const { blocks } = useLectureConstructor();
 
   const saveTemplate = (title) => {
-    const data = {
+    if (title.trim() === "") {
+      messageApi.error({
+        content: "Title of template is required",
+        duration: 3,
+      });
+      return;
+    }
+    const templateData = {
       title,
       type,
       template_data: blocks,
     };
+    console.log(templateData);
 
-    console.log(data);
+    dispatch(createTemplateByTypeThunk({ type, templateData }))
+      .unwrap()
+      .then((response) => {
+        messageApi.success({ content: response.message, duration: 3 });
+        setIsOpenModal(false);
+      });
   };
 
   return (
     <>
+      {contextHolder}
       <button
         className={styles.openSaveNewTemplateModal}
         onClick={() => setIsOpenModal(true)}
