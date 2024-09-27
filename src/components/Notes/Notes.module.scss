@@ -1,0 +1,219 @@
+.note {
+  display: flex;
+  align-items: center;
+  gap: 8rem;
+
+  span {
+    font-size: 14rem;
+    font-weight: 500;
+    color: var(--content-datail-secondary);
+  }
+}
+
+.openNotesBtn {
+  width: 28rem;
+  height: 28rem;
+  border-radius: 5px;
+  background: var(--bg-accent-block);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: 16rem;
+    height: 16rem;
+  }
+}
+
+// popover content
+
+.notesTitle {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  margin-bottom: 8rem;
+}
+
+.noteTitleInput {
+  display: block;
+  width: 100%;
+  border-radius: 5rem;
+  background: var(--content-light-secondary);
+  box-shadow: 0 0 8rem 0 rgba(0, 0, 0, 0.16) inset;
+  margin-bottom: 12rem;
+  height: 24rem;
+  padding-inline: 8rem;
+
+  color: var(--content-main);
+  text-align: justify;
+  font-family: Roboto;
+  font-size: 10rem;
+  font-weight: 500;
+
+  &::placeholder {
+    color: var(--content-datail-secondary);
+  }
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  gap: 16rem;
+
+  button {
+    width: 50rem;
+    height: 24rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 5rem;
+    border: 1rem solid var(--content-datail-secondary);
+
+    font-family: Roboto;
+    font-weight: 600;
+    color: var(--content-datail-secondary);
+    font-size: 10rem;
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
+}
+
+.addChildNodeWrapper {
+  position: absolute;
+  inset: 0;
+  padding: 0 4rem;
+  height: 16rem;
+
+  display: flex;
+  gap: 2px;
+  align-items: center;
+
+  input {
+    font-size: 10rem;
+    color: var(--content-main);
+    width: calc(100% - 18rem);
+    font-family: Roboto;
+    padding: 2rem 0;
+
+    border-bottom: 1rem solid var(--content-datail-secondary);
+
+    &::placeholder {
+      color: var(--content-datail-secondary);
+      font-size: 10rem;
+      font-style: italic;
+    }
+  }
+
+  button {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 16rem;
+    height: 16rem;
+
+    padding: 2rem;
+    opacity: 0.7;
+    transition: opacity var(--transition-time-min) ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.nodeTitleWrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+
+  .nodeTitle {
+    padding-inline: 4rem;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    border-radius: 5rem;
+
+    transition: background-color var(--transition-time-min) ease;
+  }
+
+  button {
+    height: 16rem;
+    width: 16rem;
+    flex-shrink: 0;
+    padding: 3rem;
+    opacity: 0.5;
+    transition: opacity var(--transition-time-min) ease;
+    font-size: 10rem;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &.showAddChildNode {
+      color: var(--content-main);
+    }
+    &.deleteNodeBtn path {
+      fill: var(--content-nav-hover);
+    }
+
+    svg {
+      width: 10rem;
+      height: 10rem;
+    }
+  }
+}
+
+.note {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+
+  svg {
+    width: 10rem;
+    height: 10rem;
+    flex-shrink: 0;
+  }
+
+  .noteTitle {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    max-width: calc(100% - 20rem);
+
+    &:hover {
+      span {
+        text-decoration: underline;
+      }
+    }
+
+    span {
+      font-size: 10rem;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+  .deleteNodeBtn {
+    height: 16rem;
+    width: 16rem;
+    flex-shrink: 0;
+    padding: 3rem;
+    opacity: 0.5;
+    transition: opacity var(--transition-time-min) ease;
+    font-size: 10rem;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    & path {
+      fill: var(--content-nav-hover);
+    }
+  }
+}

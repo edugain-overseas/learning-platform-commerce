@@ -2,6 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   activateUserThunk,
   buyCourseThunk,
+  createNewNoteThunk,
+  createNotesFolderThunk,
+  deleteNoteThunk,
+  deleteNotesFolderThunk,
   getLastUserImagesThunk,
   getUserInfoThunk,
   initializationChatThunk,
@@ -35,6 +39,7 @@ const initialState = {
   changedName: false,
   changedSurname: false,
   chats: [],
+  notes: [],
   isLoading: false,
   error: null,
 };
@@ -144,6 +149,7 @@ const userSlice = createSlice({
         state.balance = 0;
         state.changedName = false;
         state.changedSurname = false;
+        state.notes = [];
         state.isLoading = false;
         state.error = null;
       })
@@ -163,7 +169,7 @@ const userSlice = createSlice({
         state.balance = 0;
         state.changedName = false;
         state.changedSurname = false;
-
+        state.notes = [];
         state.isLoading = false;
         state.error = payload;
       })
@@ -190,6 +196,7 @@ const userSlice = createSlice({
         state.changedName = payload.changed_name;
         state.changedSurname = payload.changed_surname;
         state.chats = payload.chats;
+        state.notes = payload.my_notes;
       })
       .addCase(getUserInfoThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -305,6 +312,158 @@ const userSlice = createSlice({
         state.chats.push(payload);
       })
       .addCase(initializationChatThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
+      .addCase(createNotesFolderThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(createNotesFolderThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        console.log(payload);
+
+        const newNode = {
+          folder_name: payload.name,
+          folder_id: payload.id,
+          parent_id: payload.parent_id,
+          folder_notes: null,
+          children_folders: null,
+        };
+
+        const addNodeRecursively = (node) => {
+          if (node.folder_id === newNode.parent_id) {
+            return {
+              ...node,
+              children_folders:
+                node.children_folders === null
+                  ? [newNode]
+                  : [...node.children_folders, newNode],
+            };
+          }
+
+          if (node.children_folders === null) {
+            return node;
+          }
+
+          return {
+            ...node,
+            children_folders: node.children_folders.map(addNodeRecursively),
+          };
+        };
+
+        if (newNode.parent_id === null) {
+          state.notes = [...state.notes, newNode];
+          return;
+        }
+        state.notes = state.notes.map(addNodeRecursively);
+      })
+      .addCase(createNotesFolderThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
+      .addCase(deleteNotesFolderThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteNotesFolderThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+
+        const folderId = action.meta.arg;
+
+        const deleteNodeRecursively = (node) => {
+          const filteredChildren = node.children_folders
+            ? node.children_folders.filter(
+                (child) => child.folder_id !== folderId
+              )
+            : [];
+
+          return {
+            ...node,
+            children_folders: filteredChildren.map(deleteNodeRecursively),
+          };
+        };
+
+        state.notes = state.notes
+          .filter((node) => node.folder_id !== folderId)
+          .map(deleteNodeRecursively);
+      })
+      .addCase(deleteNotesFolderThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
+      .addCase(createNewNoteThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(createNewNoteThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+
+        console.log(payload);
+
+        const newNote = {
+          title: payload.title,
+          text: payload.text,
+          folder_id: payload.folder_id,
+          lecture_id: payload.lecture_id,
+          note_id: payload.id,
+        };
+
+        const addNoteRecursevely = (node) => {
+          if (node.folder_id === newNote.folder_id) {
+            return {
+              ...node,
+              folder_notes:
+                node.folder_notes === null
+                  ? [newNote]
+                  : [...node.folder_notes, newNote],
+            };
+          }
+
+          return {
+            ...node,
+            children_folders: node.children_folders
+              ? node.children_folders.map(addNoteRecursevely)
+              : node.children_folders,
+          };
+        };
+
+        state.notes = state.notes.map(addNoteRecursevely);
+      })
+      .addCase(createNewNoteThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
+      .addCase(deleteNoteThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteNoteThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+
+        const noteId = action.meta.arg;
+
+        const deleteNoteRecursively = (node) => {
+          const filtredNotes = node.folder_notes
+            ? node.folder_notes.filter((note) => note.note_id !== noteId)
+            : node.folder_notes;
+
+          return {
+            ...node,
+            folder_notes: filtredNotes,
+            children_folders: node.children_folders
+              ? node.children_folders.map(deleteNoteRecursively)
+              : node.children_folders,
+          };
+        };
+
+        state.notes = state.notes.map(deleteNoteRecursively);
+      })
+      .addCase(deleteNoteThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
       });

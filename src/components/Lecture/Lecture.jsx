@@ -5,6 +5,7 @@ import LectureHeader from "../TasksHeader/LectureHeader";
 import LectureContent from "./LectureContent";
 import CourseAsideProgressPanel from "../CourseAsideProgressPanel/CourseAsideProgressPanel";
 import styles from "./Lecture.module.scss";
+import { SelectionProvider } from "../../context/SelectionContext";
 
 const Lecture = ({ lecture }) => {
   const { course_id: courseId, id } = lecture;
@@ -18,17 +19,19 @@ const Lecture = ({ lecture }) => {
 
   return (
     <div className={styles.lectureWrapper}>
-      <LectureHeader lecture={lecture} />
-      <div className={styles.bodyWrapper}>
-        <LectureContent lecture={{ ...lecture, status, courseName }} />
-        <div className={styles.progressWrapper}>
-          <CourseAsideProgressPanel
-            courseLessons={courseLessons ? courseLessons : []}
-            courseId={courseId}
-            progress={course?.progress}
-          />
+      <SelectionProvider>
+        <LectureHeader lecture={lecture} />
+        <div className={styles.bodyWrapper}>
+          <LectureContent lecture={{ ...lecture, status, courseName }} />
+          <div className={styles.progressWrapper}>
+            <CourseAsideProgressPanel
+              courseLessons={courseLessons ? courseLessons : []}
+              courseId={courseId}
+              progress={course?.progress}
+            />
+          </div>
         </div>
-      </div>
+      </SelectionProvider>
     </div>
   );
 };

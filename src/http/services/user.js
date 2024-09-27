@@ -235,3 +235,53 @@ export const initializationChat = async (chatData) => {
     throw error;
   }
 };
+
+export const createNotesFolder = async (folderData) => {
+  try {
+    const data = await privateRoutesHandler(
+      "post",
+      "/notes/create/folder",
+      folderData
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteNotesFolder = async (folderId) => {
+  try {
+    const data = await privateRoutesHandler(
+      "delete",
+      `/notes/delete/folder?folder_id=${folderId}`
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createNewNote = async (noteData) => {
+  try {
+    const data = await privateRoutesHandler(
+      "post",
+      "/notes/create/note",
+      noteData
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteNote = async (noteId) => {
+  try {
+    const data = await privateRoutesHandler(
+      "delete",
+      `/notes/delete/note?note_id=${noteId}`
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

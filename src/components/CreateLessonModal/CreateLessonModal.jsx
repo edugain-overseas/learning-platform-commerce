@@ -3,6 +3,7 @@ import Select from "../shared/Select/Select";
 import CircleProgressBar from "../shared/CircleProgressBar/CircleProgressBar";
 import Textarea from "../shared/Textarea/Textarea";
 import RichTextEditor from "../shared/RichTextEditor/RichTextEditor";
+import NotesPopoverContent from "../Notes/NotesPopoverContent";
 // import TextReader from "../TextReader/TextReader";
 
 const options = [
@@ -32,6 +33,7 @@ const CreateLessonModal = () => {
   const onChange = (value) => {
     setSelectValue(value);
   };
+
   return (
     <div style={{ padding: "100rem" }}>
       <div>
@@ -47,7 +49,7 @@ const CreateLessonModal = () => {
       <div>
         <CircleProgressBar strokeColor="#B8EAFF" strokeWidth={8} />
       </div>
-      <div style={{marginBottom: 50}}>
+      <div style={{ marginBottom: 50 }}>
         <Textarea
           width="300rem"
           minRows={4}
@@ -56,6 +58,13 @@ const CreateLessonModal = () => {
         />
       </div>
       <RichTextEditor />
+      <div
+        style={{
+          width: 180,
+        }}
+      >
+        <NotesPopoverContent />
+      </div>
     </div>
   );
 };

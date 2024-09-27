@@ -2,6 +2,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   activateUser,
   buyCourse,
+  createNewNote,
+  createNotesFolder,
+  deleteNote,
+  deleteNotesFolder,
   getLastUserImages,
   getUserInfo,
   initializationChat,
@@ -265,6 +269,66 @@ export const initializationChatThunk = createAsyncThunk(
   async (chatData, { rejectWithValue }) => {
     try {
       const response = await initializationChat(chatData);
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const createNotesFolderThunk = createAsyncThunk(
+  "user/createNotesFolder",
+  async (folderData, { rejectWithValue }) => {
+    try {
+      const response = await createNotesFolder(folderData);
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const deleteNotesFolderThunk = createAsyncThunk(
+  "user/deleteNotesFolder",
+  async (folderId, { rejectWithValue }) => {
+    try {
+      const response = await deleteNotesFolder(folderId);
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const createNewNoteThunk = createAsyncThunk(
+  "user/createNewNote",
+  async (noteData, { rejectWithValue }) => {
+    try {
+      const response = await createNewNote(noteData);
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const deleteNoteThunk = createAsyncThunk(
+  "user/deleteNote",
+  async (noteId, { rejectWithValue }) => {
+    try {
+      const response = await deleteNote(noteId);
       return response;
     } catch (error) {
       return rejectWithValue({

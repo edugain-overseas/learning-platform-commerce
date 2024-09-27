@@ -1,0 +1,53 @@
+.notes-popconfirm .ant-popover-inner {
+  background-color: var(--bg-rgba-primary);
+  background-clip: padding-box;
+  border-radius: 5rem;
+  box-shadow: var(--drop-shadow-short);
+  padding: 8rem;
+  backdrop-filter: blur(16px);
+}
+
+.notes-popconfirm .ant-popconfirm-message {
+  margin-bottom: 8rem;
+}
+
+.notes-popconfirm
+  .ant-popconfirm-message
+  > .ant-popconfirm-message-icon
+  .anticon {
+  font-size: 12rem;
+  margin-inline-end: 4rem;
+}
+.notes-popconfirm.ant-popconfirm.ant-popover {
+  font-size: 12rem;
+}
+
+.notes-popconfirm .ant-popconfirm-message .ant-popconfirm-title {
+  color: var(--content-main);
+  font-size: 12rem;
+}
+
+.notes-popconfirm .ant-popconfirm-message .ant-popconfirm-description {
+  color: var(--content-datail-secondary);
+  font-size: 10rem;
+  padding: 0 4rem;
+}
+
+.ant-btn.ant-btn-sm {
+    font-size: 12rem;
+    height: 20rem;
+}
+
+
+.notes-popconfirm {
+}
+.notes-popconfirm {
+}
+.notes-popconfirm {
+}
+.notes-popconfirm {
+}
+.notes-popconfirm {
+}
+.notes-popconfirm {
+}

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Empty } from "antd";
 import { serverName } from "../../http/sever";
 import { confirmLectureThunk } from "../../redux/lesson/operation";
+import { useSelection } from "../../context/SelectionContext";
 import PDFReader from "../PDFReader/PDFReader";
 import Modal from "../shared/Modal/Modal";
 import VideoPlayer from "../shared/VideoPlayer/VideoPlayer";
@@ -16,6 +17,8 @@ import styles from "./Lecture.module.scss";
 const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
   const [fullscreen, setFullscreen] = useState(false);
   const [confirmBtnState, setConfirmBtnState] = useState("default");
+
+  const { selectionContaner } = useSelection();
 
   const dispatch = useDispatch();
 
@@ -45,7 +48,7 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
         files,
         links,
       } = section;
-      const id = isTemplate ? section.id : section.a_id
+      const id = isTemplate ? section.id : section.a_id;
       switch (type) {
         case "text":
           return (
@@ -290,7 +293,11 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
             </h2>
           </div>
         )}
-        {lectureContent?.length !== 0 ? renderLectureContent() : <Empty />}
+        {lectureContent?.length !== 0 ? (
+          <div ref={selectionContaner}>{renderLectureContent()}</div>
+        ) : (
+          <Empty />
+        )}
         {!isTemplate && (
           <div className={styles.bottomNavBtnsWrapper}>
             <LessonNavigateBtn
