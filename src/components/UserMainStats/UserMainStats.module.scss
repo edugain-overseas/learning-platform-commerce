@@ -50,3 +50,82 @@
     }
   }
 }
+
+.minimized {
+  align-items: center;
+  gap: 64rem;
+  padding: 10rem 28rem;
+
+  background-color: var(--bg-rgba-default);
+  backdrop-filter: blur(16px);
+  border-radius: 5rem;
+  box-shadow: var(--drop-shadow-short);
+  height: 100%;
+
+  h3 {
+    font-weight: 600;
+    line-height: 19rem;
+    color: var(--content-main);
+    flex-grow: 1;
+  }
+
+  & > div {
+    flex: 1;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 14rem;
+      height: 14rem;
+      margin-right: 6rem;
+    }
+
+    .clock {
+      width: 14rem;
+      height: 14rem;
+    }
+
+    &:has(.clock) .info {
+      gap: 0rem;
+
+      span:first-child:after {
+        content: '|';
+        font-size: 14rem;
+        margin-inline: 8rem;
+        line-height: 12rem;
+      }
+    }
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+
+    .value,
+    .name {
+      color: var(--content-datail-secondary);
+      font-size: 12rem;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+  }
+
+  .arrowIcon {
+    width: 11rem;
+    height: calc(11rem * 5 / 7);
+
+    * {
+      fill: var(--content-main);
+    }
+  }
+}

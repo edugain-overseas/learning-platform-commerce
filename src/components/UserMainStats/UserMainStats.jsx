@@ -1,17 +1,22 @@
 import React from "react";
+import { ReactComponent as ArrowDownIcon } from "../../images/icons/arrowDown.svg";
 import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
 import { ReactComponent as TaskViewIcon } from "../../images/icons/task-view.svg";
 import { ReactComponent as TaskCompletedIcon } from "../../images/icons/task-completed.svg";
+import InsetBtn from "../shared/InsetBtn/InsetBtn";
 import styles from "./UserMainStats.module.scss";
 
 const UserMainStats = ({
   hours,
   minutes,
   progressCourses,
-  competedCourses,
+  completedCourses,
+  minimized,
+  handleCollapseCerficates,
 }) => {
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${minimized ? styles.minimized : ""}`}>
+      {minimized && <h3>My Profile</h3>}
       <div>
         <ClockIcon className={styles.clock} />
         <div className={styles.divider}></div>
@@ -32,10 +37,20 @@ const UserMainStats = ({
         <TaskCompletedIcon />
         <div className={styles.divider}></div>
         <div className={styles.info}>
-          <span className={styles.value}>{`${progressCourses} completed`}</span>
+          <span
+            className={styles.value}
+          >{`${completedCourses} completed`}</span>
           <span className={styles.name}>courses</span>
         </div>
       </div>
+      {minimized && (
+        <InsetBtn
+          icon={<ArrowDownIcon className={styles.arrowIcon} />}
+          width="24rem"
+          height="24rem"
+          onClick={handleCollapseCerficates}
+        />
+      )}
     </div>
   );
 };

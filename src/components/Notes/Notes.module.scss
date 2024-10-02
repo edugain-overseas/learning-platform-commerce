@@ -174,10 +174,13 @@
   align-items: center;
   gap: 4rem;
 
-  svg {
-    width: 10rem;
-    height: 10rem;
-    flex-shrink: 0;
+  .noteTitle,
+  .deleteNodeBtn {
+    svg {
+      width: 10rem;
+      height: 10rem;
+      flex-shrink: 0;
+    }
   }
 
   .noteTitle {

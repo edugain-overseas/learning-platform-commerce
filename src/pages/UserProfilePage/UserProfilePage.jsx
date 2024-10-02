@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import UserInfoCard from "../../components/UserInfoCard/UserInfoCard";
 import UserMainStats from "../../components/UserMainStats/UserMainStats";
 import { ReactComponent as ArrowDownIcon } from "../../images/icons/arrowDown.svg";
-import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
-import { ReactComponent as TaskViewIcon } from "../../images/icons/task-view.svg";
-import { ReactComponent as TaskCompletedIcon } from "../../images/icons/task-completed.svg";
 import CircleProgressCard from "../../components/CircleProgressCard/CircleProgressCard";
 import InfoBtn from "../../components/shared/InfoBtn/InfoBtn";
 import { useSelector } from "react-redux";
@@ -16,9 +13,10 @@ import {
 import { useActiveTime } from "../../context/activeTimeContext";
 import { convertMillisecondsToHoursAndMinutes } from "../../utils/formatTime";
 import styles from "./UserProfilePage.module.scss";
+import InsetBtn from "../../components/shared/InsetBtn/InsetBtn";
 
 const UserProfilePage = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isCertificatesExpanded, setIsCertificatesExpanded] = useState(false);
   const userInfo = useSelector(getUserInfo);
   const prevActiveTime = useSelector(getActiveTime);
   const myCourses = useSelector(getUserCourses);
@@ -27,6 +25,7 @@ const UserProfilePage = () => {
   const activeTimeToDisplay = prevActiveTime
     ? prevActiveTime + activeTime
     : activeTime;
+
   const { hours, minutes } =
     convertMillisecondsToHoursAndMinutes(activeTimeToDisplay);
 
@@ -39,16 +38,39 @@ const UserProfilePage = () => {
           <div className={styles.leftWrapper}>
             <div
               className={styles.topWrapper}
-              style={{ height: isOpen ? "44rem" : "331rem" }}
+              style={{ height: isCertificatesExpanded ? "44rem" : "331rem" }}
             >
-              {!isOpen ? (
+              {!isCertificatesExpanded && <UserInfoCard userInfo={userInfo} />}
+              <UserMainStats
+                minimized={isCertificatesExpanded}
+                hours={hours}
+                minutes={minutes}
+                progressCourses={
+                  myCourses.filter(({ status }) => status === "in_progress")
+                    .length
+                }
+                completedCourses={
+                  myCourses.filter(({ status }) => status === "completed")
+                    .length
+                }
+                handleCollapseCerficates={() =>
+                  setIsCertificatesExpanded(false)
+                }
+              />
+              {/* {!isOpen ? (
                 <>
                   <UserInfoCard userInfo={userInfo} />
                   <UserMainStats
                     hours={hours}
                     minutes={minutes}
-                    progressCourses={myCourses.length}
-                    competedCourses={myCourses.length}
+                    progressCourses={
+                      myCourses.filter(({ status }) => status === "in_progress")
+                        .length
+                    }
+                    completedCourses={
+                      myCourses.filter(({ status }) => status === "completed")
+                        .length
+                    }
                   />
                 </>
               ) : (
@@ -81,7 +103,7 @@ const UserProfilePage = () => {
                     </button>
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
             <div className={styles.bottomWrapper}>
               <div className={styles.blockHeader}>
@@ -90,17 +112,35 @@ const UserProfilePage = () => {
                 </h3>
                 <div className={styles.btnsWrapper}>
                   <InfoBtn infoContent="The average score is calculated based on all courses you have completed" />
-
-                  <button onClick={() => setIsOpen((prev) => !prev)}>
+                  <InsetBtn
+                    icon={
+                      <ArrowDownIcon
+                        className={styles.arrowIcon}
+                        style={{
+                          transform: `rotate(${
+                            isCertificatesExpanded ? "0" : "-180deg"
+                          })`,
+                        }}
+                      />
+                    }
+                    width="24rem"
+                    height="24rem"
+                    onClick={() => setIsCertificatesExpanded((prev) => !prev)}
+                  />
+                  {/* <button
+                    onClick={() => setIsCertificatesExpanded((prev) => !prev)}
+                  >
                     <div>
                       <ArrowDownIcon
                         className={styles.arrowIcon}
                         style={{
-                          transform: `rotate(${isOpen ? "0" : "-180deg"})`,
+                          transform: `rotate(${
+                            isCertificatesExpanded ? "0" : "-180deg"
+                          })`,
                         }}
                       />
                     </div>
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>

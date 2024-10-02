@@ -3,10 +3,6 @@
   height: 100%;
   display: flex;
   gap: 16rem;
-
-  & > div {
-    // border: 1px solid red;
-  }
 }
 
 .leftWrapper {
@@ -17,85 +13,15 @@
 
   .topWrapper {
     transition: height var(--transition-time-min) ease;
-
-    .mainStatsRowWrapper {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      padding-inline: 28rem;
-      background-color: var(--bg-rgba-default);
-      border-radius: 5rem;
-      box-shadow: var(--box-shadow-button);
-
-      .h3 {
-        font-weight: 600;
-        line-height: 19rem;
-        color: var(--content-main);
-      }
-
-      .rowRightWrapper {
-        flex-grow: 1;
-        display: flex;
-        align-items: center;
-        gap: 40rem;
-        justify-content: flex-end;
-
-        button {
-          width: 24rem;
-          height: 24rem;
-          border-radius: 5rem;
-          box-shadow: var(--box-shadow-button-inset);
-
-          padding: 3rem;
-
-          div {
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-rgba-default);
-            border-radius: 4rem;
-            box-shadow: var(--box-shadow-button);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            .arrowIcon {
-              width: 10.5rem;
-              height: 6rem;
-              transition: transform var(--transition-time-min) ease;
-
-              * {
-                fill: var(--content-main);
-              }
-            }
-          }
-        }
-      }
-
-      .itemsWrapper {
-        display: flex;
-        align-items: center;
-        gap: 64rem;
-
-        .item {
-          display: flex;
-          align-items: center;
-          gap: 6rem;
-
-          flex-shrink: 0;
-
-          svg {
-            width: 14rem;
-            height: 14rem;
-          }
-        }
-      }
-    }
+    overflow: hidden;
+    overflow-clip-margin: 10rem;
   }
 
   .bottomWrapper {
     flex-grow: 1;
     border-radius: 5rem;
     background-color: var(--bg-rgba-default);
+    box-shadow: var(--drop-shadow-short);
     border-radius: 5rem;
     padding: 20rem 28rem;
 
@@ -116,33 +42,13 @@
         align-items: center;
         gap: 16rem;
 
-        button {
-          width: 24rem;
-          height: 24rem;
-          border-radius: 5rem;
-          box-shadow: var(--box-shadow-button-inset);
+        .arrowIcon {
+          width: 11rem;
+          height: calc(11rem * 5 / 7);
+          transition: transform var(--transition-time-min) ease;
 
-          padding: 3rem;
-
-          div {
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-rgba-default);
-            border-radius: 4rem;
-            box-shadow: var(--box-shadow-button);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            .arrowIcon {
-              width: 10.5rem;
-              height: 6rem;
-              transition: transform var(--transition-time-min) ease;
-
-              * {
-                fill: var(--content-main);
-              }
-            }
+          * {
+            fill: var(--content-main);
           }
         }
       }
@@ -160,7 +66,7 @@
   .cardWrapper {
     flex: 1;
     background-color: var(--bg-rgba-default);
-    box-shadow: var(--box-shadow-button);
+    box-shadow: var(--drop-shadow-short);
     border-radius: 5rem;
   }
 
