@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Avatar.module.scss";
 import AvatarFallback from "../AvatarFallback/AvatarFallback";
-import { serverName } from "../../../http/sever";
+import { serverName } from "../../../http/server";
 
 const Avatar = ({ size = "76rem", src, alt = "" }) => {
   if (!src) {

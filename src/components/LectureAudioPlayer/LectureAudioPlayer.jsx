@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import useMessage from "antd/es/message/useMessage";
-import { serverName } from "../../http/sever";
+import { serverName } from "../../http/server";
 import { ReactComponent as PlayIcon } from "../../images/icons/play.svg";
 import { ReactComponent as PauseIcon } from "../../images/icons/pause.svg";
 import { ReactComponent as VoiceIcon } from "../../images/icons/voice.svg";

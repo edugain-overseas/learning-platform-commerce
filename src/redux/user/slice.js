@@ -19,6 +19,7 @@ import {
   updateUserInfoThunk,
   updateUsernameThunk,
 } from "./operations";
+import { instance } from "../../http/instance";
 
 const initialState = {
   userId: null,
@@ -35,6 +36,7 @@ const initialState = {
   activeTime: null,
   accessToken: null,
   courses: [],
+  certificates: [],
   balance: 0,
   changedName: false,
   changedSurname: false,
@@ -56,6 +58,7 @@ const userSlice = createSlice({
       Object.keys(initialState).forEach(
         (key) => (state[key] = initialState[key])
       );
+      instance.defaults.headers["Authorization"] = null;
       window.location.href =
         "http://localhost:3000/learning-platform-commerce/login";
     },
@@ -146,6 +149,7 @@ const userSlice = createSlice({
         state.activeTime = null;
         state.accessToken = null;
         state.courses = [];
+        state.certificates = [];
         state.balance = 0;
         state.changedName = false;
         state.changedSurname = false;
@@ -166,6 +170,7 @@ const userSlice = createSlice({
         state.activeTime = null;
         state.accessToken = null;
         state.courses = [];
+        state.certificates = [];
         state.balance = 0;
         state.changedName = false;
         state.changedSurname = false;
@@ -192,6 +197,7 @@ const userSlice = createSlice({
         state.country = payload.country ? payload.country : "";
         state.activeTime = payload.studying_time;
         state.courses = payload.courses;
+        state.certificates = payload.certificates;
         state.balance = payload.balance;
         state.changedName = payload.changed_name;
         state.changedSurname = payload.changed_surname;

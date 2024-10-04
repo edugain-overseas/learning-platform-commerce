@@ -4,9 +4,9 @@ import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
 import { ReactComponent as TaskViewIcon } from "../../images/icons/task-view.svg";
 import { ReactComponent as TaskCompletedIcon } from "../../images/icons/task-completed.svg";
 import InsetBtn from "../shared/InsetBtn/InsetBtn";
-import styles from "./UserMainStats.module.scss";
+import styles from "./UserStats.module.scss";
 
-const UserMainStats = ({
+const UserStats = ({
   hours,
   minutes,
   progressCourses,
@@ -55,4 +55,4 @@ const UserMainStats = ({
   );
 };
 
-export default UserMainStats;
+export default UserStats;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Empty } from "antd";
-import { serverName } from "../../http/sever";
+import { serverName } from "../../http/server";
 import { confirmLectureThunk } from "../../redux/lesson/operation";
 import { useSelection } from "../../context/SelectionContext";
 import PDFReader from "../PDFReader/PDFReader";

@@ -18,7 +18,7 @@ export const useInitialData = () => {
 
   useLayoutEffect(() => {
     if (accessToken) {
-      instance.defaults.headers.Authorization = `Bearer ${accessToken}`;
+      instance.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
       dispatch(getUserInfoThunk());
     }
     dispatch(getCategoriesThunk());

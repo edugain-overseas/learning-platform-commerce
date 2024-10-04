@@ -12,10 +12,12 @@
     display: flex;
     align-items: center;
 
+
     svg {
       width: 48rem;
       height: 48rem;
       margin-right: 20rem;
+
     }
 
     .clock {
@@ -37,16 +39,19 @@
     flex-direction: column;
     gap: 4rem;
 
+
     .value {
       font-family: Roboto;
       font-weight: 600;
       line-height: 18rem;
+
     }
 
     .name {
       font-family: Roboto;
       font-size: 14rem;
       line-height: 16rem;
+
     }
   }
 }
@@ -93,7 +98,7 @@
       gap: 0rem;
 
       span:first-child:after {
-        content: '|';
+        content: "|";
         font-size: 14rem;
         margin-inline: 8rem;
         line-height: 12rem;

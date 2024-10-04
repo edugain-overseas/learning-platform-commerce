@@ -1,7 +1,7 @@
 import { createContext, useContext, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAccessToken, getUserChats } from "../../redux/user/selectors";
-import { webSocketUrl } from "../../http/sever";
+import { webSocketUrl } from "../../http/server";
 import { moderJoinChat } from "../../redux/user/slice";
 
 export const chatFilterValues = ["all", "new", "active", "archive"];

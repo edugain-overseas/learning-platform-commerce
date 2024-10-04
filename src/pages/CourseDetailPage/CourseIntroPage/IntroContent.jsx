@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { serverName } from "../../../http/sever";
+import { serverName } from "../../../http/server";
 import { ReactComponent as LaptopIcon } from "../../../images/icons/laptop.svg";
 import { ReactComponent as ClockIcon } from "../../../images/icons/clock.svg";
 import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";

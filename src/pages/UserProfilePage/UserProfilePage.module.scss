@@ -13,8 +13,6 @@
 
   .topWrapper {
     transition: height var(--transition-time-min) ease;
-    overflow: hidden;
-    overflow-clip-margin: 10rem;
   }
 
   .bottomWrapper {
@@ -22,11 +20,19 @@
     border-radius: 5rem;
     background-color: var(--bg-rgba-default);
     box-shadow: var(--drop-shadow-short);
+    backdrop-filter: blur(16rem);
     border-radius: 5rem;
     padding: 20rem 28rem;
+    padding-right: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+
 
     .blockHeader {
       padding-bottom: 16rem;
+      padding-right: 28rem;
+
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -51,6 +57,25 @@
             fill: var(--content-main);
           }
         }
+      }
+    }
+
+    .blockBody {
+      flex-grow: 1;
+      overflow: auto;
+      padding-right: 28rem;
+      overflow: auto;
+      position: relative;
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: -1rem;
+        left: 0;
+        width: calc(100% - 28rem);
+        height: 2rem;
+        border-radius: 10rem;
+        background: var(--content-datail-secondary);
       }
     }
   }

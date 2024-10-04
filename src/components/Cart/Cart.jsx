@@ -5,7 +5,7 @@ import { useCart } from "../../context/cartContext";
 import { getAllCourses } from "../../redux/course/selectors";
 import { ReactComponent as TrashIcon } from "../../images/icons/trashRounded.svg";
 import styles from "./Cart.module.scss";
-import { serverName } from "../../http/sever";
+import { serverName } from "../../http/server";
 import { getAccessToken } from "../../redux/user/selectors";
 import { useLocation, useNavigate } from "react-router-dom";
 import { buyCourseThunk } from "../../redux/user/operations";

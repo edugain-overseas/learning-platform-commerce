@@ -5,7 +5,7 @@ import { ReactComponent as OutcomingTail } from "../../../images/icons/message-r
 import Avatar from "../../shared/Avatar/Avatar";
 import DocumentLink from "../../shared/DocumentLink/DocumentLink";
 import styles from "./ChatMessage.module.scss";
-import { serverName } from "../../../http/sever";
+import { serverName } from "../../../http/server";
 
 const ChatMessage = ({
   message,

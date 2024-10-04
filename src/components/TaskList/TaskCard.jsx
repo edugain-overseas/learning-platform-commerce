@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getUserType } from "../../redux/user/selectors";
-import { serverName } from "../../http/sever";
+import { serverName } from "../../http/server";
 import { ReactComponent as ArrowRightIcon } from "../../images/icons/arrow-left.svg";
 import { ReactComponent as TaskViewIcon } from "../../images/icons/task-view.svg";
 import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";

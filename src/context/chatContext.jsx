@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import Chats from "../components/Chats/Chats";
 import Drawer from "../components/shared/Drawer/Drawer";
-import { webSocketUrl } from "../http/sever";
+import { webSocketUrl } from "../http/server";
 import { useSelector } from "react-redux";
 import { getAccessToken, getUserChats } from "../redux/user/selectors";
 

@@ -3,7 +3,7 @@ import { ReactComponent as DocumentPDFIcon } from "../../../images/icons/doc-pdf
 import { ReactComponent as DownloadFileIcon } from "../../../images/icons/download-file.svg";
 import styles from "./DocumentLink.module.scss";
 import { formatFileSize } from "../../../utils/formatFileSize";
-import { serverName } from "../../../http/sever";
+import { serverName } from "../../../http/server";
 
 const DocumentLink = ({ file }) => {
   const { file_name, file_size, file_path, filename } = file;

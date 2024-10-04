@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { serverName } from "../../../../http/sever";
+import { serverName } from "../../../../http/server";
 import UploadedPDF from "./UploadedPDF";
 import UploadedImage from "./UploadedImage";
 import DropZone from "../DropZone/Dropzone";

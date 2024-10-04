@@ -10,7 +10,7 @@ import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import CardGrade from "../../shared/CardGrade/CardGrade";
 import CardPrice from "../../shared/CardPrice/CardPrice";
-import { serverName } from "../../../http/sever";
+import { serverName } from "../../../http/server";
 import { getUserType } from "../../../redux/user/selectors";
 import styles from "./CourseCard.module.scss";
 

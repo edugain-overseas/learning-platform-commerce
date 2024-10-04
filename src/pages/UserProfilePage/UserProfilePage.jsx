@@ -1,9 +1,4 @@
 import React, { useState } from "react";
-import UserInfoCard from "../../components/UserInfoCard/UserInfoCard";
-import UserMainStats from "../../components/UserMainStats/UserMainStats";
-import { ReactComponent as ArrowDownIcon } from "../../images/icons/arrowDown.svg";
-import CircleProgressCard from "../../components/CircleProgressCard/CircleProgressCard";
-import InfoBtn from "../../components/shared/InfoBtn/InfoBtn";
 import { useSelector } from "react-redux";
 import {
   getActiveTime,
@@ -12,8 +7,14 @@ import {
 } from "../../redux/user/selectors";
 import { useActiveTime } from "../../context/activeTimeContext";
 import { convertMillisecondsToHoursAndMinutes } from "../../utils/formatTime";
-import styles from "./UserProfilePage.module.scss";
+import { ReactComponent as ArrowDownIcon } from "../../images/icons/arrowDown.svg";
+import UserInfoCard from "../../components/UserInfoCard/UserInfoCard";
+import UserStats from "../../components/UserStats/UserStats";
+import CircleProgressCard from "../../components/CircleProgressCard/CircleProgressCard";
+import InfoBtn from "../../components/shared/InfoBtn/InfoBtn";
 import InsetBtn from "../../components/shared/InsetBtn/InsetBtn";
+import styles from "./UserProfilePage.module.scss";
+import UserCertificatesList from "../../components/UserCertificatesList/UserCertificatesList";
 
 const UserProfilePage = () => {
   const [isCertificatesExpanded, setIsCertificatesExpanded] = useState(false);
@@ -29,6 +30,10 @@ const UserProfilePage = () => {
   const { hours, minutes } =
     convertMillisecondsToHoursAndMinutes(activeTimeToDisplay);
 
+  const arrowDownIconStyle = {
+    transform: `rotate(${isCertificatesExpanded ? "0" : "-180deg"})`,
+  };
+
   return (
     <div className={styles.pageWrappper}>
       {!userInfo.userId ? (
@@ -41,7 +46,7 @@ const UserProfilePage = () => {
               style={{ height: isCertificatesExpanded ? "44rem" : "331rem" }}
             >
               {!isCertificatesExpanded && <UserInfoCard userInfo={userInfo} />}
-              <UserMainStats
+              <UserStats
                 minimized={isCertificatesExpanded}
                 hours={hours}
                 minutes={minutes}
@@ -57,53 +62,6 @@ const UserProfilePage = () => {
                   setIsCertificatesExpanded(false)
                 }
               />
-              {/* {!isOpen ? (
-                <>
-                  <UserInfoCard userInfo={userInfo} />
-                  <UserMainStats
-                    hours={hours}
-                    minutes={minutes}
-                    progressCourses={
-                      myCourses.filter(({ status }) => status === "in_progress")
-                        .length
-                    }
-                    completedCourses={
-                      myCourses.filter(({ status }) => status === "completed")
-                        .length
-                    }
-                  />
-                </>
-              ) : (
-                <div className={styles.mainStatsRowWrapper}>
-                  <h3>My Profile</h3>
-                  <div className={styles.rowRightWrapper}>
-                    <div className={styles.itemsWrapper}>
-                      <div className={styles.item}>
-                        <ClockIcon />
-                        <p>{`${hours}h ${minutes}m  |  studying time`}</p>
-                      </div>
-                      <div className={styles.item}>
-                        <TaskViewIcon />
-                        <p>{`${myCourses.length} courses in progress`}</p>
-                      </div>
-                      <div className={styles.item}>
-                        <TaskCompletedIcon />
-                        <p>{`${myCourses.length} completed courses`}</p>
-                      </div>
-                    </div>
-                    <button onClick={() => setIsOpen((prev) => !prev)}>
-                      <div>
-                        <ArrowDownIcon
-                          className={styles.arrowIcon}
-                          style={{
-                            transform: `rotate(${isOpen ? "0" : "-180deg"})`,
-                          }}
-                        />
-                      </div>
-                    </button>
-                  </div>
-                </div>
-              )} */}
             </div>
             <div className={styles.bottomWrapper}>
               <div className={styles.blockHeader}>
@@ -116,32 +74,17 @@ const UserProfilePage = () => {
                     icon={
                       <ArrowDownIcon
                         className={styles.arrowIcon}
-                        style={{
-                          transform: `rotate(${
-                            isCertificatesExpanded ? "0" : "-180deg"
-                          })`,
-                        }}
+                        style={arrowDownIconStyle}
                       />
                     }
                     width="24rem"
                     height="24rem"
                     onClick={() => setIsCertificatesExpanded((prev) => !prev)}
                   />
-                  {/* <button
-                    onClick={() => setIsCertificatesExpanded((prev) => !prev)}
-                  >
-                    <div>
-                      <ArrowDownIcon
-                        className={styles.arrowIcon}
-                        style={{
-                          transform: `rotate(${
-                            isCertificatesExpanded ? "0" : "-180deg"
-                          })`,
-                        }}
-                      />
-                    </div>
-                  </button> */}
                 </div>
+              </div>
+              <div className={styles.blockBody}>
+                <UserCertificatesList />
               </div>
             </div>
           </div>

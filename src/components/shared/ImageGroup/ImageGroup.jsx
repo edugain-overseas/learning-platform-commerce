@@ -1,6 +1,6 @@
 import React from "react";
 import { Image } from "antd";
-import { serverName } from "../../../http/sever";
+import { serverName } from "../../../http/server";
 import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
 import noImage from "../../../images/noImage.jpeg";
 import Textarea from "../Textarea/Textarea";
