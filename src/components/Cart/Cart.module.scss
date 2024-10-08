@@ -109,7 +109,16 @@
 
     .productImage {
       width: 30%;
+      aspect-ratio: 16/10;
+      border-radius: 5rem;
+      overflow: hidden;
       flex-shrink: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
     .productName {
       flex-grow: 1;

@@ -1,9 +1,11 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { getAllCourses } from "../redux/course/selectors";
 import { useSelector } from "react-redux";
 import Drawer from "../components/shared/Drawer/Drawer";
 import Cart from "../components/Cart/Cart";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { getAccessToken, getUserInfo } from "../redux/user/selectors";
+import { updateCart } from "../http/services/user";
 // import { courses } from "../assets/courses";
 
 const CartContext = createContext({});
@@ -13,8 +15,12 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
+  const accessToken = useSelector(getAccessToken);
+  const studentId = useSelector(getUserInfo)?.studentId;
   const [cartItems, setCartItems] = useLocalStorage("shopping-cart", []);
+  const [paymentLink, setPaymentLink] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const courses = useSelector(getAllCourses);
 
@@ -35,19 +41,52 @@ export const CartProvider = ({ children }) => {
   const handleClose = () => {
     setIsOpen(false);
   };
-  
+
   const cartQuantity = cartItems.length;
+
+  useEffect(() => {
+    const updatePaymentLink = async () => {
+      if (accessToken && studentId) {
+        if (cartQuantity) {
+          setIsLoading(true);
+          try {
+            const { link: newPaymentLink } = await updateCart(
+              studentId,
+              cartItems
+            );
+            console.log(newPaymentLink);
+            setPaymentLink(newPaymentLink);
+          } catch (error) {
+            console.log(error);
+            setPaymentLink(null);
+          } finally {
+            setIsLoading(false);
+          }
+        }
+      }
+    };
+
+    if (cartItems.length !== 0) {
+      updatePaymentLink();
+    } else {
+      setPaymentLink(null);
+    }
+
+    // eslint-disable-next-line
+  }, [cartItems, studentId]);
 
   return (
     <CartContext.Provider
       value={{
+        cartItems,
+        cartQuantity,
+        totalPrice,
+        isLoading,
+        paymentLink,
         addItem,
         removeItem,
         handleOpen,
         handleClose,
-        cartItems,
-        cartQuantity,
-        totalPrice,
       }}
     >
       {children}

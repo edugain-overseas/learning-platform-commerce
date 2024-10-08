@@ -21,8 +21,8 @@ import CategoryPicker from "../../components/CategoryPicker/CategoryPicker";
 import useMessage from "antd/es/message/useMessage";
 import FileUploader from "../../components/shared/Uploaders/FileUploader/FileUploader";
 import Spinner from "../../components/Spinner/Spinner";
-import styles from "./AdminCourseConstructorPage.module.scss";
 import RichInput from "./RichInput";
+import styles from "./AdminCourseConstructorPage.module.scss";
 
 const AdminCourseConstructorPage = ({ courseData }) => {
   const { courseId } = useParams();
@@ -147,14 +147,6 @@ const AdminCourseConstructorPage = ({ courseData }) => {
               </div>
 
               <div className={styles.courseAbout}>
-                {/* <Textarea
-                  placeholder="Course main information"
-                  minRows={4}
-                  maxRows={8}
-                  {...register("intro_text", {
-                    required: "Course main information is required",
-                  })}
-                /> */}
                 <RichInput
                   control={control}
                   name="intro_text"
@@ -167,14 +159,6 @@ const AdminCourseConstructorPage = ({ courseData }) => {
               <div className={styles.listWrapper}>
                 <h4 className={styles.listTitle}>Skills you will learn:</h4>
                 <div className={styles.inputWrapper}>
-                  {/* <Textarea
-                    placeholder="Course skills information"
-                    minRows={4}
-                    maxRows={8}
-                    {...register("skills_text", {
-                      required: "Course skills information is required",
-                    })}
-                  /> */}
                   <RichInput
                     control={control}
                     name="skills_text"

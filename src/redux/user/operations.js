@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   activateUser,
-  buyCourse,
   createNewNote,
   createNotesFolder,
   deleteNote,
@@ -238,22 +237,6 @@ export const setNewMainImageThunk = createAsyncThunk(
   async (imageId, { rejectWithValue }) => {
     try {
       const response = await setNewMainImage(imageId);
-      return response;
-    } catch (error) {
-      return rejectWithValue({
-        message: error.response ? error.response.data.detail : error.message,
-        status: error.response ? error.response.status : null,
-      });
-    }
-  }
-);
-
-export const buyCourseThunk = createAsyncThunk(
-  "user/buyCourse",
-  async ({ courseId, removeItem }, { rejectWithValue }) => {
-    try {
-      const response = await buyCourse(courseId);
-      removeItem(courseId);
       return response;
     } catch (error) {
       return rejectWithValue({

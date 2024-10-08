@@ -1,50 +1,27 @@
-import React, { useState } from "react";
-// import { courses } from "../../assets/courses";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useCart } from "../../context/cartContext";
 import { getAllCourses } from "../../redux/course/selectors";
 import { ReactComponent as TrashIcon } from "../../images/icons/trashRounded.svg";
-import styles from "./Cart.module.scss";
 import { serverName } from "../../http/server";
-import { getAccessToken } from "../../redux/user/selectors";
-import { useLocation, useNavigate } from "react-router-dom";
-import { buyCourseThunk } from "../../redux/user/operations";
+import NoImage from "../../images/noImage.jpeg";
+import styles from "./Cart.module.scss";
 
-const Cart = ({ items, handleClose = () => {} }) => {
-  const { removeItem, totalPrice } = useCart();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const accessToken = useSelector(getAccessToken);
+const Cart = ({ items }) => {
   const courses = useSelector(getAllCourses);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { pathname } = useLocation();
+
+  const { removeItem, totalPrice, isLoading, paymentLink } = useCart();
 
   const products = courses.filter(({ id }) => items.includes(id));
 
-  const handlePaymentBtnClick = async () => {
-    if (accessToken) {
-      setIsLoading(true);
-      await Promise.all(
-        items.map((id) =>
-          dispatch(buyCourseThunk({ courseId: id, removeItem }))
-        )
-      ).then((r) => {
-        handleClose();
-
-        console.log(r);
-      });
-      setIsLoading(false);
-    } else {
-      handleClose();
-      navigate("/login", {
-        state: {
-          from: pathname,
-          navigateFromCart: true,
-        },
-      });
+  const handlePaymentBtnClick = () => {
+    console.log(paymentLink);
+    if (paymentLink) {
+      window.location.href = paymentLink;
     }
   };
+
+  console.log(products);
 
   return (
     <div className={styles.wrapper}>
@@ -77,9 +54,7 @@ const Cart = ({ items, handleClose = () => {} }) => {
                   <div className={styles.productImage}>
                     <img
                       src={
-                        coursePoster
-                          ? `${serverName}/${coursePoster}`
-                          : "https://online.maryville.edu/wp-content/uploads/sites/97/2023/09/business-management-team.jpg"
+                        coursePoster ? `${serverName}/${coursePoster}` : NoImage
                       }
                       alt={courseName}
                     />

@@ -18,7 +18,7 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
   const [fullscreen, setFullscreen] = useState(false);
   const [confirmBtnState, setConfirmBtnState] = useState("default");
 
-  const { selectionContaner } = useSelection();
+  const selectionContaner = useSelection()?.selectionContaner;
 
   const dispatch = useDispatch();
 
@@ -294,7 +294,9 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
           </div>
         )}
         {lectureContent?.length !== 0 ? (
-          <div ref={selectionContaner}>{renderLectureContent()}</div>
+          <div ref={selectionContaner ? selectionContaner : null}>
+            {renderLectureContent()}
+          </div>
         ) : (
           <Empty />
         )}

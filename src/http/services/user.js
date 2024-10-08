@@ -212,10 +212,12 @@ export const setNewMainImage = async (imageId) => {
   }
 };
 
-export const buyCourse = async (courseId) => {
+export const updateCart = async (studentId, updatedCartItems) => {
+  console.log(studentId);
   try {
-    const data = await privateRoutesHandler("post", "/user/buy-course", {
-      course_id: courseId,
+    const data = await privateRoutesHandler("post", "stripe/cart", {
+      student_id: studentId,
+      payment_items: updatedCartItems,
     });
     return data;
   } catch (error) {

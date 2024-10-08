@@ -45,17 +45,6 @@ const AboutIEUPage = () => {
           active participant.
         </p>
       </div>
-      <div className={styles.textBlock}>
-        <h3 className={styles.secondaryTitle}>Our Mission</h3>
-        <p className={styles.text}>
-          Provide international students of the 
-          <b>International  European University</b> in Malta with the
-          best facilities, knowledge, technologies, and internships in Malta to
-          make the world a better place for everyone. IEU, Malta Campus’s
-          student community is an active participant. Student community is an
-          active participant.
-        </p>
-      </div>
     </div>
   );
 };
