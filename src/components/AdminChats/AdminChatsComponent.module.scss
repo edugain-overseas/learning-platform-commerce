@@ -29,6 +29,48 @@
 .chatsMenu {
   flex-grow: 1;
   background-color: transparent;
+
+  li > span:not([role="img"]) {
+    display: inline-flex;
+    justify-content: space-between;
+    width: calc(100% - 20px);
+
+    rect {
+      fill: currentColor;
+    }
+  }
+
+  .chatTitle {
+    max-width: 200rem;
+  }
+}
+
+.chatMenuLabel {
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+.chatMenuDetailsBtn {
+  display: flex;
+  width: 24px;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.detailsDropdown {
+  color: inherit;
+}
+
+.closeChatBtn {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  color: inherit;
+
+  path {
+    fill: currentColor;
+  }
 }
 
 .chatWrapper {
@@ -37,6 +79,8 @@
   background-color: var(--bg-rgba-default);
   border-radius: 5rem;
   box-shadow: var(--drop-shadow-short);
+  display: flex;
+  flex-direction: column;
 }
 
 .joinChatWrapper {
@@ -66,4 +110,98 @@
       font-size: 20rem;
     }
   }
+}
+
+.chatFeedWrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: auto;
+}
+
+.chatScroller {
+  padding-inline: 20rem;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.chatForm {
+  padding: 12rem 16rem 12rem 8rem;
+  border: 1rem solid var(--content-datail-secondary);
+  border-radius: 5rem;
+  transition: border var(--transition-time-min) ease,
+    height var(--transition-time-min) ease;
+
+  display: flex;
+  gap: 16rem;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+
+  &:has(textarea:focus) {
+    border-color: var(--bg-color-accent);
+    box-shadow: var(--drop-shadow-button-main);
+  }
+}
+
+textarea.chatTextarea {
+  flex-grow: 1;
+  border: none;
+  background-color: transparent;
+}
+
+.sendButton {
+  align-self: flex-end;
+  width: 32rem;
+  height: 32rem;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-color-accent);
+  border-radius: 5rem;
+  border: 1rem solid transparent;
+  transition: all var(--transition-time-min) ease;
+
+  &:disabled {
+    background-color: var(--bg-button-disabled);
+  }
+
+  & svg {
+    width: 14rem;
+    height: 14rem;
+    transition: transform var(--transition-time-min) linear;
+
+    & path {
+      transition: fill var(--transition-time-min) ease;
+    }
+  }
+
+  &:hover {
+    // background-color: transparent;
+    background-color: rgba(51, 91, 169, 0.35);
+    box-shadow: var(--drop-shadow-button-main);
+    // border-color: var(--bg-color-accent);
+
+    & svg {
+      transform: rotate(45deg);
+
+      & path {
+        fill: #3a5cbd;
+      }
+    }
+  }
+}
+
+.chatForm:has(textarea[rows="4"]) button[type="button"] {
+  transform: translateY(0);
+  opacity: 1;
+  transition: all var(--transition-time-default) ease;
+}
+.chatForm:has(textarea[rows="1"]) button[type="button"] {
+  transform: translateY(-100%);
+  opacity: 0;
 }

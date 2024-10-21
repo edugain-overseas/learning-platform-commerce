@@ -23,6 +23,8 @@ export const ChatProvider = ({ children }) => {
   const [typeFilter, setTypeFilter] = useState("all");
   const [webSockets, setWebSockets] = useState([]);
 
+  console.log(chats);
+
   const filtredChats =
     typeFilter === "all"
       ? chats
@@ -35,18 +37,9 @@ export const ChatProvider = ({ children }) => {
   const messages =
     chats.find(({ id }) => id === selectedChatId)?.messages || [];
 
-  // console.log(accessToken, userChats);
-
   useEffect(() => {
     if (accessToken) {
       const existingChatIds = webSockets.map(({ id }) => id);
-
-      // webSockets.forEach(({ websocket }) => {
-      //   if (!userChats.some(({ id }) => id === websocket.id)) {
-      //     console.log("close chats");
-      //     websocket.close();
-      //   }
-      // });
 
       const newWebSockets = userChats
         .filter(({ id }) => !existingChatIds.includes(id))
@@ -63,7 +56,7 @@ export const ChatProvider = ({ children }) => {
           };
           ws.onmessage = (event) => {
             const data = JSON.parse(event.data);
-            console.log("on message");
+            console.log("on message", data);
 
             // recieve chat history
             if (data.type === "chat-history") {
@@ -151,7 +144,6 @@ export const ChatProvider = ({ children }) => {
   const sendToWebsocket = (data, chatId) => {
     const ws = webSockets.find(({ id }) => id === chatId).websocket;
     if (ws) ws.send(data);
-    console.log(data);
   };
 
   const deleteChat = (chatId) => {

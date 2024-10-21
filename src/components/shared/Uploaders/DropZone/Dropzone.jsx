@@ -7,22 +7,29 @@ const DropZone = ({ onDrop, accept, className = "", renderLabel = true }) => {
   const acceptDropzoneProp = { [accept]: [] };
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: accept && acceptDropzoneProp,
+    accept: typeof accept === "string" ? acceptDropzoneProp : accept,
     multiple: false,
   });
 
-  const fileType = accept.split("/")[0] === "*" ? "file" : accept.split("/")[0];
-  const fileExtension = accept.split("/")[1];
+  const getLabelbyType = () => {
+    const fileType =
+      accept.split("/")[0] === "*" ? "file" : accept.split("/")[0];
+    const fileExtension = accept.split("/")[1];
+
+    return `Click or drag ${
+      fileType === "application" ? fileExtension : fileType
+    } to this area to upload`;
+  };
 
   return (
     <div {...getRootProps({ className })}>
-      <input {...getInputProps()} accept={accept} />
+      <input {...getInputProps()} />
       <div className={styles.labelWrapper}>
         <UploadIcon className={styles.uploadIcon} />
-        {renderLabel && (
-          <p>{`Click or drag ${
-            fileType === "application" ? fileExtension : fileType
-          } to this area to upload`}</p>
+        {renderLabel ? (
+          <p>{getLabelbyType()}</p>
+        ) : (
+          "Click or drag to this area to upload"
         )}
       </div>
     </div>

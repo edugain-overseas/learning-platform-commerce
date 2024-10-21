@@ -50,7 +50,7 @@ const Tooltip = ({
           pointerEvents: "none",
         }}
       >
-        <p>{infoContent}</p>
+        {infoContent}
       </div>
     </div>
   );

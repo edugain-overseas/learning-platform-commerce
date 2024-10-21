@@ -60,11 +60,15 @@ const FileUploader = ({
 
       if (data.image_path) {
         setUploadedFilePath && setUploadedFilePath(data.image_path);
-      } else {
+      } else if (data.file_path) {
         setUploadedFilePath && setUploadedFilePath(data.file_path);
       }
 
       setUploadedFile && setUploadedFile(data);
+
+      if (type === "chat-files") {
+        setFile(null);
+      }
     } catch (error) {
       console.error("Upload failed", error);
     }
@@ -106,7 +110,6 @@ const FileUploader = ({
             onDelete={handleDelete}
           />
         );
-
       default:
         return null;
     }

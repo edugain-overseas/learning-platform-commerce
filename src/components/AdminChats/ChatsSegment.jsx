@@ -1,5 +1,5 @@
 import React from "react";
-import { chatFilterValues, useAdminChats } from "./adminChatContext";
+import { chatFilterValues, useAdminChats } from "../../context/adminChatContext";
 import { ChatIcon } from "./ChatsList";
 import AntSegment from "../AntComponents/AntSegment";
 import styles from "./AdminChatsComponent.module.scss";
@@ -8,7 +8,7 @@ const designTokens = {
   itemActiveBg: "rgba(208, 0, 0, 1)",
   itemColor: "#7e8ca8",
   itemHoverBg: "transparent",
-  itemHoverColor: "#001c54",
+  itemHoverColor: "#7e8ca8",
   itemSelectedBg: "rgba(208, 0, 0, 9)",
   itemSelectedColor: "#fff",
 };

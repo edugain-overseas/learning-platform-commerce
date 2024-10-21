@@ -16,6 +16,7 @@ const ChatMessage = ({
   avatar,
   animationDelayIndex,
 }) => {
+  console.log(files);
   return (
     <motion.div
       // positionTransition
@@ -60,7 +61,7 @@ const ChatMessage = ({
               </div>
             </div>
             {files.map((file) => (
-              <DocumentLink key={file.id} file={file} />
+              <DocumentLink key={file.file_path} file={file} />
             ))}
           </div>
         )}

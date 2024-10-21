@@ -20,7 +20,7 @@ const Textarea = forwardRef(
       value,
       onChange,
       prefixStr = "",
-      setMinRowsonBlur = false,
+      setMinRowsOnBlur = false,
       onFocus = () => {},
       onBlur = () => {},
       ...rest
@@ -29,10 +29,32 @@ const Textarea = forwardRef(
   ) => {
     const textareaRef = useRef(null);
 
+    const handleBlur = (e) => {
+      onBlur(e)
+      if (setMinRowsOnBlur) {
+        const originalHeight = fontSize * minRows * 1.2 + 8;
+        // const maxHeight = maxRows ? fontSize * maxRows * 1.2 + 8 : null;
+
+        textareaRef.current.style.height = originalHeight + "rem";
+        //   textareaRef.current.style.height =
+        //     value === ""
+        //       ? originalHeight + "rem"
+        //       : Math.max(
+        //           originalHeight,
+        //           maxHeight
+        //             ? Math.min(
+        //                 pxToRem(textareaRef.current.scrollHeight),
+        //                 maxHeight
+        //               )
+        //             : pxToRem(textareaRef.current.scrollHeight)
+        //         ) + "rem";
+      }
+    };
+
     useImperativeHandle(ref, () => textareaRef.current);
 
     useEffect(() => {
-      if (setMinRowsonBlur) {
+      if (setMinRowsOnBlur) {
         const originalHeight = fontSize * minRows * 1.2 + 8;
         const maxHeight = maxRows ? fontSize * maxRows * 1.2 + 8 : null;
 
@@ -50,7 +72,7 @@ const Textarea = forwardRef(
                   : pxToRem(textareaRef.current.scrollHeight)
               ) + "rem";
       }
-    }, [minRows, setMinRowsonBlur, fontSize, value, maxRows]);
+    }, [minRows, setMinRowsOnBlur, fontSize, value, maxRows]);
 
     const handleChange = (e) => {
       const newValue = e.target.value;
@@ -94,7 +116,7 @@ const Textarea = forwardRef(
         value={value}
         onChange={handleChange}
         onFocus={onFocus}
-        onBlur={onBlur}
+        onBlur={handleBlur}
         {...rest}
       />
     );

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./AdminChatsComponent.module.scss";
-import { useAdminChats } from "./adminChatContext";
+import { useAdminChats } from "../../context/adminChatContext";
 import ChatMessage from "../Chats/ChatMessage/ChatMessage";
 import { getFormattedStrFromDate } from "../../utils/formatDate";
 import { useSelector } from "react-redux";
@@ -14,7 +14,9 @@ const ChatFeed = () => {
 
   useEffect(() => {
     if (wrapperRef.current) {
-      wrapperRef.current.scrollTop = wrapperRef.current.scrollHeight;
+      const scroller = wrapperRef.current.firstElementChild;
+      const scrollerLastElem = scroller.lastElementChild;
+      scrollerLastElem.scrollIntoView();
     }
   }, [messages?.length]);
 

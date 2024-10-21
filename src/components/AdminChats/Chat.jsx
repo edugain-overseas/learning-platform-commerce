@@ -1,5 +1,5 @@
 import React from "react";
-import { useAdminChats } from "./adminChatContext";
+import { useAdminChats } from "../../context/adminChatContext";
 import ChatFeed from "./ChatFeed";
 import ChatInput from "./ChatInput";
 import JoinChatBtn from "./JoinChatBtn";
@@ -29,8 +29,6 @@ const renderChatByStatus = (status) => {
 
 const Chat = () => {
   const { selectedChat } = useAdminChats();
-
-  console.log(selectedChat);
 
   if (!selectedChat) return null;
 

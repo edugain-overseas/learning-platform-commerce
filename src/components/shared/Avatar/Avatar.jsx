@@ -2,8 +2,15 @@ import React from "react";
 import styles from "./Avatar.module.scss";
 import AvatarFallback from "../AvatarFallback/AvatarFallback";
 import { serverName } from "../../../http/server";
+import { useGoogleAvatar } from "../../../hooks/useGoogleAvatar";
 
 const Avatar = ({ size = "76rem", src, alt = "" }) => {
+  const isGoogleAvatar = src?.includes("https://");
+  // const googleSrc = src;
+  const googleSrc = useGoogleAvatar(src);
+  const notGoogleSrc = `${serverName}/${src}`;
+  const avatarSrc = isGoogleAvatar ? googleSrc : notGoogleSrc;
+
   if (!src) {
     return (
       <div
@@ -17,11 +24,6 @@ const Avatar = ({ size = "76rem", src, alt = "" }) => {
       </div>
     );
   }
-
-  const isGoogleAvatar = src.includes("https://");
-  const googleSrc = src;
-  const notGoogleSrc = `${serverName}/${src}`;
-  const avatarSrc = isGoogleAvatar ? googleSrc : notGoogleSrc;
 
   return (
     <div

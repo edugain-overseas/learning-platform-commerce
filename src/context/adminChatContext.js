@@ -1,8 +1,8 @@
-import { createContext, useContext, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAccessToken, getUserChats } from "../../redux/user/selectors";
-import { webSocketUrl } from "../../http/server";
-import { moderJoinChat } from "../../redux/user/slice";
+import { getAccessToken, getUserChats } from "../redux/user/selectors";
+import { webSocketUrl } from "../http/server";
+import { moderJoinChat } from "../redux/user/slice";
 
 export const chatFilterValues = ["all", "new", "active", "archive"];
 
@@ -28,8 +28,6 @@ export const AdminChatProvider = ({ children }) => {
     (chatData) => chatData.id === selectedChatId
   )?.messages;
 
-  console.log(chatsData);
-
   const selectedChat = chats.find(({ id }) => id === selectedChatId);
 
   const selectChat = (id) => {
@@ -38,8 +36,7 @@ export const AdminChatProvider = ({ children }) => {
 
   const onFilterChage = (value) => setChatsFilter(value);
 
-  const handleJoinChat = () => {
-    const id = selectedChatId;
+  const handleJoinChat = (id) => {
     try {
       const ws = new WebSocket(`${webSocketUrl}/${id}/${accessToken}`);
 
@@ -62,7 +59,7 @@ export const AdminChatProvider = ({ children }) => {
       };
       ws.onmessage = (event) => {
         const data = JSON.parse(event.data);
-        console.log("on message");
+        console.log("on message", data);
 
         // recieve chat history
         if (data.type === "chat-history") {
@@ -89,11 +86,81 @@ export const AdminChatProvider = ({ children }) => {
           );
           return;
         }
+
+        if (data.type === "close-chat") {
+          setChatsData((prev) =>
+            prev.map((chat) => {
+              if (chat.id === id) {
+                return { ...chat, status: "closing" };
+              }
+              return chat;
+            })
+          );
+        }
       };
     } catch (error) {
       console.log(error);
     }
   };
+
+  const sendNewMessageToWebsocket = (chatId, message, files = []) => {
+    /*
+    {
+      type: 'new-message',
+      message,
+      files: [
+        {
+          file_type: '',
+          file_name: '',
+          file_size: int,
+          file_path: ''
+        },
+      ]
+    }
+    */
+
+    const data = {
+      type: "new-message",
+      message,
+      files,
+    };
+    const websocket = sockets.current.find(
+      ({ id }) => selectedChatId === id
+    ).ws;
+
+    try {
+      websocket.send(JSON.stringify(data));
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
+
+  const closeChat = (chatId) => {
+    const data = {
+      type: "close-chat",
+    };
+
+    const websocket = sockets.current.find(({ id }) => chatId === id).ws;
+
+    try {
+      websocket.send(JSON.stringify(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    //admin chats connection
+    chats.forEach(({ id, status }) => {
+      if (status !== "new") {
+        handleJoinChat(id);
+      }
+    });
+
+    // eslint-disable-next-line
+  }, [chats.length]);
 
   return (
     <AdminChatContext.Provider
@@ -106,6 +173,8 @@ export const AdminChatProvider = ({ children }) => {
         selectChat,
         onFilterChage,
         handleJoinChat,
+        sendNewMessageToWebsocket,
+        closeChat,
       }}
     >
       {children}

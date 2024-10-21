@@ -1,11 +1,13 @@
 import React from "react";
-import { useAdminChats } from "./adminChatContext";
+import { useAdminChats } from "../../context/adminChatContext";
 import {
   CommentOutlined,
   FolderOutlined,
   MessageOutlined,
 } from "@ant-design/icons";
+import { ReactComponent as DetailsIcon } from "../../images/icons/details.svg";
 import AntMenu from "../AntComponents/AntMenu";
+import ChatDetailsDropdown from "./ChatDetailsDropdown";
 import styles from "./AdminChatsComponent.module.scss";
 
 export const ChatIcon = ({ type }) => {
@@ -33,10 +35,19 @@ const designTokens = {
 const ChatsList = ({ children }) => {
   const { filtredChats, selectChat } = useAdminChats();
 
+  const handleSelect = (data) => {
+    selectChat(data.key);
+  };
+
   const menuItems = filtredChats.map((chat) => ({
     key: `${chat.id}`,
     icon: <ChatIcon type={chat.status} />,
-    label: chat.chat_subject,
+    label: (
+      <>
+        <span className={styles.chatTitle}>{chat.chat_subject}</span>
+        <ChatDetailsDropdown chatId={chat.id} />
+      </>
+    ),
   }));
 
   return (
@@ -44,9 +55,13 @@ const ChatsList = ({ children }) => {
       {children}
       <AntMenu
         designTokens={designTokens}
+        mode="inline"
+        expandIcon={<DetailsIcon />}
+        triggerSubMenuAction="click"
         items={menuItems}
         className={styles.chatsMenu}
-        onSelect={({ key }) => selectChat(key)}
+        onSelect={handleSelect}
+        style={{ width: "100%", maxWidth: "400rem" }}
       />
     </div>
   );

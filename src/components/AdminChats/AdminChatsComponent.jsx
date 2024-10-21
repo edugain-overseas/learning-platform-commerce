@@ -1,5 +1,5 @@
 import React from "react";
-import { AdminChatProvider } from "./adminChatContext";
+import { AdminChatProvider } from "../../context/adminChatContext";
 import Layout from "./Layout";
 import ChatsList from "./ChatsList";
 import ChatsSegment from "./ChatsSegment";

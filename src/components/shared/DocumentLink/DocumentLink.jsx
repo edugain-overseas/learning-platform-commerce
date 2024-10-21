@@ -14,15 +14,17 @@ const DocumentLink = ({ file }) => {
       <span className={styles.documentSize}>{`(${formatFileSize(
         file_size
       )})`}</span>
-      <a
-        download={true}
-        href={`${serverName}/${file_path}`}
-        className={styles.downloadLink}
-        rel="noreferrer noopener"
-        target="_blank"
-      >
-        <DownloadFileIcon />
-      </a>
+      {file_path && (
+        <a
+          download={true}
+          href={`${serverName}/${file_path}`}
+          className={styles.downloadLink}
+          rel="noreferrer noopener"
+          target="_blank"
+        >
+          <DownloadFileIcon />
+        </a>
+      )}
     </div>
   );
 };
