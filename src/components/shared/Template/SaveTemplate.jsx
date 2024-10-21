@@ -17,6 +17,8 @@ const SaveTemplate = ({ type }) => {
 
   const { blocks } = useLectureConstructor();
 
+  console.log(isLoading);
+
   const saveTemplate = (title) => {
     if (title.trim() === "") {
       messageApi.error({
