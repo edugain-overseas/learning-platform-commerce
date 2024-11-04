@@ -22,6 +22,8 @@ const ChatInput = () => {
   const [isFormFocused, setIsFormFocused] = useState(false);
   const dispatch = useDispatch();
 
+  const chat = chats.find(({ id }) => id === selectedChatId);
+
   const isChatProposed =
     chats.find(({ id }) => selectedChatId === id)?.status === "proposed";
 
@@ -68,6 +70,10 @@ const ChatInput = () => {
   const removeFile = (filePath) => {
     setFiles((prev) => prev.filter(({ file_path }) => file_path !== filePath));
   };
+
+  if (chat?.status === "archive") {
+    return <p className={styles.closeChatMessage}>This chat is closed</p>;
+  }
 
   return (
     <form className={styles.chatForm} onSubmit={handleSendMessage}>

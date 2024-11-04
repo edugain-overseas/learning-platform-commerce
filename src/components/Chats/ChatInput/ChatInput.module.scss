@@ -12,16 +12,11 @@
   margin: 0 auto;
 
   position: relative;
-  // overflow: hidden;
 
   &:has(textarea[rows="4"]) {
     border-color: var(--bg-color-accent);
     box-shadow: var(--drop-shadow-button-main);
   }
-  // &:focus-within {
-  //   border-color: var(--bg-color-accent);
-  //   box-shadow: var(--drop-shadow-button-main);
-  // }
 }
 
 .inputsWrapper {
@@ -114,19 +109,12 @@ textarea.chatTextarea {
   opacity: 0;
 }
 
-.popover {
- 
-}
-
 .attachedFilesTitle {
   font-size: 16rem;
   text-transform: uppercase;
   text-align: center;
   color: var(--content-main);
   border-bottom: 1px solid var(--content-datail-secondary);
-}
-
-.attachedFilesListWrapper {
 }
 
 .attachedFilesList {
@@ -178,4 +166,13 @@ textarea.chatTextarea {
   width: 400rem;
   height: 100rem;
   font-style: 14rem;
+}
+
+.closeChatMessage {
+  padding: 10rem 20rem;
+  text-align: center;
+  background-color: var(--bg-deafult-block);
+  color: var(--content-main);
+  color: var(--content-failture);
+  font-size: 16rem;
 }

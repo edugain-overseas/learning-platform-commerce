@@ -44,7 +44,7 @@ export const ChatProvider = ({ children }) => {
       const newWebSockets = userChats
         .filter(({ id }) => !existingChatIds.includes(id))
         .map(({ id }) => {
-          const ws = new WebSocket(`${webSocketUrl}/${id}/${accessToken}`);
+          const ws = new WebSocket(`${webSocketUrl}/user/${id}/${accessToken}`);
           ws.onopen = () => {
             console.log(`WebSocket connection established for chat ${id}`);
           };

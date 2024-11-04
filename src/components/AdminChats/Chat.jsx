@@ -21,7 +21,12 @@ const renderChatByStatus = (status) => {
         </>
       );
     case "archive":
-      return null;
+      return (
+        <>
+          <ChatFeed />
+          <p className={styles.closedChatMessage}>This chat is closed</p>
+        </>
+      );
     default:
       return null;
   }

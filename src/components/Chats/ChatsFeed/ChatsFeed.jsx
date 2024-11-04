@@ -5,46 +5,22 @@ import ChatMessage from "../ChatMessage/ChatMessage";
 import { getFormattedStrFromDate } from "../../../utils/formatDate";
 import { useSelector } from "react-redux";
 import { getUserId } from "../../../redux/user/selectors";
+import CloseChatPanel from "../CloseChatPanel/CloseChatPanel";
 
 const ChatsFeed = () => {
-  const {
-    messages,
-    chats,
-    selectedChatId,
-    sendToWebsocket,
-    closeChat,
-    resumeChat,
-  } = useChats();
+  const { messages, chats, selectedChatId } = useChats();
   const userId = useSelector(getUserId);
   const chatScrollerRef = useRef(null);
 
   const chat = chats.find(({ id }) => id === selectedChatId);
 
+  console.log(chat);
+
   useEffect(() => {
     if (chatScrollerRef.current) {
       chatScrollerRef.current.scrollTop = chatScrollerRef.current.scrollHeight;
     }
-  }, [messages.length]);
-
-  const handleApproveClosing = () => {
-    const data = JSON.stringify({ type: "approve" });
-    try {
-      sendToWebsocket(data, chat.id);
-      closeChat(chat.id);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleRejectClosing = () => {
-    const data = JSON.stringify({ type: "reject" });
-    try {
-      sendToWebsocket(data, chat.id);
-      resumeChat(chat.id);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  }, [messages.length, chat?.status]);
 
   return (
     <div className={styles.chatFeedWrapper} ref={chatScrollerRef}>
@@ -68,15 +44,7 @@ const ChatsFeed = () => {
           )
         )}
       </div>
-      {chat?.status === "closing" && (
-        <div>
-          <p>Do you want to close this chat?</p>
-          <div>
-            <button onClick={handleApproveClosing}>Yes</button>
-            <button onClick={handleRejectClosing}>No</button>
-          </div>
-        </div>
-      )}
+      {chat?.status === "closing" && <CloseChatPanel chat={chat} />}
     </div>
   );
 };

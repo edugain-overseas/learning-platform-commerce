@@ -7,6 +7,7 @@ import CourseIntroPage from "../pages/CourseDetailPage/CourseIntroPage/CourseInt
 import CourseTasksPage from "../pages/CourseDetailPage/CourseTasksPage/CourseTasksPage";
 import CourseCerificatePage from "../pages/CourseDetailPage/CourseCerificatePage/CourseCerificatePage";
 import AdminCourseEditPage from "../pages/AdminCourseEditPage/AdminCourseEditPage";
+import CoursePublishPage from "../pages/CourseDetailPage/CoursePublishPage/CoursePublishPage";
 
 export const sidebarNav = [
   { label: "Home", icon: <HomeIcon />, link: "/", children: null },
@@ -87,10 +88,15 @@ export const adminCourseLinks = [
     element: <CourseTasksPage />,
   },
   {
-    to: "exam-certificate",
-    content: "exam | certificate",
-    element: <CourseCerificatePage />,
+    to: "publish",
+    content: "publish",
+    element: <CoursePublishPage />,
   },
+  // {
+  //   to: "exam-certificate",
+  //   content: "exam | certificate",
+  //   element: <CourseCerificatePage />,
+  // },
   {
     to: "constructor",
     content: "Edit",

@@ -205,3 +205,12 @@ textarea.chatTextarea {
   transform: translateY(-100%);
   opacity: 0;
 }
+
+.closedChatMessage {
+  padding: 10rem 20rem;
+  text-align: center;
+  background-color: var(--bg-deafult-block);
+  color: var(--content-main);
+  color: var(--content-failture);
+  font-size: 16rem;
+}

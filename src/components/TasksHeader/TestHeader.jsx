@@ -25,6 +25,16 @@ const TestHeader = ({
         <span className={styles.type}>{type}</span>
       </div>
       <div className={styles.toolsWrapper}>
+        {isModer && (
+          <>
+            {/* <Template type={isExam ? 'exam' : 'test'} /> */}
+            {/* <Switcher
+              items={switcherItems}
+              value={switcherValue}
+              onChange={switcherOnChange}
+            /> */}
+          </>
+        )}
         {!isModer && (
           <>
             {testScore ? (

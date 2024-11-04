@@ -11,6 +11,9 @@ const AdminCourseEditPage = () => {
   const courseData = useSelector(getAllCourses).find(
     ({ id }) => id === +courseId
   );
+
+  console.log(courseData);
+
   return (
     <div className={styles.pageWrapper}>
       {courseData ? (

@@ -33,6 +33,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+
   const {
     register,
     handleSubmit,
@@ -135,7 +136,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                   placeholder="Course title"
                   fontSize={24}
                   maxRows={2}
-                  setMinRowsonBlur={true}
+                  setMinRowsOnBlur={true}
                   minRows={1}
                   {...register("title", {
                     required: "Course title is required",
@@ -301,13 +302,6 @@ const AdminCourseConstructorPage = ({ courseData }) => {
               <h2 className={styles.courseName}>About this course</h2>
               <div className={styles.textInfo}>
                 <div className={styles.inputWrapper}>
-                  {/* <Textarea
-                    minRows={10}
-                    maxRows={20}
-                    {...register("about_text", {
-                      required: "Course description is required",
-                    })}
-                  /> */}
                   <RichInput
                     control={control}
                     name="about_text"

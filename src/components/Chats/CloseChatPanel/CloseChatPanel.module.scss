@@ -1,0 +1,49 @@
+.closeChatContainer {
+  width: calc(90% + 40rem);
+  margin: 0 auto;
+  padding: 10rem 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12rem;
+
+  background: var(--bg-default);
+  box-shadow: var(--drop-shadow-button-main);
+  border-radius: 5rem;
+
+  p {
+    font-size: 16rem;
+  }
+}
+
+.btnsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 16rem;
+
+  button {
+    width: 80rem;
+    height: 40rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5rem;
+    opacity: 1;
+    transition: opacity var(--transition-time-min) ease;
+
+    &:hover {
+        opacity: 0.65;
+    }
+
+    &:first-child {
+      background-color: var(--content-main);
+      color: var(--content-contr-color);
+    }
+
+    &:last-child {
+      border: 1px solid var(--content-main);
+      color: var(--content-main);
+    }
+  }
+}

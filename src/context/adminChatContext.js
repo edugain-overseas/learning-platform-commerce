@@ -34,18 +34,20 @@ export const AdminChatProvider = ({ children }) => {
     setSelectedChatId(+id);
   };
 
+
   const onFilterChage = (value) => setChatsFilter(value);
 
-  const handleJoinChat = (id) => {
+  const handleJoinChat = (id, status) => {
     try {
-      const ws = new WebSocket(`${webSocketUrl}/${id}/${accessToken}`);
+      const ws = new WebSocket(`${webSocketUrl}/admin/${id}/${accessToken}`);
 
       ws.onopen = () => {
         console.log(`WebSocket connection established for chat ${id}`);
 
         sockets.current.push({ id, ws });
-
-        dispatch(moderJoinChat(id));
+        if (status !== "archive") {
+          dispatch(moderJoinChat(id));
+        }
       };
       ws.onerror = (error) => {
         console.error(`WebSocket error for chat ${id}:`, error);
@@ -103,22 +105,7 @@ export const AdminChatProvider = ({ children }) => {
     }
   };
 
-  const sendNewMessageToWebsocket = (chatId, message, files = []) => {
-    /*
-    {
-      type: 'new-message',
-      message,
-      files: [
-        {
-          file_type: '',
-          file_name: '',
-          file_size: int,
-          file_path: ''
-        },
-      ]
-    }
-    */
-
+  const sendNewMessageToWebsocket = (message, files = []) => {
     const data = {
       type: "new-message",
       message,
@@ -155,7 +142,7 @@ export const AdminChatProvider = ({ children }) => {
     //admin chats connection
     chats.forEach(({ id, status }) => {
       if (status !== "new") {
-        handleJoinChat(id);
+        handleJoinChat(id, status);
       }
     });
 
