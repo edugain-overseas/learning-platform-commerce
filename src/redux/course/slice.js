@@ -17,7 +17,11 @@ const initialState = {
 const courseSlice = createSlice({
   name: "course",
   initialState,
-  reducers: {},
+  reducers: {
+    publishCourseAction: (state, { payload: id }) => {
+      state.courses.find((course) => course.id === id).is_published = true;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getCoursesThunk.pending, (state, _) => {
@@ -126,5 +130,5 @@ const courseSlice = createSlice({
       });
   },
 });
-
+export const { publishCourseAction } = courseSlice.actions;
 export default courseSlice;

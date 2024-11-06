@@ -48,3 +48,12 @@ export const createLessonInCourse = async (lessonData) => {
     throw error;
   }
 };
+
+export const publishCourse = async (courseId) => {
+  try {
+    const data = privateRoutesHandler("put", `/course/publish/${courseId}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

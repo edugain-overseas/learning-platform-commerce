@@ -15,7 +15,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { ConfigProvider, Table } from "antd";
-import styles from "./coursePublishPage.module.scss";
+import styles from "./CoursePublishPage.module.scss";
 
 const columns = [
   {
@@ -76,8 +76,6 @@ const Row = (props) => {
 const LessonsTable = ({ lessonsTableData, courseTitle }) => {
   const [lessons, setLessons] = useState(lessonsTableData);
 
-  console.log(lessons);
-
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -132,16 +130,15 @@ const LessonsTable = ({ lessonsTableData, courseTitle }) => {
                 row: Row,
               },
             }}
-            title={() =>
-              courseTitle ? (
-                <div className={styles.tableCourseTitle}>{courseTitle}</div>
-              ) : null
-            }
+            title={() => (
+              <div className={styles.tableCourseTitle}>{courseTitle}</div>
+            )}
             rowKey="key"
             columns={columns}
             dataSource={lessons}
             pagination={false}
             tableLayout="fixed"
+            className={styles.lessonsTable}
           />
         </ConfigProvider>
       </SortableContext>

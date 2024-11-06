@@ -1,3 +1,9 @@
+.pageLoadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .tableCourseTitle {
   color: var(--content-main);
   font-size: 18rem;
@@ -5,4 +11,35 @@
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 6rem;
+}
+
+.publishCourseBtn {
+  width: 196rem;
+  height: 38rem;
+  margin: 16rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5rem;
+  background: var(--bg-button-success);
+  color: var(--content-contr-color);
+  opacity: 1;
+  transition: opacity var(--transition-time-min) ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.errorTableTitle {
+  color: var(--content-failture);
+  font-size: 18rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.SumOfScoreTableFooter {
+  width: calc(25% - 24px);
+  margin-left: auto;
+  color: var(--content-failture);
 }
