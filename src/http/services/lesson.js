@@ -19,6 +19,19 @@ export const getLessonById = async (lessonId) => {
   }
 };
 
+export const updateLesson = async (lessonId, updatedLesson) => {
+  try {
+    const data = await privateRoutesHandler(
+      "put",
+      `/lesson/update/${lessonId}`,
+      updatedLesson
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const confirmLecture = async (lessonId) => {
   try {
     const data = await privateRoutesHandler("post", "/lecture/confirm", null, {

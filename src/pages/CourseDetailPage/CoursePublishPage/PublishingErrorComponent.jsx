@@ -38,13 +38,6 @@ const columns = [
   },
 ];
 
-// [
-//   "Create exam before publishing course",
-//   "Sum for all question in exam not equal its score",
-//   "Sum for all question in test not equal its score",
-//   "Course score not equals 200",
-// ];
-
 const PublishingErrorComponent = ({ error, lessonsTableData }) => {
   const errorState = errorCodeProvider(error);
 
@@ -128,7 +121,6 @@ const PublishingErrorComponent = ({ error, lessonsTableData }) => {
         title={() => (
           <div className={styles.errorTableTitle}>{error.message}</div>
         )}
-        // rowKey="key"
         columns={getErrortableCols()}
         dataSource={getErrorTableData()}
         pagination={false}

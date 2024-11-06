@@ -14,6 +14,7 @@ import {
   getTestAttemptsThunk,
   submitTestAttemptThunk,
   updateLectureAttributesThunk,
+  updateLessonThunk,
   updateTestAnswerThunk,
   updateTestMatchingPairThunk,
   updateTestMetaDataThunk,
@@ -51,6 +52,31 @@ const lessonSlice = createSlice({
         state.isLoading = false;
         state.error = { code: payload.code, message: payload.message };
       })
+
+      .addCase(updateLessonThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateLessonThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { updatedLesson } = action.meta.arg;
+        console.log(updatedLesson);
+        const lessonIndex = state.lessons.findIndex(
+          ({ id }) => id === updatedLesson.id
+        );
+        console.log(lessonIndex);
+        if (lessonIndex !== -1) {
+          state.lessons[lessonIndex] = {
+            ...state.lessons[lessonIndex],
+            ...action.payload,
+          };
+        }
+      })
+      .addCase(updateLessonThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
       // lecture reducers
       .addCase(createLectureAttributesThunk.pending, (state, _) => {
         state.isLoading = true;

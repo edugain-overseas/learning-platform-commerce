@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   DndContext,
   PointerSensor,
@@ -16,6 +16,8 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { ConfigProvider, Table } from "antd";
 import styles from "./CoursePublishPage.module.scss";
+import { useDispatch } from "react-redux";
+import { updateLessonThunk } from "../../../redux/lesson/operation";
 
 const columns = [
   {
@@ -73,8 +75,16 @@ const Row = (props) => {
   );
 };
 
-const LessonsTable = ({ lessonsTableData, courseTitle }) => {
+const LessonsTable = ({
+  lessonsTableData,
+  courseTitle,
+  isCoursePublished = false,
+  messageApi,
+}) => {
+  const { courseId } = useParams();
   const [lessons, setLessons] = useState(lessonsTableData);
+
+  const dispatch = useDispatch();
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -83,6 +93,30 @@ const LessonsTable = ({ lessonsTableData, courseTitle }) => {
       },
     })
   );
+
+  const updateLessonsNumbers = async (newLessons) => {
+    const lessonsToUpdate = newLessons.filter(
+      (lesson) =>
+        lessonsTableData.find(({ id }) => id === lesson.id).number !==
+        lesson.number
+    );
+    const updatedLessonsData = lessonsToUpdate.map(({ id, number }) => ({
+      id,
+      number,
+    }));
+    try {
+      const result = await Promise.all(
+        updatedLessonsData.map((lesson) =>
+          dispatch(
+            updateLessonThunk({ courseId: +courseId, updatedLesson: lesson })
+          ).unwrap()
+        )
+      );
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const onDragEnd = ({ active, over }) => {
     if (active.id !== over?.id) {
@@ -99,6 +133,7 @@ const LessonsTable = ({ lessonsTableData, courseTitle }) => {
             number: index + 1,
           })
         );
+        updateLessonsNumbers(newLessons);
         return newLessons;
       });
     }
@@ -131,7 +166,12 @@ const LessonsTable = ({ lessonsTableData, courseTitle }) => {
               },
             }}
             title={() => (
-              <div className={styles.tableCourseTitle}>{courseTitle}</div>
+              <div className={styles.tableCourseTitle}>
+                <p>{courseTitle}</p>
+                <p className={styles.titlePublishInfo}>
+                  {isCoursePublished && "Published"}
+                </p>
+              </div>
             )}
             rowKey="key"
             columns={columns}

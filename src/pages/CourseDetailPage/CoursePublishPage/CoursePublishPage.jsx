@@ -39,6 +39,8 @@ const CoursePublishPage = () => {
             (a, b) => a.number - b.number
           )}
           courseTitle={course.title}
+          isCoursePublished={isCoursePublished}
+          messageApi={messageApi}
         />
       ) : (
         <PublishingErrorComponent
@@ -46,9 +48,7 @@ const CoursePublishPage = () => {
           lessonsTableData={lessonsTableData}
         />
       )}
-      {isCoursePublished ? (
-        <div>Course was published!</div>
-      ) : (
+      {!isCoursePublished && (
         <PublishCourseBtn
           setError={setError}
           messageApi={messageApi}

@@ -15,19 +15,26 @@ const TaskList = ({ tasks = [] }) => {
     (itemA, itemB) => itemA.number - itemB.number
   );
 
-  return (
-    <ul
-      className={`${styles.listWrapper} ${
-        selectedListModeIndex ? styles.rowWrapper : styles.cardWrapper
-      }`}
-    >
-      {sortedItemsByNumber.map((task) =>
-        selectedListModeIndex ? (
-          <TaskRow key={task.id} task={task} />
-        ) : (
-          <TaskCard key={task.id} task={task} />
-        )
+  return selectedListModeIndex ? (
+    <ul className={`${styles.listWrapper} ${styles.rowWrapper}`}>
+      {sortedItemsByNumber.map((task) => (
+        <TaskRow key={task.id} task={task} />
+      ))}
+      {isModer && (
+        <li className={styles.CreateNewLessonItem}>
+          <CreateNewLessonBtn
+            lessonNumber={
+              sortedItemsByNumber[sortedItemsByNumber.length - 1]?.number + 1
+            }
+          />
+        </li>
       )}
+    </ul>
+  ) : (
+    <ul className={`${styles.listWrapper} ${styles.cardWrapper}`}>
+      {sortedItemsByNumber.map((task) => (
+        <TaskCard key={task.id} task={task} />
+      ))}
       {isModer && (
         <li className={styles.CreateNewLessonItem}>
           <CreateNewLessonBtn

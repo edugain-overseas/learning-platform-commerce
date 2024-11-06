@@ -15,6 +15,7 @@ import {
   getTestAttempts,
   submitTestAttempt,
   updateLectureAttribute,
+  updateLesson,
   updateTestAnswer,
   updateTestMatchingPair,
   updateTestMetaData,
@@ -23,12 +24,32 @@ import {
 import { store } from "../store";
 import { getCoursesThunk } from "../course/operations";
 import { blocksToLectureAttributes } from "../../utils/lectureAttributesToBlocks";
+import { updateLessonInCourse } from "../course/slice";
 
 export const getLessonByIdThunk = createAsyncThunk(
   "lesson/getLesson",
   async (lessonId, { rejectWithValue }) => {
     try {
       const response = await getLessonById(lessonId);
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const updateLessonThunk = createAsyncThunk(
+  "lesson/updateLesson",
+  async ({ courseId, updatedLesson }, { rejectWithValue }) => {
+    try {
+      const { id, ...updatedLessonData } = updatedLesson;
+      const response = await updateLesson(id, updatedLessonData);
+      store.dispatch(
+        updateLessonInCourse({ courseId, lessonId: id, updatedLessonData })
+      );
       return response;
     } catch (error) {
       return rejectWithValue({
@@ -221,7 +242,11 @@ export const createTestAnswerThunk = createAsyncThunk(
   "lesson/createTestAnswer",
   async ({ answerData, question_id, lessonType }, { rejectWithValue }) => {
     try {
-      const response = await createTestAnswer({ ...answerData, question_id, lessonType });
+      const response = await createTestAnswer({
+        ...answerData,
+        question_id,
+        lessonType,
+      });
       return response;
     } catch (error) {
       return rejectWithValue({
@@ -239,7 +264,7 @@ export const createTestMatchingPairThunk = createAsyncThunk(
       const response = await createTestMatchingPair({
         ...pairData,
         question_id,
-        lessonType
+        lessonType,
       });
       return response;
     } catch (error) {

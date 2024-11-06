@@ -21,6 +21,26 @@ const courseSlice = createSlice({
     publishCourseAction: (state, { payload: id }) => {
       state.courses.find((course) => course.id === id).is_published = true;
     },
+    updateLessonInCourse: (state, { payload }) => {
+      const { courseId, lessonId, updatedLessonData } = payload;
+
+      const courseIndex = state.courses.findIndex(
+        (course) => course.id === courseId
+      );
+
+      if (courseIndex !== -1) {
+        const lessonIndex = state.courses[courseIndex].lessons.findIndex(
+          (lesson) => lesson.id === lessonId
+        );
+
+        if (lessonIndex !== -1) {
+          state.courses[courseIndex].lessons[lessonIndex] = {
+            ...state.courses[courseIndex].lessons[lessonIndex],
+            ...updatedLessonData,
+          };
+        }
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -130,5 +150,6 @@ const courseSlice = createSlice({
       });
   },
 });
-export const { publishCourseAction } = courseSlice.actions;
+export const { publishCourseAction, updateLessonInCourse } =
+  courseSlice.actions;
 export default courseSlice;

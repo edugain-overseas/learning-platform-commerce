@@ -16,7 +16,7 @@ const TaskCard = ({ task }) => {
   const canUserGoToTask = (task.status && task.status !== "blocked") || isModer;
 
   return (
-    <li
+    <div
       className={`${styles.card} ${
         task.status === "completed" ? styles.completedCard : ""
       }`}
@@ -66,7 +66,7 @@ const TaskCard = ({ task }) => {
           )}
         </div>
       </Link>
-    </li>
+    </div>
   );
 };
 

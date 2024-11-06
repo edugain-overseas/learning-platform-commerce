@@ -14,7 +14,7 @@ const TaskRow = ({ task }) => {
   const canUserGoToTask = (task.status && task.status !== "blocked") || isModer;
 
   return (
-    <li
+    <div
       className={`${styles.row} ${
         task.status === "completed" ? styles.completedRow : ""
       }`}
@@ -69,7 +69,7 @@ const TaskRow = ({ task }) => {
           )}
         </div>
       </Link>
-    </li>
+    </div>
   );
 };
 

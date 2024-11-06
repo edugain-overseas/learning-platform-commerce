@@ -19,6 +19,7 @@
 .card {
   position: relative;
   transition: opacity var(--transition-time-min) ease;
+  height: 100%;
 
   &.completedCard {
     // opacity: 0.6;
