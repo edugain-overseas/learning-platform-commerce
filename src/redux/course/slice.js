@@ -63,7 +63,6 @@ const courseSlice = createSlice({
       })
       .addCase(getCourseDetailThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        console.log(payload);
         state.courses = state.courses.map((course) =>
           course.id === payload.id ? { ...course, ...payload } : course
         );

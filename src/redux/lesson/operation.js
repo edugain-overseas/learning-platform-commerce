@@ -102,7 +102,6 @@ export const getTestAttemptsThunk = createAsyncThunk(
       const response = await getTestAttempts(test_id);
       return response;
     } catch (error) {
-      console.log(error);
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,
         status: error.response ? error.response.status : null,
@@ -118,7 +117,6 @@ export const getExamAttemptsThunk = createAsyncThunk(
       const response = await getExamAttempts(exam_id);
       return response;
     } catch (error) {
-      console.log(error);
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,
         status: error.response ? error.response.status : null,
@@ -135,7 +133,6 @@ export const submitTestAttemptThunk = createAsyncThunk(
       store.dispatch(getCoursesThunk());
       return response;
     } catch (error) {
-      console.log(error);
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,
         status: error.response ? error.response.status : null,
@@ -152,7 +149,6 @@ export const createLectureAttributesThunk = createAsyncThunk(
         createLectureAttribute(lectureId, attrData)
       );
       const response = await Promise.all(attrsRequests);
-      console.log(response);
       return response;
     } catch (error) {
       return rejectWithValue({

@@ -6,8 +6,8 @@ import useMessage from "antd/es/message/useMessage";
 import Spinner from "../../../components/Spinner/Spinner";
 import LessonsTable from "./LessonTable";
 import PublishCourseBtn from "./PublishCourseBtn";
-import styles from "./CoursePublishPage.module.scss";
 import PublishingErrorComponent from "./PublishingErrorComponent";
+import styles from './CoursePublishPage.module.scss';
 
 const CoursePublishPage = () => {
   const { courseId } = useParams();

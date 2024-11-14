@@ -112,9 +112,17 @@ const LessonsTable = ({
           ).unwrap()
         )
       );
-      console.log(result);
+      if (result) {
+        messageApi.success({
+          conent: "Lessons was successfully reordered!",
+          duration: 3,
+        });
+      }
     } catch (error) {
-      console.log(error);
+      messageApi.error({
+        content: "Something went wrong!",
+        duration: 3,
+      });
     }
   };
 

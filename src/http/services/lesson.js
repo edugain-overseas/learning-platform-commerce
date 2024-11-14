@@ -210,7 +210,6 @@ export const updateTestQuestion = async (
   lessonType = "test"
 ) => {
   try {
-    console.log(question_id);
     await privateRoutesHandler(
       "patch",
       `${lessonType}/question/update`,

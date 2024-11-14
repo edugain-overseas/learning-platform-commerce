@@ -60,11 +60,9 @@ const lessonSlice = createSlice({
       .addCase(updateLessonThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         const { updatedLesson } = action.meta.arg;
-        console.log(updatedLesson);
         const lessonIndex = state.lessons.findIndex(
           ({ id }) => id === updatedLesson.id
         );
-        console.log(lessonIndex);
         if (lessonIndex !== -1) {
           state.lessons[lessonIndex] = {
             ...state.lessons[lessonIndex],
@@ -437,7 +435,6 @@ const lessonSlice = createSlice({
         );
 
         if (lessonIndex !== -1) {
-          console.log(`${lessonType}_data`);
           const questionIndex = state.lessons[lessonIndex][
             `${lessonType}_data`
           ]?.questions.findIndex((question) => question.q_id === question_id);
