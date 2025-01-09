@@ -21,7 +21,7 @@ import CategoryPicker from "../../components/CategoryPicker/CategoryPicker";
 import useMessage from "antd/es/message/useMessage";
 import FileUploader from "../../components/shared/Uploaders/FileUploader/FileUploader";
 import Spinner from "../../components/Spinner/Spinner";
-import RichInput from "./RichInput";
+import RichInput from "../../components/shared/RichInput";
 import styles from "./AdminCourseConstructorPage.module.scss";
 
 const AdminCourseConstructorPage = ({ courseData }) => {

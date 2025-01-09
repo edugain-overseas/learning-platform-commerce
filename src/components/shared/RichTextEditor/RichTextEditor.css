@@ -107,7 +107,7 @@
 
 .ql-container {
   font-family: inherit;
-  font-size: 14rem;
+  font-size: inherit;
 }
 
 .ql-snow .ql-editor blockquote {

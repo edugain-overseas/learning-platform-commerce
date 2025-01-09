@@ -1,19 +1,24 @@
 import React, { useState } from "react";
-// import { courses } from "../../../assets/courses";
 import { Link } from "react-router-dom";
-import CoursesList from "../../CoursesList/CoursesList";
 import { useSelector } from "react-redux";
 import { getAllCourses } from "../../../redux/course/selectors";
 import { getUserCourses, getUserType } from "../../../redux/user/selectors";
 import { useListMode } from "../../../context/ListModeContext";
 import { ReactComponent as BMIcon } from "../../../images/icons/bm.svg";
 import { ReactComponent as ChevronIcon } from "../../../images/icons/arrowDown.svg";
+import { ReactComponent as EditIcon } from "../../../images/icons/edit.svg";
+import CoursesList from "../../CoursesList/CoursesList";
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import InfoBtn from "../../shared/InfoBtn/InfoBtn";
+import CategoryModal from "../../CategoryModal/CategoryModal";
 import styles from "./CategoriesItem.module.scss";
+import InsetBtn from "../../shared/InsetBtn/InsetBtn";
 
 const CategoriesItem = ({ category }) => {
   const [dropDownOpen, setDropDownOpen] = useState(true);
+  const [isEditCategoryModalOpen, setIsEditCatgoryModalOpen] = useState(false);
+
+  const openEditCategoryModal = () => setIsEditCatgoryModalOpen(true);
 
   const courses = useSelector(getAllCourses);
   const userCourses = useSelector(getUserCourses);
@@ -47,6 +52,8 @@ const CategoriesItem = ({ category }) => {
     setDropDownOpen((prev) => !prev);
   };
 
+  console.log(category);
+
   return (
     <li className={styles.itemWrapper} id="wrapper">
       <div className={styles.categoryPanel}>
@@ -57,13 +64,13 @@ const CategoriesItem = ({ category }) => {
           <BMIcon />
           <div className={styles.nameWrapper}>
             <h3>{category.title}</h3>
-            <p>
-              Complete all 4 courses to receive a <span>MBA Certificate</span>
-            </p>
+            <p
+              dangerouslySetInnerHTML={{ __html: category.certificate_info }}
+            ></p>
           </div>
         </Link>
         <div className={styles.tools}>
-          {!isModer && (
+          {!isModer ? (
             <>
               <p>
                 <span>Purchased: </span>
@@ -76,6 +83,15 @@ const CategoriesItem = ({ category }) => {
                   disabled={userCoursesinCategory.length === 0}
                 />
               </div>
+            </>
+          ) : (
+            <>
+              <InsetBtn icon={<EditIcon />} onClick={openEditCategoryModal}/>
+              <CategoryModal
+                isOpenModal={isEditCategoryModalOpen}
+                setIsOpenModal={setIsEditCatgoryModalOpen}
+                categoryDefaultData={category}
+              />
             </>
           )}
           <div className={styles.infoWrapper}>

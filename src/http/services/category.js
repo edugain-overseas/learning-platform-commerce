@@ -22,3 +22,16 @@ export const createCategory = async (categoryData) => {
     throw error;
   }
 };
+
+export const updateCategory = async (categoryId, updatedCategoryData) => {
+  try {
+    const data = await privateRoutesHandler(
+      "put",
+      `/category/update/${categoryId}`,
+      updatedCategoryData
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

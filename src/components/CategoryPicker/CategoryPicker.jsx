@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/category/selectors";
 import { ReactComponent as PlusIcon } from "../../images/icons/plusRounded.svg";
 import Select from "../shared/Select/Select";
+import CategoryModal from "../CategoryModal/CategoryModal";
 import styles from "./CategoryPicker.module.scss";
-import CreateNewCategoryModal from "./CreateNewCategoryModal";
 
 const CategoryPicker = ({ value, setValue }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -40,7 +40,7 @@ const CategoryPicker = ({ value, setValue }) => {
       >
         <PlusIcon title="Create new category" />
       </button>
-      <CreateNewCategoryModal
+      <CategoryModal
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
       />

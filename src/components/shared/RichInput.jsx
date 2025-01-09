@@ -1,6 +1,6 @@
 import React from "react";
 import { useController } from "react-hook-form";
-import RichTextEditor from "../../components/shared/RichTextEditor/RichTextEditor";
+import RichTextEditor from "./RichTextEditor/RichTextEditor";
 
 const RichInput = ({ control, name, placeholder }) => {
   const { field } = useController({
