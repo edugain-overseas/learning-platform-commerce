@@ -29,6 +29,9 @@ const CategoryModal = ({
   } = useForm({
     defaultValues: {
       title: categoryDefaultData ? categoryDefaultData.title : "",
+      certificate_info: categoryDefaultData
+        ? categoryDefaultData.certificate_info
+        : "",
       description: categoryDefaultData ? categoryDefaultData.description : "",
     },
   });
