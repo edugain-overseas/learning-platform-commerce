@@ -9,7 +9,7 @@ import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter basename="learning-platform-commerce">
+  <BrowserRouter>
     <PersistGate persistor={persistor}>
       <Provider store={store}>
         <App />

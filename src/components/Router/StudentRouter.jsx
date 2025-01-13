@@ -6,9 +6,9 @@ import {
   instructionsLinks,
 } from "../../costants/nav";
 import MainLayout from "../MainLayout/MainLayout";
+import HomePage from "../../pages/HomePage/HomePage";
 import SingUpForm from "../auth/SingUpForm/SingUpForm";
 import SingInForm from "../auth/SingInForm/SingInForm";
-import CreateLessonModal from "../CreateLessonModal/CreateLessonModal";
 import CoursesPage from "../../pages/CoursesPage/CoursesPage";
 import CategoriesList from "../CategoriesList/CategoriesList";
 import CategoryDetailPage from "../../pages/CategoryDetailPage/CategoryDetailPage";
@@ -23,7 +23,7 @@ import InstructionContent from "../InstructionContent/InstructionContent";
 const StudentRouter = () => (
   <Routes>
     <Route path="/" element={<MainLayout />}>
-      <Route index element={<CreateLessonModal />} />
+      <Route index element={<HomePage />} />
       <Route path="/registration" element={<SingUpForm />} />
       <Route path="/login" element={<SingInForm />} />
       <Route path="/courses" element={<CoursesPage />}>
