@@ -15,7 +15,10 @@ import { ReactComponent as ClockDarkIcon } from "../../images/icons/courseIcons/
 import { ReactComponent as CertificateIcon } from "../../images/icons/courseIcons/certificate.svg";
 import { priceFormatter } from "../../utils/priceFormatter";
 import { stripHtmlTags } from "../../utils/stripHtmlTags";
-import { courseProperties } from "../../costants/courseProperties";
+import {
+  courseFieldsMaxLength,
+  courseProperties,
+} from "../../costants/courseProperties";
 import devices from "../../images/devices.png";
 import Textarea from "../../components/shared/Textarea/Textarea";
 import CategoryPicker from "../../components/CategoryPicker/CategoryPicker";
@@ -65,6 +68,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
           c_award: courseProperties.c_award,
           c_language: courseProperties.c_language,
           c_level: courseProperties.c_level,
+          program_text: courseProperties.program_text,
         },
   });
   const watchTitle = watch("title");
@@ -80,7 +84,6 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const watchCLevel = watch("c_level");
   const registerWithMask = useHookFormMask(register);
 
-
   const onSubmit = (data) => {
     const courseData = {
       ...data,
@@ -94,7 +97,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
     }
 
     courseData.price = +data.price;
-    courseData.old_price = data.old_price === "" ? null : +data.old_price;    
+    courseData.old_price = data.old_price === "" ? null : +data.old_price;
 
     if (!courseData.image_path) {
       messageApi.open({
@@ -161,12 +164,12 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                       message: "This field is required",
                     },
                   })}
-                  maxLength={32}
+                  maxLength={courseFieldsMaxLength.title}
                   placeholder="Course title"
                 />
                 <span className={styles.maxLength}>{`${
                   watchTitle ? watchTitle.length : 0
-                }/${32}`}</span>
+                }/${courseFieldsMaxLength.title}`}</span>
                 {errors.title && (
                   <p className={styles.error}>{errors.title.message}</p>
                 )}
@@ -177,14 +180,11 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                   control={control}
                   name="intro_text"
                   placeholder="Course main information"
-                  maxLength={400}
+                  maxLength={courseFieldsMaxLength.intro_text}
                 />
                 <span className={styles.maxLength}>{`${
                   stripHtmlTags(watchIntroText).length
-                }/${400}`}</span>
-                {/* {errors.intro_text && (
-                  <p className={styles.error}>{errors.intro_text.message}</p>
-                )} */}
+                }/${courseFieldsMaxLength.intro_text}`}</span>
               </div>
               <div className={styles.listWrapper}>
                 <h4 className={styles.listTitle}>Skills you will learn:</h4>
@@ -193,11 +193,11 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                     control={control}
                     name="skills_text"
                     placeholder="Course skills information"
-                    maxLength={300}
+                    maxLength={courseFieldsMaxLength.skills_text}
                   />
                   <span className={styles.maxLength}>{`${
                     stripHtmlTags(watchSkillsText).length
-                  }/${300}`}</span>
+                  }/${courseFieldsMaxLength.skills_text}`}</span>
                   {errors.intro_text && (
                     <p className={styles.error}>{errors.skills_text.message}</p>
                   )}
@@ -208,14 +208,14 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                   control={control}
                   placeholder="Program info"
                   name="program_text"
-                  maxLength={56}
+                  maxLength={courseFieldsMaxLength.program_text}
                 />
                 {errors.program_text && (
                   <p className={styles.error}>{errors.program_text.message}</p>
                 )}
                 <span className={styles.maxLength}>{`${
                   stripHtmlTags(watchProgramInfo).length
-                }/${56}`}</span>
+                }/${courseFieldsMaxLength.program_text}`}</span>
               </div>
             </div>
             <div className={styles.visualContentWrapper}>
@@ -386,11 +386,11 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                       control={control}
                       name="about_text"
                       placeholder="Course about text"
-                      maxLength={600}
+                      maxLength={courseFieldsMaxLength.about_text}
                     />
                     <span className={styles.maxLength}>{`${
                       stripHtmlTags(watchAboutText).length
-                    }/${600}`}</span>
+                    }/${courseFieldsMaxLength.about_text}`}</span>
                     {errors.about_text && (
                       <p className={styles.error}>
                         {errors.about_text.message}
