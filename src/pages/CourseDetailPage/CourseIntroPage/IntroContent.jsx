@@ -23,6 +23,8 @@ const IntroContent = ({ course = {}, courses = [] }) => {
     intro_text: introText,
     skills_text: skillsText,
     about_text: aboutText,
+    about_main_text: aboutMainText,
+    program_text: ProgramText,
     image_path: coursePoster,
     c_type: courseType,
     c_access: courseAccess,
@@ -70,10 +72,10 @@ const IntroContent = ({ course = {}, courses = [] }) => {
               dangerouslySetInnerHTML={{ __html: skillsText }}
             ></div>
           </div>
-          <p className={styles.programInfo}>
-            This course is part of the <u>Mini-MBA</u> and{" "}
-            <u>Global Governance</u> programs.
-          </p>
+          <p
+            className={styles.programInfo}
+            dangerouslySetInnerHTML={{ __html: ProgramText ? ProgramText : "" }}
+          ></p>
         </div>
         <div className={styles.visualContentWrapper}>
           <div className={styles.posterWrapper}>
@@ -149,36 +151,46 @@ const IntroContent = ({ course = {}, courses = [] }) => {
         </div>
       </section>
 
-      <section className={styles.mainInfoWrapper}>
-        <div className={styles.textContentWrapper}>
+      <section className={styles.aboutTextWrapper}>
+        <div className={`${styles.textContentWrapper} ${styles.aboutMainContentWrapper}`}>
           <h2 className={styles.courseName}>About this course</h2>
           <div
-            className={`${styles.textInfo} ${styles.richTextWrapper}`}
-            dangerouslySetInnerHTML={{ __html: aboutText }}
+            className={styles.mainAboutTextWrapper}
+            dangerouslySetInnerHTML={{ __html: aboutMainText }}
           ></div>
-          <ul className={styles.advantagesList}>
-            <li>
-              <SchoolOnlineIcon />
-              <h4>100% Online</h4>
-              <p>Click through engaging and award winning course content.</p>
-            </li>
-            <li>
-              <ClockDarkIcon />
-              <h4>100% self-paced</h4>
-              <p>Immediate start: study when, where, and how fast you want.</p>
-            </li>
-            <li>
-              <CertificateIcon />
-              <h4>Get your certificate</h4>
-              <p>
-                Download your personal certificate upon completion of this
-                course.
-              </p>
-            </li>
-          </ul>
         </div>
-        <div className={`${styles.visualContentWrapper} ${styles.devices}`}>
-          <img src={devices} alt="devices" />
+        <div className={styles.aboutWrapper}>
+          <div className={styles.textContentWrapper}>
+            <div
+              className={`${styles.textInfo} ${styles.richTextWrapper}`}
+              dangerouslySetInnerHTML={{ __html: aboutText }}
+            ></div>
+            <ul className={styles.advantagesList}>
+              <li>
+                <SchoolOnlineIcon />
+                <h4>100% Online</h4>
+                <p>Click through engaging and award winning course content.</p>
+              </li>
+              <li>
+                <ClockDarkIcon />
+                <h4>100% self-paced</h4>
+                <p>
+                  Immediate start: study when, where, and how fast you want.
+                </p>
+              </li>
+              <li>
+                <CertificateIcon />
+                <h4>Get your certificate</h4>
+                <p>
+                  Download your personal certificate upon completion of this
+                  course.
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div className={`${styles.visualContentWrapper} ${styles.devices}`}>
+            <img src={devices} alt="devices" />
+          </div>
         </div>
       </section>
 

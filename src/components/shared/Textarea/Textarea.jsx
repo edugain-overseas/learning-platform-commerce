@@ -30,7 +30,7 @@ const Textarea = forwardRef(
     const textareaRef = useRef(null);
 
     const handleBlur = (e) => {
-      onBlur(e)
+      onBlur(e);
       if (setMinRowsOnBlur) {
         const originalHeight = fontSize * minRows * 1.2 + 8;
         // const maxHeight = maxRows ? fontSize * maxRows * 1.2 + 8 : null;

@@ -16,6 +16,38 @@
 
   & > div {
     flex-basis: calc(50% - 32rem / 2);
+    max-width: calc(50% - 32rem / 2);
+  }
+}
+
+.aboutTextWrapper {
+  border-radius: 5rem;
+  background-color: var(--bg-rgba-default);
+  box-shadow: var(--drop-shadow-button-main);
+  backdrop-filter: blur(16rem);
+  overflow: hidden;
+
+  .aboutMainContentWrapper {
+    padding-right: 32rem;
+    padding-bottom: 0;
+  }
+
+  .richTextWrapper {
+    margin-bottom: 24rem;
+  }
+
+  .aboutWrapper {
+    display: flex;
+    gap: 3%;
+
+    & > .textContentWrapper {
+      flex-basis: 51%;
+      max-width: 51%;
+    }
+    & > .visualContentWrapper {
+      flex-basis: 46%;
+      max-width: 46%;
+    }
   }
 }
 
