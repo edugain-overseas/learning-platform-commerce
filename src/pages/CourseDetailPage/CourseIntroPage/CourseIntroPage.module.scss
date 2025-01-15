@@ -34,6 +34,7 @@
 
   .richTextWrapper {
     margin-bottom: 24rem;
+    text-indent: 10px;
   }
 
   .aboutWrapper {
@@ -80,6 +81,7 @@
     line-height: 18rem;
     padding-inline-start: 2rem;
     margin-bottom: 20rem;
+    text-indent: 10rem;
   }
 
   .listWrapper {
@@ -92,7 +94,7 @@
     }
 
     .listItems {
-      padding-inline-start: 16rem;
+      padding-inline-start: 6rem;
 
       .listItem {
         font-size: 14rem;

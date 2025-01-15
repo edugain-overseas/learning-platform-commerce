@@ -15,7 +15,7 @@ const SideBar = () => {
 
   const navItems = isModer ? adminSidebarNav : sidebarNav;
 
-  const [isExpandedFixed, setIsExpandedFixed] = useState(true);
+  const [isExpandedFixed, setIsExpandedFixed] = useState(false);
   const [isNarrowedFixed, setIsNarrowedFixed] = useState(false);
 
   const handleNarrowedFix = () => {

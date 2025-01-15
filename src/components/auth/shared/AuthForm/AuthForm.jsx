@@ -107,14 +107,27 @@ const AuthForm = ({
   const handleCustomGoogleButtonClick = () => {
     try {
       /* global google */
+      if (!google?.accounts?.id) {
+        console.error("Google accounts API not initialized");
+        return;
+      }
+
       google.accounts.id.prompt((notification) => {
         if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          document.cookie = `g_state=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT`;
-          google.accounts.id.prompt();
+          console.warn("Google One Tap prompt skipped or not displayed.");
+
+          // Optionally handle cookie or localStorage clean-up
+          document.cookie =
+            "g_state=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT";
+
+          // Try to reinitialize or log this as a skipped session
+          google.accounts.id.prompt(); // Caution: Avoid infinite loops
+        } else {
+          console.log("Google One Tap displayed successfully.");
         }
       });
     } catch (error) {
-      console.log(error);
+      console.error("Error invoking Google One Tap:", error);
     }
   };
 
@@ -122,7 +135,7 @@ const AuthForm = ({
     <div className={styles.wrapper}>
       <form className={styles.form} onSubmit={handleFormSubmit}>
         <h2>{type === "registration" ? "Sing up" : "Sing in"}</h2>
-        <AuthFormLink to={type === "registration" ? "login" : "registration"}/>
+        <AuthFormLink to={type === "registration" ? "login" : "registration"} />
         <div className={styles.row}>
           <InputText
             name="Username"

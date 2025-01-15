@@ -41,6 +41,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
     register,
     handleSubmit,
     watch,
+    setError,
     formState: { errors },
     control,
   } = useForm({
@@ -85,36 +86,64 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const registerWithMask = useHookFormMask(register);
 
   const onSubmit = (data) => {
-    const courseData = {
-      ...data,
-      category_id: categoryId,
-      image_path: imagePath,
-    };
-    for (const key in courseProperties) {
-      if (courseData[key] === "") {
-        courseData[key] = courseProperties[key];
-      }
+    let isManualError = false;
+
+    if (!stripHtmlTags(data.intro_text)) {
+      setError("intro_text", {
+        type: "required",
+        message: "This field is required",
+      });
+      isManualError = true;
+    }
+    if (!stripHtmlTags(data.skills_text)) {
+      setError("skills_text", {
+        type: "required",
+        message: "This field is required",
+      });
+      isManualError = true;
+    }
+    if (!stripHtmlTags(data.program_text)) {
+      setError("program_text", {
+        type: "required",
+        message: "This field is required",
+      });
+      isManualError = true;
+    }
+    if (!stripHtmlTags(data.about_text)) {
+      setError("about_text", {
+        type: "required",
+        message: "This field is required",
+      });
+      isManualError = true;
     }
 
-    courseData.price = +data.price;
-    courseData.old_price = data.old_price === "" ? null : +data.old_price;
-
-    if (!courseData.image_path) {
+    if (!imagePath) {
       messageApi.open({
         type: "error",
         content: "Please select course poster",
         duration: 2.5,
       });
+      isManualError = true;
     }
-    if (!courseData.category_id) {
+    if (!categoryId) {
       messageApi.open({
         type: "error",
         content: "Please select course category",
         duration: 2.5,
       });
+      isManualError = true;
     }
 
-    if (!courseData.image_path || !courseData.category_id) return;
+    if (isManualError) return;
+
+    const courseData = {
+      ...data,
+      category_id: categoryId,
+      image_path: imagePath,
+    };
+
+    courseData.price = +data.price;
+    courseData.old_price = data.old_price === "" ? null : +data.old_price;
 
     if (courseId) {
       try {
@@ -185,6 +214,9 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                 <span className={styles.maxLength}>{`${
                   stripHtmlTags(watchIntroText).length
                 }/${courseFieldsMaxLength.intro_text}`}</span>
+                {errors.intro_text && (
+                  <p className={styles.error}>{errors.intro_text.message}</p>
+                )}
               </div>
               <div className={styles.listWrapper}>
                 <h4 className={styles.listTitle}>Skills you will learn:</h4>
@@ -198,7 +230,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                   <span className={styles.maxLength}>{`${
                     stripHtmlTags(watchSkillsText).length
                   }/${courseFieldsMaxLength.skills_text}`}</span>
-                  {errors.intro_text && (
+                  {errors.skills_text && (
                     <p className={styles.error}>{errors.skills_text.message}</p>
                   )}
                 </div>
@@ -243,11 +275,19 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                     placeholder="Online course"
                     className={styles.value}
                     maxLength={20}
-                    {...register("c_type")}
+                    {...register("c_type", {
+                      required: {
+                        value: true,
+                        message: "This field is required",
+                      },
+                    })}
                   />
                   <span className={styles.maxLength}>{`${
                     watchCType.length
                   }/${20}`}</span>
+                  {errors.c_type && (
+                    <p className={styles.error}>{errors.c_type.message}</p>
+                  )}
                 </li>
                 <li>
                   <span className={styles.property}>
@@ -258,11 +298,19 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                     maxRows={1}
                     maxLength={20}
                     placeholder="3 hours (self-paced)"
-                    {...register("c_duration")}
+                    {...register("c_duration", {
+                      required: {
+                        value: true,
+                        message: "This field is required",
+                      },
+                    })}
                   />
                   <span className={styles.maxLength}>{`${
                     watchCDuration.length
                   }/${20}`}</span>
+                  {errors.c_duration && (
+                    <p className={styles.error}>{errors.c_duration.message}</p>
+                  )}
                 </li>
                 <li>
                   <span className={styles.property}>
@@ -273,11 +321,19 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                     maxRows={1}
                     maxLength={20}
                     placeholder="Certificate"
-                    {...register("c_award")}
+                    {...register("c_award", {
+                      required: {
+                        value: true,
+                        message: "This field is required",
+                      },
+                    })}
                   />
                   <span className={styles.maxLength}>{`${
                     watchCAward.length
                   }/${20}`}</span>
+                  {errors.c_award && (
+                    <p className={styles.error}>{errors.c_award.message}</p>
+                  )}
                 </li>
                 <li>
                   <span className={styles.property}>
@@ -288,11 +344,19 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                     maxRows={1}
                     maxLength={20}
                     placeholder="Full audio & text"
-                    {...register("c_language")}
+                    {...register("c_language", {
+                      required: {
+                        value: true,
+                        message: "This field is required",
+                      },
+                    })}
                   />
                   <span className={styles.maxLength}>{`${
                     watchCLanguage.length
                   }/${20}`}</span>
+                  {errors.c_language && (
+                    <p className={styles.error}>{errors.c_language.message}</p>
+                  )}
                 </li>
                 <li>
                   <span className={styles.property}>
@@ -303,11 +367,19 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                     maxRows={1}
                     maxLength={20}
                     placeholder="Introductory"
-                    {...register("c_level")}
+                    {...register("c_level", {
+                      required: {
+                        value: true,
+                        message: "This field is required",
+                      },
+                    })}
                   />
                   <span className={styles.maxLength}>{`${
                     watchCLevel.length
                   }/${20}`}</span>
+                  {errors.c_level && (
+                    <p className={styles.error}>{errors.c_level.message}</p>
+                  )}
                 </li>
                 <li>
                   <span className={styles.property}>
@@ -318,11 +390,19 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                     maxRows={1}
                     maxLength={20}
                     placeholder="Lifetime access"
-                    {...register("c_access")}
+                    {...register("c_access", {
+                      required: {
+                        value: true,
+                        message: "This field is required",
+                      },
+                    })}
                   />
                   <span className={styles.maxLength}>{`${
                     watchCAccess.length
                   }/${20}`}</span>
+                  {errors.c_access && (
+                    <p className={styles.error}>{errors.c_access.message}</p>
+                  )}
                 </li>
               </ul>
             </div>

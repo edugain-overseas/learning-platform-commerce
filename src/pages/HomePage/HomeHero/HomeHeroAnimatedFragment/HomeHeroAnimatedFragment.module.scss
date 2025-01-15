@@ -1,0 +1,240 @@
+.outerWrapper {
+  width: 573rem;
+  height: 540.6rem;
+  position: relative;
+  // margin: 0 auto;
+
+  --animation-duration: 2s;
+  --animation-delay: 0.8s;
+}
+
+.animated {
+  // .outerRotationCircle {
+  //   animation: rotateForwards var(--animation-duration) ease-out;
+  // }
+  .rotater {
+    animation: rotateForwards var(--animation-duration) ease-out;
+  }
+
+  .innerRotationCircle {
+    animation: rotateBackwards var(--animation-duration) ease-out;
+  }
+
+  .innerCircle {
+    animation: fadeIn var(--animation-duration) ease-out forwards;
+  }
+
+  .mediaObject {
+    animation: fadeIn var(--animation-duration) ease-in forwards,
+      slideIn calc(var(--animation-duration) - var(--animation-delay)) ease-in
+        forwards;
+  }
+
+  .mediaObjectShadow {
+    animation: fadeIn var(--animation-duration) ease-in forwards,
+      slideIn calc(var(--animation-duration) - var(--animation-delay)) ease-in
+        forwards;
+  }
+}
+
+// outer
+
+.outerRotationCircle {
+  width: 520rem;
+  height: 520rem;
+  border-radius: 50%;
+  border: 3.2rem solid rgba($color: #7e8ca8, $alpha: 0.1);
+  // filter: drop-shadow(0px 0px 2.016px rgba(0, 0, 0, 0.12));
+  position: absolute;
+  inset: 0 37.7rem 20.5rem 15.1rem;
+  transform-origin: center center;
+  // opacity: 0.1;
+  // translate: -50% -50%;
+}
+
+.rotater {
+  position: absolute;
+  inset: 0;
+}
+
+.rotater > div,
+.innerRotationCircle > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1;
+  background-color: #f4f4f4;
+  filter: drop-shadow(0 0 6.484rem rgba(0, 0, 0, 0.12));
+  border-radius: 50%;
+
+  position: absolute;
+
+  svg {
+    width: 1em;
+    height: auto;
+  }
+}
+
+.businessWrapper {
+  top: 56rem;
+  left: 10.77rem;
+  width: 90.5rem;
+  font-size: 45.2rem;
+}
+
+.clockWrapper {
+  top: 0rem;
+  right: 129.25rem;
+  width: 43.1rem;
+  font-size: 22.8rem;
+}
+
+.itWrapper {
+  top: 108.78rem;
+  right: -37.7rem;
+  width: 101.2rem;
+  font-size: 62.5rem;
+}
+
+.lawWrapper {
+  bottom: 57.1rem;
+  right: 11.85rem;
+  width: 84rem;
+  font-size: 45.2rem;
+}
+
+.gradeWrapper {
+  bottom: -20.5rem;
+  right: 187.4rem;
+  width: 51.7rem;
+  font-size: 16.6rem;
+}
+
+.socialWrapper {
+  bottom: 4.3rem;
+  left: 60.3rem;
+  width: 94.8rem;
+  font-size: 50.2rem;
+}
+
+.notificationWrapper {
+  bottom: 155.1rem;
+  left: -15.1rem;
+  width: 54rem;
+  font-size: 25.9rem;
+}
+
+// inner
+
+.innerWrapper {
+  width: 394rem;
+  height: 394rem;
+  flex-shrink: 0;
+  position: absolute;
+  inset: 63.5rem;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.innerRotationCircle {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+
+  border: 2rem solid rgba(252, 252, 252, 0.85);
+  background: rgba(185, 185, 185, 0.1);
+  box-shadow: 0 0 60rem 0 rgba(0, 0, 0, 0.1) inset;
+
+  transform-origin: center;
+}
+
+.medWrapper {
+  top: 129.25rem;
+  left: -10.77rem;
+  width: 36.62rem;
+  font-size: 18.9rem;
+}
+
+.engineeringWrapper {
+  bottom: 136.8rem;
+  right: -11.85rem;
+  width: 38.77rem;
+  font-size: 19.4rem;
+}
+
+.innerCircle {
+  position: absolute;
+  inset: 89.4rem;
+  border-radius: 50%;
+  background-color: #eaeaea;
+  box-shadow: 0 0 21rem rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(47rem);
+  opacity: 0.9;
+}
+
+// object
+
+.mediaObjectWrapper {
+  height: 470rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  border-radius: 0 0 201rem 201rem;
+  overflow: hidden;
+}
+
+.mediaObject {
+  position: absolute;
+  inset: 0;
+  background-image: url("../../../../images/icons/HomeHeroAnimatedFragment/happy-student.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.mediaObjectShadow {
+  position: absolute;
+  inset: 0;
+  background-image: url("../../../../images/icons/HomeHeroAnimatedFragment/happy-student.png");
+  filter: blur(2rem);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  opacity: 0.9;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20%);
+  }
+  to {
+    transform: translateY(10rem);
+  }
+}
+
+@keyframes rotateForwards {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes rotateBackwards {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: -360deg;
+  }
+}

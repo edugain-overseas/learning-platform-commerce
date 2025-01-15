@@ -152,10 +152,12 @@ const IntroContent = ({ course = {}, courses = [] }) => {
       </section>
 
       <section className={styles.aboutTextWrapper}>
-        <div className={`${styles.textContentWrapper} ${styles.aboutMainContentWrapper}`}>
+        <div
+          className={`${styles.textContentWrapper} ${styles.aboutMainContentWrapper}`}
+        >
           <h2 className={styles.courseName}>About this course</h2>
           <div
-            className={styles.mainAboutTextWrapper}
+            className={`${styles.mainAboutTextWrapper} ${styles.richTextWrapper}`}
             dangerouslySetInnerHTML={{ __html: aboutMainText }}
           ></div>
         </div>

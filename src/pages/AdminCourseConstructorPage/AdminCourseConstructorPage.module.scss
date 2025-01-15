@@ -259,6 +259,18 @@ div.courseItemsWrapper {
       display: flex;
       align-items: center;
     }
+
+    .error {
+      right: 0;
+      left: auto;
+    }
+
+    &:nth-child(-n + 3) {
+      .error {
+        bottom: 100%;
+        top: auto;
+      }
+    }
   }
 }
 

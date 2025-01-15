@@ -6,10 +6,6 @@ const RichInput = ({ control, name, placeholder, maxLength = null }) => {
   const { field } = useController({
     name,
     control,
-    rules: {
-      required: true,
-      message: "This field is required",
-    },
   });
   return (
     <RichTextEditor

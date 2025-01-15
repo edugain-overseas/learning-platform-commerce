@@ -16,10 +16,10 @@ const useGoogleAuthentication = () => {
         client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
         callback: handleCredentialResponse,
         use_fedcm_for_prompt: true,
+        auto_select: false,
       };
 
       console.log(IdConfiguration);
-      
 
       try {
         /* global google */
@@ -32,7 +32,7 @@ const useGoogleAuthentication = () => {
         //   }
         // );
       } catch (error) {
-        console.log(error);
+        console.log("error", error);
       }
     }
 
