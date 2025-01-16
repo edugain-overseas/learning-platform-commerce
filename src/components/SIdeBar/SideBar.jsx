@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import NavBar from "./NavBar/NavBar";
 import LogoutButton from "./LogoutButton/LogoutButton";
 import { ReactComponent as FixIcon } from "../../images/icons/fix.svg";
@@ -17,6 +17,7 @@ const SideBar = () => {
 
   const [isExpandedFixed, setIsExpandedFixed] = useState(false);
   const [isNarrowedFixed, setIsNarrowedFixed] = useState(false);
+  const wrapperRef = useRef(null);
 
   const handleNarrowedFix = () => {
     setIsNarrowedFixed((prev) => {
@@ -32,6 +33,7 @@ const SideBar = () => {
       if (isNarrowedFixed) {
         setIsNarrowedFixed(false);
       }
+      wrapperRef.current.dataset.expandedFixed = !prev;
       return !prev;
     });
   };
@@ -41,7 +43,8 @@ const SideBar = () => {
       className={`${styles.wrapper} 
       ${isExpandedFixed ? styles.expandedFixed : ""} 
       ${isNarrowedFixed ? styles.narrowedFixed : ""}`}
-      data-expanded-fixed={isExpandedFixed}
+      // data-expanded-fixed={isExpandedFixed}
+      ref={wrapperRef}
     >
       <div className={styles.narrowed}>
         <button className={styles.fixBtn} onClick={handleNarrowedFix}>

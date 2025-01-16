@@ -1,16 +1,15 @@
-import { ReactComponent as APlus } from "../images/icons/GradeAPlus.svg";
 
 export const letterGrade = (grade) => {
   if (190 <= grade) {
-    return <APlus />;
+    return "A";
   }
-  if (182 <= grade) {
+  if (180 <= grade) {
     return "B";
   }
-  if (175 <= grade) {
+  if (170 <= grade) {
     return "C";
   }
-  if (167 <= grade) {
+  if (165 <= grade) {
     return "D";
   }
   if (160 <= grade) {

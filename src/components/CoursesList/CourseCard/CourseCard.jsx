@@ -14,7 +14,13 @@ import { serverName } from "../../../http/server";
 import { getUserType } from "../../../redux/user/selectors";
 import styles from "./CourseCard.module.scss";
 
-const CourseCard = ({ course, purchased, disabled }) => {
+const CourseCard = ({
+  course,
+  purchased,
+  disabled,
+  containerClassname = "",
+  renderBuyBtn = true,
+}) => {
   const { addItem, removeItem, cartItems } = useCart();
   const isModer = useSelector(getUserType) === "moder";
 
@@ -29,7 +35,7 @@ const CourseCard = ({ course, purchased, disabled }) => {
     id,
     progress,
     is_published: isPublished,
-    grade
+    grade,
   } = course;
 
   const isItemInCart = cartItems?.find((item) => item === id) && true;
@@ -46,9 +52,9 @@ const CourseCard = ({ course, purchased, disabled }) => {
 
   return (
     <li
-      className={`${styles.courseCard} ${disabled ? styles.disabled : ""} ${
-        !isPublished ? styles.disabled : ""
-      }`}
+      className={`${styles.courseCard} ${containerClassname} ${
+        disabled ? styles.disabled : ""
+      } ${!isPublished ? styles.disabled : ""}`}
     >
       <Link className={styles.courseLink} to={`/course/${id}/intro`}>
         <div
@@ -119,7 +125,7 @@ const CourseCard = ({ course, purchased, disabled }) => {
           </div>
         </div>
       </Link>
-      {!purchased && !isModer && (
+      {!purchased && !isModer && renderBuyBtn && (
         <button
           className={styles.cardBtn}
           onClick={(e) =>

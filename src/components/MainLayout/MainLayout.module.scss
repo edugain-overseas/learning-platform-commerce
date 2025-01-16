@@ -13,7 +13,14 @@
   .main {
     padding-top: 84rem;
     padding-left: var(--sidebar-width-narrowed);
-    transition: padding-left var(--transition-time-max) ease;
+    // transition: padding-left var(--transition-time-max) ease;
+  }
+
+  .contentWrapper:has([data-expanded-fixed="true"]),
+  .contentWrapper:has([data-expanded-fixed="false"]) {
+    main {
+      transition: padding-left var(--transition-time-max) ease;
+    }
   }
 
   .contentWrapper:has([data-expanded-fixed="true"]) {
