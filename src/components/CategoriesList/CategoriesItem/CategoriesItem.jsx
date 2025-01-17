@@ -58,7 +58,7 @@ const CategoriesItem = ({ category }) => {
     <li className={styles.itemWrapper} id="wrapper">
       <div className={styles.categoryPanel}>
         <Link
-          to={`/courses/category/${category.id}`}
+          to={null}
           className={styles.titleWrapper}
         >
           <BMIcon />

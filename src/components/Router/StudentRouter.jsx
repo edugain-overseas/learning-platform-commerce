@@ -7,18 +7,33 @@ import {
 } from "../../costants/nav";
 import MainLayout from "../MainLayout/MainLayout";
 import HomePage from "../../pages/HomePage/HomePage";
-import SingUpForm from "../auth/SingUpForm/SingUpForm";
-import SingInForm from "../auth/SingInForm/SingInForm";
-import CoursesPage from "../../pages/CoursesPage/CoursesPage";
-import CategoriesList from "../CategoriesList/CategoriesList";
-import CategoryDetailPage from "../../pages/CategoryDetailPage/CategoryDetailPage";
-import CourseDetailPage from "../../pages/CourseDetailPage/CourseDetailPage";
-import TaskPage from "../../pages/TaskPage/TaskPage";
-import UserProfilePage from "../../pages/UserProfilePage/UserProfilePage";
-import AboutIEUPage from "../../pages/AboutIEUPage/AboutIEUPage";
-import InstructionsPage from "../../pages/InstructionsPage/InstructionsPage";
-import InstructionsList from "../InstructionsList/InstructionsList";
-import InstructionContent from "../InstructionContent/InstructionContent";
+const SingUpForm = React.lazy(() => import("../auth/SingUpForm/SingUpForm"));
+const SingInForm = React.lazy(() => import("../auth/SingInForm/SingInForm"));
+const CoursesPage = React.lazy(() =>
+  import("../../pages/CoursesPage/CoursesPage")
+);
+const CategoriesList = React.lazy(() =>
+  import("../CategoriesList/CategoriesList")
+);
+const CourseDetailPage = React.lazy(() =>
+  import("../../pages/CourseDetailPage/CourseDetailPage")
+);
+const TaskPage = React.lazy(() => import("../../pages/TaskPage/TaskPage"));
+const UserProfilePage = React.lazy(() =>
+  import("../../pages/UserProfilePage/UserProfilePage")
+);
+const AboutIEUPage = React.lazy(() =>
+  import("../../pages/AboutIEUPage/AboutIEUPage")
+);
+const InstructionsPage = React.lazy(() =>
+  import("../../pages/InstructionsPage/InstructionsPage")
+);
+const InstructionsList = React.lazy(() =>
+  import("../InstructionsList/InstructionsList")
+);
+const InstructionContent = React.lazy(() =>
+  import("../InstructionContent/InstructionContent")
+);
 
 const StudentRouter = () => (
   <Routes>
@@ -30,7 +45,6 @@ const StudentRouter = () => (
         {coursesLinks.map(({ to }) => (
           <Route key={to} path={to} element={<CategoriesList />} />
         ))}
-        <Route path="category/:categoryId" element={<CategoryDetailPage />} />
       </Route>
       <Route path="/course/:courseId" element={<CourseDetailPage />}>
         {courseLinks.map(({ to, element }) => (

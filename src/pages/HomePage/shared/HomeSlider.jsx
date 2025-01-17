@@ -13,6 +13,8 @@ const HomeSlider = ({ items, renderItem, swiperProps = {}, children }) => {
         display: "flex",
         flexDirection: "column-reverse",
         gap: "16rem",
+        paddingBottom: "96rem",
+        paddingLeft: "70rem",
       }}
     >
       {children}

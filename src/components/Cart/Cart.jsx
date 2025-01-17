@@ -4,7 +4,7 @@ import { useCart } from "../../context/cartContext";
 import { getAllCourses } from "../../redux/course/selectors";
 import { ReactComponent as TrashIcon } from "../../images/icons/trashRounded.svg";
 import { serverName } from "../../http/server";
-import NoImage from "../../images/noImage.jpeg";
+import NoImage from "../../images/noImage.webp";
 import styles from "./Cart.module.scss";
 
 const Cart = ({ items }) => {

@@ -13,6 +13,8 @@ import CardPrice from "../../shared/CardPrice/CardPrice";
 import { serverName } from "../../../http/server";
 import { getUserType } from "../../../redux/user/selectors";
 import styles from "./CourseCard.module.scss";
+import ImageWithSkeleton from "../../shared/Skeletons/ImageWithSkeleton";
+import WrapperWithDynamicBgImage from "../../shared/Skeletons/WrapperWithDynamicBgImage";
 
 const CourseCard = ({
   course,
@@ -57,29 +59,17 @@ const CourseCard = ({
       } ${!isPublished ? styles.disabled : ""}`}
     >
       <Link className={styles.courseLink} to={`/course/${id}/intro`}>
-        <div
+        <WrapperWithDynamicBgImage
           className={styles.posterWrapper}
-          style={{
-            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65)), url(${
-              coursePoster
-                ? serverName + "/" + coursePoster
-                : "https://online.maryville.edu/wp-content/uploads/sites/97/2023/09/business-management-team.jpg"
-            })`,
-          }}
+          url={encodeURI(`${serverName}/${coursePoster}`)}
         >
-          <div className={styles.imageWrapper}>
-            <img
-              src={
-                coursePoster
-                  ? `${serverName}/${coursePoster}`
-                  : "https://online.maryville.edu/wp-content/uploads/sites/97/2023/09/business-management-team.jpg"
-              }
-              alt={courseName}
-              className={styles.coursePoster}
-            />
-          </div>
-        </div>
-
+          <ImageWithSkeleton
+            src={`${serverName}/${coursePoster}`}
+            alt={courseName}
+            wrapperClassname={styles.imageWrapper}
+            imageClassname={styles.coursePoster}
+          />
+        </WrapperWithDynamicBgImage>
         <div className={styles.textWrapper}>
           <div className={styles.titleWrapper}>
             <span className={styles.courseName}>

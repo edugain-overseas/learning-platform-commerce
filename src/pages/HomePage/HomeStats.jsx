@@ -36,7 +36,7 @@ const StatItem = ({ stat, animationStarted = false }) => {
     ref: statValueRef,
     start: 0,
     end: stat.value,
-    duration: 5,
+    duration: 3,
     startOnMount: false,
     formattingFn: stat.name === "score" && scoreFormatting,
   });

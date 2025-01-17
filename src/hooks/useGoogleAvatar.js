@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import fallbackUrl from '../images/noAvatar.png';
+import fallbackUrl from '../images/noAvatar.webp';
 
 export const useGoogleAvatar = (avatarUrl) => {
   const [avatarDataUrl, setAvatarDataUrl] = useState(null);

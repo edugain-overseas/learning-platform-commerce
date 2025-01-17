@@ -19,7 +19,7 @@ import {
   courseFieldsMaxLength,
   courseProperties,
 } from "../../costants/courseProperties";
-import devices from "../../images/devices.png";
+import devices from "../../images/devices.webp";
 import Textarea from "../../components/shared/Textarea/Textarea";
 import CategoryPicker from "../../components/CategoryPicker/CategoryPicker";
 import useMessage from "antd/es/message/useMessage";

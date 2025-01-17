@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Header from "../Header/Header";
 import SideBar from "../SIdeBar/SideBar";
 import styles from "./MainLayout.module.scss";
@@ -6,6 +6,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import ChatsFloatBtn from "../ChatsFloatBtn/ChatsFloatBtn";
 import { useSelector } from "react-redux";
 import { getAccessToken, getUserInfo } from "../../redux/user/selectors";
+import SuspenseFallback from "../SuspenseFallback";
 
 const MainLayout = () => {
   const { pathname } = useLocation();
@@ -39,10 +40,14 @@ const MainLayout = () => {
         >
           {isFullscreenLayout ? (
             <div className={styles.pageContent}>
-              <Outlet />
+              <Suspense fallback={<SuspenseFallback />}>
+                <Outlet />
+              </Suspense>
             </div>
           ) : (
-            <Outlet />
+            <Suspense fallback={<SuspenseFallback />}>
+              <Outlet />
+            </Suspense>
           )}
         </main>
       </div>

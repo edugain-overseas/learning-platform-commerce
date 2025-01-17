@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Skeleton from "../Skeleton/Sceleton";
+import Skeleton from "../Skeleton/Skeleton";
 
 const VideoPlayer = ({ file }) => {
   const [videoParams, setVideoParmas] = useState({ width: null, height: null });

@@ -48,16 +48,19 @@ const HomeOfferInfo = () => {
             <li>
               <a href="/">
                 <WebIcon />
+                <div>Website</div>
               </a>
             </li>
             <li>
               <a href="/">
                 <AppstoreIcon />
+                <div>App Store</div>
               </a>
             </li>
             <li>
               <a href="/">
                 <Playmarketcon />
+                <div>Google play</div>
               </a>
             </li>
           </ul>

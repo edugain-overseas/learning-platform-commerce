@@ -5,7 +5,7 @@ import { ReactComponent as PlusIcon } from "../../../images/icons/plus.svg";
 import { ReactComponent as UploadIcon } from "../../../images/icons/upload.svg";
 import { ReactComponent as SaveIcon } from "../../../images/icons/save.svg";
 import { remToPx } from "../../../utils/remToPx";
-import noAvatar from "../../../images/noAvatar.png";
+import noAvatar from "../../../images/noAvatar.webp";
 import InsetBtn from "../InsetBtn/InsetBtn";
 import Avatar from "../Avatar/Avatar";
 import styles from "./AvatarEditor.module.scss";

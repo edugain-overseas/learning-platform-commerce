@@ -8,7 +8,7 @@ import { ReactComponent as ArrowLeftIcon } from "../../../images/icons/arrow-lef
 import { ReactComponent as SchoolOnlineIcon } from "../../../images/icons/courseIcons/school-online.svg";
 import { ReactComponent as ClockDarkIcon } from "../../../images/icons/courseIcons/clock-dark.svg";
 import { ReactComponent as CertificateIcon } from "../../../images/icons/courseIcons/certificate.svg";
-import devices from "../../../images/devices.png";
+import devices from "../../../images/devices.webp";
 import CardPrice from "../../../components/shared/CardPrice/CardPrice";
 import CoursesList from "../../../components/CoursesList/CoursesList";
 import styles from "./CourseIntroPage.module.scss";

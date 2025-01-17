@@ -8,8 +8,9 @@ import { ReactComponent as TaskViewIcon } from "../../images/icons/task-view.svg
 import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
 import { ReactComponent as QuestionsIcon } from "../../images/icons/document-question.svg";
 import { ReactComponent as ComplietedIcon } from "../../images/icons/task-check.svg";
-import poster from "../../images/MedicineBackground.png";
+import poster from "../../images/noImage.webp";
 import styles from "./TaskList.module.scss";
+import ImageWithSkeleton from "../shared/Skeletons/ImageWithSkeleton";
 
 const TaskCard = ({ task }) => {
   const isModer = useSelector(getUserType) === "moder";
@@ -25,8 +26,8 @@ const TaskCard = ({ task }) => {
         to={canUserGoToTask ? `/task/${task.id}` : null}
         className={styles.cardLink}
       >
-        <img
-          className={styles.poster}
+        <ImageWithSkeleton
+          wrapperClassname={styles.poster}
           src={task.image_path ? `${serverName}/${task.image_path}` : poster}
           alt={task.title}
         />

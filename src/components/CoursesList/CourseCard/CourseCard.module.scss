@@ -60,6 +60,7 @@
   border-radius: 5rem;
   background-size: cover;
   background-position: center;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.12);
 
   &::before {
     content: "";
@@ -67,6 +68,7 @@
     border-radius: 5rem;
     position: absolute;
     inset: 0;
+    background-color: var(--bg-rgba-default);
     backdrop-filter: blur(26rem);
   }
 }
@@ -82,7 +84,7 @@
   height: 100%;
   display: block;
   object-fit: cover;
-  transition: transform var(--transition-time-min) ease-in;
+  transition: all var(--transition-time-min) ease-in;
 }
 
 .textWrapper {

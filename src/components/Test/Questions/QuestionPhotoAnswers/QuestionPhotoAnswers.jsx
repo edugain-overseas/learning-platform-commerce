@@ -2,7 +2,7 @@ import React from "react";
 import { getLetterVatiantsByIndex } from "../../../../utils/getLetterVatiantsByIndex";
 import { Image } from "antd";
 import { serverName } from "../../../../http/server";
-import noImage from "../../../../images/noImage.jpeg";
+import noImage from "../../../../images/noImage.webp";
 import styles from "./QuestionPhotoAnswers.module.scss";
 import InputRadio from "../../../shared/InputRadio/InputRadio";
 
