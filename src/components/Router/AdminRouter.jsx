@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { adminCourseLinks, instructionsLinks } from "../../costants/nav";
+import MainLayout from "../MainLayout/MainLayout";
 
 const AdminPage = React.lazy(() => import("../../pages/AdminPage/AdminPage"));
-const MainLayout = React.lazy(() => import("../MainLayout/MainLayout"));
 const SingInForm = React.lazy(() => import("../auth/SingInForm/SingInForm"));
 const AdminCoursesDashboard = React.lazy(() =>
   import("../../pages/AdminCoursesDashboard/AdminCoursesDashboard")
@@ -31,34 +31,34 @@ const TaskConstructor = React.lazy(() =>
 );
 
 const AdminRouter = () => (
-  <Routes>
-    <Route path="/" element={<MainLayout />}>
-      <Route index element={<AdminPage />} />
-      <Route path="/login" element={<SingInForm />} />
-      <Route path="/courses" element={<AdminCoursesDashboard />} />
-      <Route path="/course">
-        <Route
-          path="constructor/new"
-          element={<AdminCourseConstructorPage />}
-        />
-        <Route path=":courseId" element={<CourseDetailPage />}>
-          {adminCourseLinks.map(({ to, element }) => (
-            <Route key={to} path={to} element={element} />
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<AdminPage />} />
+        <Route path="/login" element={<SingInForm />} />
+        <Route path="/courses" element={<AdminCoursesDashboard />} />
+        <Route path="/course">
+          <Route
+            path="constructor/new"
+            element={<AdminCourseConstructorPage />}
+          />
+          <Route path=":courseId" element={<CourseDetailPage />}>
+            {adminCourseLinks.map(({ to, element }) => (
+              <Route key={to} path={to} element={element} />
+            ))}
+          </Route>
+        </Route>
+        <Route path="/task/:taskId" element={<TaskConstructor />} />
+        <Route path="/aboutIEU" element={<AboutIEUPage />} />
+        <Route path="/instructions" element={<InstructionsPage />}>
+          {instructionsLinks.map(({ to }) => (
+            <Route path={to} key={to} element={<InstructionsList />}>
+              <Route path=":instructionId" element={<InstructionContent />} />
+            </Route>
           ))}
         </Route>
+        <Route path="/*" element={<div>Not Found Page</div>} />
       </Route>
-      <Route path="/task/:taskId" element={<TaskConstructor />} />
-      <Route path="/aboutIEU" element={<AboutIEUPage />} />
-      <Route path="/instructions" element={<InstructionsPage />}>
-        {instructionsLinks.map(({ to }) => (
-          <Route path={to} key={to} element={<InstructionsList />}>
-            <Route path=":instructionId" element={<InstructionContent />} />
-          </Route>
-        ))}
-      </Route>
-      <Route path="/*" element={<div>Not Found Page</div>} />
-    </Route>
-  </Routes>
+    </Routes>
 );
 
 export default AdminRouter;
