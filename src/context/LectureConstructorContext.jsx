@@ -214,6 +214,7 @@ export const LectureConstructorProvider = ({ children }) => {
     });
 
     console.log(initialAttrsData);
+    console.log(initialBlocksToUpdate);
 
     if (initialBlocksToUpdate.length) {
       dispatch(

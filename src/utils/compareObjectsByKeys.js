@@ -47,13 +47,15 @@ export const compareLecturePart = (obj1, obj2, a_type) => {
       ]);
 
     case "files":
+      const isFilesEqualsLength = obj1.files.length === obj2.files.length      
+      
       const isFilesChanged = obj1.files.reduce((changed, file, index) => {
         return (
           changed ||
           compareObjectsByKeys(file, obj2.files[index], fileBaseValues)
         );
       }, false);
-      return compareObjectsByKeys(obj1, obj2, textBaseValues) || isFilesChanged;
+      return compareObjectsByKeys(obj1, obj2, textBaseValues) || isFilesChanged || !isFilesEqualsLength;
 
     case "links":
       let isLinksChanged = false;
