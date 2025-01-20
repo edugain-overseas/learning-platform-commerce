@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ContactForm.module.scss";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Textarea from "../shared/Textarea/Textarea";
 
 const ContactForm = ({ wrapperClassname = "" }) => {
@@ -17,8 +17,9 @@ const ContactForm = ({ wrapperClassname = "" }) => {
       <div className={styles.formHeader}>
         <span className={styles.title}>Contact us</span>
         <span className={styles.secondaryTitle}>
-          If you don't have an account yet,{" "}
-          <Link to="/registration">sign up here!</Link>
+          {/* If you don't have an account yet,{" "}
+          <Link to="/registration">sign up here!</Link> */}
+          Still have more questions? Would be glad to assist.
         </span>
       </div>
       <div className={styles.fields}>

@@ -7,7 +7,7 @@ import CourseCard from "../../components/CoursesList/CourseCard/CourseCard";
 import styles from "./HomePage.module.scss";
 
 const renderItem = (course) => {
-  return <CourseCard course={course} containerClassname={styles.courseCardContainer} renderBuyBtn={false}/>;
+  return <CourseCard course={course} containerClassname={styles.courseCardContainer} renderBuyBtn={true}/>;
 };
 
 const HomeCourses = () => {

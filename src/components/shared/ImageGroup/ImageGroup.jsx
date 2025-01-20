@@ -17,7 +17,7 @@ const ImageGroup = ({
   return (
     <div>
       <Image.PreviewGroup>
-        <div className={styles.imagesWrapper}>
+        <div className={`${styles.imagesWrapper} ${styles[`grid-${imagesData?.length}`]}`}>
           {imagesData.map((imageData, index) => (
             <div key={index} className={styles.imageWrapper}>
               <Image

@@ -19,7 +19,7 @@ const Picture = ({ partData, setters }) => {
           disabled={false}
         />
       )}
-      {partData.files.length < 3 && (
+      {partData.files.length < 6 && (
         <FileUploader
           className={styles.uploaderWrapper}
           type="image"
