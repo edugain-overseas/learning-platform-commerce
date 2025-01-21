@@ -25,9 +25,6 @@ const Cart = ({ items }) => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.header}>
-        <h3>Your cart</h3>
-      </div>
       <div className={styles.body}>
         <div className={styles.cartHeader}>
           <span className={styles.product}>Product</span>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 // import { useCart } from "../../../context/cartContext";
 import { ReactComponent as CrossIcon } from "../../../images/icons/cross.svg";
+import InsetBtn from "../InsetBtn/InsetBtn";
 import styles from "./Drawer.module.scss";
 
 const orientationClassName = (o) => {
@@ -24,6 +25,7 @@ const Drawer = ({
   orientation = "left",
   size = "500rem",
   handleClose,
+  headerTitle = "",
 }) => {
   const [isClosing, setIsClosing] = useState(false);
 
@@ -71,14 +73,11 @@ const Drawer = ({
             : { width: "100%", height: size }
         }
       >
+        <div className={styles.headerWrapper}>
+          <span className={styles.title}>{headerTitle}</span>
+          <InsetBtn icon={<CrossIcon />} width="32rem" height="32rem" onClick={handleCloseBtnClick} />
+        </div>
         {children}
-        <button
-          type="button"
-          className={styles.closeBtn}
-          onClick={handleCloseBtnClick}
-        >
-          <CrossIcon />
-        </button>
       </div>
     </div>,
     document.body
