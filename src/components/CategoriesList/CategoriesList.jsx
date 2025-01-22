@@ -17,8 +17,6 @@ const CategoriesList = () => {
     return allCourses.find(({ category_id }) => category_id === id);
   });
 
-  console.log(categoriesWithCourses);
-
   const filterCategoriesForPage = () => {
     switch (pathname) {
       case "/courses/my":

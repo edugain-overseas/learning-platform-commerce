@@ -40,7 +40,7 @@ const CourseCard = ({
     grade,
   } = course;
 
-  const isItemInCart = cartItems?.find((item) => item === id) && true;
+  const isItemInCart = cartItems?.find((item) => item.id === id);
 
   const handleAddToCart = (e, id) => {
     e.preventDefault();

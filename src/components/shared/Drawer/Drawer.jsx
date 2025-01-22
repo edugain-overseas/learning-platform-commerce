@@ -75,9 +75,14 @@ const Drawer = ({
       >
         <div className={styles.headerWrapper}>
           <span className={styles.title}>{headerTitle}</span>
-          <InsetBtn icon={<CrossIcon />} width="32rem" height="32rem" onClick={handleCloseBtnClick} />
+          <InsetBtn
+            icon={<CrossIcon />}
+            width="32rem"
+            height="32rem"
+            onClick={handleCloseBtnClick}
+          />
         </div>
-        {children}
+        <div className={styles.bodyWrapper}>{children}</div>
       </div>
     </div>,
     document.body

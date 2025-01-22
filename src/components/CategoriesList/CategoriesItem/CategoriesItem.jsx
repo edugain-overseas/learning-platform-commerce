@@ -52,8 +52,6 @@ const CategoriesItem = ({ category }) => {
     setDropDownOpen((prev) => !prev);
   };
 
-  console.log(category);
-
   return (
     <li className={styles.itemWrapper} id="wrapper">
       <div className={styles.categoryPanel}>

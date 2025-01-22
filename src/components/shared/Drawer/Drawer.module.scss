@@ -29,11 +29,12 @@
 
 .contentWrapper {
   position: absolute;
-  padding: 24rem;
   background-color: rgba($color: #fcfcfc, $alpha: 0.75);
   backdrop-filter: blur(32rem);
 
   box-shadow: var(--drop-shadow-button-main-hover);
+  display: flex;
+  flex-direction: column;
 }
 
 .left {
@@ -68,21 +69,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 20rem;
+  padding: 24rem 24rem 22rem 24rem;
   position: relative;
+  flex-shrink: 0;
 
   &::after {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -2rem;
+    left: 24rem;
+    right: 24rem;
+    bottom: 0rem;
     height: 2rem;
     border-radius: 10rem;
     background-color: var(--content-datail-secondary);
   }
 
-  &  svg * {
+  & svg * {
     fill: var(--content-datail-secondary);
   }
 }
@@ -91,6 +93,11 @@
   font-family: Roboto;
   font-size: 20rem;
   font-weight: 700;
+}
+
+.bodyWrapper {
+  flex-grow: 1;
+  overflow: auto;
 }
 
 @keyframes fadeFromLeft {

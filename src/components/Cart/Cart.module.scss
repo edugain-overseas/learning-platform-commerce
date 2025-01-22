@@ -1,179 +1,289 @@
 .wrapper {
   height: 100%;
-  margin-right: -40rem;
-}
-
-.header {
-  height: 40rem;
-  margin-bottom: 24rem;
-  margin-right: 40rem;
+  overflow: auto;
   display: flex;
-  align-items: center;
-  border-bottom: 1px solid var(--border-color-main);
-
-  h3 {
-    font-size: 20rem;
-    font-weight: 600;
-    letter-spacing: 6rem;
-    text-transform: uppercase;
-  }
-}
-
-.body {
-  height: calc(100% - 40rem);
-  overflow-y: auto;
-  padding-right: 24rem;
-}
-
-.cartHeader {
-  position: sticky;
-  box-shadow: 0 0 0 12rem var(--drop-shadow-short);
-  background-color: var(--bg-default);
-  top: 0;
-  display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  gap: 16rem;
-  padding-block: 8rem;
-  margin-bottom: 16rem;
-  border-bottom: 1px solid var(--border-color-secondary);
-
-  .product {
-    font-size: 14rem;
-    text-transform: uppercase;
-    flex-basis: calc(85% - 16rem);
-    flex-shrink: 0;
-  }
-
-  .price {
-    font-weight: 500;
-    text-transform: uppercase;
-    flex-basis: 15%;
-    flex-shrink: 0;
-    text-align: center;
-  }
 }
 
 .cartItems {
+  flex-grow: 1;
+  max-height: calc(100% - 180rem);
   display: flex;
   flex-direction: column;
-  gap: 8rem;
+  gap: 16rem;
+  padding: 24rem;
+  overflow: auto;
+}
 
-  li {
-    display: flex;
-    gap: 16rem;
-    justify-content: space-between;
-    border-radius: 4rem;
-    border: 1px solid transparent;
-    padding: 4rem;
-    transition: border-color var(--transition-time-default) ease;
+.cartItem {
+  background-color: var(--bg-rgba-default);
+  backdrop-filter: blur(32rem);
+  border-radius: 5rem;
 
-    &:has(.removeBtn:hover),
-    &:has(.removeBtn:focus) {
-      border-color: var(--bg-button-failture);
-    }
+  box-shadow: 0 0 12rem 0 rgba($color: #000000, $alpha: 0.08);
 
-    &:hover {
-      border-color: var(--border-color-secondary);
-      box-shadow: var(--drop-shadow-short);
-    }
-  }
+  opacity: 0.5;
+  transition: opacity var(--transition-time-min) ease;
 
-  .productInfoWrapper {
-    display: flex;
-    // flex-basis: calc(90% - 16rem);
-    // flex-shrink: 0;
-    gap: 8rem;
-    align-items: center;
-
-    .removeBtn {
-      color: var(--content-secondary);
-      width: 20rem;
-      height: 20rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      svg {
-        width: 16rem;
-        height: 16rem;
-      }
-
-      &:hover,
-      &:focus {
-        path {
-          fill: var(--bg-button-failture);
-          fill-opacity: 1;
-        }
-      }
-    }
-
-    .productImage {
-      width: 30%;
-      aspect-ratio: 16/10;
-      border-radius: 5rem;
-      overflow: hidden;
-      flex-shrink: 0;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-    .productName {
-      flex-grow: 1;
-      display: flex;
-      align-items: center;
-
-      h4 {
-        font-size: 14rem;
-        font-weight: normal;
-      }
-    }
-  }
-
-  .productPrice,
-  .totalAmount {
-    display: flex;
-    flex-basis: 10%;
-    flex-shrink: 0;
-    align-items: center;
-
-    span {
-      font-weight: 500;
-      font-size: 18rem;
-    }
+  &:has(input:checked) {
+    opacity: 1;
   }
 }
 
-.cartFooter {
-  position: sticky;
-  bottom: 0;
-  box-shadow: 0 0 0 12rem var(--drop-shadow-short);
-  background-color: var(--bg-default);
-  margin-top: 16rem;
-  padding-block: 8rem;
-  padding-bottom: 32rem;
-  border-top: 1px solid var(--border-color-secondary);
+.itemWrapper {
+  display: flex;
+}
 
-  .totalPriceWrapper {
+.cardWrapper {
+  flex-grow: 1;
+}
+
+.removeBtn {
+  flex-shrink: 0;
+  margin: 12rem;
+  display: flex;
+  height: fit-content;
+  color: var(--content-datail-secondary);
+  transition: color var(--transition-time-min) ease;
+
+  svg {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  &:hover {
+    color: var(--content-main);
+  }
+}
+
+.card {
+  width: 100%;
+  padding: 12rem 8rem 12rem 8rem;
+  display: flex;
+  align-items: center;
+  gap: 8rem;
+}
+
+.checkbox {
+  width: 14rem;
+  height: 14rem;
+  flex-shrink: 0;
+
+  border-radius: 50%;
+  border: 1.5rem solid;
+  border-color: var(--content-main);
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 7rem;
+    height: 7rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: var(--content-main);
+    opacity: 0;
+    transition: opacity var(--transition-time-min) ease;
+  }
+
+  &:has(input:checked) {
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  input {
+    display: none;
+  }
+}
+
+.courseData {
+  display: flex;
+  align-items: center;
+  gap: 10rem;
+  flex-grow: 1;
+}
+
+.posterWrapper {
+  width: 64rem;
+  height: 64rem;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+
+  border-radius: 2.5rem;
+  box-shadow: 0 0 2.67rem 0 rgba($color: #000000, $alpha: 0.12);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(5rem);
+    background-color: var(--bg-rgba-default);
+    z-index: 1;
+  }
+}
+
+.poster {
+  position: absolute;
+  inset: 2.5rem;
+  z-index: 2;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+}
+
+.textInfoWrapper {
+  flex-grow: 1;
+}
+
+.titleWrapper {
+  width: 214rem;
+  height: 32rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 4rem;
+
+  span {
+    font-size: 14rem;
+    font-weight: 700;
+    line-height: 16rem;
+    display: -webkit-box;
+    white-space: normal;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+}
+
+.categoryTitle {
+  margin-bottom: 4rem;
+}
+
+.categoryTitle,
+.price {
+  span {
+    font-size: 10rem;
+    font-weight: 600;
+  }
+
+  span:first-child {
+    color: #bdc4d2;
+  }
+
+  span:last-child {
+    color: var(--content-datail-secondary);
+  }
+}
+
+.categoryTitle,
+.price {
+  display: flex;
+  gap: 4rem;
+}
+
+.priceWrapper {
+  display: flex;
+  gap: 8rem;
+}
+
+.oldPrice span:last-child {
+  text-decoration: line-through;
+}
+
+.proposedItems {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-time-min) ease;
+  li {
+    border-top: 1rem solid #bdc4d2;
+  }
+}
+
+.toggleOpenBtn {
+  width: 100%;
+  height: 32rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1rem solid #bdc4d2;
+
+  span {
+    color: var(--content-datail-secondary);
+    font-size: 14rem;
+    font-weight: 500;
+  }
+}
+
+.paymentPanel {
+  padding-inline: 24rem;
+  .discount {
+    padding-block: 16rem;
     display: flex;
+    flex-direction: column;
+    gap: 8rem;
+  }
+
+  .subtotalInfoItem,
+  .total {
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    gap: 16rem;
-    margin-bottom: 16rem;
+
+    span {
+      font-family: Roboto;
+      font-size: 14rem;
+      font-weight: 500;
+      color: var(--content-datail-secondary);
+
+      &:last-child {
+        font-weight: 700;
+      }
+    }
   }
 
   .total {
-    font-size: 14rem;
-    text-transform: uppercase;
-    // flex-basis: calc(90% - 16rem);
-    // flex-shrink: 0;
+    padding-block: 16rem;
+    border-top: 2rem solid var(--content-datail-secondary);
+
+    span:last-child {
+      color: var(--content-main);
+    }
   }
 
-  .totalAmoutn {
+  .btnWrapper {
+    padding-block: 24rem;
+    border-top: 2rem solid var(--content-datail-secondary);
+  }
+
+  .paymentBtn {
+    width: 100%;
+    height: 32rem;
     display: flex;
-    flex-basis: 10%;
-    flex-shrink: 0;
+    justify-content: center;
     align-items: center;
+    gap: 16rem;
+    border-radius: 5rem;
+    background-color: var(--content-datail-secondary);
+    color: var(--content-light-secondary);
+
+    transition: color var(--transition-time-min) ease;
+
+    &:hover {
+      color: var(--content-contr-color);
+    }
+
+    span {
+      font-size: 16rem;
+      font-weight: 500;
+    }
+
+    svg {
+      width: 20rem;
+      height: 20rem;
+    }
   }
 }

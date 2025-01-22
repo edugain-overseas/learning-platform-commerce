@@ -23,8 +23,6 @@ export const ChatProvider = ({ children }) => {
   const [typeFilter, setTypeFilter] = useState("all");
   const [webSockets, setWebSockets] = useState([]);
 
-  console.log(chats);
-
   const filtredChats =
     typeFilter === "all"
       ? chats

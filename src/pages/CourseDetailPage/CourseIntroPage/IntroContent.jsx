@@ -14,9 +14,11 @@ import CoursesList from "../../../components/CoursesList/CoursesList";
 import styles from "./CourseIntroPage.module.scss";
 import { useSelector } from "react-redux";
 import { getUserCourses, getUserType } from "../../../redux/user/selectors";
+import { useCart } from "../../../context/cartContext";
 
 const IntroContent = ({ course = {}, courses = [] }) => {
   const userCourses = useSelector(getUserCourses);
+  const { addItem } = useCart();
   const isModer = useSelector(getUserType) === "moder";
   const {
     title: courseName,
@@ -135,7 +137,7 @@ const IntroContent = ({ course = {}, courses = [] }) => {
             </ul>
             {!isUserCourse && !isModer && (
               <div className={styles.itemsTools}>
-                <button className={styles.butBtn}>
+                <button className={styles.butBtn} onClick={() => addItem(id)}>
                   <span>Buy</span>
                   <CartIcon />
                 </button>
