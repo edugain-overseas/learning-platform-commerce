@@ -1,20 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { getUserInfo } from "../../redux/user/selectors";
 import { useCart } from "../../context/cartContext";
 import { ReactComponent as CartIcon } from "../../images/icons/cart.svg";
+import Spinner from "../Spinner/Spinner";
 import styles from "./Cart.module.scss";
+import { getPaymentLink } from "../../http/services/user";
 
 const PaymentButton = () => {
-  const { cartQuantity, handleClose } = useCart();
+  const { cartQuantity, handleClose, cartItems } = useCart();
+  const [isLoading, setIsloading] = useState(false);
+  const studentId = useSelector(getUserInfo).studentId;
+  console.log(studentId);
 
-  const handlePay = () => {};
+  const handleStripePay = async () => {
+    setIsloading(true);
+    const origin = window.origin;
+    const success_url = `${origin}/payment?status=success&session_id={CHECKOUT_SESSION_ID}`;
+    const cancel_url = `${origin}/payment?status=cancel`;
+    const paymentItems = cartItems
+      .filter((item) => item.checked)
+      .map((item) => item.id);
+    console.log(paymentItems);
+
+    try {
+      const response = await getPaymentLink(
+        studentId,
+        paymentItems,
+        success_url,
+        cancel_url
+      );
+      const paymentLink = response.link;
+      console.log(paymentLink);
+
+      window.location = paymentLink;
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsloading(false);
+    }
+  };
+
+  const handlePay = async () => {
+    if (studentId) {
+      await handleStripePay();
+    }
+  };
 
   return (
     <button
       className={styles.paymentBtn}
       onClick={cartQuantity === 0 ? handleClose : handlePay}
+      disabled={isLoading}
     >
-      <span>{cartQuantity === 0 ? "Continue shopping" : "Checkout"}</span>
-      <CartIcon />
+      {isLoading ? (
+        <Spinner height={16} />
+      ) : (
+        <>
+          <span>{cartQuantity === 0 ? "Continue shopping" : "Checkout"}</span>
+          <CartIcon />
+        </>
+      )}
     </button>
   );
 };

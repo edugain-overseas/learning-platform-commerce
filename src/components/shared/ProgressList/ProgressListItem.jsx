@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./ProgressList.module.scss";
+import { Link } from "react-router-dom";
 
 const ProgressListItem = ({ item }) => {
   return (
@@ -15,7 +16,9 @@ const ProgressListItem = ({ item }) => {
       >
         <div className={styles.progressIconInner}></div>
       </div>
-      <span title={item.label}>{item.label}</span>
+      <Link to={item.link} className={styles.progressLink}>
+        <span title={item.label}>{item.label}</span>
+      </Link>
     </li>
   );
 };

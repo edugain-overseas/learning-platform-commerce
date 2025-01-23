@@ -212,13 +212,31 @@ export const setNewMainImage = async (imageId) => {
   }
 };
 
-export const updateCart = async (studentId, updatedCartItems) => {
-  console.log(studentId);
+export const getPaymentLink = async (
+  student_id,
+  payment_items,
+  success_url,
+  cancel_url
+) => {
   try {
     const data = await privateRoutesHandler("post", "stripe/cart", {
-      student_id: studentId,
-      payment_items: updatedCartItems,
+      student_id,
+      payment_items,
+      success_url,
+      cancel_url,
     });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const subscribeCourses = async (sessionId) => {
+  try {
+    const data = await privateRoutesHandler(
+      "post",
+      `stripe/course-subscribe/desktop?session_id=${sessionId}`
+    );
     return data;
   } catch (error) {
     throw error;

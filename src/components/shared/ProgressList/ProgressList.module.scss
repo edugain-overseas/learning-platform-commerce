@@ -70,3 +70,12 @@
 
   border: 2rem solid transparent;
 }
+
+.progressLink {
+  overflow: hidden;
+
+  span {
+    display: block;
+    max-width: 100%;
+  }
+}

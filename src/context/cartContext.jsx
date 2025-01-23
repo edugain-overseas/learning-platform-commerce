@@ -4,13 +4,8 @@ import { useSelector } from "react-redux";
 import Drawer from "../components/shared/Drawer/Drawer";
 import Cart from "../components/Cart/Cart";
 import useLocalStorage from "../hooks/useLocalStorage";
-import {
-  getAccessToken,
-  getUserCourses,
-  getUserInfo,
-} from "../redux/user/selectors";
+import { getUserCourses } from "../redux/user/selectors";
 import { getAllCategories } from "../redux/category/selectors";
-// import { courses } from "../assets/courses";
 
 const CartContext = createContext({});
 
@@ -19,20 +14,11 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
-  const accessToken = useSelector(getAccessToken);
-  const studentId = useSelector(getUserInfo)?.studentId;
   const userCourses = useSelector(getUserCourses);
   const courses = useSelector(getAllCourses);
   const categories = useSelector(getAllCategories);
   const [cartItems, setCartItems] = useLocalStorage("shopping-cart", []);
-  const [paymentLink, setPaymentLink] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-
-  console.log(accessToken, studentId, setPaymentLink);
-
-  const totalPrice = courses
-    .filter(({ id }) => cartItems.includes(id))
-    .reduce((total, { price: coursePrice }) => total + coursePrice, 0);
 
   const addItem = (courseId) => {
     setCartItems((currentItems) => [
@@ -86,7 +72,9 @@ export const CartProvider = ({ children }) => {
   const getSubtotal = () =>
     cartItems.reduce((sum, item) => {
       if (item.checked) {
-        const itemPrice = courses.find((course) => course.id === item.id).price;
+        const itemPrice = courses.find(
+          (course) => course.id === item.id
+        )?.price;
         return sum + itemPrice;
       }
       return sum;
@@ -95,17 +83,25 @@ export const CartProvider = ({ children }) => {
   const getDiscount = () =>
     cartItems.reduce((sum, item) => {
       if (item.checked) {
-        const itemPrice = courses.find((course) => course.id === item.id).price;
+        const itemPrice = courses.find(
+          (course) => course.id === item.id
+        )?.price;
         const categoryId = courses.find(
           (course) => course.id === item.id
-        ).category_id;
+        )?.category_id;
+
+        if (!categoryId) return sum;
+
         const categoryCourses = courses.filter(
           (course) => course.category_id === categoryId
         );
         const notPurchasedCategoryCourses = categoryCourses.filter(
           (course) =>
-            !userCourses.find((userCourse) => userCourse.id === course.id)
+            !userCourses.find(
+              (userCourse) => userCourse.course_id === course.id
+            )
         );
+
         const isAllNotPurchasedCategoryCoursesInCart =
           notPurchasedCategoryCourses.every((course) =>
             cartItems.find((item) => item.id === course.id && item.checked)
@@ -114,45 +110,19 @@ export const CartProvider = ({ children }) => {
         if (isAllNotPurchasedCategoryCoursesInCart) {
           const categoryDiscount = categories.find(
             (category) => category.id === categoryId
-          ).discount;
+          )?.discount;
+          if (!categoryDiscount) {
+            return sum;
+          }
           return sum + (itemPrice * categoryDiscount) / 100;
         }
       }
       return sum;
     }, 0);
 
+  const totalPrice = getSubtotal() - getDiscount();
+
   const cartQuantity = cartItems.length;
-
-  // useEffect(() => {
-  //   const updatePaymentLink = async () => {
-  //     if (accessToken && studentId) {
-  //       if (cartQuantity) {
-  //         setIsLoading(true);
-  //         try {
-  //           const { link: newPaymentLink } = await updateCart(
-  //             studentId,
-  //             cartItems
-  //           );
-  //           console.log(newPaymentLink);
-  //           setPaymentLink(newPaymentLink);
-  //         } catch (error) {
-  //           console.log(error);
-  //           setPaymentLink(null);
-  //         } finally {
-  //           setIsLoading(false);
-  //         }
-  //       }
-  //     }
-  //   };
-
-  //   if (cartItems.length !== 0) {
-  //     updatePaymentLink();
-  //   } else {
-  //     setPaymentLink(null);
-  //   }
-
-  //   // eslint-disable-next-line
-  // }, [cartItems, studentId]);
 
   return (
     <CartContext.Provider
@@ -160,7 +130,6 @@ export const CartProvider = ({ children }) => {
         cartItems,
         cartQuantity,
         totalPrice,
-        paymentLink,
         addItem,
         removeItem,
         handleOpen,

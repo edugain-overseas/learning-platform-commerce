@@ -13,7 +13,8 @@ const TestHeader = ({
   testScore,
   isExam = false,
 }) => {
-  const { title, type, number } = test;
+  const { title, type, number, course_id: courseId } = test;
+
   const testData = isExam ? test.exam_data : test.test_data;
   const isModer = useSelector(getUserType) === "moder";
 
@@ -54,8 +55,16 @@ const TestHeader = ({
           </>
         )}
         <div className={styles.navBtnsWrapper}>
-          <LessonNavigateBtn forward={false} currentNumber={number} />
-          <LessonNavigateBtn forward={true} currentNumber={number} />
+          <LessonNavigateBtn
+            forward={false}
+            currentNumber={number}
+            courseId={courseId}
+          />
+          <LessonNavigateBtn
+            forward={true}
+            currentNumber={number}
+            courseId={courseId}
+          />
         </div>
       </div>
     </div>

@@ -125,15 +125,17 @@
     background-color: var(--bg-rgba-default);
     z-index: 1;
   }
-}
 
-.poster {
-  position: absolute;
-  inset: 2.5rem;
-  z-index: 2;
-  width: auto;
-  height: auto;
-  overflow: hidden;
+  .poster {
+    width: calc(100% - 5rem);
+    height: calc(100% - 5rem);
+    position: absolute;
+    inset: 2.5rem;
+    z-index: 2;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+  }
 }
 
 .textInfoWrapper {

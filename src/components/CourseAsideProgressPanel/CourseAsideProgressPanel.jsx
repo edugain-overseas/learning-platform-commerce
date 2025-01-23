@@ -11,6 +11,7 @@ const CourseAsideProgressPanel = ({ courseLessons, courseId, progress }) => {
     label: title,
     status,
     number,
+    link: status && status !== "blocked" ? `/task/${id}` : null
   }));
 
   return (

@@ -34,6 +34,9 @@ const InstructionsList = React.lazy(() =>
 const InstructionContent = React.lazy(() =>
   import("../InstructionContent/InstructionContent")
 );
+const PaymentPage = React.lazy(() =>
+  import("../../pages/PaymentPage/PaymentPage")
+);
 
 const StudentRouter = () => (
   <Routes>
@@ -61,6 +64,7 @@ const StudentRouter = () => (
           </Route>
         ))}
       </Route>
+      <Route path="/payment" element={<PaymentPage />} />
       <Route path="/*" element={<div>Not Found Page</div>} />
     </Route>
   </Routes>
