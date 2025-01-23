@@ -6,6 +6,7 @@ import Cart from "../components/Cart/Cart";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { getUserCourses } from "../redux/user/selectors";
 import { getAllCategories } from "../redux/category/selectors";
+import useMessage from "antd/es/message/useMessage";
 
 const CartContext = createContext({});
 
@@ -19,6 +20,7 @@ export const CartProvider = ({ children }) => {
   const categories = useSelector(getAllCategories);
   const [cartItems, setCartItems] = useLocalStorage("shopping-cart", []);
   const [isOpen, setIsOpen] = useState(false);
+  const [messageApi, contextHolder] = useMessage();
 
   const addItem = (courseId) => {
     setCartItems((currentItems) => [
@@ -51,10 +53,33 @@ export const CartProvider = ({ children }) => {
     setIsOpen(false);
   };
 
+  const addAllCoursesInCategory = (categoryId) => {
+    const coursesToAdd = courses.filter(
+      (course) =>
+        course.category_id === categoryId &&
+        !cartItems.find((item) => item.id === course.id) &&
+        !userCourses.find((userCourse) => userCourse.course_id === course.id)
+    );
+
+    console.log(coursesToAdd);
+
+    if (coursesToAdd.length === 0) {
+      messageApi.info({
+        content: "All courses is already in basket",
+        duration: 3,
+      });
+    } else {
+      setCartItems((prev) => [
+        ...prev,
+        ...coursesToAdd.map((course) => ({ id: course.id, checked: true })),
+      ]);
+    }
+  };
+
   const getCoursesToPropose = (courseItemId) => {
     const courseCategoryId = courses.find(
       (course) => course.id === courseItemId
-    ).category_id;
+    )?.category_id;
 
     const categoryCourses = courses.filter(
       (course) => course.category_id === courseCategoryId
@@ -63,7 +88,7 @@ export const CartProvider = ({ children }) => {
     const coursesToPropose = categoryCourses.filter(
       (course) =>
         !cartItems.find(({ id }) => id === course.id) &&
-        !userCourses.find(({ id }) => id === course.id)
+        !userCourses.find(({ course_id }) => course_id === course.id)
     );
 
     return coursesToPropose;
@@ -138,8 +163,10 @@ export const CartProvider = ({ children }) => {
         toggleChecked,
         getSubtotal,
         getDiscount,
+        addAllCoursesInCategory,
       }}
     >
+      {contextHolder}
       {children}
       {isOpen && (
         <Drawer

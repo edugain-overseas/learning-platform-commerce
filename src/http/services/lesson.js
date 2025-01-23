@@ -106,7 +106,7 @@ export const submitTestAttempt = async ({
   try {
     const data = await privateRoutesHandler(
       "post",
-      `/student-${lessonType}/submit/`,
+      `student-${lessonType}/submit`,
       {
         attempt_id,
         student_id,

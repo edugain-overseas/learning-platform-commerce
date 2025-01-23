@@ -11,23 +11,39 @@
 
   &.prev {
     background-color: var(--border-color-main);
+    transition: background-color var(--transition-time-min) ease;
 
     span {
       color: var(--content-datail-secondary);
+      transition: color var(--transition-time-min) ease;
     }
 
     svg {
       * {
         fill: var(--content-datail-secondary);
+        transition: fill var(--transition-time-min) ease;
+      }
+    }
+
+    &:hover {
+      background-color: var(--content-main);
+
+      span {
+        color: var(--content-light-secondary);
+      }
+      svg * {
+        fill: var(--content-light-secondary);
       }
     }
   }
 
   &.next {
     background-color: var(--content-datail-secondary);
+    transition: background-color var(--transition-time-min) ease;
 
     span {
       color: var(--content-light-secondary);
+      transition: color var(--transition-time-min) ease;
     }
 
     svg {
@@ -35,6 +51,18 @@
 
       * {
         fill: var(--content-light-secondary);
+        transition: fill var(--transition-time-min) ease;
+      }
+    }
+
+    &:hover {
+      background-color: var(--border-color-main);
+
+      span {
+        color: var(--content-datail-secondary);
+      }
+      svg * {
+        fill: var(--content-datail-secondary);
       }
     }
   }

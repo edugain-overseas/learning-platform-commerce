@@ -155,6 +155,7 @@ const userSlice = createSlice({
         state.notes = [];
         state.isLoading = false;
         state.error = null;
+        state.studentId = null;
       })
       .addCase(logoutThunk.rejected, (state, { payload }) => {
         state.userId = null;

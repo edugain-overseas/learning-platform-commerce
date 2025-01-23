@@ -13,6 +13,7 @@ const UserStats = ({
   completedCourses,
   minimized,
   handleCollapseCerficates,
+  isUserLoggedIn,
 }) => {
   return (
     <div className={`${styles.wrapper} ${minimized ? styles.minimized : ""}`}>
@@ -21,7 +22,9 @@ const UserStats = ({
         <ClockIcon className={styles.clock} />
         <div className={styles.divider}></div>
         <div className={styles.info}>
-          <span className={styles.value}>{`${hours}h ${minutes}m`}</span>
+          <span className={styles.value}>
+            {isUserLoggedIn ? `${hours}h ${minutes}m` : "0h 0m"}
+          </span>
           <span className={styles.name}>studying time</span>
         </div>
       </div>
@@ -29,7 +32,9 @@ const UserStats = ({
         <TaskViewIcon />
         <div className={styles.divider}></div>
         <div className={styles.info}>
-          <span className={styles.value}>{`${progressCourses} courses`}</span>
+          <span className={styles.value}>
+            {isUserLoggedIn ? `${progressCourses} courses` : "0 courses"}
+          </span>
           <span className={styles.name}>in progress</span>
         </div>
       </div>
@@ -37,9 +42,9 @@ const UserStats = ({
         <TaskCompletedIcon />
         <div className={styles.divider}></div>
         <div className={styles.info}>
-          <span
-            className={styles.value}
-          >{`${completedCourses} completed`}</span>
+          <span className={styles.value}>
+            {isUserLoggedIn ? `${completedCourses} completed` : "0 completed"}
+          </span>
           <span className={styles.name}>courses</span>
         </div>
       </div>

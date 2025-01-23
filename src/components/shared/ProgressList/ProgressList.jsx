@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./ProgressList.module.scss";
 import ProgressListItem from "./ProgressListItem";
 
-const ProgressList = ({ items }) => {
+const ProgressList = ({ items, blockedLessonMessage }) => {
   const sortedItemsByNumber = [...items].sort(
     (itemA, itemB) => itemA.number - itemB.number
   );
@@ -10,7 +10,11 @@ const ProgressList = ({ items }) => {
   return (
     <ul className={styles.listWrapper}>
       {sortedItemsByNumber.map((item) => (
-        <ProgressListItem key={item.id} item={item} />
+        <ProgressListItem
+          key={item.id}
+          item={item}
+          blockedLessonMessage={blockedLessonMessage}
+        />
       ))}
     </ul>
   );

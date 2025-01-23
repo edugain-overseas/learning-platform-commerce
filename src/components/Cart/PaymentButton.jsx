@@ -6,12 +6,13 @@ import { ReactComponent as CartIcon } from "../../images/icons/cart.svg";
 import Spinner from "../Spinner/Spinner";
 import styles from "./Cart.module.scss";
 import { getPaymentLink } from "../../http/services/user";
+import { useNavigate } from "react-router-dom";
 
 const PaymentButton = () => {
   const { cartQuantity, handleClose, cartItems } = useCart();
   const [isLoading, setIsloading] = useState(false);
   const studentId = useSelector(getUserInfo).studentId;
-  console.log(studentId);
+  const navigate = useNavigate();
 
   const handleStripePay = async () => {
     setIsloading(true);
@@ -42,8 +43,11 @@ const PaymentButton = () => {
   };
 
   const handlePay = async () => {
-    if (studentId) {
+    if (studentId) {      
       await handleStripePay();
+    } else {
+      handleClose()
+      navigate("/login");
     }
   };
 

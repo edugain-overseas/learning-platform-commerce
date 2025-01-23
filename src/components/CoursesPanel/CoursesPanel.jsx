@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useListMode } from "../../context/ListModeContext";
 import {
   adminCourseLinks,
@@ -31,10 +31,13 @@ const filters = [
 
 const CoursesPanel = () => {
   const [searchValue, setSerchValue] = useState("");
-  const { setSelecteListModeIndex, selectedListModeIndex } = useListMode();
+  const { pathname } = useLocation();
   const { courseId } = useParams();
+  const { setSelecteListModeIndex, selectedListModeIndex } = useListMode();
   const token = useSelector(getAccessToken);
   const isModer = useSelector(getUserType) === "moder";
+  const showSwitcher = !pathname.includes("/intro");
+  const showFilters = !pathname.includes("/intro");
 
   const studentCoursesRenderLinks = token ? coursesLinks : coursesLinksPublic;
   const studentCourseRenderLinks = token ? courseLinks : courseLinksPublic;
@@ -48,17 +51,21 @@ const CoursesPanel = () => {
     <div className={styles.wrapper}>
       <NavLinksPanel renderLinks={renderLinks} />
       <div className={styles.tools}>
-        <Switcher
-          onChange={(index) => setSelecteListModeIndex(index)}
-          value={selectedListModeIndex}
-          items={switchItems}
-        />
-        <DropDownFilter icon={<FiltersIcon />} dropwownOptions={filters} />
+        {showSwitcher && (
+          <Switcher
+            onChange={(index) => setSelecteListModeIndex(index)}
+            value={selectedListModeIndex}
+            items={switchItems}
+          />
+        )}
+        {showFilters && (
+          <DropDownFilter icon={<FiltersIcon />} dropwownOptions={filters} />
+        )}
         <SearchBar
           width="226rem"
           value={searchValue}
           onChange={setSerchValue}
-          clearBtn={true}
+          clearBtn={false}
         />
       </div>
     </div>

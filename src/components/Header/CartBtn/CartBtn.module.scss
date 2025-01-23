@@ -8,12 +8,14 @@
   gap: 8rem;
   align-items: center;
   padding-inline: 16rem;
+  transition: background-color var(--transition-time-min) ease;
 
   span {
     font-size: 16rem;
     font-weight: 500;
     line-height: normal;
     color: var(--content-dark-secondary);
+    transition: color var(--transition-time-min) ease;
   }
 
   .icon {
@@ -21,6 +23,21 @@
     height: 24rem;
     * {
       fill: var(--content-dark-secondary);
+      transition: fill var(--transition-time-min) ease;
+    }
+  }
+
+  &:hover {
+    background-color: var(--content-main);
+
+    span {
+      color: var(--content-light-secondary);
+    }
+
+    svg {
+      * {
+        fill: var(--content-light-secondary);
+      }
     }
   }
 }

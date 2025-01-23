@@ -17,8 +17,6 @@ const ContactForm = ({ wrapperClassname = "" }) => {
       <div className={styles.formHeader}>
         <span className={styles.title}>Contact us</span>
         <span className={styles.secondaryTitle}>
-          {/* If you don't have an account yet,{" "}
-          <Link to="/registration">sign up here!</Link> */}
           Still have more questions? Would be glad to assist.
         </span>
       </div>

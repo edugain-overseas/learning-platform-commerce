@@ -7,6 +7,7 @@
   gap: 12rem;
   background-color: var(--bg-button-success);
   border-radius: 5rem;
+  transition: background-color var(--transition-time-min) ease;
 
   span {
     color: var(--content-contr-color);
@@ -16,6 +17,10 @@
   svg {
     width: 18rem;
     height: 18rem;
+  }
+
+  &:hover {
+    background-color: var(--content-datail-secondary);
   }
 }
 

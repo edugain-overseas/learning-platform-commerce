@@ -272,9 +272,10 @@
     background-color: var(--content-datail-secondary);
     color: var(--content-light-secondary);
 
-    transition: color var(--transition-time-min) ease;
+    transition: all var(--transition-time-min) ease;
 
     &:hover {
+      background-color: var(--content-success);
       color: var(--content-contr-color);
     }
 

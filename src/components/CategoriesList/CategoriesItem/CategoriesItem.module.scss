@@ -59,7 +59,7 @@
     font-weight: 500;
   }
 
-  button {
+  button:not(.buyAll) {
     border-radius: 5rem;
     background: var(--bg-rgba-default);
     box-shadow: var(--box-shadow-button-inset);
@@ -96,6 +96,29 @@
           transition: fill var(--transition-time-min) ease;
         }
       }
+    }
+  }
+
+  .buyAll {
+    width: 90rem;
+    height: 28rem;
+    border-radius: 5rem;
+    background-color: var(--content-nav-hover);
+    color: var(--content-light-secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10rem;
+    transition: background-color var(--transition-time-min) ease;
+
+    &:hover {
+      background-color: var(--content-success);
+    }
+
+    span {
+      font-size: 14rem;
+      color: inherit;
+      font-weight: 500;
     }
   }
 

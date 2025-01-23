@@ -202,7 +202,7 @@
     margin-top: 16rem;
 
     .butBtn {
-      width: 84rem;
+      width: 110rem;
       height: 28rem;
       display: flex;
       justify-content: center;
@@ -210,6 +210,11 @@
       gap: 12rem;
       background-color: var(--content-nav-hover);
       border-radius: 5rem;
+      transition: background-color var(--transition-time-min) ease;
+
+      &:hover {
+        background-color: var(--content-success);
+      }
 
       span {
         color: var(--content-light-secondary);
@@ -303,6 +308,11 @@
 
     border-radius: 5rem;
     background: var(--content-datail-secondary);
+    transition: background-color var(--transition-time-min) ease;
+
+    &:hover {
+      background-color: #bdc4d2;
+    }
 
     svg {
       width: 18rem;
@@ -330,13 +340,23 @@
   height: 40rem;
 
   border-radius: 5rem;
-  background: var(--bg-button-disabled);
+  background-color: var(--bg-button-disabled);
+  transition: background-color var(--transition-time-min) ease;
+
+  &:hover {
+    background-color: var(--content-main);
+
+    span {
+      color: var(--content-light-secondary);
+    }
+  }
 
   span {
     color: var(--content-datail-secondary);
     font-family: Inter, sans-serif;
     font-size: 16rem;
     font-weight: 500;
+    transition: color var(--transition-time-min) ease;
   }
 
   svg {

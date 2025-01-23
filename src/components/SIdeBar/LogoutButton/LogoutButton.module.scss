@@ -37,6 +37,7 @@
     border: 1rem solid transparent;
     border-radius: 4rem;
     transition: border-color var(--transition-time-max) ease;
+    color: var(--content-light-secondary);
 
     svg {
       width: 14rem;
@@ -78,6 +79,7 @@
       border-radius: 50%;
       background-color: var(--content-main);
       flex-shrink: 0;
+      color: var(--content-light-secondary);
 
       display: flex;
       justify-content: center;

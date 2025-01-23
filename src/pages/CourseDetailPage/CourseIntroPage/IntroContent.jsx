@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { serverName } from "../../../http/server";
 import { ReactComponent as LaptopIcon } from "../../../images/icons/laptop.svg";
 import { ReactComponent as ClockIcon } from "../../../images/icons/clock.svg";
-import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";
 import { ReactComponent as ArrowLeftIcon } from "../../../images/icons/arrow-left.svg";
 import { ReactComponent as SchoolOnlineIcon } from "../../../images/icons/courseIcons/school-online.svg";
 import { ReactComponent as ClockDarkIcon } from "../../../images/icons/courseIcons/clock-dark.svg";
 import { ReactComponent as CertificateIcon } from "../../../images/icons/courseIcons/certificate.svg";
+import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";
+import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
 import devices from "../../../images/devices.webp";
 import CardPrice from "../../../components/shared/CardPrice/CardPrice";
 import CoursesList from "../../../components/CoursesList/CoursesList";
@@ -18,7 +19,7 @@ import { useCart } from "../../../context/cartContext";
 
 const IntroContent = ({ course = {}, courses = [] }) => {
   const userCourses = useSelector(getUserCourses);
-  const { addItem } = useCart();
+  const { addItem, removeItem, cartItems, addAllCoursesInCategory } = useCart();
   const isModer = useSelector(getUserType) === "moder";
   const {
     title: courseName,
@@ -41,6 +42,9 @@ const IntroContent = ({ course = {}, courses = [] }) => {
 
   const isUserCourse = userCourses?.find(({ course_id }) => course_id === id);
 
+  console.log(course);
+  
+
   const otherCoursesThisCategory = courses.filter(
     ({ categoryId, id }) =>
       course.categoryId === categoryId &&
@@ -57,6 +61,8 @@ const IntroContent = ({ course = {}, courses = [] }) => {
     ...otherCoursesThisCategory,
     ...otherCoursesDifferentCategory,
   ].slice(0, 4);
+
+  const isCourseInCart = cartItems.find((item) => item.id === id);
 
   return (
     <>
@@ -137,9 +143,14 @@ const IntroContent = ({ course = {}, courses = [] }) => {
             </ul>
             {!isUserCourse && !isModer && (
               <div className={styles.itemsTools}>
-                <button className={styles.butBtn} onClick={() => addItem(id)}>
-                  <span>Buy</span>
-                  <CartIcon />
+                <button
+                  className={styles.butBtn}
+                  onClick={() =>
+                    isCourseInCart ? removeItem(id) : addItem(id)
+                  }
+                >
+                  <span>{isCourseInCart ? "Remove" : "Buy"}</span>
+                  {isCourseInCart ? <TrashIcon /> : <CartIcon />}
                 </button>
                 <CardPrice
                   orientation="horizontal"
@@ -200,7 +211,7 @@ const IntroContent = ({ course = {}, courses = [] }) => {
 
       {!isModer && (
         <div className={styles.navPanel}>
-          <Link to="/courses/my" className={styles.allCoursesLink}>
+          <Link to="/courses/available" className={styles.allCoursesLink}>
             <ArrowLeftIcon />
             <span>View all courses</span>
           </Link>
@@ -210,7 +221,10 @@ const IntroContent = ({ course = {}, courses = [] }) => {
             oldPrice={oldPrice}
             size="m"
           />
-          <button className={styles.buyAllCoursesBtn}>
+          <button
+            className={styles.buyAllCoursesBtn}
+            onClick={() => addAllCoursesInCategory(course.category_id)}
+          >
             <span>Buy all courses</span>
             <CartIcon />
           </button>

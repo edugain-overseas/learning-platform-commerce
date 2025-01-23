@@ -7,16 +7,19 @@ import { useListMode } from "../../../context/ListModeContext";
 import { ReactComponent as BMIcon } from "../../../images/icons/bm.svg";
 import { ReactComponent as ChevronIcon } from "../../../images/icons/arrowDown.svg";
 import { ReactComponent as EditIcon } from "../../../images/icons/edit.svg";
+import { ReactComponent as BuyIcon } from "../../../images/icons/cart.svg";
 import CoursesList from "../../CoursesList/CoursesList";
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import InfoBtn from "../../shared/InfoBtn/InfoBtn";
 import CategoryModal from "../../CategoryModal/CategoryModal";
 import styles from "./CategoriesItem.module.scss";
 import InsetBtn from "../../shared/InsetBtn/InsetBtn";
+import { useCart } from "../../../context/cartContext";
 
 const CategoriesItem = ({ category }) => {
   const [dropDownOpen, setDropDownOpen] = useState(true);
   const [isEditCategoryModalOpen, setIsEditCatgoryModalOpen] = useState(false);
+  const { addAllCoursesInCategory } = useCart();
 
   const openEditCategoryModal = () => setIsEditCatgoryModalOpen(true);
 
@@ -54,11 +57,11 @@ const CategoriesItem = ({ category }) => {
 
   return (
     <li className={styles.itemWrapper} id="wrapper">
-      <div className={styles.categoryPanel}>
-        <Link
-          to={null}
-          className={styles.titleWrapper}
-        >
+      <div
+        className={styles.categoryPanel}
+        id={`category-panel-${category.id}`}
+      >
+        <Link to={null} className={styles.titleWrapper}>
           <BMIcon />
           <div className={styles.nameWrapper}>
             <h3>{category.title}</h3>
@@ -77,14 +80,14 @@ const CategoriesItem = ({ category }) => {
               <div className={styles.progressWrapper}>
                 <span>Progress:</span>
                 <ProgressBar
-                  value={progress}
+                  value={Math.round(progress)}
                   disabled={userCoursesinCategory.length === 0}
                 />
               </div>
             </>
           ) : (
             <>
-              <InsetBtn icon={<EditIcon />} onClick={openEditCategoryModal}/>
+              <InsetBtn icon={<EditIcon />} onClick={openEditCategoryModal} />
               <CategoryModal
                 isOpenModal={isEditCategoryModalOpen}
                 setIsOpenModal={setIsEditCatgoryModalOpen}
@@ -106,6 +109,15 @@ const CategoriesItem = ({ category }) => {
               <ChevronIcon />
             </span>
           </button>
+          {!isModer && (
+            <button
+              className={styles.buyAll}
+              onClick={() => addAllCoursesInCategory(category.id)}
+            >
+              <span>Buy all</span>
+              <BuyIcon />
+            </button>
+          )}
         </div>
       </div>
       <div

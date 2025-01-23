@@ -60,14 +60,24 @@
   align-items: center;
   justify-content: center;
   gap: 4rem;
+  transition: background-color var(--transition-time-min) ease;
+
+  &:hover {
+    background-color: var(--content-main);
+  }
 
   span {
     color: var(--content-light-secondary);
     font-weight: 500;
+    font-size: 16rem;
   }
 
   svg {
     width: 18rem;
     height: 18rem;
+  }
+
+  &.disabled {
+    opacity: 0.5;
   }
 }

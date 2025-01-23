@@ -78,4 +78,10 @@
     display: block;
     max-width: 100%;
   }
+
+  &:hover {
+    span {
+      text-decoration: underline;
+    }
+  }
 }

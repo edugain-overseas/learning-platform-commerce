@@ -5,19 +5,22 @@ import { ReactComponent as CategoryIcon } from "../../images/icons/bm.svg";
 import HomeSlider from "./shared/HomeSlider";
 import SliderSectionHeader from "./shared/SliderSectionHeader";
 import styles from "./HomePage.module.scss";
+import { Link } from "react-router-dom";
 
 const renderItem = (category) => {
   return (
-    <div className={styles.categoryCard}>
-      <CategoryIcon className={styles.categoryIcon} />
-      <div className={styles.categoryInfo}>
-        <h4 className={styles.categoryTitle}>{category.title}</h4>
-        <p
-          className={styles.certificateInfo}
-          dangerouslySetInnerHTML={{ __html: category.certificate_info }}
-        ></p>
+    <Link to={`/courses/available`} state={{ categoryId: category.id }}>
+      <div className={styles.categoryCard}>
+        <CategoryIcon className={styles.categoryIcon} />
+        <div className={styles.categoryInfo}>
+          <h4 className={styles.categoryTitle}>{category.title}</h4>
+          <p
+            className={styles.certificateInfo}
+            dangerouslySetInnerHTML={{ __html: category.certificate_info }}
+          ></p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

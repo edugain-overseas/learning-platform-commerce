@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import { activateUserThunk } from "../../../redux/user/operations";
@@ -28,9 +28,9 @@ const SingUpForm = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (accessToken) {
-      if (location.state.from) {
+      if (location.state?.from) {
         navigate(location.state.from);
         location.state.navigateFromCart && handleOpen();
       }

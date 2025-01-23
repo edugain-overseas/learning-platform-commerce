@@ -10,7 +10,7 @@ import { priceFormatter } from "../../utils/priceFormatter";
 
 const CartCourseCard = ({ course, isProposed = false, checked = false }) => {
   const categoryInfo = useSelector(getAllCategories).find(
-    (category) => category.id === course.category_id
+    (category) => category.id === course?.category_id
   );
 
   console.log(checked);

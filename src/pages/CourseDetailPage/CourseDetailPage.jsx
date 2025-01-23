@@ -3,7 +3,7 @@ import { Outlet, useParams } from "react-router-dom";
 import CoursesPanel from "../../components/CoursesPanel/CoursesPanel";
 import { ListModeProvider } from "../../context/ListModeContext";
 import styles from "./CourseDetailPage.module.scss";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 // import { getCourseDetailThunk } from "../../redux/course/operations";
 import { getAllCourses } from "../../redux/course/selectors";
 

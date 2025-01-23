@@ -185,7 +185,7 @@ export const ChatProvider = ({ children }) => {
     >
       {children}
       {isOpen && (
-        <Drawer orientation="right" size="80vw" handleClose={handleClose}>
+        <Drawer orientation="right" size="80vw" handleClose={handleClose} headerTitle="Support">
           <Chats />
         </Drawer>
       )}

@@ -34,6 +34,10 @@ const UserInfoCard = ({ userInfo }) => {
   const [isPasswordShown, setIsPasswrodSwown] = useState(false);
   const [messageApi, contextHolder] = useMessage();
 
+  const isUserLoggedIn = userInfo.username !== "";
+
+  console.log("isUserLoggedIn", isUserLoggedIn);
+
   const dispatch = useDispatch();
 
   const handleEdit = () => {
@@ -81,9 +85,6 @@ const UserInfoCard = ({ userInfo }) => {
   };
 
   const handlePhoneChange = (value, countryValue, _, formattedValue) => {
-    console.log("value:", value);
-    console.log("country:", countryValue);
-    console.log("formattedValue:", formattedValue);
     setPhone(value);
     setCountry(countryValue.name);
   };
@@ -119,7 +120,7 @@ const UserInfoCard = ({ userInfo }) => {
           <span>Username:</span>
           <input
             type="text"
-            value={username}
+            value={isUserLoggedIn ? username : "Name"}
             disabled={!isEdit}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -134,7 +135,7 @@ const UserInfoCard = ({ userInfo }) => {
           >
             <input
               type="text"
-              value={firstname}
+              value={isUserLoggedIn ? firstname : "-"}
               disabled={!isEdit || userInfo.changedName}
               onChange={(e) => setFirstname(e.target.value)}
             />
@@ -150,7 +151,7 @@ const UserInfoCard = ({ userInfo }) => {
           >
             <input
               type="text"
-              value={lastname}
+              value={isUserLoggedIn ? lastname : ""}
               disabled={!isEdit || userInfo.changedSurname}
               onChange={(e) => setLastname(e.target.value)}
             />
@@ -160,7 +161,7 @@ const UserInfoCard = ({ userInfo }) => {
           <span>Email:</span>
           <input
             type="email"
-            value={email}
+            value={isUserLoggedIn ? email : "-"}
             disabled={!isEdit}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -181,7 +182,7 @@ const UserInfoCard = ({ userInfo }) => {
               type={isPasswordShown ? "text" : "password"}
               placeholder="********"
               className={styles.password}
-              value={password}
+              value={isUserLoggedIn ? password : "-"}
               disabled={!isEdit}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -195,7 +196,7 @@ const UserInfoCard = ({ userInfo }) => {
             buttonClass={styles.phoneBtn}
             dropdownClass={styles.phoneDropDown}
             country={"us"}
-            value={phone}
+            value={isUserLoggedIn ? phone : "-"}
             onChange={handlePhoneChange}
             disabled={!isEdit}
           />
@@ -204,7 +205,7 @@ const UserInfoCard = ({ userInfo }) => {
           <span>Your country:</span>
           <input
             type="text"
-            value={country}
+            value={isUserLoggedIn ? country : "-"}
             disabled={!isEdit}
             onChange={(e) => setCountry(e.target.value)}
           />
@@ -214,7 +215,7 @@ const UserInfoCard = ({ userInfo }) => {
             wrapperStyles={{ width: "100%", padding: "4rem 6rem" }}
           /> */}
         </label>
-        {isEdit && (
+        {isEdit && isUserLoggedIn && (
           <div className={styles.btnsWrapper}>
             <button onClick={handleCancelEdit}>
               <span>Cancel</span>
@@ -227,7 +228,7 @@ const UserInfoCard = ({ userInfo }) => {
           </div>
         )}
       </div>
-      {!isEdit && (
+      {!isEdit && isUserLoggedIn && (
         <div className={styles.editBtnWrapper}>
           <Tooltip infoContent="Edit profile">
             <InsetBtn onClick={handleEdit} icon={<SettingsIcon />} />

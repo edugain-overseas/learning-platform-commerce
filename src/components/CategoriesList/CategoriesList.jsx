@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CategoriesItem from "./CategoriesItem/CategoriesItem";
 import { useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/category/selectors";
@@ -11,7 +11,18 @@ const CategoriesList = () => {
   const categories = useSelector(getAllCategories);
   const userCourses = useSelector(getUserCourses);
   const allCourses = useSelector(getAllCourses);
-  const { pathname } = useLocation();
+  const { pathname, state } = useLocation();
+
+  useEffect(() => {
+    if (state?.categoryId) {
+      const targetElement = document.getElementById(
+        `category-panel-${state.categoryId}`
+      );
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [state?.categoryId]);
 
   const categoriesWithCourses = categories.filter(({ id }) => {
     return allCourses.find(({ category_id }) => category_id === id);
