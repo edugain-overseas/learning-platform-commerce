@@ -62,7 +62,7 @@ const IntroContent = ({ course = {}, courses = [] }) => {
     ...otherCoursesDifferentCategory,
   ].slice(0, 4);
 
-  const isCourseInCart = cartItems.find((item) => item.id === id);
+  const isCourseInCart = cartItems?.find((item) => item.id === id);
 
   return (
     <>
