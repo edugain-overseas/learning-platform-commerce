@@ -35,8 +35,6 @@ const TestContent = ({
 
   const dispatch = useDispatch();
 
-  console.log(answers, closed);
-
   const { id: testId, course_id: courseId, type: lessonType, status } = test;
 
   const testData = lessonType === "exam" ? test.exam_data : test.test_data;
@@ -48,6 +46,8 @@ const TestContent = ({
   );
   const courseName = course?.title;
   const courseLessons = course?.lessons;
+
+  console.log(studentAnswers);
 
   const setSingleAnswerState = (id, value) => {
     setStudentAnswers((prev) => {
@@ -423,7 +423,7 @@ const TestContent = ({
           {
             pointerEvents: (answers && !isExam) || closed ? "none" : "auto",
             opacity: (answers && !isExam) || closed ? "0.5" : "1",
-            maxWidth: answers && !isExam ? "100%" : "auto",
+            maxWidth: (answers && !isExam) || isExam ? "100%" : "auto",
           }
         }
       >

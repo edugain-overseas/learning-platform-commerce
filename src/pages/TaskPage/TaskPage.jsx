@@ -1,21 +1,27 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getLessonByIdThunk } from "../../redux/lesson/operation";
 import { getAllLessons } from "../../redux/lesson/selectors";
 import Lecture from "../../components/Lecture/Lecture";
 import Test from "../../components/Test/Test";
-import Exam from "../../components/Exam/Exam";
+// import Exam from "../../components/Exam/Exam";
 import styles from "./TaskPage.module.scss";
+import { getAllCourses } from "../../redux/course/selectors";
 
 const TaskPage = () => {
   const { taskId } = useParams();
   const dispatch = useDispatch();
 
   const lessons = useSelector(getAllLessons);
+  const courses = useSelector(getAllCourses);
 
   const task = lessons.find(({ id }) => id === +taskId);
   const taskType = task?.type;
+
+  const courseId = courses.find((course) =>
+    course.lessons.find((lesson) => lesson.id === +taskId)
+  )?.id;
 
   useEffect(() => {
     if (taskId && !task) {
@@ -28,7 +34,9 @@ const TaskPage = () => {
     <div className={styles.pageWrapper}>
       {taskType === "lecture" && <Lecture lecture={task} />}
       {taskType === "test" && <Test test={task} />}
-      {taskType === "exam" && <Exam exam={task} />}
+      {taskType === "exam" && (
+        <Navigate to={`/course/${courseId}/exam-certificate`} />
+      )}
     </div>
   );
 };

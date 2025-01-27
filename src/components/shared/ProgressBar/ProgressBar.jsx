@@ -9,8 +9,6 @@ const colors = {
 };
 
 const handleProgressColor = (value) => {
-  console.log(value);
-
   if (0 === value || value <= 33) {
     return colors.low;
   }

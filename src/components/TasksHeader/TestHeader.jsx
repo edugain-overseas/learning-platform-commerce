@@ -1,11 +1,11 @@
 import React from "react";
 import { ReactComponent as DocQuestionIcon } from "../../images/icons/document-question.svg";
-import CardGrade from "../shared/CardGrade/CardGrade";
 import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
 import styles from "./TasksHeader.module.scss";
 import { useSelector } from "react-redux";
 import { getUserType } from "../../redux/user/selectors";
 import SubmitTest from "./SubmitTest";
+import LessonGrade from "../shared/LessonGrade/LessonGrade";
 
 const TestHeader = ({
   test,
@@ -34,14 +34,14 @@ const TestHeader = ({
               value={switcherValue}
               onChange={switcherOnChange}
             /> */}
-          </>
+        </>
         )}
         {!isModer && (
           <>
             {testScore ? (
               <>
                 <SubmitTest test={test} />
-                <CardGrade grade={testScore} maxGrade={testData?.score} />
+                <LessonGrade grade={testScore} maxGrade={testData?.score} />
               </>
             ) : (
               <>

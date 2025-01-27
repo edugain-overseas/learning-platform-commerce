@@ -17,8 +17,6 @@ export default function NavLinksPanel({ renderLinks }) {
     course?.lessons?.find((lesson) => lesson.type === "exam")?.status ===
     "blocked";
 
-  console.log(isExamIsBlocked);
-
   const linkBlockedByExam = (link) =>
     link.to === "exam-certificate" && isExamIsBlocked;
 

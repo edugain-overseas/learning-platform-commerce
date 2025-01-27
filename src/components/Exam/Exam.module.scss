@@ -1,15 +1,110 @@
 .examWrapper {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .bodyWrapper {
   display: flex;
   gap: 16rem;
   position: relative;
-  height: calc(100% - 60rem);
+  flex-grow: 1;
   overflow-y: auto;
-  padding-bottom: 40rem;
-  justify-content: flex-end;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40rem;
+  margin-bottom: 16rem;
+  height: 44rem;
+  padding-inline: 14rem;
+  flex-shrink: 0;
+
+  background-color: var(--bg-rgba-default);
+  box-shadow: var(--drop-shadow-button-main);
+  border-radius: 5rem;
+  color: var(--content-datail-secondary);
+
+  .titleWrapper {
+    display: flex;
+    align-items: center;
+
+    .title {
+      font-size: 16rem;
+      font-weight: 700;
+      color: var(--content-main);
+    }
+
+    .divider {
+      font-size: 12rem;
+      color: var(--content-datail-secondary);
+      padding-inline: 16rem;
+      flex-shrink: 0;
+    }
+
+    .type {
+      font-size: 16rem;
+      color: var(--content-datail-secondary);
+      text-transform: capitalize;
+      overflow: visible;
+    }
+  }
+
+  .tools {
+    display: flex;
+    align-items: center;
+    gap: 40rem;
+  }
+
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 8rem;
+
+    svg {
+      width: 14rem;
+      height: 14rem;
+    }
+
+    span {
+      font-size: 12rem;
+      font-weight: 500;
+    }
+  }
+
+  .sumbitAttemptBtn {
+    width: 100rem;
+    height: 28rem;
+    border-radius: 5rem;
+    color: var(--content-light-secondary);
+    background-color: #bdc4d2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8rem;
+
+    transition: background-color var(--transition-time-min) ease;
+
+    svg {
+      width: 14rem;
+      height: 14rem;
+    }
+
+    span {
+      font-size: 14rem;
+      font-weight: 500;
+    }
+
+    &:hover {
+      background-color: var(--content-main);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
 }
 
 .contentWrapper {
@@ -27,9 +122,8 @@
 
 .closedExamPanel {
   flex-grow: 1;
-  max-width: calc(100% - 16rem - 270rem);
   height: 100%;
-  padding: 24rem;
+  padding: 40rem 24rem;
 
   border-radius: 5rem;
   background-color: var(--bg-rgba-default);
@@ -40,22 +134,50 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 8rem;
+  gap: 28rem;
 
-  p {
+  .title {
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 500;
     text-align: center;
+    margin-bottom: 14rem;
+  }
+
+  .topInfoWrapper,
+  .bottomInfoWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 14rem;
+
+    .mainInfo,
+    .additionInfo {
+      text-align: center;
+    }
+
+    .mainInfo {
+      font-size: 16rem;
+      font-weight: 500;
+    }
+
+    .additionInfo {
+      font-size: 14rem;
+      font-weight: 700;
+    }
+  }
+
+  .stats {
+    height: 200rem;
   }
 
   .startBtn {
-    width: 144rem;
-    height: 44rem;
+    width: 360rem;
+    height: 38rem;
     padding: 8rem 16rem;
     border-radius: 5rem;
     background-color: rgba($color: #001c54, $alpha: 1);
     color: var(--content-contr-color);
     font-size: 18rem;
-    text-transform: uppercase;
     box-shadow: var(--drop-shadow-button-main);
 
     transition: background-color var(--transition-time-min) ease,
