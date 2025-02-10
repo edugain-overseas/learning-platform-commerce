@@ -123,6 +123,7 @@
 .closedExamPanel {
   flex-grow: 1;
   height: 100%;
+  overflow: auto;
   padding: 40rem 24rem;
 
   border-radius: 5rem;
@@ -170,22 +171,245 @@
     height: 200rem;
   }
 
-  .startBtn {
-    width: 360rem;
-    height: 38rem;
-    padding: 8rem 16rem;
-    border-radius: 5rem;
+  .btnsWrapper {
+    display: flex;
+    justify-content: center;
+    gap: 72rem;
+
+    button {
+      width: 360rem;
+      height: 38rem;
+      padding: 8rem 16rem;
+      border-radius: 5rem;
+      font-size: 18rem;
+      box-shadow: var(--drop-shadow-button-main);
+      transition: all var(--transition-time-min) ease;
+
+      &:hover {
+        box-shadow: var(--drop-shadow-button-main-hover);
+      }
+    }
+  }
+
+  .primaryBtn {
     background-color: rgba($color: #001c54, $alpha: 1);
     color: var(--content-contr-color);
-    font-size: 18rem;
-    box-shadow: var(--drop-shadow-button-main);
-
-    transition: background-color var(--transition-time-min) ease,
-      box-shadow var(--transition-time-min) ease;
 
     &:hover {
       background-color: rgba($color: #001c54, $alpha: 0.9);
-      box-shadow: var(--drop-shadow-button-main-hover);
     }
+  }
+
+  .secondaryBtn {
+    color: var(--content-main);
+    border: 1rem solid var(--content-datail-secondary);
+    background-color: transparent;
+
+    &:hover {
+      color: var(--content-light-secondary);
+      background-color: var(--content-datail-secondary);
+    }
+  }
+}
+
+.statsWrapper {
+  display: flex;
+  gap: 48rem;
+}
+
+.statWrapper {
+  width: 232rem;
+  padding: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+  color: var(--content-datail-secondary);
+
+  svg {
+    width: 64rem;
+    height: 64rem;
+    flex-shrink: 0;
+  }
+
+  & > p {
+    font-size: 16rem;
+    font-weight: 400;
+    text-align: center;
+
+    b {
+      font-weight: 700;
+    }
+  }
+}
+
+.statValueWrapper {
+  display: flex;
+  align-items: center;
+  color: var(--content-main);
+  gap: 6rem;
+
+  .labelContainer {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &:has(:only-child) {
+      justify-content: flex-end;
+      padding-bottom: 6rem;
+
+      .labelWrapper {
+        font-size: 24rem;
+      }
+    }
+  }
+
+  .valueWrapper {
+    font-size: 48rem;
+  }
+  .valueWithDivider::after {
+    content: "/";
+    font-size: inherit;
+  }
+  .valueOfWrapper {
+    font-size: 24rem;
+    font-weight: 600;
+  }
+  .labelWrapper {
+    font-size: 20rem;
+  }
+}
+
+// NAME FORM
+
+.nameForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16rem;
+  align-items: center;
+  color: var(--content-main);
+
+  h4 {
+    font-size: 16rem;
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: 16rem;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -2rem;
+      width: 365rem;
+      height: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--content-datail-secondary);
+    }
+  }
+
+  .primaryText {
+    font-size: 14rem;
+    font-weight: 400;
+    text-align: center;
+
+    b {
+      font-weight: 700;
+    }
+  }
+
+  .fieldsWrapper {
+    display: flex;
+    align-items: center;
+    gap: 28rem;
+    width: 100%;
+  }
+
+  .fieldWrapper {
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 13rem;
+    padding: 7rem;
+    background: var(--bg-rgba-detail);
+    box-shadow: var(--box-shadow-button-inset);
+    border-radius: 5rem;
+
+    & > div {
+      flex-grow: 1;
+    }
+
+    & > span {
+      color: var(--content-datail-secondary);
+      font-size: 14rem;
+      font-weight: 400;
+      position: relative;
+      overflow: visible;
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: -5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1rem;
+        height: 20rem;
+        background-color: var(--content-datail-secondary);
+      }
+    }
+
+    input {
+      font-size: 14rem;
+      font-weight: 400;
+      color: var(--content-main);
+      background: transparent;
+      width: 100%;
+    }
+  }
+
+  button {
+    width: 148rem;
+    height: 28rem;
+    color: var(--content-datail-secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10rem;
+    border-radius: 5rem;
+    background-color: transparent;
+    border: 1rem solid var(--content-datail-secondary);
+    transition: all var(--transition-time-min) ease;
+
+    &:hover {
+      background-color: var(--content-datail-secondary);
+      color: var(--content-light-secondary);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+
+    span {
+      font-family: Roboto;
+      font-size: 12rem;
+      font-weight: 600;
+    }
+
+    svg {
+      width: 14rem;
+      height: 14rem;
+
+      path {
+        fill: currentColor;
+      }
+    }
+  }
+
+  .secondaryWrapper {
+    font-size: 8px;
+    font-weight: 400;
+    text-align: center;
   }
 }

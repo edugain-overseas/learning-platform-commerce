@@ -21,7 +21,7 @@ const RichTextEditor = ({
   placeholder = "Write your text here...",
   maxLength = null,
 }) => {
-  const handleChange = (content, delta, source, editor) => {
+  const handleChange = (content) => {
     if (maxLength) {
       // const plainText = editor.getText();
       const plainText = stripHtmlTags(content);

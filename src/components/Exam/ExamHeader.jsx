@@ -1,11 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
 import { ReactComponent as QuestionIcon } from "../../images/icons/document-question.svg";
 import { ReactComponent as CheckIcon } from "../../images/icons/checked.svg";
-import styles from "./Exam.module.scss";
 import LessonGrade from "../shared/LessonGrade/LessonGrade";
+import styles from "./Exam.module.scss";
+import Spinner from "../Spinner/Spinner";
 
-const ExamHeader = ({ exam, examInProgress }) => {
+const ExamHeader = ({
+  exam,
+  examInProgress,
+  studentAnswersLength,
+  submitAttempt,
+  examScore,
+  examMaxScore,
+}) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const attemptsLeft =
+    exam.exam_data.attempts - exam.exam_data.attempts_data?.length;
+  const questionsAmount = exam.exam_data.questions.length;
+  const timer = exam.exam_data.timer;
+
+  const handleSubmit = () => {
+    setIsLoading(true);
+    try {
+      submitAttempt();
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className={styles.header}>
       <div className={styles.titleWrapper}>
@@ -16,21 +40,33 @@ const ExamHeader = ({ exam, examInProgress }) => {
       <div className={styles.tools}>
         <div className={styles.stat}>
           <ClockIcon />
-          <span>3 attempts</span>
+          <span>{attemptsLeft} attempts</span>
         </div>
         <div className={styles.stat}>
           <ClockIcon />
-          <span>40 minutes</span>
+          <span>{timer} minutes</span>
         </div>
         <div className={styles.stat}>
           <QuestionIcon />
-          <span>Questions: 2/16</span>
+          <span>
+            Questions: {studentAnswersLength}/{questionsAmount}
+          </span>
         </div>
-        <button className={styles.sumbitAttemptBtn} disabled={!examInProgress}>
-          <span>Submit</span>
-          <CheckIcon />
+        <button
+          className={styles.sumbitAttemptBtn}
+          disabled={!examInProgress || isLoading}
+          onClick={handleSubmit}
+        >
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <>
+              <span>Submit</span>
+              <CheckIcon />
+            </>
+          )}
         </button>
-        <LessonGrade />
+        <LessonGrade grade={examScore} maxGrade={examMaxScore} />
       </div>
     </div>
   );

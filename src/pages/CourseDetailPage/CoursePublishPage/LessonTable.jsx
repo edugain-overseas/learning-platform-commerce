@@ -15,9 +15,9 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { ConfigProvider, Table } from "antd";
-import styles from "./CoursePublishPage.module.scss";
 import { useDispatch } from "react-redux";
 import { updateLessonThunk } from "../../../redux/lesson/operation";
+import styles from "./CoursePublishPage.module.scss";
 
 const columns = [
   {
@@ -83,6 +83,8 @@ const LessonsTable = ({
 }) => {
   const { courseId } = useParams();
   const [lessons, setLessons] = useState(lessonsTableData);
+  console.log(lessons);
+  
 
   const dispatch = useDispatch();
 
@@ -114,7 +116,7 @@ const LessonsTable = ({
       );
       if (result) {
         messageApi.success({
-          conent: "Lessons was successfully reordered!",
+          content: "Lessons was successfully reordered!",
           duration: 3,
         });
       }
@@ -128,6 +130,14 @@ const LessonsTable = ({
 
   const onDragEnd = ({ active, over }) => {
     if (active.id !== over?.id) {
+      if (isCoursePublished) {
+        messageApi.error({
+          content:
+            "You can't change order of lessons in course that was published",
+          duration: 3,
+        });
+        return;
+      }
       setLessons((prevLessons) => {
         const activeIndex = prevLessons.findIndex(
           (lesson) => lesson.key === active.id

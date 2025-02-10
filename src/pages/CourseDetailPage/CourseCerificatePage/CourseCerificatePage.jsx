@@ -25,9 +25,6 @@ const CourseCerificatePage = () => {
     // eslint-disable-next-line
   }, [examId]);
 
-  console.log(exam);
-  console.log(examData);
-
   return (
     <div className={styles.container}>
       {examData && <Exam exam={examData} />}

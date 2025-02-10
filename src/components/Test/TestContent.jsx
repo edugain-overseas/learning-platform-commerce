@@ -25,7 +25,6 @@ const TestContent = ({
   isExam = false,
   attemptTime = null,
   setAnswersToLocalStorage,
-  closeAttempt,
   attemptFinished = false,
   setAttemptFinished = () => {},
   messageApi,
@@ -46,8 +45,6 @@ const TestContent = ({
   );
   const courseName = course?.title;
   const courseLessons = course?.lessons;
-
-  console.log(studentAnswers);
 
   const setSingleAnswerState = (id, value) => {
     setStudentAnswers((prev) => {
@@ -342,10 +339,6 @@ const TestContent = ({
           content: response.message,
           duration: 5,
         });
-
-        if (isExam) {
-          closeAttempt();
-        }
       })
       .catch((err) => {
         messageApi?.error({
@@ -486,7 +479,7 @@ const TestContent = ({
             </div>
           </div>
           {testContent?.length !== 0 ? renderTestContent() : <Empty />}
-          {(!answers || isExam) && (
+          {(!answers || !isExam) && (
             <div className={styles.bottomNavBtnsWrapper}>
               <LessonNavigateBtn
                 forward={false}

@@ -25,6 +25,7 @@ const TaskCard = ({ task }) => {
       <Link
         to={canUserGoToTask ? `/task/${task.id}` : null}
         className={styles.cardLink}
+        // style={{ pointerEvents: "none" }}
       >
         <ImageWithSkeleton
           wrapperClassname={styles.poster}

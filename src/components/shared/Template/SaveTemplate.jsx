@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { FolderAddOutlined } from "@ant-design/icons";
-import Modal from "../Modal/Modal";
-import styles from "./Template.module.scss";
-import SaveTemplateForm from "./SaveTemplateForm";
-import { useLectureConstructor } from "../../../context/LectureConstructorContext";
 import { useDispatch, useSelector } from "react-redux";
 import { createTemplateByTypeThunk } from "../../../redux/template/operation";
-import useMessage from "antd/es/message/useMessage";
 import { getIsTemplateLoading } from "../../../redux/template/selectors";
+import { useLectureConstructor } from "../../../context/LectureConstructorContext";
+import useMessage from "antd/es/message/useMessage";
+import SaveTemplateForm from "./SaveTemplateForm";
+import Modal from "../Modal/Modal";
+import styles from "./Template.module.scss";
 
 const SaveTemplate = ({ type }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);

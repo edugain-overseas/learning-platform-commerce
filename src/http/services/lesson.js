@@ -45,15 +45,26 @@ export const confirmLecture = async (lessonId) => {
   }
 };
 
-export const confirmTest = async (lessonId, studentTest, lessonType) => {
+export const confirmTest = async (
+  lessonId,
+  studentTest,
+  lessonType,
+  spentMinutes
+) => {
+  const testBody = {
+    lesson_id: lessonId,
+    student_answers: studentTest,
+  };
+  const examBody = {
+    ...testBody,
+    spent_minutes: spentMinutes,
+  };
+
   try {
     const data = await privateRoutesHandler(
       "post",
       `/student-${lessonType}/send`,
-      {
-        lesson_id: lessonId,
-        student_answers: studentTest,
-      }
+      lessonType === "test" ? testBody : examBody
     );
     return data;
   } catch (error) {

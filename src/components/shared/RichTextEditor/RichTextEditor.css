@@ -30,6 +30,7 @@
     background-color: #fff;
     opacity: 0;
     pointer-events: none;
+    z-index: 1;
     transition: opacity var(--transition-time-min) ease;
   }
 

@@ -40,6 +40,35 @@ const lecturePartsTemplates = {
     hidden: false,
     links: [],
   },
+  table: {
+    a_title: "",
+    a_text: "",
+    hidden: false,
+    table_data: {
+      columns: [
+        {
+          key: "key-0",
+          label: "",
+        },
+        {
+          key: "key-1",
+          label: "",
+        },
+      ],
+      rows: [
+        [
+          {
+            key: "key-0",
+            label: "",
+          },
+          {
+            key: "key-1",
+            label: "",
+          },
+        ],
+      ],
+    },
+  },
 };
 
 export const lectureParts = [
@@ -70,6 +99,10 @@ export const lectureParts = [
   {
     a_type: "link",
     template: lecturePartsTemplates.links,
+  },
+  {
+    a_type: "table",
+    template: lecturePartsTemplates.table,
   },
 ];
 

@@ -1,21 +1,20 @@
-
 export const letterGrade = (grade) => {
-  if (190 <= grade) {
+  if (180 <= grade) {
     return "A";
   }
-  if (180 <= grade) {
+  if (160 <= grade) {
     return "B";
   }
-  if (170 <= grade) {
+  if (140 <= grade) {
     return "C";
   }
-  if (165 <= grade) {
+  if (120 <= grade) {
     return "D";
   }
-  if (160 <= grade) {
+  if (100 <= grade) {
     return "E";
   }
-  if (160 > grade) {
+  if (100 > grade) {
     return "F";
   }
   return null;

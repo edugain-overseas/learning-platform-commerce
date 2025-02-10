@@ -30,7 +30,8 @@ const IntroContent = ({ course = {}, courses = [] }) => {
     program_text: ProgramText,
     image_path: coursePoster,
     c_type: courseType,
-    c_access: courseAccess,
+    // c_access: courseAccess,
+    c_credits: courseCredits,
     c_award: courseAward,
     c_duration: courseDuration,
     c_language: courseLanguage,
@@ -43,7 +44,6 @@ const IntroContent = ({ course = {}, courses = [] }) => {
   const isUserCourse = userCourses?.find(({ course_id }) => course_id === id);
 
   console.log(course);
-  
 
   const otherCoursesThisCategory = courses.filter(
     ({ categoryId, id }) =>
@@ -136,9 +136,9 @@ const IntroContent = ({ course = {}, courses = [] }) => {
               <li>
                 <span className={styles.property}>
                   <ClockIcon />
-                  Access:
+                  Credits:
                 </span>
-                <span className={styles.value}>{courseAccess}</span>
+                <span className={styles.value}>{courseCredits}</span>
               </li>
             </ul>
             {!isUserCourse && !isModer && (

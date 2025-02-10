@@ -6,6 +6,7 @@ import {
   deleteNote,
   deleteNotesFolder,
   getLastUserImages,
+  getUserCertificates,
   getUserInfo,
   initializationChat,
   login,
@@ -147,6 +148,21 @@ export const getUserInfoThunk = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await getUserInfo();
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const getUserCertificatesThunk = createAsyncThunk(
+  "user/getUserCertificates",
+  async (studentId, { rejectWithValue }) => {
+    try {
+      const response = await getUserCertificates(studentId);
       return response;
     } catch (error) {
       return rejectWithValue({

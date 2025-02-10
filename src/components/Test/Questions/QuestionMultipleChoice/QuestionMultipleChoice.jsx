@@ -4,8 +4,6 @@ import styles from "./QuestionMultipleChoice.module.scss";
 import InputCheckbox from "../../../shared/InputCheckbox/InputCheckbox";
 
 const QuestionMultipleChoice = ({ answers, state, setState, id }) => {
-  console.log(answers);
-
   const renderAnswers = () => {
     if (!answers) {
       return null;

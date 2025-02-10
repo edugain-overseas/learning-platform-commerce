@@ -106,13 +106,14 @@ h4.sectionSubTitle {
 }
 
 .sectionContentWrapper {
+  --line-height: 22rem;
   color: #000;
   text-align: justify;
   // font-family: Inter, sans-serif;
   font-size: 14rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 22rem;
+  line-height: var(--line-height);
   text-indent: 16rem;
 
   blockquote {
@@ -133,7 +134,7 @@ h4.sectionSubTitle {
       width: 4rem;
       height: 4rem;
       background-color: var(--content-nav-hover);
-      top: 50%;
+      top: calc(var(--line-height) / 2);
       border-radius: 1rem;
       transform: translateY(-50%);
     }

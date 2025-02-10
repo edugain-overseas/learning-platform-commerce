@@ -118,6 +118,19 @@ export const getUserInfo = async () => {
   }
 };
 
+export const getUserCertificates = async (studentId) => {
+  try {
+    const data = await privateRoutesHandler("get", "/certificates/my", {
+      params: {
+        student_id: studentId,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const updateStudingTime = async (newTime) => {
   try {
     const data = await privateRoutesHandler("put", "user/update/time", null, {

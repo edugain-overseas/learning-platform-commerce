@@ -5,8 +5,8 @@ import { lectureParts } from "../../../costants/tasksParts";
 import { generateId } from "../../../utils/generateIdBasedOnTime";
 // import { ReactComponent as SaveIcon } from "../../../images/icons/save.svg";
 // import Spinner from "../../Spinner/Spinner";
-import styles from "./LectureConstructor.module.scss";
 import SaveBtn from "../../shared/SaveBtn/SaveBtn";
+import styles from "./LectureConstructor.module.scss";
 
 const ToolsPanel = ({ handleAddBlock, handleSaveLectureParts }) => {
   const isLoading = useSelector(getIsLoading);

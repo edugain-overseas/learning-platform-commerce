@@ -188,6 +188,18 @@ export const LectureConstructorProvider = ({ children }) => {
     });
   };
 
+  const handleTableData = (id, newTableData) => {
+    setBlocks((prev) => {
+      return prev.map((block) => {
+        if (block.id !== id) return block;
+        return {
+          ...block,
+          table_data: newTableData,
+        };
+      });
+    });
+  };
+
   const handleSaveLectureParts = () => {
     const newAttrsData = blocks
       .filter((attr) => !attr.a_id)
@@ -212,9 +224,6 @@ export const LectureConstructorProvider = ({ children }) => {
         block.a_type
       );
     });
-
-    console.log(initialAttrsData);
-    console.log(initialBlocksToUpdate);
 
     if (initialBlocksToUpdate.length) {
       dispatch(
@@ -277,6 +286,8 @@ export const LectureConstructorProvider = ({ children }) => {
 
       addLink: () => addNewLink(block.id),
       deleteLink: (link) => deleteLink(block.id, link),
+
+      tableData: (newTableData) => handleTableData(block.id, newTableData),
 
       onChangeLink: (linkIndex, property, value) =>
         onChangeLinksProperty(block.id, linkIndex, property, value),

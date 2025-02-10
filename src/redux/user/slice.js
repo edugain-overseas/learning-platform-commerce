@@ -6,6 +6,7 @@ import {
   deleteNoteThunk,
   deleteNotesFolderThunk,
   getLastUserImagesThunk,
+  getUserCertificatesThunk,
   getUserInfoThunk,
   initializationChatThunk,
   loginThunk,
@@ -209,6 +210,19 @@ const userSlice = createSlice({
         state.error = { code: payload.code, message: payload.message };
       })
 
+      .addCase(getUserCertificatesThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getUserCertificatesThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.certificates = payload.certificates;
+      })
+      .addCase(getUserCertificatesThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
       .addCase(updateStudingTimeThunk.pending, (state, _) => {
         state.isLoading = true;
         state.error = null;
@@ -232,6 +246,8 @@ const userSlice = createSlice({
         state.email = payload.email;
         state.phone = payload.phone ? payload.phone : "";
         state.country = payload.country ? payload.country : "";
+        state.changedName = payload.changed_name;
+        state.changedSurname = payload.changed_surname;
       })
       .addCase(updateUserInfoThunk.rejected, (state, { payload }) => {
         state.isLoading = false;

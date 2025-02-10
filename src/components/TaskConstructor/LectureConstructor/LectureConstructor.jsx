@@ -10,6 +10,7 @@ import File from "./parts/File";
 import Link from "./parts/Link";
 import ToolsPanel from "./ToolsPanel";
 import styles from "./LectureConstructor.module.scss";
+import Table from "./parts/Table";
 
 const LectureConstructor = () => {
   const {
@@ -38,6 +39,8 @@ const LectureConstructor = () => {
         return <File partData={block} setters={setters} />;
       case "link":
         return <Link partData={block} setters={setters} />;
+      case "table":
+        return <Table partData={block} setters={setters} />;
       default:
         return null;
     }

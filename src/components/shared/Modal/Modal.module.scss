@@ -6,8 +6,8 @@
   z-index: 999;
   inset: 0;
   height: 100%;
-  background-color: rgba($color: #000000, $alpha: 0.35);
-  backdrop-filter: blur(4rem);
+  background-color: rgba($color: #fcfcfc, $alpha: 0.65);
+  backdrop-filter: blur(10rem);
   overflow: hidden;
   transition: all var(--transition-time-min) ease;
   opacity: 0;
@@ -24,17 +24,27 @@
 }
 
 .contentWrapper {
-  background-color: var(--bg-rgba-primary);
-  padding: 16rem 32rem 24rem;
+  padding: 18rem 40rem 32rem;
   border-radius: 5rem;
-  box-shadow: var(--drop-shadow-button-main);
   transform: scale(0.65);
-  transition: transform var(--transition-time-min) ease;
   position: relative;
+  background-color: rgba($color: #fcfcfc, $alpha: 0.65);
+  box-shadow: var(--drop-shadow-button-main-hover);
+  backdrop-filter: blur(32rem);
+
+  transition: transform var(--transition-time-min) ease;
 }
 
 .closeBtn {
   position: absolute;
-  top: 8rem;
-  right: 8rem;
+  top: 18rem;
+  right: 18rem;
+
+  svg {
+    width: 12rem;
+    height: 12rem;
+    * {
+      fill: #bdc4d2;
+    }
+  }
 }

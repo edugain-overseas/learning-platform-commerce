@@ -410,7 +410,7 @@
       width: 4rem;
       height: 4rem;
       background-color: var(--content-nav-hover);
-      top: 50%;
+      top: calc(16rem * 1.2 / 2);
       border-radius: 1rem;
       transform: translateY(-50%);
     }

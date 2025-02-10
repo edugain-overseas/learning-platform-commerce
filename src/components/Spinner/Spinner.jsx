@@ -5,7 +5,7 @@ import { remToPx } from "../../utils/remToPx";
 const Spinner = ({ contrastColor = false, size = 8, height = 20 }) => {
   return (
     <SyncLoader
-      color={contrastColor ? "#fff" : "#d00000"}
+      color={contrastColor ? "#fcfcfc" : "#d00000"}
       size={remToPx(size)}
       speedMultiplier={0.7}
       style={{ overflow: "visible", height: `${height}rem` }}

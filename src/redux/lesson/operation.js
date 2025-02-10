@@ -47,6 +47,8 @@ export const updateLessonThunk = createAsyncThunk(
     try {
       const { id, ...updatedLessonData } = updatedLesson;
       const response = await updateLesson(id, updatedLessonData);
+      console.log(response);
+      
       store.dispatch(
         updateLessonInCourse({ courseId, lessonId: id, updatedLessonData })
       );
@@ -80,11 +82,11 @@ export const confirmLectureThunk = createAsyncThunk(
 export const confirmTestThunk = createAsyncThunk(
   "lesson/confirmTest",
   async (
-    { lessonId, studentTest, lessonType = "test" },
+    { lessonId, studentTest, lessonType = "test", spentMinutes },
     { rejectWithValue }
   ) => {
     try {
-      const response = await confirmTest(lessonId, studentTest, lessonType);
+      const response = await confirmTest(lessonId, studentTest, lessonType, spentMinutes);
       return response;
     } catch (error) {
       return rejectWithValue({

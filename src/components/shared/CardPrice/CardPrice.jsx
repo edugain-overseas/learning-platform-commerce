@@ -38,7 +38,7 @@ const CardPrice = ({
       <div className={styles.priceWrapper}>
         <span className={styles.dollarSign}>$</span>
         <div className={styles.info}>
-          <span className={styles.label}>Buy</span>
+          <span className={styles.label}>{oldPrice ? "New price" : "Buy"}</span>
           <span className={styles.value}>{priceFormatter(price)}</span>
         </div>
       </div>

@@ -12,7 +12,7 @@
 .subContainer {
   display: flex;
   align-items: center;
-  gap: 5rem;
+  gap: 12rem;
 }
 
 .left {
@@ -44,8 +44,8 @@
     content: "";
     position: absolute;
     width: 1rem;
-    height: 35rem;
-    left: -6rem;
+    height: 36rem;
+    left: -10rem;
     top: 50%;
     transform: translateY(-50%) rotateZ(140deg);
     background-color: var(--content-datail-secondary);

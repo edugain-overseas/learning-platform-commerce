@@ -7,7 +7,7 @@ import Spinner from "../../../components/Spinner/Spinner";
 import LessonsTable from "./LessonTable";
 import PublishCourseBtn from "./PublishCourseBtn";
 import PublishingErrorComponent from "./PublishingErrorComponent";
-import styles from './CoursePublishPage.module.scss';
+import styles from "./CoursePublishPage.module.scss";
 
 const CoursePublishPage = () => {
   const { courseId } = useParams();

@@ -55,21 +55,18 @@ const AdminCourseConstructorPage = ({ courseData }) => {
           skills_text: courseData.skills_text,
           price: priceFormatter(courseData.price),
           old_price: priceFormatter(courseData.old_price),
+          quantity_test: courseData.quantity_test,
           c_type: courseData.c_type,
-          c_duration: courseData.c_duration,
-          c_access: courseData.c_access,
           c_award: courseData.c_award,
           c_language: courseData.c_language,
           c_level: courseData.c_level,
         }
       : {
+          program_text: courseProperties.program_text,
           c_type: courseProperties.c_type,
-          c_duration: courseProperties.c_duration,
-          c_access: courseProperties.c_access,
           c_award: courseProperties.c_award,
           c_language: courseProperties.c_language,
           c_level: courseProperties.c_level,
-          program_text: courseProperties.program_text,
         },
   });
   const watchTitle = watch("title");
@@ -78,11 +75,11 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const watchSkillsText = watch("skills_text");
   const watchAboutText = watch("about_text");
   const watchCType = watch("c_type");
-  const watchCDuration = watch("c_duration");
-  const watchCAccess = watch("c_access");
-  const watchCAward = watch("c_award");
   const watchCLanguage = watch("c_language");
   const watchCLevel = watch("c_level");
+  const watchCAward = watch("c_award");
+  // const watchCDuration = watch("c_duration");
+  // const watchCAccess = watch("c_access");
   const registerWithMask = useHookFormMask(register);
 
   const onSubmit = (data) => {
@@ -292,29 +289,6 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                 <li>
                   <span className={styles.property}>
                     <ClockIcon />
-                    Duration:
-                  </span>
-                  <Textarea
-                    maxRows={1}
-                    maxLength={20}
-                    placeholder="3 hours (self-paced)"
-                    {...register("c_duration", {
-                      required: {
-                        value: true,
-                        message: "This field is required",
-                      },
-                    })}
-                  />
-                  <span className={styles.maxLength}>{`${
-                    watchCDuration.length
-                  }/${20}`}</span>
-                  {errors.c_duration && (
-                    <p className={styles.error}>{errors.c_duration.message}</p>
-                  )}
-                </li>
-                <li>
-                  <span className={styles.property}>
-                    <ClockIcon />
                     Award:
                   </span>
                   <Textarea
@@ -384,24 +358,30 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                 <li>
                   <span className={styles.property}>
                     <ClockIcon />
-                    Access:
+                    Tests:
                   </span>
-                  <Textarea
-                    maxRows={1}
-                    maxLength={20}
-                    placeholder="Lifetime access"
-                    {...register("c_access", {
-                      required: {
-                        value: true,
-                        message: "This field is required",
+
+                  <input
+                    type="text"
+                    placeholder="Quantity of tests"
+                    {...register("quantity_test", {
+                      required: "This field is required",
+                      min: { value: 2, message: "Minimum value is 2" },
+                      max: { value: 10, message: "Maximum value is 10" },
+                      validate: (value) => {
+                        if (!Number.isInteger(+value)) {
+                          return "Must be an integer";
+                        }
+                        if ([7, 9].includes(+value)) {
+                          return "7 and 9 are not allowed";
+                        }
                       },
                     })}
                   />
-                  <span className={styles.maxLength}>{`${
-                    watchCAccess.length
-                  }/${20}`}</span>
-                  {errors.c_access && (
-                    <p className={styles.error}>{errors.c_access.message}</p>
+                  {errors.quantity_test && (
+                    <p className={styles.error}>
+                      {errors.quantity_test.message}
+                    </p>
                   )}
                 </li>
               </ul>
