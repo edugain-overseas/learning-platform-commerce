@@ -8,6 +8,7 @@ const createLectureAttributeUrlOption = {
   picture: "images",
   file: "files",
   link: "link",
+  table: "table",
 };
 
 export const getLessonById = async (lessonId) => {
@@ -131,11 +132,16 @@ export const submitTestAttempt = async ({
 };
 
 export const createLectureAttribute = async (lectureId, attrData) => {
+  const requestData =
+    attrData.a_type === "table"
+      ? { ...attrData, table_data: JSON.stringify(attrData.table_data) }
+      : attrData;
+
   try {
     const data = await privateRoutesHandler(
       "post",
       `lecture/create/${createLectureAttributeUrlOption[attrData.a_type]}`,
-      attrData,
+      requestData,
       {
         params: {
           lecture_id: lectureId,
@@ -149,11 +155,15 @@ export const createLectureAttribute = async (lectureId, attrData) => {
 };
 
 export const updateLectureAttribute = async (attr_id, attrData) => {
+  const requestData =
+    attrData.a_type === "table"
+      ? { ...attrData, table_data: JSON.stringify(attrData.table_data) }
+      : attrData;
   try {
     await privateRoutesHandler(
       "patch",
       `lecture/update/${createLectureAttributeUrlOption[attrData.a_type]}`,
-      attrData,
+      requestData,
       {
         params: { attr_id },
       }

@@ -4,10 +4,15 @@ import TextInput from "./shared/TextInput";
 import TableConstructor from "../../../Table/TableConstructor";
 
 const Table = ({ partData, setters }) => {
+  console.log(partData);
+
   return (
     <>
       <TitleInput value={partData.a_title} setValue={setters.title} />
-      <TableConstructor state={partData.table_data} setState={setters.tableData}/>
+      <TableConstructor
+        state={partData.table_data}
+        setState={setters.tableData}
+      />
       <TextInput value={partData.a_text} setValue={setters.text} />
     </>
   );

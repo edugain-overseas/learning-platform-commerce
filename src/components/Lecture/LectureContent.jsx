@@ -13,6 +13,7 @@ import DocumentLink from "../shared/DocumentLink/DocumentLink";
 import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
 import CompleteBtn from "../shared/CompleteBtn/CompleteBtn";
 import styles from "./Lecture.module.scss";
+import TableUI from "../Table/TableUI";
 
 const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
   const [fullscreen, setFullscreen] = useState(false);
@@ -47,6 +48,7 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
         hided,
         files,
         links,
+        table_data,
       } = section;
       const id = isTemplate ? section.id : section.a_id;
       switch (type) {
@@ -251,6 +253,26 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
                 dangerouslySetInnerHTML={{ __html: title }}
               ></h3>
               <ImageGroup imagesData={files} styles={styles} isDesc={true} />
+              {text && (
+                <div
+                  className={styles.sectionContentWrapper}
+                  dangerouslySetInnerHTML={{ __html: text }}
+                ></div>
+              )}
+            </section>
+          );
+        case "table":
+          return (
+            <section
+              key={id}
+              id={type}
+              className={hided ? "hidden" : styles.section}
+            >
+              <h3
+                className={styles.sectionTitle}
+                dangerouslySetInnerHTML={{ __html: title }}
+              ></h3>
+              <TableUI tableData={table_data} />
               {text && (
                 <div
                   className={styles.sectionContentWrapper}

@@ -1,5 +1,8 @@
 export const compareObjectsByKeys = (obj1, obj2, keys) => {
+  console.log(keys);
+  
   for (let key of keys) {
+    console.log(obj1?.[key], obj2?.[key]);
     if (obj1?.[key] !== obj2?.[key]) {
       return true;
     }
@@ -20,12 +23,16 @@ const getByTemplateTypeByAttrType = (a_type) => {
       return "files";
     case "link":
       return "links";
+    case "table":
+      return "table";
     default:
       break;
   }
 };
 
 export const compareLecturePart = (obj1, obj2, a_type) => {
+  console.log(obj1, obj2);
+
   const textBaseValues = ["a_title", "a_text", "a_number"];
   const fileBaseValues = [
     "filename",
@@ -34,6 +41,7 @@ export const compareLecturePart = (obj1, obj2, a_type) => {
     "file_description",
   ];
   const linksBaseValues = ["link", "anchor"];
+  const tableBaseValues = ["table_data"];
 
   const templateType = getByTemplateTypeByAttrType(a_type);
 
@@ -47,15 +55,19 @@ export const compareLecturePart = (obj1, obj2, a_type) => {
       ]);
 
     case "files":
-      const isFilesEqualsLength = obj1.files.length === obj2.files.length      
-      
+      const isFilesEqualsLength = obj1.files.length === obj2.files.length;
+
       const isFilesChanged = obj1.files.reduce((changed, file, index) => {
         return (
           changed ||
           compareObjectsByKeys(file, obj2.files[index], fileBaseValues)
         );
       }, false);
-      return compareObjectsByKeys(obj1, obj2, textBaseValues) || isFilesChanged || !isFilesEqualsLength;
+      return (
+        compareObjectsByKeys(obj1, obj2, textBaseValues) ||
+        isFilesChanged ||
+        !isFilesEqualsLength
+      );
 
     case "links":
       let isLinksChanged = false;
@@ -71,9 +83,13 @@ export const compareLecturePart = (obj1, obj2, a_type) => {
           );
         }, false);
       }
-      console.log("isLinksChanged: ", isLinksChanged);
       return compareObjectsByKeys(obj1, obj2, textBaseValues) || isLinksChanged;
 
+    case "table":
+      return compareObjectsByKeys(obj1, obj2, [
+        ...textBaseValues,
+        ...tableBaseValues,
+      ]);
     default:
       return false;
   }

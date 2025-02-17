@@ -15,18 +15,28 @@ export const getTemplateByIdAndType = async (id, type) => {
       "get",
       `template/get/${type}/${id}`
     );
-    return response
+    return response;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const createTemplateByType = async (type, templateData) => {
+export const createTemplateByType = async (type, data) => {
+  const requestData = {...data, template_data : data.template_data.map(attr=>{
+    if (attr.a_type === 'table') {
+      return {
+        ...attr,
+        table_data: JSON.stringify(attr.table_data)
+      }
+    }
+    return attr
+  })}
+
   try {
     const response = await privateRoutesHandler(
       "post",
       `template/create/${type}`,
-      templateData
+      requestData
     );
     return response;
   } catch (error) {

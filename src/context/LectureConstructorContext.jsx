@@ -253,7 +253,6 @@ export const LectureConstructorProvider = ({ children }) => {
         .then((response) => {
           setBlocks((prev) => {
             const blocksWithoutNewBlocks = prev.filter((block) => block.a_id);
-            console.log(blocksWithoutNewBlocks);
             return [
               ...blocksWithoutNewBlocks,
               ...lectureAttributesToBlocks(response),
