@@ -59,8 +59,7 @@ const userSlice = createSlice({
         (key) => (state[key] = initialState[key])
       );
       instance.defaults.headers["Authorization"] = null;
-      window.location.href =
-        "http://localhost:3000/learning-platform-commerce/login";
+      window.location.href = `${window.location.origin}/login`;
     },
     moderJoinChat(state, { payload }) {
       const chatId = payload;

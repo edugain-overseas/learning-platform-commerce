@@ -15,6 +15,7 @@ import TestHeader from "../TasksHeader/TestHeader";
 import LectureContent from "../Lecture/LectureContent";
 import Spinner from "../Spinner/Spinner";
 import styles from "./TaskConstructor.module.scss";
+import { TestContructorProvider } from "../../context/TestContructorContext";
 
 const TaskContructor = () => {
   const [viewTypeIndex, setViewTypeIndex] = useState(0);
@@ -30,6 +31,8 @@ const TaskContructor = () => {
   const courseId = task?.course_id;
   const course = courses.find(({ id }) => id === +courseId);
   const courseName = course?.title;
+
+  console.log(task);
 
   useEffect(() => {
     if (taskId && username) {
@@ -50,9 +53,7 @@ const TaskContructor = () => {
                 switcherValue={viewTypeIndex}
                 switcherOnChange={setViewTypeIndex}
               />
-              {viewTypeIndex === 0 && (
-                <LectureConstructor />
-              )}
+              {viewTypeIndex === 0 && <LectureConstructor />}
               {viewTypeIndex === 1 && (
                 <div className={styles.lectureContentWrapper}>
                   <LectureContent lecture={{ courseName, ...task }} />
@@ -64,8 +65,13 @@ const TaskContructor = () => {
       case "test":
       case "exam":
         return (
-          <>
-            <TestHeader test={task} />
+          <TestContructorProvider>
+            <TestHeader
+              test={task}
+              switcherItems={[<EditIcon />, <ReadIcon />]}
+              switcherValue={viewTypeIndex}
+              switcherOnChange={setViewTypeIndex}
+            />
             <TestConstructor
               attempts={task[`${taskType}_data`]?.attempts}
               initialBlocks={task[`${taskType}_data`]?.questions}
@@ -74,7 +80,7 @@ const TaskContructor = () => {
               lessonType={task.type}
               timer={task[`${taskType}_data`]?.timer}
             />
-          </>
+          </TestContructorProvider>
         );
       default:
         return (

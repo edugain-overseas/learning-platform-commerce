@@ -34,6 +34,7 @@ const TestContent = ({
 
   const dispatch = useDispatch();
 
+  console.log(test);
   const { id: testId, course_id: courseId, type: lessonType, status } = test;
 
   const testData = lessonType === "exam" ? test.exam_data : test.test_data;
@@ -276,8 +277,8 @@ const TestContent = ({
                 </div>
                 <QuestionMatching
                   answers={{
-                    left: answers.left,
-                    right: answers.right,
+                    left: answers[0].left,
+                    right: answers[0].right,
                   }}
                   state={matchingState}
                   setState={setMatchingState}

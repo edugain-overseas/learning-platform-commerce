@@ -6,9 +6,14 @@ import { useSelector } from "react-redux";
 import { getUserType } from "../../redux/user/selectors";
 import SubmitTest from "./SubmitTest";
 import LessonGrade from "../shared/LessonGrade/LessonGrade";
+import Template from "../shared/Template/Template";
+import Switcher from "../shared/Switcher/Switcher";
 
 const TestHeader = ({
   test,
+  switcherValue,
+  switcherItems,
+  switcherOnChange,
   questionsDoneAmount = 0,
   testScore,
   isExam = false,
@@ -28,13 +33,13 @@ const TestHeader = ({
       <div className={styles.toolsWrapper}>
         {isModer && (
           <>
-            {/* <Template type={isExam ? 'exam' : 'test'} /> */}
-            {/* <Switcher
+            <Template type={isExam ? "exam" : "test"} />
+            <Switcher
               items={switcherItems}
               value={switcherValue}
               onChange={switcherOnChange}
-            /> */}
-        </>
+            />
+          </>
         )}
         {!isModer && (
           <>

@@ -16,12 +16,18 @@ import { deleteTemplateByIdThunk } from "../../../redux/template/operation";
 import Modal from "../Modal/Modal";
 import LectureContent from "../../Lecture/LectureContent";
 import Spinner from "../../Spinner/Spinner";
-import styles from "./Template.module.scss";
 import "../../TasksHeader/AntPopoverStyles.css";
+import { useTestContructor } from "../../../context/TestContructorContext";
+import { getTemplateTypeByLessonType } from "../../../utils/getTemplateTypeByLessonType";
+import TestQuestions from "../../Test/TestQuestions";
+import styles from "./Template.module.scss";
+import { testQuestionsToBlocks } from "../../../utils/testQuestionsToBlocks";
 
 const TemplatesList = ({ type, closePopover }) => {
   const dispatch = useDispatch();
-  const setBlocks = useLectureConstructor().setBlocks;
+  const setLectureBlocks = useLectureConstructor()?.setBlocks;
+  const setTestBlocks = useTestContructor()?.setBlocks;
+  const setBlocks = type === "lecture" ? setLectureBlocks : setTestBlocks;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,28 +36,31 @@ const TemplatesList = ({ type, closePopover }) => {
   const [messageApi, contextHolder] = useMessage();
 
   const templates = useSelector(getAllTemplates).filter(
-    (template) => template.type === type
+    (template) => template.type === getTemplateTypeByLessonType(type)
   );
 
   const selectedTemplateDetails = templatesDetails.find(
     ({ id }) => id === selectedTemplateId
   );
 
-  const selectedTemplateData = selectedTemplateDetails?.[`${type}_template`];
+  const selectedTemplateData =
+    selectedTemplateDetails?.[`${getTemplateTypeByLessonType(type)}_template`];
   const selectedTemplateTitle = selectedTemplateDetails?.title;
 
   const fetchTemplateDetails = async (id) => {
     setIsLoading(true);
     try {
       const response = await getTemplateByIdAndType(id, type);
+      console.log(response);
+
       const newTemplateDetails = {
         ...response,
-        [`${type}_template`]: response[`${type}_template`].map(
-          ({ a_id, ...rest }, index) => ({
-            ...rest,
-            id: generateId() + index,
-          })
-        ),
+        [`${getTemplateTypeByLessonType(type)}_template`]: response[
+          `${getTemplateTypeByLessonType(type)}_template`
+        ].map(({ a_id, q_id, ...rest }, index) => ({
+          ...rest,
+          id: generateId() + index,
+        })),
       };
       setTemplatesDetails((prev) => [...prev, newTemplateDetails]);
       setIsLoading(false);
@@ -81,18 +90,21 @@ const TemplatesList = ({ type, closePopover }) => {
     if (templatesDetails.find((templateDetails) => templateDetails.id === id)) {
       const templateData = templatesDetails.find(
         (templateDetails) => templateDetails.id === id
-      )[`${type}_template`];
-      setBlocks(templateData);
+      )[`${getTemplateTypeByLessonType(type)}_template`];
+
+      setBlocks(testQuestionsToBlocks(templateData));
     } else {
       const template = await fetchTemplateDetails(id);
-      const templateData = template[`${type}_template`];
-      setBlocks(templateData);
+      const templateData =
+        template[`${getTemplateTypeByLessonType(type)}_template`];
+
+      setBlocks(testQuestionsToBlocks(templateData));
     }
     closePopover();
   };
 
   const handleUseTemplateFromModal = () => {
-    setBlocks(selectedTemplateData);
+    setBlocks(testQuestionsToBlocks(selectedTemplateData));
     setIsModalOpen(false);
     closePopover();
   };
@@ -107,6 +119,8 @@ const TemplatesList = ({ type, closePopover }) => {
         });
       });
   };
+
+  console.log(selectedTemplateId);
 
   return (
     <>
@@ -148,10 +162,18 @@ const TemplatesList = ({ type, closePopover }) => {
         closeModal={() => setIsModalOpen(false)}
       >
         <h4 className={styles.templateTitle}>{selectedTemplateTitle}</h4>
-        <LectureContent
-          isTemplate={true}
-          tepmplateData={selectedTemplateData ? selectedTemplateData : []}
-        />
+        {getTemplateTypeByLessonType(type) === "lecture" ? (
+          <LectureContent
+            isTemplate={true}
+            tepmplateData={selectedTemplateData ? selectedTemplateData : []}
+          />
+        ) : (
+          selectedTemplateData && (
+            <TestQuestions
+              questions={selectedTemplateData}
+            />
+          )
+        )}
         <div className={styles.modalBtnsWrapper}>
           <button
             className={styles.useBtn}
@@ -177,8 +199,6 @@ const Templates = ({ type }) => {
   const handleOpenChange = (newOpen) => {
     setIsOpen(newOpen);
   };
-
-  //   const closePopOver = () => handleOpenChange(false);
 
   return (
     <Popover

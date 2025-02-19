@@ -14,15 +14,25 @@ const CreateNewLessonForm = ({ lessonNumber, closeModal }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
     reset,
+    setValue,
+    formState: { errors },
   } = useForm();
+
   const [lessonType, setLessonType] = useState();
   const [uploadedImage, setUploadedImage] = useState();
   const [messageApi, contextHolder] = useMessage();
   const { courseId } = useParams();
   const isLoading = useSelector(getIsLoading);
   const dispatch = useDispatch();
+
+  const onLessonTypeChange = (value) => {
+    console.log(value);
+    if (value === "test") {
+      setValue("scheduled_time", "80");
+    }
+    setLessonType(value);
+  };
 
   const onSubmit = (data) => {
     if (!lessonType) {
@@ -74,7 +84,7 @@ const CreateNewLessonForm = ({ lessonNumber, closeModal }) => {
         placeholder="Select lesson type"
         wrapperStyles={{ width: "100%", fontSize: "16rem" }}
         allowClear={false}
-        onChange={setLessonType}
+        onChange={onLessonTypeChange}
         dropDownWrapperStyles={{ fontSize: "16rem" }}
       />
       <div className={styles.inputWrapper}>

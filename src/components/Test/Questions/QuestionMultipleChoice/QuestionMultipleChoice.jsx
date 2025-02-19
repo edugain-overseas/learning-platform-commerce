@@ -18,7 +18,7 @@ const QuestionMultipleChoice = ({ answers, state, setState, id }) => {
           key={answerId}
           value={answerId}
           onChange={onCheckboxInputChange}
-          checked={state.includes(answerId)}
+          checked={state?.includes(answerId)}
           name={answerText}
           labelText={`${getLetterVatiantsByIndex(index)} ${answerText}`}
         />

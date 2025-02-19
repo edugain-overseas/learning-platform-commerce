@@ -26,11 +26,8 @@ const DropZone = ({ onDrop, accept, className = "", renderLabel = true }) => {
       <input {...getInputProps()} />
       <div className={styles.labelWrapper}>
         <UploadIcon className={styles.uploadIcon} />
-        {renderLabel ? (
-          <p>{getLabelbyType()}</p>
-        ) : (
-          "Click or drag to this area to upload"
-        )}
+        {renderLabel && <p>{getLabelbyType()}</p>}
+        {/* "Click or drag to this area to upload" */}
       </div>
     </div>
   );

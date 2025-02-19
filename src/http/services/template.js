@@ -1,3 +1,4 @@
+import { getTemplateTypeByLessonType } from "../../utils/getTemplateTypeByLessonType";
 import { privateRoutesHandler } from "../privateRoutesHandler";
 
 export const getAllTemplates = async () => {
@@ -13,7 +14,7 @@ export const getTemplateByIdAndType = async (id, type) => {
   try {
     const response = await privateRoutesHandler(
       "get",
-      `template/get/${type}/${id}`
+      `template/get/${getTemplateTypeByLessonType(type)}/${id}`
     );
     return response;
   } catch (error) {
@@ -22,20 +23,23 @@ export const getTemplateByIdAndType = async (id, type) => {
 };
 
 export const createTemplateByType = async (type, data) => {
-  const requestData = {...data, template_data : data.template_data.map(attr=>{
-    if (attr.a_type === 'table') {
-      return {
-        ...attr,
-        table_data: JSON.stringify(attr.table_data)
+  const requestData = {
+    ...data,
+    template_data: data.template_data.map((attr) => {
+      if (attr.a_type === "table") {
+        return {
+          ...attr,
+          table_data: JSON.stringify(attr.table_data),
+        };
       }
-    }
-    return attr
-  })}
+      return attr;
+    }),
+  };
 
   try {
     const response = await privateRoutesHandler(
       "post",
-      `template/create/${type}`,
+      `template/create/${getTemplateTypeByLessonType(type)}`,
       requestData
     );
     return response;

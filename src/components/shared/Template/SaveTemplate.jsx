@@ -8,14 +8,18 @@ import useMessage from "antd/es/message/useMessage";
 import SaveTemplateForm from "./SaveTemplateForm";
 import Modal from "../Modal/Modal";
 import styles from "./Template.module.scss";
+import { useTestContructor } from "../../../context/TestContructorContext";
 
 const SaveTemplate = ({ type }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [messageApi, contextHolder] = useMessage();
-  const isLoading = useSelector(getIsTemplateLoading)
+  const isLoading = useSelector(getIsTemplateLoading);
   const dispatch = useDispatch();
 
-  const { blocks } = useLectureConstructor();
+  const lectureBlocks = useLectureConstructor()?.blocks;
+  const testBlocks = useTestContructor()?.blocks;
+
+  const blocks = type === "lecture" ? lectureBlocks : testBlocks;
 
   console.log(isLoading);
 
@@ -29,10 +33,8 @@ const SaveTemplate = ({ type }) => {
     }
     const templateData = {
       title,
-      type,
       template_data: blocks,
     };
-    console.log(templateData);
 
     dispatch(createTemplateByTypeThunk({ type, templateData }))
       .unwrap()

@@ -17,7 +17,8 @@
 
 .uploadIcon {
   width: min(60%, 130rem);
-  aspect-ratio: 1;
+  height: min(60%, 130rem);
+  flex-shrink: 0;
 }
 
 .uploadIcon path {

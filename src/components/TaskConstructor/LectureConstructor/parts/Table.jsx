@@ -9,10 +9,12 @@ const Table = ({ partData, setters }) => {
   return (
     <>
       <TitleInput value={partData.a_title} setValue={setters.title} />
-      <TableConstructor
-        state={partData.table_data}
-        setState={setters.tableData}
-      />
+      {partData.table_data && (
+        <TableConstructor
+          state={partData.table_data}
+          setState={setters.tableData}
+        />
+      )}
       <TextInput value={partData.a_text} setValue={setters.text} />
     </>
   );

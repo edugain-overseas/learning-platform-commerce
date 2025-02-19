@@ -7,6 +7,9 @@ const QuestionMatching = ({ answers, setState, id, state }) => {
   const leftOptions = answers?.left || [];
   const rightOptions = answers?.right || [];
 
+  console.log(answers);
+  
+
   const options = rightOptions.map(({ id }, index) => ({
     label: getLetterVatiantsByIndex(index),
     value: id,
@@ -38,7 +41,7 @@ const QuestionMatching = ({ answers, setState, id, state }) => {
         <span className={styles.matchPointer}>Answer options:</span>
         <ul>
           {leftOptions.map(({ id: leftOptionId }, index) => {
-            const currentValue = state.find(
+            const currentValue = state?.find(
               (answer) => answer.left_id === leftOptionId
             )?.right_id;
             return (

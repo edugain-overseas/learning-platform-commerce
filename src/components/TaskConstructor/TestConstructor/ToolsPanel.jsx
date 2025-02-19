@@ -1,55 +1,62 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getAllLessons } from "../../../redux/lesson/selectors";
 import { InputNumber } from "antd";
 import { testParts } from "../../../costants/tasksParts";
 import { ReactComponent as EditIcon } from "../../../images/icons/editBlack.svg";
 import { ReactComponent as SaveIcon } from "../../../images/icons/save.svg";
-import styles from "./TestConstructor.module.scss";
 import SaveBtn from "../../shared/SaveBtn/SaveBtn";
+import styles from "./TestConstructor.module.scss";
 
 const ToolsPanel = ({
   handleAddBlock,
-  attempts: defaultAttempts,
-  score: defaultScore,
+  // attempts: defaultAttempts,
+  // score: defaultScore,
   timer: defaultTimer,
   changeTestMetaData,
-  blocksScore,
+  // blocksScore,
   handleSaveTestParts,
   isLoading,
 }) => {
-  const [attemptsDisabled, setAttemptsDisabled] = useState(true);
-  const [scoreDisabled, setScoreDisabled] = useState(true);
+  const { taskId } = useParams();
+  const task = useSelector(getAllLessons).find(
+    (lesson) => lesson.id === +taskId
+  );
+  // const [attemptsDisabled, setAttemptsDisabled] = useState(true);
+  // const [scoreDisabled, setScoreDisabled] = useState(true);
   const [timerDisabled, setTimerDisabled] = useState(true);
-  const [attempts, setAttempts] = useState(defaultAttempts || 10);
-  const [score, setScore] = useState(defaultScore || 120);
-  const [timer, setTimer] = useState(defaultTimer || 40);
+  // const [attempts, setAttempts] = useState(defaultAttempts || 10);
+  // const [score, setScore] = useState(defaultScore || 120);
+  const [timer, setTimer] = useState(defaultTimer || task?.scheduled_time);
 
-  const handleAttemptsChange = () => {
-    if (!attemptsDisabled) {
-      if (attempts !== defaultAttempts) {
-        changeTestMetaData({ attempts }).then(() => setAttemptsDisabled(true));
-      } else {
-        setAttemptsDisabled(true);
-      }
-    } else {
-      setAttemptsDisabled(false);
-    }
-  };
+  // const handleAttemptsChange = () => {
+  //   if (!attemptsDisabled) {
+  //     if (attempts !== defaultAttempts) {
+  //       changeTestMetaData({ attempts }).then(() => setAttemptsDisabled(true));
+  //     } else {
+  //       setAttemptsDisabled(true);
+  //     }
+  //   } else {
+  //     setAttemptsDisabled(false);
+  //   }
+  // };
 
-  const handleScoreChange = () => {
-    if (!scoreDisabled) {
-      if (score !== defaultScore) {
-        changeTestMetaData({ score }).then(() => {
-          if (blocksScore === score) {
-            setScoreDisabled(true);
-          }
-        });
-      } else {
-        setScoreDisabled(true);
-      }
-    } else {
-      setScoreDisabled(false);
-    }
-  };
+  // const handleScoreChange = () => {
+  //   if (!scoreDisabled) {
+  //     if (score !== defaultScore) {
+  //       changeTestMetaData({ score }).then(() => {
+  //         if (blocksScore === score) {
+  //           setScoreDisabled(true);
+  //         }
+  //       });
+  //     } else {
+  //       setScoreDisabled(true);
+  //     }
+  //   } else {
+  //     setScoreDisabled(false);
+  //   }
+  // };
 
   const handleTimerChange = () => {
     if (!timerDisabled) {
@@ -65,7 +72,7 @@ const ToolsPanel = ({
 
   return (
     <div className={styles.toolsWrapper}>
-      <div className={styles.attemptsWrapper}>
+      {/* <div className={styles.attemptsWrapper}>
         <InputNumber
           min={1}
           value={attempts}
@@ -99,7 +106,7 @@ const ToolsPanel = ({
         >
           {scoreDisabled ? <EditIcon /> : <SaveIcon />}
         </button>
-      </div>
+      </div> */}
       <div className={styles.attemptsWrapper}>
         <InputNumber
           min={1}
