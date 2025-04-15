@@ -98,7 +98,7 @@ const courseSlice = createSlice({
       })
       .addCase(createCourseThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.courses.push({ ...payload, lessons: [], quantity_test: 0 });
+        state.courses.push({ ...payload, lessons: []});
       })
       .addCase(createCourseThunk.rejected, (state, { payload }) => {
         state.isLoading = false;

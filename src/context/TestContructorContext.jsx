@@ -31,13 +31,13 @@ export const TestContructorProvider = ({ children }) => {
   const task = useSelector(getAllLessons).find(
     (lesson) => lesson.id === +taskId
   );
+  
   console.log(task);
 
-  const initialBlocks = task.test_data.questions || [];
   const lessonType = task.type;
-  const testId = task.test_data.test_id;
+  const initialBlocks = task[`${lessonType}_data`].questions || [];
+  const testId = task[`${lessonType}_data`][`${lessonType}_id`];
   console.log(initialBlocks);
-  
 
   const [blocks, setBlocks] = useState(testQuestionsToBlocks(initialBlocks));
   const [messageApi, contextHolder] = useMessage();
@@ -269,40 +269,47 @@ export const TestContructorProvider = ({ children }) => {
 
     // Save blocks to create on server
     if (blocksToCreate.length !== 0) {
-      try {
-        dispatch(
-          createTestQuestionsThunk({
-            testId,
-            questionsData: blocksToCreate,
-            lessonType,
-          })
-        )
-          .unwrap()
-          .then((response) => {
-            setBlocks((prev) => {
-              const oldBlocks = prev.filter((block) => block.q_id);
-              console.log(response);
-              return [
-                ...oldBlocks,
-                ...response.map((newBlock) => ({
-                  ...newBlock,
-                  id: newBlock.q_id,
-                })),
-              ];
-            });
-            messageApi.success({
-              content: `Block${blocksToCreate.length !== 1 ? "s" : ""} ha${
-                blocksToCreate.length !== 1 ? "ve" : "s"
-              } been created`,
-              duration: 3,
-            });
-          });
-      } catch (error) {
+      if (blocksToCreate.find((block) => block.q_score === 0)) {
         messageApi.error({
-          content:
-            error.message || error.detail.message || "Something went wrong",
+          content: "Question score must be grater then 0",
           duration: 3,
         });
+      } else {
+        try {
+          dispatch(
+            createTestQuestionsThunk({
+              testId,
+              questionsData: blocksToCreate,
+              lessonType,
+            })
+          )
+            .unwrap()
+            .then((response) => {
+              setBlocks((prev) => {
+                const oldBlocks = prev.filter((block) => block.q_id);
+                const newBlocks = testQuestionsToBlocks(response);
+                return [
+                  ...oldBlocks,
+                  ...newBlocks.map((newBlock) => ({
+                    ...newBlock,
+                    id: newBlock.q_id,
+                  })),
+                ];
+              });
+              messageApi.success({
+                content: `Question${blocksToCreate.length !== 1 ? "s" : ""} ha${
+                  blocksToCreate.length !== 1 ? "ve" : "s"
+                } been created`,
+                duration: 3,
+              });
+            });
+        } catch (error) {
+          messageApi.error({
+            content:
+              error.message || error.detail.message || "Something went wrong",
+            duration: 3,
+          });
+        }
       }
     }
 

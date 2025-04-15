@@ -4,6 +4,7 @@ import {
   deleteTemplateByIdThunk,
   getAllTemplatesThunk,
 } from "./operation";
+import { getTemplateTypeByLessonType } from "../../utils/getTemplateTypeByLessonType";
 
 const initialState = {
   isLoading: false,
@@ -37,10 +38,12 @@ const templateSlice = createSlice({
       })
       .addCase(createTemplateByTypeThunk.fulfilled, (state, action) => {
         const title = action.meta.arg.templateData.title;
-        const type = action.meta.arg.type;
-        const id = action.payload.template_id;
-        state.templates.push({ title, type, id });
-        state.isLoading = false;
+        const type = getTemplateTypeByLessonType(action.meta.arg.type);
+        if (action.payload) {
+          const id = action.payload.template_id;
+          state.templates.push({ title, type, id });
+          state.isLoading = false;
+        }
       })
       .addCase(createTemplateByTypeThunk.rejected, (state, { payload }) => {
         state.isLoading = false;

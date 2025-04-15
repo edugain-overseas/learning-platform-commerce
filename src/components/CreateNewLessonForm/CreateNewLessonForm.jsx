@@ -28,13 +28,13 @@ const CreateNewLessonForm = ({ lessonNumber, closeModal }) => {
 
   const onLessonTypeChange = (value) => {
     console.log(value);
-    if (value === "test") {
+    if (value === "test" || value === "exam") {
       setValue("scheduled_time", "80");
     }
     setLessonType(value);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (!lessonType) {
       messageApi.error({
         content: "Please select lesson type",
@@ -59,11 +59,19 @@ const CreateNewLessonForm = ({ lessonNumber, closeModal }) => {
       type: lessonType,
     };
 
-    dispatch(createLessonInCourseThunk(lessonData)).then(() => {
+    try {
+      await dispatch(createLessonInCourseThunk(lessonData)).unwrap();
       setInitialState();
       closeModal();
       reset();
-    });
+    } catch (error) {
+      if (error.status === 403) {
+        messageApi.error({
+          content: error.message,
+          duration: 5,
+        });
+      }
+    }
   };
 
   const setInitialState = () => {
@@ -111,6 +119,7 @@ const CreateNewLessonForm = ({ lessonNumber, closeModal }) => {
         Scheduled time:
         <input
           type="number"
+          disabled={lessonType === "exam"}
           {...register("scheduled_time", {
             required: "Schedule time is required",
             minLength: 1,

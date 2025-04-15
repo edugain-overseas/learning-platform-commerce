@@ -11,11 +11,8 @@ import styles from "./TestConstructor.module.scss";
 
 const ToolsPanel = ({
   handleAddBlock,
-  // attempts: defaultAttempts,
-  // score: defaultScore,
   timer: defaultTimer,
   changeTestMetaData,
-  // blocksScore,
   handleSaveTestParts,
   isLoading,
 }) => {
@@ -23,11 +20,8 @@ const ToolsPanel = ({
   const task = useSelector(getAllLessons).find(
     (lesson) => lesson.id === +taskId
   );
-  // const [attemptsDisabled, setAttemptsDisabled] = useState(true);
-  // const [scoreDisabled, setScoreDisabled] = useState(true);
+
   const [timerDisabled, setTimerDisabled] = useState(true);
-  // const [attempts, setAttempts] = useState(defaultAttempts || 10);
-  // const [score, setScore] = useState(defaultScore || 120);
   const [timer, setTimer] = useState(defaultTimer || task?.scheduled_time);
 
   // const handleAttemptsChange = () => {
@@ -113,16 +107,18 @@ const ToolsPanel = ({
           value={timer}
           onChange={(value) => setTimer(value)}
           addonBefore="Timer:"
-          disabled={timerDisabled}
+          disabled={timerDisabled || task.type === "exam"}
           className={styles.toolsInputNumber}
         />
-        <button
-          className={styles.changeValueBtn}
-          onClick={handleTimerChange}
-          title={timerDisabled ? "change timer" : "save changes"}
-        >
-          {timerDisabled ? <EditIcon /> : <SaveIcon />}
-        </button>
+        {task.type !== "exam" && (
+          <button
+            className={styles.changeValueBtn}
+            onClick={handleTimerChange}
+            title={timerDisabled ? "change timer" : "save changes"}
+          >
+            {timerDisabled ? <EditIcon /> : <SaveIcon />}
+          </button>
+        )}
       </div>
       <ul className={styles.addBlockBtns}>
         {testParts.map((part) => (

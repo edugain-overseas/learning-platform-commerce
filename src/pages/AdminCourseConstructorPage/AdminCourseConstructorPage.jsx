@@ -37,6 +37,9 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  console.log(courseData);
+  
+
   const {
     register,
     handleSubmit,

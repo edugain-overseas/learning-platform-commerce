@@ -1,7 +1,7 @@
-export const testQuestionsToBlocks = (questions) => {  
+export const testQuestionsToBlocks = (questions) => {
   return questions.map((question) => {
-    if (question.q_type === "matching") {      
-      const responseAnswers = question.answers[0];      
+    if (question.q_type === "matching") {
+      const responseAnswers = question.answers[0];
       const answers = responseAnswers.left.map(({ id, value }) => ({
         a_id: id,
         left_text: value,
@@ -9,10 +9,9 @@ export const testQuestionsToBlocks = (questions) => {
           ({ id: rightId }) => rightId === id
         ).value,
       }));
-      console.log({ ...question, answers, id: question.q_id });
-      
-      return { ...question, answers, id: question.q_id };
+
+      return { ...question, answers, id: question.q_id || question.id };
     }
-    return { ...question, id: question.q_id };
+    return { ...question, id: question.q_id || question.id };
   });
 };

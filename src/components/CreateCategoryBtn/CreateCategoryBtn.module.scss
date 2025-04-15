@@ -1,0 +1,29 @@
+.createCategoryBtn {
+  color: var(--content-datail-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16rem;
+  width: 100%;
+  padding: 14rem 8rem;
+
+  border-radius: 5rem;
+  background-color: var(--bg-rgba-default);
+  box-shadow: var(--drop-shadow-button-main);
+
+  &:hover {
+    color: var(--content-main);
+  }
+  svg {
+    width: 24rem;
+    height: 24rem;
+
+    path {
+      fill: currentColor;
+      fill-opacity: 1;
+    }
+  }
+  span {
+    font-size: 24rem;
+  }
+}

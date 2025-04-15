@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { FolderAddOutlined } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createTemplateByTypeThunk } from "../../../redux/template/operation";
-import { getIsTemplateLoading } from "../../../redux/template/selectors";
 import { useLectureConstructor } from "../../../context/LectureConstructorContext";
 import useMessage from "antd/es/message/useMessage";
 import SaveTemplateForm from "./SaveTemplateForm";
@@ -13,15 +12,12 @@ import { useTestContructor } from "../../../context/TestContructorContext";
 const SaveTemplate = ({ type }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [messageApi, contextHolder] = useMessage();
-  const isLoading = useSelector(getIsTemplateLoading);
   const dispatch = useDispatch();
 
   const lectureBlocks = useLectureConstructor()?.blocks;
   const testBlocks = useTestContructor()?.blocks;
 
   const blocks = type === "lecture" ? lectureBlocks : testBlocks;
-
-  console.log(isLoading);
 
   const saveTemplate = (title) => {
     if (title.trim() === "") {
@@ -30,7 +26,8 @@ const SaveTemplate = ({ type }) => {
         duration: 3,
       });
       return;
-    }
+    }    
+
     const templateData = {
       title,
       template_data: blocks,
@@ -41,7 +38,8 @@ const SaveTemplate = ({ type }) => {
       .then((response) => {
         messageApi.success({ content: response.message, duration: 3 });
         setIsOpenModal(false);
-      });
+      })
+      .catch((error) => console.log(error));
   };
 
   return (

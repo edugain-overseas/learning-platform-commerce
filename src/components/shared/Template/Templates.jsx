@@ -91,14 +91,19 @@ const TemplatesList = ({ type, closePopover }) => {
       const templateData = templatesDetails.find(
         (templateDetails) => templateDetails.id === id
       )[`${getTemplateTypeByLessonType(type)}_template`];
-
+      console.log(templateData);
+      
       setBlocks(testQuestionsToBlocks(templateData));
     } else {
-      const template = await fetchTemplateDetails(id);
-      const templateData =
-        template[`${getTemplateTypeByLessonType(type)}_template`];
+      try {
+        const template = await fetchTemplateDetails(id);
+        const templateData =
+          template[`${getTemplateTypeByLessonType(type)}_template`];
 
-      setBlocks(testQuestionsToBlocks(templateData));
+        setBlocks(testQuestionsToBlocks(templateData));
+      } catch (error) {
+        console.log(error);
+      }
     }
     closePopover();
   };
@@ -169,9 +174,7 @@ const TemplatesList = ({ type, closePopover }) => {
           />
         ) : (
           selectedTemplateData && (
-            <TestQuestions
-              questions={selectedTemplateData}
-            />
+            <TestQuestions questions={selectedTemplateData} />
           )
         )}
         <div className={styles.modalBtnsWrapper}>

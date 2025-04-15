@@ -211,6 +211,8 @@ export const createTestQuestions = async (
   lessonType = "test"
 ) => {
   try {
+    console.log(test_id);
+    
     const data = await privateRoutesHandler(
       "post",
       `${lessonType}/question/add`,
