@@ -98,6 +98,17 @@ export const loginWithGoogle = async (googleToken) => {
   }
 };
 
+export const loginWithApple = async (appleData) => {
+  try {
+    const { data } = await instance.post("/user/login-with-apple", appleData, {
+      withCredentials: true,
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const logout = async () => {
   try {
     const data = await privateRoutesHandler("get", "/user/logout", {

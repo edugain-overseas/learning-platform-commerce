@@ -10,6 +10,7 @@ import {
   getUserInfoThunk,
   initializationChatThunk,
   loginThunk,
+  loginWithAppleThunk,
   loginWithGoogleThunk,
   logoutThunk,
   setNewMainImageThunk,
@@ -127,6 +128,21 @@ const userSlice = createSlice({
         state.username = payload.username;
       })
       .addCase(loginWithGoogleThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+
+      .addCase(loginWithAppleThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(loginWithAppleThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.accessToken = payload.access_token;
+        state.userId = payload.user_id;
+        state.username = payload.username;
+      })
+      .addCase(loginWithAppleThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
       })

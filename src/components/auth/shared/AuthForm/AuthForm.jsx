@@ -5,11 +5,11 @@ import {
   validatePassword,
   validateText,
 } from "../../../../utils/inputsValidateHandler";
-import { ReactComponent as GoogleIcon } from "../../../../images/icons/google.svg";
 import InputText from "../InputText/InputText";
 import AuthFormLink from "../AuthFormLink/AuthFormLink";
 import InputPassword from "../InputPassword/InputPassword";
 import styles from "./AuthForm.module.scss";
+import ServicesBtns from "./ServicesBtns";
 
 const AuthForm = ({
   handleSubmit,
@@ -104,33 +104,6 @@ const AuthForm = ({
     }
   };
 
-  const handleCustomGoogleButtonClick = () => {
-    try {
-      /* global google */
-      if (!google?.accounts?.id) {
-        console.error("Google accounts API not initialized");
-        return;
-      }
-
-      google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          console.warn("Google One Tap prompt skipped or not displayed.");
-
-          // Optionally handle cookie or localStorage clean-up
-          document.cookie =
-            "g_state=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT";
-
-          // Try to reinitialize or log this as a skipped session
-          google.accounts.id.prompt(); // Caution: Avoid infinite loops
-        } else {
-          console.log("Google One Tap displayed successfully.");
-        }
-      });
-    } catch (error) {
-      console.error("Error invoking Google One Tap:", error);
-    }
-  };
-
   return (
     <div className={styles.wrapper}>
       <form className={styles.form} onSubmit={handleFormSubmit}>
@@ -196,15 +169,7 @@ const AuthForm = ({
               <span>Forgot your password?</span>
             </button>
           )}
-          <span className={styles.divider}>or continue with</span>
-          <button
-            type="button"
-            className={styles.googleBtn}
-            onClick={handleCustomGoogleButtonClick}
-          >
-            <GoogleIcon />
-            <span>Account Google</span>
-          </button>
+          <ServicesBtns />
         </div>
       </form>
     </div>

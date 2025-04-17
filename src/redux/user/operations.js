@@ -127,6 +127,21 @@ export const loginWithGoogleThunk = createAsyncThunk(
   }
 );
 
+export const loginWithAppleThunk = createAsyncThunk(
+  "user/loginWithGoogle",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await loginWithApple(data);
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
 export const logoutThunk = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
