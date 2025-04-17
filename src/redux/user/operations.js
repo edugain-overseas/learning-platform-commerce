@@ -10,6 +10,7 @@ import {
   getUserInfo,
   initializationChat,
   login,
+  loginWithApple,
   loginWithGoogle,
   logout,
   setNewMainImage,
@@ -128,7 +129,7 @@ export const loginWithGoogleThunk = createAsyncThunk(
 );
 
 export const loginWithAppleThunk = createAsyncThunk(
-  "user/loginWithGoogle",
+  "user/loginWithApple",
   async (data, { rejectWithValue }) => {
     try {
       const response = await loginWithApple(data);
