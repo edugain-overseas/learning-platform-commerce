@@ -5,9 +5,11 @@ import { ReactComponent as AppleIcon } from "../../../../images/icons/social/app
 import styles from "./AuthForm.module.scss";
 import useMessage from "antd/es/message/useMessage";
 import { loginWithAppleThunk } from "../../../../redux/user/operations";
+import { useDispatch } from "react-redux";
 
 const ServicesBtns = () => {
   const [messageApi, contextHolder] = useMessage();
+  const dispatch = useDispatch();
   useScript(appleAuthHelpers.APPLE_SCRIPT_SRC);
 
   const handleCustomGoogleButtonClick = () => {
@@ -48,7 +50,7 @@ const ServicesBtns = () => {
     };
 
     try {
-      const userResponse = await loginWithAppleThunk(data).unwrap();
+      const userResponse = await dispatch(loginWithAppleThunk(data)).unwrap();
       if (userResponse.username) {
         messageApi.success({
           content: `Hello ${userResponse.username}!`,
