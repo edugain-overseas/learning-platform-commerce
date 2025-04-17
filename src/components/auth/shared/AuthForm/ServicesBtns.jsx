@@ -44,6 +44,7 @@ const ServicesBtns = () => {
     const name = response?.user?.name;
 
     const data = {
+      platform: "web",
       code,
       name: name?.firstName || null,
       surname: name?.lastName || null,
