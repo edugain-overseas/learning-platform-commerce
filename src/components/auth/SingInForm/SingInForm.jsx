@@ -25,7 +25,7 @@ const SingInForm = () => {
     if (accessToken) {
       if (location.state?.from) {
         navigate(location.state?.from);
-        location.state?.navigateFromCart && handleOpen(); 
+        location.state?.navigateFromCart && handleOpen();
       }
       navigate("/");
     }
@@ -54,7 +54,6 @@ const SingInForm = () => {
           errorField={errorField}
           resetError={resetError}
           setIsResetPassword={setIsResetPassword}
-          messageApi={messageApi}
         />
       )}
     </div>

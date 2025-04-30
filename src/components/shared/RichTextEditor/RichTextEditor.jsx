@@ -1,8 +1,8 @@
 import React from "react";
 import ReactQuill from "react-quill";
+import { stripHtmlTags } from "../../../utils/stripHtmlTags";
 import "react-quill/dist/quill.snow.css";
 import "./RichTextEditor.css";
-import { stripHtmlTags } from "../../../utils/stripHtmlTags";
 
 const toolbarOptions = [
   [{ header: [1, 2, false] }],
@@ -13,6 +13,22 @@ const toolbarOptions = [
 
 const modules = {
   toolbar: toolbarOptions,
+  clipboard: {
+    matchers: [
+      [
+        "*",
+        (_, delta) => {
+          delta.ops.forEach((op) => {
+            if (op.attributes) {
+              op.attributes.color = "";
+              op.attributes.background = "";
+            }
+          });
+          return delta;
+        },
+      ],
+    ],
+  },
 };
 
 const RichTextEditor = ({
@@ -26,6 +42,7 @@ const RichTextEditor = ({
       // const plainText = editor.getText();
       const plainText = stripHtmlTags(content);
       console.log(plainText);
+      console.log(content);
 
       if (plainText.length > maxLength) {
         setValue(value);

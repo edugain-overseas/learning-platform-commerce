@@ -52,7 +52,7 @@ export const loginThunk = createAsyncThunk(
         ? error.response.data.detail
         : error.message;
 
-      if (status === 401) {
+      if (status === 403) {
         if (message.includes("username")) setErrorField("username");
 
         if (message.includes("password")) setErrorField("password");

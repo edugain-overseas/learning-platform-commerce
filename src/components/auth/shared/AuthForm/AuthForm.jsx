@@ -10,6 +10,7 @@ import AuthFormLink from "../AuthFormLink/AuthFormLink";
 import InputPassword from "../InputPassword/InputPassword";
 import styles from "./AuthForm.module.scss";
 import ServicesBtns from "./ServicesBtns";
+import useMessage from "antd/es/message/useMessage";
 
 const AuthForm = ({
   handleSubmit,
@@ -17,13 +18,14 @@ const AuthForm = ({
   errorField,
   resetError,
   setIsResetPassword = () => {},
-  messageApi,
 }) => {
   const [username, setUsername] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [messageApi, contextHolder] = useMessage();
 
   const query = useLocation().search;
   const usernameFromQueryParams = new URLSearchParams(query).get("username");
@@ -105,74 +107,81 @@ const AuthForm = ({
   };
 
   return (
-    <div className={styles.wrapper}>
-      <form className={styles.form} onSubmit={handleFormSubmit}>
-        <h2>{type === "registration" ? "Sing up" : "Sing in"}</h2>
-        <AuthFormLink to={type === "registration" ? "login" : "registration"} />
-        <div className={styles.row}>
-          <InputText
-            name="Username"
-            value={usernameFromQueryParams ? usernameFromQueryParams : username}
-            onChange={setUsername}
-            isError={errorField === "username"}
-            resetError={resetError}
-            disabled={usernameFromQueryParams}
+    <>
+      {contextHolder}
+      <div className={styles.wrapper}>
+        <form className={styles.form} onSubmit={handleFormSubmit}>
+          <h2>{type === "registration" ? "Sing up" : "Sing in"}</h2>
+          <AuthFormLink
+            to={type === "registration" ? "login" : "registration"}
           />
-        </div>
-        {type === "registration" && (
-          <>
-            <div className={styles.row}>
-              <InputText
-                name="First name"
-                value={firstname}
-                onChange={setFirstname}
-              />
-            </div>
-            <div className={styles.row}>
-              <InputText
-                name="Last name"
-                value={lastname}
-                onChange={setLastname}
-              />
-            </div>
+          <div className={styles.row}>
+            <InputText
+              name="Username"
+              value={
+                usernameFromQueryParams ? usernameFromQueryParams : username
+              }
+              onChange={setUsername}
+              isError={errorField === "username"}
+              resetError={resetError}
+              disabled={usernameFromQueryParams}
+            />
+          </div>
+          {type === "registration" && (
+            <>
+              <div className={styles.row}>
+                <InputText
+                  name="First name"
+                  value={firstname}
+                  onChange={setFirstname}
+                />
+              </div>
+              <div className={styles.row}>
+                <InputText
+                  name="Last name"
+                  value={lastname}
+                  onChange={setLastname}
+                />
+              </div>
 
-            <div className={styles.row}>
-              <InputText
-                name="Email"
-                value={email}
-                onChange={setEmail}
-                isError={errorField === "email"}
-                resetError={resetError}
-              />
-            </div>
-          </>
-        )}
-        <div className={styles.lastRow}>
-          <InputPassword
-            name="Password"
-            value={password}
-            onChange={setPassword}
-            isError={errorField === "password"}
-            resetError={resetError}
-          />
-        </div>
-        <div className={styles.btnsWrapper}>
-          <button className={styles.submitBtn}>
-            <span>{type === "registration" ? "Sing up" : "Sing in"}</span>
-          </button>
-          {type === "login" && errorField === "password" && (
-            <button
-              type="button"
-              className={styles.passwordRecoveryBtn}
-              onClick={() => setIsResetPassword(true)}
-            >
-              <span>Forgot your password?</span>
-            </button>
+              <div className={styles.row}>
+                <InputText
+                  name="Email"
+                  value={email}
+                  onChange={setEmail}
+                  isError={errorField === "email"}
+                  resetError={resetError}
+                />
+              </div>
+            </>
           )}
-          <ServicesBtns />
-        </div>
-      </form>
-    </div>
+          <div className={styles.lastRow}>
+            <InputPassword
+              name="Password"
+              value={password}
+              onChange={setPassword}
+              isError={errorField === "password"}
+              resetError={resetError}
+            />
+          </div>
+          <div className={styles.btnsWrapper}>
+            <button className={styles.submitBtn}>
+              <span>{type === "registration" ? "Sing up" : "Sing in"}</span>
+            </button>
+            {type === "login" && errorField === "password" && (
+              <button
+                type="button"
+                className={styles.passwordRecoveryBtn}
+                onClick={() => setIsResetPassword(true)}
+              >
+                <span>Forgot your password?</span>
+              </button>
+            )}
+            <ServicesBtns />
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 
