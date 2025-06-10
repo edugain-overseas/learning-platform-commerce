@@ -1,7 +1,10 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { useTableContructor } from "../../hooks/useTableConstructor";
 import RichTextEditor from "../shared/RichTextEditor/RichTextEditor";
+import DropZone from "../shared/Uploaders/DropZone/Dropzone";
+import fileUploaderStyles from "../shared/Uploaders/FileUploader/FileUploader.module.scss";
 import styles from "./Table.module.scss";
+import Textarea from "../shared/Textarea/Textarea";
 
 const TableConstructor = ({ state, setState }) => {
   console.log(state);
@@ -14,6 +17,7 @@ const TableConstructor = ({ state, setState }) => {
     onCellLabelChange,
     handleContextMenu,
     renderContextMenu,
+    handleFileUpload,
   } = useTableContructor(state, setState, tableRef, styles);
 
   const renderHead = () => {
@@ -43,6 +47,7 @@ const TableConstructor = ({ state, setState }) => {
                 value={column.label}
                 placeholder=""
                 setValue={(value) => onColumnLabelChange(column.key, value)}
+                type="tableConstructor"
               />
             </th>
           );
@@ -63,6 +68,7 @@ const TableConstructor = ({ state, setState }) => {
               value={child.label}
               placeholder=""
               setValue={(value) => onColumnChildLabelChange(child.key, value)}
+              type="tableConstructor"
             />
           </th>
         ))}
@@ -85,10 +91,17 @@ const TableConstructor = ({ state, setState }) => {
       >
         {row?.map((cell) => (
           <td key={cell.key}>
-            <RichTextEditor
+            {/* <RichTextEditor
               value={cell.label}
               placeholder=""
               setValue={(value) => onCellLabelChange(index, cell.key, value)}
+              type="tableConstructor"
+            /> */}
+            <Textarea
+              value={cell.label}
+              onChange={(value) => onCellLabelChange(index, cell.key, value)}
+              maxRows={4}
+              minRows={2}
             />
           </td>
         ))}
@@ -96,17 +109,31 @@ const TableConstructor = ({ state, setState }) => {
     ));
 
   return (
-    <div
-      className={styles.constructorWrapper}
-      ref={tableRef}
-      onClick={(e) => handleContextMenu(e)}
-    >
-      <table className={styles.table}>
-        <thead>{renderHead()}</thead>
-        <tbody>{renderBody()}</tbody>
-      </table>
-      {renderContextMenu()}
-    </div>
+    <>
+      <div
+        className={styles.constructorWrapper}
+        ref={tableRef}
+        onClick={(e) => handleContextMenu(e)}
+      >
+        <table className={styles.table}>
+          <thead>{renderHead()}</thead>
+          <tbody>{renderBody()}</tbody>
+        </table>
+        {renderContextMenu()}
+      </div>
+      <div style={{ height: "300rem", position: "relative" }}>
+        <DropZone
+          onDrop={handleFileUpload}
+          className={fileUploaderStyles.dropzone}
+          accept={{
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+              [".xlsx"],
+            "application/vnd.ms-excel": [".xls"],
+            "text/csv": [".csv"],
+          }}
+        />
+      </div>
+    </>
   );
 };
 

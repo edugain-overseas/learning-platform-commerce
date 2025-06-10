@@ -31,8 +31,6 @@ const LessonNavigateBtn = ({
     return num === currentNumber - 1;
   });
 
-  console.log(forward, targetLesson);
-
   const handleNavigate = () => {
     if (targetLesson.status === "blocked") {
       messageApi.info({

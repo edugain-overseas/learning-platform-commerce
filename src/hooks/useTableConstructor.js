@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReactComponent as ChevronIcon } from "../images/icons/arrowDown.svg";
+import { createPortal } from "react-dom";
+import { generateTableStateFromFile } from "../utils/generateTableStateFromFile";
 
 export const useTableContructor = (state, setState, tableRef, styles) => {
   const [contextMenu, setContextMenu] = useState(null);
 
   const onColumnLabelChange = (key, value) => {
+    console.log('onColumnLabelChange');
+    
     const updatedColumns = state.columns.map((column) =>
       column.key === key ? { ...column, label: value } : column
     );
@@ -172,14 +176,14 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
 
   const handleContextMenu = (event, type, data) => {
     event.preventDefault();
+
     if (!type) {
       setContextMenu(null);
       return;
     }
 
-    const rect = tableRef.current.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
+    const x = event.pageX;
+    const y = event.pageY;
 
     setContextMenu({
       type,
@@ -194,80 +198,115 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
     if (callback) callback();
   };
 
+  const handleFileUpload = async (files) => {
+    
+    const file = files[0]
+    if (!file) return;
+    
+    try {
+      const uploadedTableState = await generateTableStateFromFile(file);
+      console.log(uploadedTableState);
+      
+      setState({...state, ...uploadedTableState});
+    } catch (err) {
+      console.error("Failed to parse table file:", err);
+    }
+  };
+
+  useEffect(() => {
+    //handle menu close action
+    const handleClick = () => setContextMenu(null);
+    const handleEsc = (e) => {
+      if (e.key === "Escape") setContextMenu(null);
+    };
+
+    document.addEventListener("click", handleClick);
+    document.addEventListener("keydown", handleEsc);
+    return () => {
+      document.removeEventListener("click", handleClick);
+      document.removeEventListener("keydown", handleEsc);
+    };
+  }, []);
+
   const renderContextMenu = () =>
-    contextMenu ? (
-      <ul
-        className={styles.contextMenu}
-        style={{
-          top: `${contextMenu.y}px`,
-          left: `${contextMenu.x}px`,
-        }}
-      >
-        {contextMenu.type === "row" && (
-          <>
-            <li
-              onClick={() =>
-                handleMenuAction(() => addRow(contextMenu.data.rowIndex))
-              }
-            >
-              Add Row
-            </li>
-            <li
-              onClick={() =>
-                handleMenuAction(() => deleteRow(contextMenu.data.rowIndex))
-              }
-            >
-              Delete Row
-            </li>
-          </>
-        )}
-        {contextMenu.type === "column" && (
-          <>
-            <li
-              onClick={() =>
-                handleMenuAction(() => addColumn(contextMenu.data.key))
-              }
-            >
-              Add Column
-            </li>
-            <li
-              onClick={() =>
-                handleMenuAction(() => deleteColumn(contextMenu.data.key))
-              }
-            >
-              Delete Column
-            </li>
-            <li>
-              <span>Add Children</span>
-              <ChevronIcon className={styles.expandOptionsIcon} />
-              <ul>
-                {Array.from([1, 2, 3, 4, 5], (amount) => (
-                  <li
-                    key={amount}
-                    onClick={() =>
-                      handleMenuAction(() =>
-                        addColumnChildren(contextMenu.data.key, amount)
-                      )
-                    }
-                  >
-                    {amount}
-                  </li>
-                ))}
-              </ul>
-            </li>
-          </>
-        )}
-        {contextMenu.type === "childColumn" && (
-          <li
-            onClick={() =>
-              handleMenuAction(() => deleteColumnChild(contextMenu.data.key))
-            }
+    contextMenu
+      ? createPortal(
+          <ul
+            className={styles.contextMenu}
+            style={{
+              top: `${contextMenu.y}px`,
+              left: `${contextMenu.x}px`,
+            }}
           >
-            Delete child column
-          </li>
-        )}
-      </ul>
-    ) : null;
+            {contextMenu.type === "row" && (
+              <>
+                <li
+                  onClick={() =>
+                    handleMenuAction(() => addRow(contextMenu.data.rowIndex))
+                  }
+                >
+                  Add Row
+                </li>
+                <li
+                  onClick={() =>
+                    handleMenuAction(() => deleteRow(contextMenu.data.rowIndex))
+                  }
+                >
+                  Delete Row
+                </li>
+              </>
+            )}
+            {contextMenu.type === "column" && (
+              <>
+                <li
+                  onClick={() =>
+                    handleMenuAction(() => addColumn(contextMenu.data.key))
+                  }
+                >
+                  Add Column
+                </li>
+                <li
+                  onClick={() =>
+                    handleMenuAction(() => deleteColumn(contextMenu.data.key))
+                  }
+                >
+                  Delete Column
+                </li>
+                <li>
+                  <span>Add Children</span>
+                  <ChevronIcon className={styles.expandOptionsIcon} />
+                  <ul>
+                    {Array.from([1, 2, 3, 4, 5], (amount) => (
+                      <li
+                        key={amount}
+                        onClick={() =>
+                          handleMenuAction(() =>
+                            addColumnChildren(contextMenu.data.key, amount)
+                          )
+                        }
+                      >
+                        {amount}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              </>
+            )}
+            {contextMenu.type === "childColumn" && (
+              <li
+                onClick={() =>
+                  handleMenuAction(() =>
+                    deleteColumnChild(contextMenu.data.key)
+                  )
+                }
+              >
+                Delete child column
+              </li>
+            )}
+          </ul>,
+          document.body
+        )
+      : null;
 
   return {
     onColumnLabelChange,
@@ -275,5 +314,6 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
     onCellLabelChange,
     handleContextMenu,
     renderContextMenu,
+    handleFileUpload,
   };
 };

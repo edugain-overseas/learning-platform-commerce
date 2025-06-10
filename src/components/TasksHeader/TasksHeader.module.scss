@@ -233,6 +233,10 @@
       background-color: var(--content-datail-secondary);
     }
 
+    &:disabled {
+      opacity: 0.5;
+    }
+
     span {
       font-size: 14rem;
       font-weight: 500;

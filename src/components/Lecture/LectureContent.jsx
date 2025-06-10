@@ -272,7 +272,11 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
                 className={styles.sectionTitle}
                 dangerouslySetInnerHTML={{ __html: title }}
               ></h3>
-              {table_data && <TableUI tableData={table_data} />}
+              {table_data && (
+                <div style={{overflow: 'auto'}}>
+                  <TableUI tableData={table_data} />
+                </div>
+              )}
               {text && (
                 <div
                   className={styles.sectionContentWrapper}

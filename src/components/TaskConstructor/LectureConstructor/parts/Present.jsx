@@ -9,7 +9,14 @@ const Present = ({ partData, setters }) => (
     <TitleInput value={partData.a_title} setValue={setters.title} />
     <FileUploader
       type="pdf"
-      accept="application/pdf"
+      accept={{
+        "application/pdf": [".pdf"],
+        "application/vnd.ms-powerpoint": [".ppt", ".pps"],
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+          [".pptx"],
+        "application/vnd.openxmlformats-officedocument.presentationml.slideshow":
+          [".ppsx"],
+      }}
       className={styles.uploaderWrapper}
       uploadedFilePath={partData.file_path}
       setUploadedFilePath={setters.filePath}

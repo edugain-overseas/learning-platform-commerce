@@ -119,6 +119,7 @@ const AttemptsList = ({ test, closePopOver }) => {
               <button
                 className={styles.submitAttemptBtn}
                 onClick={() => handleSubmitAttempt(attempt.id)}
+                disabled={!attempt.is_passed}
               >
                 <span>Submit</span>
                 <ComplieteIcon />

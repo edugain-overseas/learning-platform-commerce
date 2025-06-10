@@ -27,7 +27,7 @@ const HeroAuthBtns = () => {
     <div className={styles.heroAuthBtns}>
       {accessToken ? (
         <>
-          <Link className={styles.register} to="me">
+          <Link className={styles.register} to="/me">
             <span>My profile</span>
             <ProfileIcon />
           </Link>
@@ -38,11 +38,11 @@ const HeroAuthBtns = () => {
         </>
       ) : (
         <>
-          <Link className={styles.register} to="registration">
+          <Link className={styles.register} to="/registration">
             <span>Register</span>
             <RegisterIcon />
           </Link>
-          <Link className={styles.login} to="login">
+          <Link className={styles.login} to="/login">
             <span>Log in</span>
             <LoginIcon />
           </Link>

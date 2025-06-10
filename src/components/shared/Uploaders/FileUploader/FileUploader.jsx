@@ -71,6 +71,9 @@ const FileUploader = ({
       }
     } catch (error) {
       console.error("Upload failed", error);
+    } finally {
+      setProgress(0)
+      setFile(null)
     }
   };
 

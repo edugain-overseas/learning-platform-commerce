@@ -23,6 +23,9 @@ export const CartProvider = ({ children }) => {
   const [messageApi, contextHolder] = useMessage();
 
   const addItem = (courseId) => {
+    if (cartItems.some((item) => item.id === courseId)) {
+      return;
+    }
     setCartItems((currentItems) => [
       ...currentItems,
       { id: courseId, checked: true },

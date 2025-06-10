@@ -29,7 +29,6 @@ const AuthForm = ({
 
   const query = useLocation().search;
   const usernameFromQueryParams = new URLSearchParams(query).get("username");
-  console.log(usernameFromQueryParams);
 
   const isFormValid = (data) => {
     const valid = Object.keys(data).reduce((acc, key) => {

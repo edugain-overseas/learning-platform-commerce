@@ -192,6 +192,7 @@ export const LectureConstructorProvider = ({ children }) => {
     setBlocks((prev) => {
       return prev.map((block) => {
         if (block.id !== id) return block;
+
         return {
           ...block,
           table_data: newTableData,

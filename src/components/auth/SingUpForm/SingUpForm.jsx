@@ -24,7 +24,6 @@ const SingUpForm = () => {
     "verification"
   );
   const usernameFromQuery = new URLSearchParams(query).get("username");
-  console.log(usernameFromQuery);
 
   const navigate = useNavigate();
 

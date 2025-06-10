@@ -12,6 +12,13 @@ const DropZone = ({ onDrop, accept, className = "", renderLabel = true }) => {
   });
 
   const getLabelbyType = () => {
+    //handle multiple formats
+    if (typeof(accept) === 'object') {
+      const fileTypes = Object.values(accept).join().replaceAll('.', ' ')
+      
+      return `Click or drag ${fileTypes} to upload`
+    }
+    //handle single format
     const fileType =
       accept.split("/")[0] === "*" ? "file" : accept.split("/")[0];
     const fileExtension = accept.split("/")[1];
@@ -27,7 +34,6 @@ const DropZone = ({ onDrop, accept, className = "", renderLabel = true }) => {
       <div className={styles.labelWrapper}>
         <UploadIcon className={styles.uploadIcon} />
         {renderLabel && <p>{getLabelbyType()}</p>}
-        {/* "Click or drag to this area to upload" */}
       </div>
     </div>
   );

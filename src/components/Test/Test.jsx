@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import useMessage from "antd/es/message/useMessage";
 import { getAllCourses } from "../../redux/course/selectors";
 import { getTestAttemptsThunk } from "../../redux/lesson/operation";
 import { getTestAttemptById } from "../../http/services/lesson";
 import TestHeader from "../TasksHeader/TestHeader";
 import TestContent from "./TestContent";
 import CourseAsideProgressPanel from "../CourseAsideProgressPanel/CourseAsideProgressPanel";
+import TestLanding from "./TestLanding";
 import styles from "./Test.module.scss";
-import useMessage from "antd/es/message/useMessage";
 
 const Test = ({ test }) => {
   const { course_id: courseId, id } = test;
   const [studentAnswersLength, setStudentAnswersLength] = useState(0);
   const [submitedAttemptData, setSubmitedAttemptData] = useState(null);
+  const [showTestContent, setShowTestContent] = useState(false);
   const [messageApi, contextHolder] = useMessage();
   const dispatch = useDispatch();
 
@@ -27,6 +29,8 @@ const Test = ({ test }) => {
     test.test_data.attempts <= test.test_data.attempts_data?.length;
 
   const sumbittedAttemptId = test.test_data.my_attempt_id;
+
+  console.log(test.test_data);
 
   useEffect(() => {
     if (testId) {
@@ -46,9 +50,14 @@ const Test = ({ test }) => {
     };
     if (sumbittedAttemptId) {
       fetchAttemptId();
+    } else {
+      setSubmitedAttemptData(null);
     }
   }, [sumbittedAttemptId]);
 
+  const startTestAttmpt = () => {
+    setShowTestContent(true)
+  }
 
   return (
     <div className={styles.testWrapper}>
@@ -59,13 +68,17 @@ const Test = ({ test }) => {
         questionsDoneAmount={studentAnswersLength}
       />
       <div className={styles.bodyWrapper}>
-        <TestContent
-          test={{ ...test, status }}
-          setStudentAnswersLength={setStudentAnswersLength}
-          closed={isTestClosed}
-          answers={submitedAttemptData}
-          messageApi={messageApi}
-        />
+        {showTestContent ? (
+          <TestContent
+            test={{ ...test, status }}
+            setStudentAnswersLength={setStudentAnswersLength}
+            closed={isTestClosed}
+            answers={submitedAttemptData}
+            messageApi={messageApi}
+          />
+        ) : (
+          <TestLanding onStartTest={startTestAttmpt}/>
+        )}
         <div className={styles.progressWrapper}>
           <CourseAsideProgressPanel
             courseLessons={courseLessons ? courseLessons : []}

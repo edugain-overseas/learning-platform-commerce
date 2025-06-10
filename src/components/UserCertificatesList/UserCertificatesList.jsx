@@ -14,149 +14,31 @@ const UserCertificatesList = () => {
 
   return (
     <ul className={styles.certificatesList}>
-      {certificates.map((certificate) => {
-        const courseTitle = courses.find(
-          ({ id }) => id === certificate.course_id
-        )?.title;
-
-        return (
-          <UserCertificatesItem
-            key={certificate.id}
-            title={courseTitle}
-            certificate={certificate}
-          />
-        );
-      })}
-      {certificates.map((certificate) => {
-        const courseTitle = courses.find(
-          ({ id }) => id === certificate.course_id
-        )?.title;
-
-        return (
-          <UserCertificatesItem
-            key={certificate.id}
-            title={courseTitle}
-            certificate={certificate}
-          />
-        );
-      })}
-      {certificates.map((certificate) => {
-        const courseTitle = courses.find(
-          ({ id }) => id === certificate.course_id
-        )?.title;
-
-        return (
-          <UserCertificatesItem
-            key={certificate.id}
-            title={courseTitle}
-            certificate={certificate}
-          />
-        );
-      })}
-      {certificates.map((certificate) => {
-        const courseTitle = courses.find(
-          ({ id }) => id === certificate.course_id
-        )?.title;
-
-        return (
-          <UserCertificatesItem
-            key={certificate.id}
-            title={courseTitle}
-            certificate={certificate}
-          />
-        );
-      })}
-      {certificates.map((certificate) => {
-        const courseTitle = courses.find(
-          ({ id }) => id === certificate.course_id
-        )?.title;
-
-        return (
-          <UserCertificatesItem
-            key={certificate.id}
-            title={courseTitle}
-            certificate={certificate}
-          />
-        );
-      })}
-      {certificates.map((certificate) => {
-        const courseTitle = courses.find(
-          ({ id }) => id === certificate.course_id
-        )?.title;
-
-        return (
-          <UserCertificatesItem
-            key={certificate.id}
-            title={courseTitle}
-            certificate={certificate}
-          />
-        );
-      })}
-      {certificates.map((certificate) => {
-        const courseTitle = courses.find(
-          ({ id }) => id === certificate.course_id
-        )?.title;
-
-        return (
-          <UserCertificatesItem
-            key={certificate.id}
-            title={courseTitle}
-            certificate={certificate}
-          />
-        );
-      })}
-      {certificates.map((certificate) => {
-        const courseTitle = courses.find(
-          ({ id }) => id === certificate.course_id
-        )?.title;
-
-        return (
-          <UserCertificatesItem
-            key={certificate.id}
-            title={courseTitle}
-            certificate={certificate}
-          />
-        );
-      })}
-      {certificates.map((certificate) => {
-        const courseTitle = courses.find(
-          ({ id }) => id === certificate.course_id
-        )?.title;
-
-        return (
-          <UserCertificatesItem
-            key={certificate.id}
-            title={courseTitle}
-            certificate={certificate}
-          />
-        );
-      })}
-      {certificates.map((certificate) => {
-        const courseTitle = courses.find(
-          ({ id }) => id === certificate.course_id
-        )?.title;
-
-        return (
-          <UserCertificatesItem
-            key={certificate.id}
-            title={courseTitle}
-            certificate={certificate}
-          />
-        );
-      })}
-      {certificates.map((certificate) => {
-        const courseTitle = courses.find(
-          ({ id }) => id === certificate.course_id
-        )?.title;
-
-        return (
-          <UserCertificatesItem
-            key={certificate.id}
-            title={courseTitle}
-            certificate={certificate}
-          />
-        );
-      })}
+      {certificates.map(
+        ({
+          course_certificate_data: coursesCertificates,
+          ...categoryCertificate
+        }) => {
+          return (
+            <li key={categoryCertificate.category_certificate_id}>
+              <UserCertificatesItem
+                certificate={categoryCertificate}
+                type="category"
+              />
+              <ul className={`${styles.certificatesList}`}>
+                {coursesCertificates.map((courseCertificate) => (
+                  <li key={courseCertificate.course_certificate_id}>
+                    <UserCertificatesItem
+                      certificate={courseCertificate}
+                      type="course"
+                    />
+                  </li>
+                ))}
+              </ul>
+            </li>
+          );
+        }
+      )}
     </ul>
   );
 };

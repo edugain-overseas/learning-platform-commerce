@@ -4,6 +4,7 @@
 
 .bodyWrapper {
   display: flex;
+  flex-grow: 1;
   gap: 16rem;
   position: relative;
   height: calc(100% - 60rem);
@@ -144,5 +145,12 @@
   padding: 40rem 90rem;
   border-radius: 5rem;
   background-color: var(--bg-rgba-default);
+  box-shadow: var(--drop-shadow-button-main);
+}
+
+.landingWrapper {
+  flex-grow: 1;
+  background-color: var(--bg-rgba-default);
+  border-radius: 5rem;
   box-shadow: var(--drop-shadow-button-main);
 }

@@ -38,6 +38,7 @@ const CourseCard = ({
     progress,
     is_published: isPublished,
     grade,
+    bought,
   } = course;
 
   const isItemInCart = cartItems?.find((item) => item.id === id);
@@ -52,13 +53,16 @@ const CourseCard = ({
     removeItem(id);
   };
 
+  const courseLink = `/course/${id}/` + (bought ? "tasks" : "intro");
+  
+
   return (
     <li
       className={`${styles.courseCard} ${containerClassname} ${
         disabled ? styles.disabled : ""
       } ${!isPublished ? styles.disabled : ""}`}
     >
-      <Link className={styles.courseLink} to={`/course/${id}/intro`}>
+      <Link className={styles.courseLink} to={courseLink}>
         <WrapperWithDynamicBgImage
           className={styles.posterWrapper}
           url={encodeURI(`${serverName}/${coursePoster}`)}

@@ -10,12 +10,12 @@ import { convertMillisecondsToHoursAndMinutes } from "../../utils/formatTime";
 import { ReactComponent as ArrowDownIcon } from "../../images/icons/arrowDown.svg";
 import UserInfoCard from "../../components/UserInfoCard/UserInfoCard";
 import UserStats from "../../components/UserStats/UserStats";
-import CircleProgressCard from "../../components/CircleProgressCard/CircleProgressCard";
 import InfoBtn from "../../components/shared/InfoBtn/InfoBtn";
 import InsetBtn from "../../components/shared/InsetBtn/InsetBtn";
-import styles from "./UserProfilePage.module.scss";
 import UserCertificatesList from "../../components/UserCertificatesList/UserCertificatesList";
 import ProfileAuthPanel from "../../components/ProfileAuthPanel/ProfileAuthPanel";
+import UserProfileStatCard from "../../components/UserProfileStatCard/UserProfileStatCard";
+import styles from "./UserProfilePage.module.scss";
 
 const UserProfilePage = () => {
   const [isCertificatesExpanded, setIsCertificatesExpanded] = useState(false);
@@ -86,31 +86,28 @@ const UserProfilePage = () => {
       </div>
       <div className={styles.rightWrapper}>
         <div className={styles.cardWrapper}>
-          <CircleProgressCard
-            cardTitle="Grade Point Average"
-            strokeColor="#FCC400"
-            progressTitle={
+          <UserProfileStatCard
+            type="grade"
+            renderTitle={(value) => (
               <div className={styles.progressTitle}>
                 <span className={styles.name}>Average</span>
-                <span className={styles.value}>0(*)</span>
+                <span className={styles.value}>{value + "(*)"}</span>
               </div>
-            }
+            )}
           />
         </div>
         <div className={styles.cardWrapper}>
-          <CircleProgressCard
-            cardTitle="Grade Point Average"
-            strokeBackGround="f0f0f0"
-            strokeColor="#39BA6D"
-            outerColor="#d9d9d9"
-            progressTitle={
+          <UserProfileStatCard
+            type="progress"
+            renderTitle={(value) => (
               <div className={styles.progressTitle}>
                 <span className={styles.name}>Complited</span>
                 <span className={styles.value}>
-                  0<span>%</span>
+                  {value}
+                  <span>%</span>
                 </span>
               </div>
-            }
+            )}
           />
         </div>
       </div>

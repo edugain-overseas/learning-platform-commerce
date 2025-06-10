@@ -4,6 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { confirmTestThunk } from "../../redux/lesson/operation";
 import { getAllCourses } from "../../redux/course/selectors";
 import { getLessonNumberByType } from "../../utils/getLessonNumberByType";
+import {
+  convertMillisecondsToMinutesAndSeconds,
+  minutesToMilliseconds,
+} from "../../utils/formatTime";
 import QuestionTest from "./Questions/QuestionTest/QuestionTest";
 import QuestionMultipleChoice from "./Questions/QuestionMultipleChoice/QuestionMultipleChoice";
 import QuestionPhotoAnswers from "./Questions/QuestionPhotoAnswers/QuestionPhotoAnswers";
@@ -12,10 +16,6 @@ import QuestionMatching from "./Questions/QuestionMatching/QuestionMatching";
 import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
 import CompleteBtn from "../shared/CompleteBtn/CompleteBtn";
 import styles from "./Test.module.scss";
-import {
-  convertMillisecondsToMinutesAndSeconds,
-  minutesToMilliseconds,
-} from "../../utils/formatTime";
 
 const TestContent = ({
   test,
@@ -34,7 +34,6 @@ const TestContent = ({
 
   const dispatch = useDispatch();
 
-  console.log(test);
   const { id: testId, course_id: courseId, type: lessonType, status } = test;
 
   const testData = lessonType === "exam" ? test.exam_data : test.test_data;
@@ -404,22 +403,17 @@ const TestContent = ({
     // eslint-disable-next-line
   }, [closed ? answers : null]);
 
+  console.log(answers, isExam, closed);
+
   return (
     <>
       <div
         className={styles.contentWrapper}
-        style={
-          // answers && !isExam
-          //   ? { maxWidth: "100%", pointerEvents: "none" }
-          //   : closed
-          //   ? { pointerEvents: "none" }
-          //   : {}
-          {
-            pointerEvents: (answers && !isExam) || closed ? "none" : "auto",
-            opacity: (answers && !isExam) || closed ? "0.5" : "1",
-            maxWidth: (answers && !isExam) || isExam ? "100%" : "auto",
-          }
-        }
+        style={{
+          pointerEvents: (answers && !isExam) || closed ? "none" : "auto",
+          opacity: (answers && !isExam) || closed ? "0.5" : "1",
+          maxWidth: (answers && !isExam) || isExam ? "100%" : "auto",
+        }}
       >
         <div className={styles.testContent}>
           <div className={styles.header}>

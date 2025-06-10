@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ReactQuill from "react-quill";
 import { stripHtmlTags } from "../../../utils/stripHtmlTags";
 import "react-quill/dist/quill.snow.css";
@@ -11,38 +11,45 @@ const toolbarOptions = [
   [{ list: "ordered" }, { list: "bullet" }],
 ];
 
-const modules = {
-  toolbar: toolbarOptions,
-  clipboard: {
-    matchers: [
-      [
-        "*",
-        (_, delta) => {
-          delta.ops.forEach((op) => {
-            if (op.attributes) {
-              op.attributes.color = "";
-              op.attributes.background = "";
-            }
-          });
-          return delta;
-        },
-      ],
-    ],
-  },
-};
+const tableToolbarOptions = [
+  ["bold", "italic", "underline", "strike", "blockquote"],
+  [{ align: [] }],
+  [{ list: "ordered" }, { list: "bullet" }],
+];
 
 const RichTextEditor = ({
   value = "",
   setValue = () => null,
   placeholder = "Write your text here...",
   maxLength = null,
+  type = "normal",
 }) => {
+  const modules = useMemo(() => {
+    return {
+      toolbar:
+        type === "tableConstructor" ? tableToolbarOptions : toolbarOptions,
+      clipboard: {
+        matchers: [
+          [
+            "*",
+            (_, delta) => {
+              delta.ops.forEach((op) => {
+                if (op.attributes) {
+                  op.attributes.color = "";
+                  op.attributes.background = "";
+                }
+              });
+              return delta;
+            },
+          ],
+        ],
+      },
+    };
+  }, [type]);
+
   const handleChange = (content) => {
     if (maxLength) {
-      // const plainText = editor.getText();
       const plainText = stripHtmlTags(content);
-      console.log(plainText);
-      console.log(content);
 
       if (plainText.length > maxLength) {
         setValue(value);
@@ -50,7 +57,9 @@ const RichTextEditor = ({
         setValue(content);
       }
     } else {
-      setValue(content);
+      console.log(content, value);
+
+      content !== value && setValue(content);
     }
   };
 
@@ -58,7 +67,9 @@ const RichTextEditor = ({
     <ReactQuill
       theme="snow"
       modules={modules}
-      className="richTextEditor"
+      className={`${
+        type === "tableConstructor" ? "bottomToolbar" : ""
+      } richTextEditor`}
       placeholder={placeholder}
       value={value}
       onChange={handleChange}

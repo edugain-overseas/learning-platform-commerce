@@ -9,7 +9,8 @@
 .blocksWrapper {
   flex-grow: 1;
   height: 100%;
-  overflow: auto;
+  overflow-x: visible;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   gap: 32rem;
@@ -20,6 +21,7 @@
   flex-shrink: 0;
   height: fit-content;
   max-height: 100%;
+  overflow: auto;
 }
 
 .blocksWrapper,
@@ -29,7 +31,6 @@
   background: var(--bg-rgba-default);
   box-shadow: var(--drop-shadow-button-main-hover);
   backdrop-filter: blur(16rem);
-  overflow: auto;
 }
 
 .addBlockBtns {
@@ -109,6 +110,7 @@
   flex-direction: column;
   gap: 16rem;
   padding: 20rem;
+  padding-bottom: 36rem;
   box-shadow: var(--drop-shadow-middle);
   border-radius: 5rem;
   background-color: var(--bg-rgba-detail);
