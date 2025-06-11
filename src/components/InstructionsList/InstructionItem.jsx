@@ -10,7 +10,7 @@ import { getFormattedStrFromDate } from "../../utils/formatDate";
 
 const InstructionItem = ({ instruction }) => {
   return (
-    <li className={styles.instructionItem}>
+    <>
       <NavLink
         className={({ isActive }) => navLinkActiveHandler(isActive, styles)}
         to={`${instruction.id}`}
@@ -29,7 +29,7 @@ const InstructionItem = ({ instruction }) => {
           <InsetBtn icon={<ArrowDownIcon className={styles.chevronIcon} />} />
         </div>
       </NavLink>
-    </li>
+    </>
   );
 };
 

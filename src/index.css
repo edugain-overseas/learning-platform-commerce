@@ -21,7 +21,7 @@
   --bg-rgba-accent: rgba($color: #fcfcfc, $alpha: 0.9);
 
   --bg-button-main: rgba(131, 131, 131, 0.2);
-  --bg-button-default: #fff;
+  --bg-rgba-primary: #fff;
   --bg-button-disabled: #d9d9d9;
   --bg-button-success: #39ba6d;
   --bg-button-failture: #ba3939;
