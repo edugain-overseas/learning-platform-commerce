@@ -16,6 +16,34 @@
 .instructionItem {
   width: 100%;
   height: 38rem;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+
+  & > .editBtn,
+  & > .deleteBtn {
+    width: 38rem;
+    height: 38rem;
+    border-radius: 5rem;
+    background: var(--bg-rgba-default);
+    box-shadow: var(--box-shadow-button-inset);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    transition: opacity var(--transition-time-min) ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .editBtn path {
+    fill: var(--content-datail-secondary);
+  }
+  .deleteBtn path {
+    fill: var(--content-nav-hover);
+  }
 
   .navLink {
     display: flex;
@@ -146,12 +174,119 @@
   }
 }
 
+.modalWrapper {
+}
+
 .instructionForm {
+  height: 100%;
+  overflow: auto;
+  padding-inline: 12rem;
+  display: flex;
+  flex-direction: column;
+
+  .contentWrapper {
+    flex-grow: 1;
+    padding-inline: 8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 16rem;
+    margin-bottom: 32rem;
+  }
+
+  .inputWrapper {
+    border-radius: 5rem;
+    border: 1rem solid var(--content-datail-secondary);
+    padding: 4rem 8rem;
+    position: relative;
+
+    &:has(.error) {
+      border-color: var(--content-nav-hover);
+    }
+
+    &:has(.name) {
+      margin-bottom: 32rem;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -18rem;
+        left: 0;
+        width: 100%;
+        height: 2rem;
+        background-color: var(--content-datail-secondary);
+      }
+    }
+
+    input {
+      width: 100%;
+      font-size: 18rem;
+      color: var(--content-main);
+      line-height: 1.42;
+
+      &::placeholder {
+        color: var(--content-datail-secondary);
+      }
+
+      &.name {
+        font-size: 22rem;
+        text-align: center;
+      }
+    }
+  }
+
+  .error {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    color: var(--content-nav-hover);
+    font-size: 12rem;
+  }
+
+  .uploadedFiles {
+    padding-block: 16rem;
+    border-top: 2rem solid var(--content-datail-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 8rem;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 12rem;
+
+      .deleteBtn {
+        color: var(--content-nav-hover);
+        svg {
+          width: 12rem;
+          height: auto;
+        }
+      }
+    }
+  }
+
   .uploaderWrapper {
     height: 200rem;
 
-    & > div {
+    & > div[role="presentation"] {
       inset: 0;
+    }
+  }
+
+  button[type="submit"] {
+    margin-inline: 60rem;
+    height: 32rem;
+    flex-shrink: 0;
+    border-radius: 5rem;
+
+    background-color: var(--content-main);
+    color: var(--content-light-secondary);
+    font-size: 16rem;
+
+    transition: opacity var(--transition-time-min) ease;
+
+    &:hover {
+      opacity: 0.7;
+      box-shadow: var(--drop-shadow-button-main-hover);
     }
   }
 }

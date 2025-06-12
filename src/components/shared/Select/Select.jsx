@@ -55,7 +55,7 @@ const Select = ({
   useEffect(() => {
     const ref = selectRef.current;
     const handleKeydown = (e) => {
-      e.preventDefault()
+      e.preventDefault();
       if (e.target !== ref) return;
       switch (e.code) {
         case "Enter":
@@ -120,11 +120,19 @@ const Select = ({
       )}
 
       {value !== "" && allowClear ? (
-        <button className={styles.clearBtn} onClick={(e) => handleClear(e)}>
+        <button
+          type="button"
+          className={styles.clearBtn}
+          onClick={(e) => handleClear(e)}
+        >
           <CrossIcon />
         </button>
       ) : (
-        <button className={styles.openBtn} onClick={(e) => handleOpen(e)}>
+        <button
+          type="button"
+          className={styles.openBtn}
+          onClick={(e) => handleOpen(e)}
+        >
           <DropDownArrowIcon />
         </button>
       )}

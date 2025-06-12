@@ -195,7 +195,6 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
                     <DocumentLink
                       file={file}
                       key={file.file_id}
-                      styles={styles}
                     />
                   ))}
                 </div>

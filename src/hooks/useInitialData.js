@@ -27,11 +27,11 @@ export const useInitialData = () => {
   }, [accessToken]);
 
   useEffect(() => {
-    if (accessToken && userType === "student") {
+    if (accessToken) {
       dispatch(getCoursesInstuctionsThunk());
     }
     // eslint-disable-next-line
-  }, [accessToken, userType]);
+  }, [accessToken]);
 
   useEffect(() => {
     dispatch(getGeneralInstuctionsThunk());

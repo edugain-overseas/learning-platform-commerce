@@ -38,8 +38,8 @@ const InstructionContent = () => {
             <div className={styles.docsWrapper}>
               <h4>Download material</h4>
               <div className={styles.filesWrapper}>
-                {instruction?.files.map((file) => (
-                  <DocumentLink key={file.id} file={file} />
+                {instruction?.files.map((file, index) => (
+                  <DocumentLink key={index} file={file} />
                 ))}
               </div>
             </div>

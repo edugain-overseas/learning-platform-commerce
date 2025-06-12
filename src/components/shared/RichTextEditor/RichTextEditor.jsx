@@ -57,8 +57,6 @@ const RichTextEditor = ({
         setValue(content);
       }
     } else {
-      console.log(content, value);
-
       content !== value && setValue(content);
     }
   };

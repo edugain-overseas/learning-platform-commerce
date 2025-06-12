@@ -27,3 +27,32 @@ export const getInstuctionById = async (id) => {
     throw error;
   }
 };
+
+export const createInstruction = async (instructionData) => {
+  try {
+    const { data } = await instance.post(`instruction/create`, instructionData);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const editInstruction = async ({ id, ...instructionData }) => {
+  try {
+    const { data } = await instance.put(
+      `instruction/update/${id}`,
+      instructionData
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteInstruction = async (id) => {
+  try {
+    await instance.delete(`instruction/delete/${id}`);
+  } catch (error) {
+    throw error;
+  }
+};

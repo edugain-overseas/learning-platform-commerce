@@ -1,9 +1,9 @@
 import React from "react";
 import { ReactComponent as DocumentPDFIcon } from "../../../images/icons/doc-pdf.svg";
 import { ReactComponent as DownloadFileIcon } from "../../../images/icons/download-file.svg";
-import styles from "./DocumentLink.module.scss";
 import { formatFileSize } from "../../../utils/formatFileSize";
 import { serverName } from "../../../http/server";
+import styles from "./DocumentLink.module.scss";
 
 const DocumentLink = ({ file }) => {
   const { file_name, file_size, file_path, filename } = file;

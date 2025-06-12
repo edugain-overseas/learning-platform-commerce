@@ -3,10 +3,12 @@ import { Outlet, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllInstructions } from "../../redux/instruction/selectors";
 import { ReactComponent as DocSearchIcon } from "../../images/icons/document-search.svg";
-import InstructionItem from "./InstructionItem";
-import styles from "./InstructionsList.module.scss";
 import { getUserInfo } from "../../redux/user/selectors";
+import InstructionItem from "./InstructionItem";
 import AddInstruction from "./AddInstruction";
+import EditInstruction from "./EditInstruction";
+import DeleteIntruction from "./DeleteIntruction";
+import styles from "./InstructionsList.module.scss";
 
 const InstructionsList = () => {
   const { instructionId } = useParams();
@@ -17,7 +19,7 @@ const InstructionsList = () => {
     ({ type }) => type === "general"
   );
   const coursesInstruction = instructions.filter(
-    ({ type }) => type === "courses"
+    ({ type }) => type === "course"
   );
 
   const targetInstructions = pathname.includes("general")
@@ -26,14 +28,18 @@ const InstructionsList = () => {
 
   const isAdmin = useSelector(getUserInfo).userType === "moder";
 
-  console.log(isAdmin);
-
   return (
     <div className={styles.wrapper}>
       <ul className={styles.instructionsList}>
         {targetInstructions.map((instruction) => (
           <li className={styles.instructionItem} key={instruction.id}>
             <InstructionItem instruction={instruction} />
+            {isAdmin && (
+              <>
+                <EditInstruction instructionId={instruction.id} />
+                <DeleteIntruction instructionId={instruction.id} />
+              </>
+            )}
           </li>
         ))}
         {isAdmin && (
