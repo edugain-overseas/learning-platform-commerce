@@ -28,6 +28,7 @@ const TestContent = ({
   attemptFinished = false,
   setAttemptFinished = () => {},
   messageApi,
+  onSumbitTestAttempt,
 }) => {
   const [confirmBtnState, setConfirmBtnState] = useState("default");
   const [studentAnswers, setStudentAnswers] = useState(answers ? answers : []);
@@ -333,6 +334,7 @@ const TestContent = ({
     )
       .unwrap()
       .then((response) => {
+        onSumbitTestAttempt?.();
         setStudentAnswers([]);
 
         messageApi.success({
@@ -402,8 +404,6 @@ const TestContent = ({
     }
     // eslint-disable-next-line
   }, [closed ? answers : null]);
-
-  console.log(answers, isExam, closed);
 
   return (
     <>

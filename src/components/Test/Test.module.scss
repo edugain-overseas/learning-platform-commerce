@@ -192,3 +192,11 @@
     opacity: 0.7;
   }
 }
+
+.timerWrapper {
+  position: absolute;
+  width: calc(100% - 286rem);
+  text-align: center;
+  padding: 12rem;
+  font-size: 20rem;
+}

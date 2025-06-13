@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useMessage from "antd/es/message/useMessage";
+import { useTimer } from "../../hooks/useTimer";
 import { getAllCourses } from "../../redux/course/selectors";
 import { getTestAttemptsThunk } from "../../redux/lesson/operation";
 import { getTestAttemptById } from "../../http/services/lesson";
+import { minutesToMilliseconds } from "../../utils/formatTime";
 import TestHeader from "../TasksHeader/TestHeader";
 import TestContent from "./TestContent";
 import CourseAsideProgressPanel from "../CourseAsideProgressPanel/CourseAsideProgressPanel";
 import TestLanding from "./TestLanding";
+import TestTime from "./TestTime";
 import styles from "./Test.module.scss";
 
 const Test = ({ test }) => {
@@ -30,7 +33,15 @@ const Test = ({ test }) => {
 
   const sumbittedAttemptId = test.test_data.my_attempt_id;
 
-  console.log(test);
+  // console.log(test);
+
+  const {
+    start: startTimer,
+    clear: clearTimer,
+    timeLeft,
+  } = useTimer({ initialTime: minutesToMilliseconds(test.scheduled_time) });
+
+  console.log(timeLeft);
 
   useEffect(() => {
     if (testId) {
@@ -57,6 +68,12 @@ const Test = ({ test }) => {
 
   const startTestAttmpt = () => {
     setShowTestContent(true);
+    startTimer();
+  };
+
+  const closeTestAttempt = () => {
+    setShowTestContent(false);
+    clearTimer();
   };
 
   return (
@@ -69,13 +86,17 @@ const Test = ({ test }) => {
       />
       <div className={styles.bodyWrapper}>
         {showTestContent ? (
-          <TestContent
-            test={{ ...test, status }}
-            setStudentAnswersLength={setStudentAnswersLength}
-            closed={isTestClosed}
-            answers={submitedAttemptData}
-            messageApi={messageApi}
-          />
+          <>
+            <TestTime timeLeft={timeLeft} />
+            <TestContent
+              test={{ ...test, status }}
+              setStudentAnswersLength={setStudentAnswersLength}
+              closed={isTestClosed}
+              answers={submitedAttemptData}
+              messageApi={messageApi}
+              onSumbitTestAttempt={closeTestAttempt}
+            />
+          </>
         ) : (
           <TestLanding
             onStartTest={startTestAttmpt}
