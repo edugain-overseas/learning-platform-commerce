@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Exam.module.scss";
-// import TestHeader from "../TasksHeader/TestHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/user/selectors";
 import { getAllCourses } from "../../redux/course/selectors";
-// import CourseAsideProgressPanel from "../CourseAsideProgressPanel/CourseAsideProgressPanel";
 import TestContent from "../Test/TestContent";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import {
@@ -24,7 +22,6 @@ const INTERVAL_DELAY = 1000;
 
 const Exam = ({ exam }) => {
   const userInfo = useSelector(getUserInfo);
-  // console.log(userInfo);
 
   const { course_id: courseId, id, exam_data: examData } = exam;
   const [studentAnswersLength, setStudentAnswersLength] = useState(0);

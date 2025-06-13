@@ -30,7 +30,7 @@ const Test = ({ test }) => {
 
   const sumbittedAttemptId = test.test_data.my_attempt_id;
 
-  console.log(test.test_data);
+  console.log(test);
 
   useEffect(() => {
     if (testId) {
@@ -56,8 +56,8 @@ const Test = ({ test }) => {
   }, [sumbittedAttemptId]);
 
   const startTestAttmpt = () => {
-    setShowTestContent(true)
-  }
+    setShowTestContent(true);
+  };
 
   return (
     <div className={styles.testWrapper}>
@@ -77,7 +77,10 @@ const Test = ({ test }) => {
             messageApi={messageApi}
           />
         ) : (
-          <TestLanding onStartTest={startTestAttmpt}/>
+          <TestLanding
+            onStartTest={startTestAttmpt}
+            testData={{ ...test.test_data, timer: test.scheduled_time }}
+          />
         )}
         <div className={styles.progressWrapper}>
           <CourseAsideProgressPanel

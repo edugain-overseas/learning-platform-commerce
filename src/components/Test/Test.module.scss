@@ -153,4 +153,42 @@
   background-color: var(--bg-rgba-default);
   border-radius: 5rem;
   box-shadow: var(--drop-shadow-button-main);
+
+  padding-top: 56rem;
+  padding-inline: 84rem;
+
+  h3 {
+    font-size: 24rem;
+    color: var(--content-main);
+    text-align: center;
+    margin-bottom: 20rem;
+  }
+
+  p {
+    font-size: 18rem;
+    color: var(--content-datail-secondary);
+    text-align: center;
+
+    b {
+      color: var(--content-main);
+    }
+  }
+}
+
+.landingBtn {
+  display: block;
+  height: 38rem;
+  text-align: center;
+  width: 100%;
+  margin: 32rem auto;
+  // max-width: 600rem;
+  font-size: 16rem;
+  color: var(--content-light-secondary);
+  background-color: var(--content-main);
+  border-radius: 5rem;
+
+  transition: opacity var(--transition-time-min) ease;
+  &:hover {
+    opacity: 0.7;
+  }
 }
