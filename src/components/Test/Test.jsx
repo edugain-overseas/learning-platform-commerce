@@ -33,13 +33,15 @@ const Test = ({ test }) => {
 
   const sumbittedAttemptId = test.test_data.my_attempt_id;
 
-  // console.log(test);
+  console.log(sumbittedAttemptId);
 
   const {
     start: startTimer,
     clear: clearTimer,
     timeLeft,
-  } = useTimer({ initialTime: minutesToMilliseconds(test.scheduled_time) });
+  } = useTimer({
+    initialTime: minutesToMilliseconds(test.scheduled_time),
+  });
 
   console.log(timeLeft);
 
@@ -77,41 +79,59 @@ const Test = ({ test }) => {
   };
 
   return (
-    <div className={styles.testWrapper}>
-      {contextHolder}
-      <TestHeader
-        test={test}
-        testScore={testScore}
-        questionsDoneAmount={studentAnswersLength}
-      />
-      <div className={styles.bodyWrapper}>
-        {showTestContent ? (
-          <>
-            <TestTime timeLeft={timeLeft} />
-            <TestContent
-              test={{ ...test, status }}
-              setStudentAnswersLength={setStudentAnswersLength}
-              closed={isTestClosed}
-              answers={submitedAttemptData}
-              messageApi={messageApi}
-              onSumbitTestAttempt={closeTestAttempt}
+    <>
+      <div className={styles.testWrapper}>
+        {contextHolder}
+        <TestHeader
+          test={test}
+          testScore={testScore}
+          questionsDoneAmount={studentAnswersLength}
+        />
+        <div className={styles.bodyWrapper}>
+          {showTestContent || sumbittedAttemptId ? (
+            <>
+              {!sumbittedAttemptId && <TestTime timeLeft={timeLeft} />}
+              <TestContent
+                test={{ ...test, status }}
+                setStudentAnswersLength={setStudentAnswersLength}
+                closed={isTestClosed}
+                answers={submitedAttemptData}
+                messageApi={messageApi}
+                onSumbitTestAttempt={closeTestAttempt}
+                attemptTime={timeLeft}
+                attemptFinished={false}
+              />
+            </>
+          ) : (
+            <TestLanding
+              onStartTest={startTestAttmpt}
+              testData={{ ...test.test_data, timer: test.scheduled_time }}
             />
-          </>
-        ) : (
-          <TestLanding
-            onStartTest={startTestAttmpt}
-            testData={{ ...test.test_data, timer: test.scheduled_time }}
-          />
-        )}
-        <div className={styles.progressWrapper}>
-          <CourseAsideProgressPanel
-            courseLessons={courseLessons ? courseLessons : []}
-            courseId={courseId}
-            progress={course?.progress}
-          />
+          )}
+          <div className={styles.progressWrapper}>
+            <CourseAsideProgressPanel
+              courseLessons={courseLessons ? courseLessons : []}
+              courseId={courseId}
+              progress={course?.progress}
+            />
+          </div>
         </div>
       </div>
-    </div>
+      {/* <Modal
+        isOpen={!showResultModal}
+        closeModal={() => setShowResultModal(false)}
+        width="60%"
+        height="40%"
+        contentWrapperStyles={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "24rem",
+          alignItems: "center",
+        }}
+      >
+        <TestResultModal result={currentAttemptResult} />
+      </Modal> */}
+    </>
   );
 };
 

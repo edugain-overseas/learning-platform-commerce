@@ -358,13 +358,13 @@ const TestContent = ({
   };
 
   useEffect(() => {
-    if (attemptTime <= 0 && attemptFinished === false && isExam) {
+    if (attemptTime <= 0 && attemptFinished === false) {
       messageApi?.info({
         content: "Time is up!",
         duration: 3,
       });
       console.log(setAttemptFinished, attemptFinished);
-      setAttemptFinished(true);
+      setAttemptFinished?.(true);
       handleConfirmTest();
     }
     // eslint-disable-next-line

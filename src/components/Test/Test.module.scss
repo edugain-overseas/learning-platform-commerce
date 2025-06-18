@@ -16,6 +16,8 @@
   flex-grow: 1;
   height: fit-content;
   max-width: calc(100% - 16rem - 270rem);
+  padding-bottom: 86rem;
+
 }
 
 .progressWrapper {
@@ -181,7 +183,7 @@
   text-align: center;
   width: 100%;
   margin: 32rem auto;
-  // max-width: 600rem;
+  max-width: 200rem;
   font-size: 16rem;
   color: var(--content-light-secondary);
   background-color: var(--content-main);
