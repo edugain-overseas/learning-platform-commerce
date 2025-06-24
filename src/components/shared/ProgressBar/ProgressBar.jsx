@@ -28,9 +28,11 @@ const ProgressBar = ({
   width = 171,
   height = 24,
   value,
-  disabled,
   className = "",
 }) => {
+  
+  const disabled = value == null ? true : false;
+
   return (
     <div
       className={`${styles.outerWrapper} ${className}`}

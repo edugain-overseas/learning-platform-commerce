@@ -12,14 +12,12 @@ const QuestionPhoto = ({ answers, state, setState, id, imagePath }) => {
     setState(id, value);
   };
 
-  console.log(answers);
   const renderAnswers = () => {
     if (!answers) {
       return;
     }
 
     return answers.map(({ a_id: answerId, a_text: answerText }, index) => {
-      console.log(answerText);
       return (
         <InputRadio
           key={answerId}

@@ -5,11 +5,18 @@ import ProgressList from "../shared/ProgressList/ProgressList";
 import styles from "./CourseAsideProgressPanel.module.scss";
 import { useNavigate } from "react-router-dom";
 import useMessage from "antd/es/message/useMessage";
+import { useSelector } from "react-redux";
+import { getAllCourses } from "../../redux/course/selectors";
 
-const CourseAsideProgressPanel = ({ courseLessons, courseId, progress }) => {
+const CourseAsideProgressPanel = ({ courseId }) => {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = useMessage();
-  const progressItems = courseLessons.map(({ id, title, status, number }) => ({
+
+  const course = useSelector(getAllCourses)?.find(({ id }) => id === +courseId);
+  const courseLessons = course?.lessons;
+  const courseProgress = course?.progress;
+
+  const progressItems = courseLessons?.map(({ id, title, status, number }) => ({
     id,
     label: title,
     status,
@@ -17,7 +24,7 @@ const CourseAsideProgressPanel = ({ courseLessons, courseId, progress }) => {
     link: status && status !== "blocked" ? `/task/${id}` : null,
   }));
 
-  const exam = courseLessons.find((lesson) => lesson.type === "exam");
+  const exam = courseLessons?.find((lesson) => lesson.type === "exam");
 
   const blockedLessonMessage = () =>
     messageApi.info({
@@ -41,12 +48,7 @@ const CourseAsideProgressPanel = ({ courseLessons, courseId, progress }) => {
           <h4>Content:</h4>
           <div className={styles.progressWrapper}>
             <span>Progress:</span>
-            <ProgressBar
-              value={progress}
-              width={172}
-              height={24}
-              disabled={progress === undefined || progress === null}
-            />
+            <ProgressBar value={courseProgress} width={172} height={24} />
           </div>
           <div className={styles.progressListWrapper}>
             <ProgressList

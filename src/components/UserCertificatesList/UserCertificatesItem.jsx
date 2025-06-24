@@ -19,7 +19,7 @@ const UserCertificatesItem = ({ certificate, type }) => {
     <div className={styles.certificateItem}>
       <div className={styles.linkWrapper}>
         <Link
-          to={`/course/${certificate.course_id}/intro`}
+          to={certificate.course_id && `/course/${certificate.course_id}/intro`}
           className={styles.certificateLink}
         >
           <h4>{title}</h4>

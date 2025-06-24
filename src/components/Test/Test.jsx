@@ -1,82 +1,59 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import useMessage from "antd/es/message/useMessage";
-import { useTimer } from "../../hooks/useTimer";
-import { getAllCourses } from "../../redux/course/selectors";
-import { getTestAttemptsThunk } from "../../redux/lesson/operation";
-import { getTestAttemptById } from "../../http/services/lesson";
-import { minutesToMilliseconds } from "../../utils/formatTime";
+import React from "react";
+import { useStudentTest } from "../../hooks/useStudentTest";
 import TestHeader from "../TasksHeader/TestHeader";
 import TestContent from "./TestContent";
 import CourseAsideProgressPanel from "../CourseAsideProgressPanel/CourseAsideProgressPanel";
 import TestLanding from "./TestLanding";
-import TestTime from "./TestTime";
+import CompleteBtn from "../shared/CompleteBtn/CompleteBtn";
+import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
+import Spinner from "../Spinner/Spinner";
 import styles from "./Test.module.scss";
 
 const Test = ({ test }) => {
-  const { course_id: courseId, id } = test;
-  const [studentAnswersLength, setStudentAnswersLength] = useState(0);
-  const [submitedAttemptData, setSubmitedAttemptData] = useState(null);
-  const [showTestContent, setShowTestContent] = useState(false);
-  const [messageApi, contextHolder] = useMessage();
-  const dispatch = useDispatch();
-
-  const course = useSelector(getAllCourses)?.find(({ id }) => id === +courseId);
-  const courseLessons = course?.lessons;
-  const testScore = courseLessons?.find(({ id }) => id === test.id)?.score;
-  const status = courseLessons?.find(({ id: testId }) => testId === id)?.status;
-
-  const testId = test.test_data.test_id;
-
-  const isTestClosed =
-    test.test_data.attempts <= test.test_data.attempts_data?.length;
-
-  const sumbittedAttemptId = test.test_data.my_attempt_id;
-
-  console.log(sumbittedAttemptId);
-
   const {
-    start: startTimer,
-    clear: clearTimer,
+    contextHolder,
+    studentAnswers,
+    setStudentAnswers,
+    completedQuestionsAmount,
+    submitedAttemptData,
     timeLeft,
-  } = useTimer({
-    initialTime: minutesToMilliseconds(test.scheduled_time),
-  });
+    startTestAttempt,
+    showTest,
+    onSubmitAttemptBtnClick,
+    isLoading,
+  } = useStudentTest(test, "test");
 
-  console.log(timeLeft);
+  const { course_id: courseId } = test;
+  const isTestClosed =
+    test?.test_data?.attempts <= test.test_data?.attempts_data?.length ||
+    submitedAttemptData;
 
-  useEffect(() => {
-    if (testId) {
-      dispatch(getTestAttemptsThunk({ test_id: testId }));
-    }
-    // eslint-disable-next-line
-  }, [testId]);
+  const completeAttemptBtnState = submitedAttemptData ? "fulfilled" : "default";
 
-  useEffect(() => {
-    const fetchAttemptId = async () => {
-      try {
-        const data = await getTestAttemptById(sumbittedAttemptId);
-        setSubmitedAttemptData(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    if (sumbittedAttemptId) {
-      fetchAttemptId();
-    } else {
-      setSubmitedAttemptData(null);
-    }
-  }, [sumbittedAttemptId]);
-
-  const startTestAttmpt = () => {
-    setShowTestContent(true);
-    startTimer();
-  };
-
-  const closeTestAttempt = () => {
-    setShowTestContent(false);
-    clearTimer();
-  };
+  const bottomTools = (
+    <div className={styles.bottomNavBtnsWrapper}>
+      <LessonNavigateBtn
+        forward={false}
+        currentNumber={test.number}
+        courseId={courseId}
+        label="Return to previous"
+        width="200rem"
+        height="38rem"
+      />
+      <CompleteBtn
+        onClick={onSubmitAttemptBtnClick}
+        state={isLoading ? "pending" : completeAttemptBtnState}
+      />
+      <LessonNavigateBtn
+        forward={true}
+        currentNumber={test.number}
+        courseId={courseId}
+        label="Move on to next"
+        width="200rem"
+        height="38rem"
+      />
+    </div>
+  );
 
   return (
     <>
@@ -84,53 +61,37 @@ const Test = ({ test }) => {
         {contextHolder}
         <TestHeader
           test={test}
-          testScore={testScore}
-          questionsDoneAmount={studentAnswersLength}
+          testScore={0}
+          questionsDoneAmount={completedQuestionsAmount}
         />
-        <div className={styles.bodyWrapper}>
-          {showTestContent || sumbittedAttemptId ? (
-            <>
-              {!sumbittedAttemptId && <TestTime timeLeft={timeLeft} />}
-              <TestContent
-                test={{ ...test, status }}
-                setStudentAnswersLength={setStudentAnswersLength}
-                closed={isTestClosed}
-                answers={submitedAttemptData}
-                messageApi={messageApi}
-                onSumbitTestAttempt={closeTestAttempt}
-                attemptTime={timeLeft}
-                attemptFinished={false}
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <div className={styles.bodyWrapper}>
+            {showTest || isTestClosed ? (
+              <>
+                <TestContent
+                  studentAnswers={submitedAttemptData || studentAnswers}
+                  setStudentAnswers={setStudentAnswers}
+                  test={{ ...test }}
+                  closed={isTestClosed}
+                  answers={submitedAttemptData}
+                  timeLeft={timeLeft}
+                  bottomTools={bottomTools}
+                />
+              </>
+            ) : (
+              <TestLanding
+                onStartTest={startTestAttempt}
+                testData={{ ...test.test_data, timer: test.scheduled_time }}
               />
-            </>
-          ) : (
-            <TestLanding
-              onStartTest={startTestAttmpt}
-              testData={{ ...test.test_data, timer: test.scheduled_time }}
-            />
-          )}
-          <div className={styles.progressWrapper}>
-            <CourseAsideProgressPanel
-              courseLessons={courseLessons ? courseLessons : []}
-              courseId={courseId}
-              progress={course?.progress}
-            />
+            )}
+            <div className={styles.progressWrapper}>
+              <CourseAsideProgressPanel courseId={courseId} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
-      {/* <Modal
-        isOpen={!showResultModal}
-        closeModal={() => setShowResultModal(false)}
-        width="60%"
-        height="40%"
-        contentWrapperStyles={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "24rem",
-          alignItems: "center",
-        }}
-      >
-        <TestResultModal result={currentAttemptResult} />
-      </Modal> */}
     </>
   );
 };

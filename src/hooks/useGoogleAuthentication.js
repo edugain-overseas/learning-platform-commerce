@@ -19,8 +19,6 @@ const useGoogleAuthentication = () => {
         auto_select: false,
       };
 
-      console.log(IdConfiguration);
-
       try {
         /* global google */
         google.accounts.id.initialize(IdConfiguration);

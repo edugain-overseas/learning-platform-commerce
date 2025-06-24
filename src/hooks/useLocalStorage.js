@@ -14,7 +14,7 @@ const useLocalStorage = (key, initialValue) => {
       return;
     }
     localStorage.setItem(key, JSON.stringify(value));
-    
+
     // eslint-disable-next-line
   }, [value]);
 

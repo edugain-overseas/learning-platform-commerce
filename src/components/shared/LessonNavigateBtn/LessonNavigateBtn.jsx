@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllCourses } from "../../../redux/course/selectors";
@@ -18,6 +18,7 @@ const LessonNavigateBtn = ({
   const courses = useSelector(getAllCourses);
   const course = courses.find(({ id }) => id === +courseId);
   const courseLessons = course?.lessons || [];
+
   const [messageApi, contextHolder] = useMessage();
 
   const courseSortedLessons = [...courseLessons]?.sort(
@@ -64,4 +65,10 @@ const LessonNavigateBtn = ({
   );
 };
 
-export default LessonNavigateBtn;
+// export default LessonNavigateBtn;
+export default memo(
+  LessonNavigateBtn,
+  (prevProps, nextProps) =>
+    prevProps.currentNumber === nextProps.currentNumber ||
+    prevProps.courseId === nextProps.courseId
+);

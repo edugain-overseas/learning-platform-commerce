@@ -16,13 +16,11 @@ const QuestionPhotoAnswers = ({ answers, state, setState, id }) => {
     if (!answers) {
       return;
     }
-    console.log(answers);
     return answers.map(
       (
         { a_id: answerId, a_text: answerText, image_path: imagePath },
         index
       ) => {
-        console.log(imagePath);
         return (
           <div key={answerId} className={styles.imageCard}>
             <Image

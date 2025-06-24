@@ -5,10 +5,7 @@ import styles from "./QuestionMatching.module.scss";
 
 const QuestionMatching = ({ answers, setState, id, state }) => {
   const leftOptions = answers?.left || [];
-  const rightOptions = answers?.right || [];
-
-  console.log(answers);
-  
+  const rightOptions = answers?.right || [];  
 
   const options = rightOptions.map(({ id }, index) => ({
     label: getLetterVatiantsByIndex(index),

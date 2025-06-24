@@ -136,7 +136,7 @@ const AttemptsList = ({ test, closePopOver }) => {
           closeModal={() => setIsOpenModal(false)}
         >
           <div className={styles.testContentWrapper}>
-            <TestContent test={test} answers={answers} closed={true} />
+            <TestContent test={test} studentAnswers={answers} closed={true}/>
           </div>
         </Modal>
       )}

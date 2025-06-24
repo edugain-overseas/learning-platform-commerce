@@ -1,9 +1,15 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useCallback } from "react";
+import useLocalStorage from "./useLocalStorage";
 
 const INTERVAL_DELAY = 1000;
 
-export const useTimer = ({ initialTime = 0, onComplete, onTick }) => {
-  const [timeLeft, setTimeLeft] = useState(initialTime);
+export const useTimer = ({
+  initialTime = 0,
+  onComplete,
+  onTick,
+  storageKey = "timer",
+}) => {
+  const [timeLeft, setTimeLeft] = useLocalStorage(storageKey, initialTime);
   const intervalId = useRef(null);
 
   const clear = useCallback(() => {
@@ -20,19 +26,22 @@ export const useTimer = ({ initialTime = 0, onComplete, onTick }) => {
         const next = prev - INTERVAL_DELAY;
         if (next <= 0) {
           clear();
-          onComplete?.();
+          setTimeout(() => {
+            onComplete?.();
+          }, 0);
           return 0;
         }
         onTick?.(next);
         return next;
       });
     }, INTERVAL_DELAY);
+    // eslint-disable-next-line
   }, [clear, onComplete, onTick]);
 
   useEffect(() => {
-    setTimeLeft(initialTime);
+    setTimeLeft((prev) => (prev === undefined ? initialTime : prev));
     return clear;
-  }, [initialTime, clear]);
+  }, [initialTime, clear, setTimeLeft]);
 
   return { timeLeft, start, clear };
 };

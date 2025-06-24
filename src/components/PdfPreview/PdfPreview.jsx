@@ -5,6 +5,8 @@ import { pdfUrlToImages } from "../../utils/pdfToImages";
 const PdfPreview = ({ pdfUrl, previewVisible, setPreviewVisible }) => {
   const [imgs, setImgs] = useState([]);
   const [error, setError] = useState(null);
+  console.log(imgs, error);
+  
 
   useEffect(() => {
     if (!pdfUrl) return;

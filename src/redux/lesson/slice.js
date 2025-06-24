@@ -184,7 +184,7 @@ const lessonSlice = createSlice({
       })
       .addCase(getTestAttemptsThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { test_id } = action.meta.arg;
+        const { test_id } = action.meta.arg;        
 
         const lessonIndex = state.lessons.findIndex(
           (lesson) => lesson.test_data?.test_id === test_id

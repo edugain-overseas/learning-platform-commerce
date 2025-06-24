@@ -14,11 +14,11 @@ const TestHeader = ({
   switcherValue,
   switcherItems,
   switcherOnChange,
-  questionsDoneAmount = 0,
+  completedQuestionsAmount = 0,
   testScore,
   isExam = false,
 }) => {
-  const { title, type, number, course_id: courseId } = test;
+  const { title, type, number, course_id: courseId } = test;  
 
   const testData = isExam ? test.exam_data : test.test_data;
   const isModer = useSelector(getUserType) === "moder";
@@ -52,7 +52,7 @@ const TestHeader = ({
               <>
                 <div className={styles.questionsDoneWrapper}>
                   <DocQuestionIcon />
-                  <span>{`Questions: ${questionsDoneAmount}/${testData?.questions?.length}`}</span>
+                  <span>{`Questions: ${completedQuestionsAmount}/${testData?.questions?.length}`}</span>
                 </div>
                 <SubmitTest test={test} />
               </>
