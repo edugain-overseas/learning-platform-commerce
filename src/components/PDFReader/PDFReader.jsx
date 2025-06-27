@@ -177,9 +177,9 @@ const PDFReader = ({ pdf }) => {
             renderAnnotationLayer={false}
             renderTextLayer={false}
             className={styles.page}
-            // width={fullscreen ? undefined : containerRef.current?.clientWidth}
+            width={containerRef.current?.clientWidth}
             // height={fullscreen ? containerRef.current?.clientHeight : undefined}
-            height={containerRef.current?.clientHeight}
+            // height={containerRef.current?.clientHeight}
             loading={null}
             onLoadSuccess={handlePageLoadSuccess}
           />
