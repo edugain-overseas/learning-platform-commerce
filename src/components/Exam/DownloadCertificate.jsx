@@ -74,7 +74,7 @@ const DownloadCertificate = () => {
       disabled={!certificateLink}
       onClick={handleDownloadCertificate}
     >
-      {!certificateLink ? (
+      {certificateLink ? (
         <span>Download Certificate</span>
       ) : (
         <>
