@@ -39,7 +39,6 @@ const Exam = ({ exam }) => {
       )[0]
     : null;
 
-  console.log(userInfo);
 
   const examScore = bestAttempt?.attempt_score;
   const examMaxScore = examData.score;

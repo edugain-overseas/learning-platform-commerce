@@ -7,6 +7,7 @@ import TestLanding from "./TestLanding";
 import CompleteBtn from "../shared/CompleteBtn/CompleteBtn";
 import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
 import Spinner from "../Spinner/Spinner";
+import ExpiredAttemptsMessage from "../shared/ExpiredAttemptsMessage/ExpiredAttemptsMessage";
 import styles from "./Test.module.scss";
 
 const Test = ({ test }) => {
@@ -17,13 +18,14 @@ const Test = ({ test }) => {
     completedQuestionsAmount,
     submitedAttemptData,
     timeLeft,
-    startTestAttempt,
     showTest,
-    onSubmitAttemptBtnClick,
     isLoading,
+    startTestAttempt,
+    onSubmitAttemptBtnClick,
   } = useStudentTest(test, "test");
 
   const { course_id: courseId } = test;
+
   const isTestClosed =
     test?.test_data?.attempts <= test.test_data?.attempts_data?.length ||
     submitedAttemptData;
@@ -55,6 +57,10 @@ const Test = ({ test }) => {
     </div>
   );
 
+  const showExpiredAttemptsMessage =
+    isTestClosed &&
+    test.test_data?.attempts_data?.every((attempt) => !attempt.is_passed);
+
   return (
     <>
       <div className={styles.testWrapper}>
@@ -70,6 +76,12 @@ const Test = ({ test }) => {
           <div className={styles.bodyWrapper}>
             {showTest || isTestClosed ? (
               <>
+                {showExpiredAttemptsMessage && (
+                  <ExpiredAttemptsMessage
+                    testId={test.test_data?.test_id}
+                    wrapperClassname={styles.expiredMessageWrapper}
+                  />
+                )}
                 <TestContent
                   studentAnswers={submitedAttemptData || studentAnswers}
                   setStudentAnswers={setStudentAnswers}

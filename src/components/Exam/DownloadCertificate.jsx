@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/user/selectors";
@@ -17,6 +17,7 @@ const DownloadCertificate = () => {
   )?.category_id;
   const userInfo = useSelector(getUserInfo);
   const userCertificates = userInfo.certificates;
+  const intervalRef = useRef();
   console.log(userCertificates);
 
   const courseCertificateData = userCertificates
@@ -29,6 +30,7 @@ const DownloadCertificate = () => {
           (courseCertificate) => courseCertificate.course_id === +courseId
         )
     : null;
+
   const certificateLink = courseCertificateData?.course_certificate_link;
 
   const handleDownloadCertificate = () => {
@@ -55,11 +57,16 @@ const DownloadCertificate = () => {
   };
 
   useEffect(() => {
-    if (certificateLink) {
-      dispatch(getUserCertificatesThunk(userInfo.studentId));
+    if (!certificateLink && !intervalRef.current && userInfo.studentId) {
+      intervalRef.current = setInterval(
+        () => dispatch(getUserCertificatesThunk(userInfo.studentId)),
+        60000
+      );
+    } else {
+      clearInterval(intervalRef.current);
     }
     // eslint-disable-next-line
-  }, [certificateLink]);
+  }, [certificateLink, intervalRef.current, userInfo.studentId]);
 
   return (
     <button
@@ -67,10 +74,13 @@ const DownloadCertificate = () => {
       disabled={!certificateLink}
       onClick={handleDownloadCertificate}
     >
-      {certificateLink ? (
+      {!certificateLink ? (
         <span>Download Certificate</span>
       ) : (
-        <Spinner contrastColor={true} />
+        <>
+          <span>Generating </span>
+          <Spinner contrastColor={true}/>
+        </>
       )}
     </button>
   );

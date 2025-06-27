@@ -7,7 +7,7 @@ export const useTimer = ({
   initialTime = 0,
   onComplete,
   onTick,
-  storageKey = "timer",
+  storageKey,
 }) => {
   const [timeLeft, setTimeLeft] = useLocalStorage(storageKey, initialTime);
   const intervalId = useRef(null);
@@ -21,6 +21,9 @@ export const useTimer = ({
 
   const start = useCallback(() => {
     clear();
+    if (!timeLeft) {
+      setTimeLeft(initialTime);
+    }
     intervalId.current = setInterval(() => {
       setTimeLeft((prev) => {
         const next = prev - INTERVAL_DELAY;

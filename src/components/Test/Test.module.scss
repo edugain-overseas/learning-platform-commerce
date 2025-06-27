@@ -17,7 +17,6 @@
   height: fit-content;
   max-width: calc(100% - 16rem - 270rem);
   padding-bottom: 86rem;
-
 }
 
 .progressWrapper {
@@ -201,4 +200,14 @@
   text-align: center;
   padding: 12rem;
   font-size: 20rem;
+}
+
+.expiredMessageWrapper {
+  padding-block: 8rem;
+  position: absolute;
+  top: 0;
+  width: calc(100% - 284rem);
+  color: var(--content-nav-hover);
+  font-size: 16rem;
+  text-align: center;
 }

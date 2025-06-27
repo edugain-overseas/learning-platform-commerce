@@ -41,7 +41,7 @@ const UserProfileStatCard = ({ type, renderTitle = () => null }) => {
       // avarage grade of courses which user bought
       return calcAvarage(userCourses.map((course) => course.grade));
     },
-  };
+  };  
 
   const circleProgressCardProps = {
     ...circleProgressCardStaticProps,

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import styles from "./CircleProgressBar.module.scss";
 
 const CircleProgressBar = ({
   width = 100,
@@ -9,7 +10,13 @@ const CircleProgressBar = ({
 }) => {
   const raduis = width / 2 - strokeWidth / 2;
   const strokeDasharray = 2 * Math.PI * raduis;
-  const strokeDashoffset = strokeDasharray * ((100 - progress) / 100);
+  const [strokeDashOffset, setStrokeDashOffset] = useState(strokeDasharray);
+
+  useEffect(() => {
+    setStrokeDashOffset(strokeDasharray * ((100 - progress) / 100));
+    // eslint-disable-next-line
+  }, [progress]);
+
   return (
     <svg
       width={`${width}rem`}
@@ -26,6 +33,7 @@ const CircleProgressBar = ({
         strokeWidth={`${strokeWidth}rem`}
       ></circle>
       <circle
+        className={styles.progressCircle}
         r={raduis}
         cx={width / 2}
         cy={width / 2}
@@ -34,7 +42,7 @@ const CircleProgressBar = ({
         strokeLinecap="round"
         strokeWidth={`${strokeWidth}rem`}
         strokeDasharray={strokeDasharray}
-        strokeDashoffset={strokeDashoffset}
+        strokeDashoffset={strokeDashOffset}
       ></circle>
     </svg>
   );
