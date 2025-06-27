@@ -60,7 +60,7 @@ const DownloadCertificate = () => {
     if (!certificateLink && !intervalRef.current && userInfo.studentId) {
       intervalRef.current = setInterval(
         () => dispatch(getUserCertificatesThunk(userInfo.studentId)),
-        60000
+        10000
       );
     } else {
       clearInterval(intervalRef.current);
