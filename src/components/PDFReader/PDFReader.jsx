@@ -5,15 +5,13 @@ import { ReactComponent as PlayIcon } from "../../images/icons/play.svg";
 import { ReactComponent as PauseIcon } from "../../images/icons/pause.svg";
 import { ReactComponent as FullscreenIcon } from "../../images/icons/fullscreen.svg";
 import styles from "./PDFReader.module.scss";
-import samplePdf from "../../images/simple.pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const INTERVAL_DELAY = 5000;
 
-const PDFReader = ({ pdf = samplePdf }) => {
-  // const [fileObj] = useState({ url: pdf });
-  const [fileObj] = useState({ url: samplePdf });
+const PDFReader = ({ pdf }) => {
+  const [fileObj] = useState({ url: pdf });
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [layoutMode, setLayoutMode] = useState("single");
