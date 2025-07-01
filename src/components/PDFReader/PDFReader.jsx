@@ -12,19 +12,24 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 const INTERVAL_DELAY = 5000;
 
 const PDFReader = ({ pdf = samplePdf }) => {
-  const [fileObj] = useState({ url: pdf });
+  // const [fileObj] = useState({ url: pdf });
+  const [fileObj] = useState({ url: samplePdf });
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [layoutMode, setLayoutMode] = useState("single");
   const [playing, setPlaying] = useState(false);
   const [showControls, setShowControls] = useState(false);
   const [containerWidth, setContainerWidth] = useState(0);
+  const [pageOriginalProps, setPageOriginalProps] = useState(null);
+  const [scale, setScale] = useState(1);
 
   const containerRef = useRef(null);
   const intervalRef = useRef(null);
   const mouseMoveTimeoutRef = useRef(null);
 
-  const fullscreen = document.fullscreenElement === containerRef.current;
+  const fullscreen =
+    document.fullscreenElement &&
+    document.fullscreenElement === containerRef.current;
 
   // Handle PDF load
   const onDocumentLoadSuccess = ({ numPages }) => {
@@ -32,9 +37,10 @@ const PDFReader = ({ pdf = samplePdf }) => {
     updateContainerWidth();
   };
 
-  // Determine layout mode
+  // Determine layout mode and set page original props for future calculations
   const onPageLoadSuccess = ({ width, height }) => {
     setLayoutMode(width >= height ? "single" : "double");
+    setPageOriginalProps({ width, height });
   };
 
   // Update container width
@@ -44,23 +50,30 @@ const PDFReader = ({ pdf = samplePdf }) => {
     }
   }, []);
 
-  // Resize + fullscreen listeners
+  // Handle page scale to avoid overflowing container in fullsceen mode
   useEffect(() => {
-    // const handleResize = () => updateContainerWidth();
-    // const handleFullscreenChange = () => {
-    //   // const isFs = document.fullscreenElement === containerRef.current;
-    //   // setFullscreen(isFs);
-    //   updateContainerWidth();
-    // };
+    const calculateScale = () => {
+      if (!fullscreen) return 1;
 
-    // window.addEventListener("resize", handleResize);
-    // document.addEventListener("fullscreenchange", handleFullscreenChange);
+      const originalFrameWidth =
+        layoutMode === "single"
+          ? pageOriginalProps?.width
+          : pageOriginalProps?.width * 2;
 
-    // return () => {
-    //   window.removeEventListener("resize", handleResize);
-    //   document.removeEventListener("fullscreenchange", handleFullscreenChange);
-    // };
-    updateContainerWidth()
+      const containerRatio =
+        containerRef.current?.clientWidth / containerRef.current?.clientHeight;
+
+      const originalFrameRatio = originalFrameWidth / pageOriginalProps?.height;
+
+      if (originalFrameRatio > containerRatio) {
+        return containerRatio / originalFrameRatio;
+      }
+      return originalFrameRatio / containerRatio;
+    };
+
+    updateContainerWidth();
+    setScale(calculateScale());
+    // eslint-disable-next-line
   }, [updateContainerWidth, fullscreen]);
 
   // Auto-play logic
@@ -81,7 +94,7 @@ const PDFReader = ({ pdf = samplePdf }) => {
     clearTimeout(mouseMoveTimeoutRef.current);
     mouseMoveTimeoutRef.current = setTimeout(
       () => setShowControls(false),
-      1000
+      2500
     );
   };
 
@@ -124,104 +137,119 @@ const PDFReader = ({ pdf = samplePdf }) => {
   };
 
   return (
-    <div
-      ref={containerRef}
-      className={styles.documentContainer}
-      onMouseMove={handleMouseMove}
-      style={{ maxWidth: fullscreen ? "100%" : "880rem" }}
-    >
-      <Document
-        onLoadSuccess={onDocumentLoadSuccess}
-        file={fileObj}
-        onLoadError={console.error}
-        className={`${styles.document} ${
-          layoutMode === "double" && styles.documentFlex
-        }`}
+    <div style={{ maxWidth: "880rem" }}>
+      <div
+        ref={containerRef}
+        className={styles.documentContainer}
+        onMouseMove={handleMouseMove}
+        onClick={handleMouseMove}
+        style={{ maxWidth: fullscreen ? "100%" : "880rem" }}
       >
-        {containerWidth > 0 && (
-          <>
-            {layoutMode === "single" ? (
-              <>
-                <Page
-                  pageNumber={pageNumber}
-                  width={getPageWidth()}
-                  renderAnnotationLayer={false}
-                  renderTextLayer={false}
-                  onLoadSuccess={onPageLoadSuccess}
-                  className={styles.page}
-                />
-                <Page
-                  pageNumber={pageNumber + 1}
-                  width={getPageWidth()}
-                  renderAnnotationLayer={false}
-                  renderTextLayer={false}
-                  onLoadSuccess={onPageLoadSuccess}
-                  className={`${styles.page} ${styles.hidden}`}
-                />
-              </>
-            ) : (
-              <>
-                <Page
-                  pageNumber={pageNumber}
-                  width={getPageWidth()}
-                  renderAnnotationLayer={false}
-                  renderTextLayer={false}
-                  onLoadSuccess={onPageLoadSuccess}
-                  className={styles.page}
-                />
-                {pageNumber < numPages && (
+        <Document
+          onLoadSuccess={onDocumentLoadSuccess}
+          file={fileObj}
+          onLoadError={console.error}
+          className={`${styles.document} ${
+            layoutMode === "double" && styles.documentFlex
+          }`}
+        >
+          {containerWidth > 0 && (
+            <>
+              {layoutMode === "single" ? (
+                <>
                   <Page
-                    pageNumber={pageNumber + 1}
+                    pageNumber={pageNumber}
                     width={getPageWidth()}
                     renderAnnotationLayer={false}
                     renderTextLayer={false}
+                    onLoadSuccess={onPageLoadSuccess}
                     className={styles.page}
+                    scale={scale}
                   />
-                )}
-                <Page
-                  pageNumber={pageNumber + 2}
-                  width={getPageWidth()}
-                  renderAnnotationLayer={false}
-                  renderTextLayer={false}
-                  onLoadSuccess={onPageLoadSuccess}
-                  className={`${styles.page} ${styles.hidden}`}
-                />
-                <Page
-                  pageNumber={pageNumber + 3}
-                  width={getPageWidth()}
-                  renderAnnotationLayer={false}
-                  renderTextLayer={false}
-                  className={`${styles.page} ${styles.hidden}`}
-                />
-              </>
-            )}
-          </>
-        )}
-      </Document>
+                  {pageNumber + 1 <= numPages && (
+                    <Page
+                      pageNumber={pageNumber + 1}
+                      width={getPageWidth()}
+                      renderAnnotationLayer={false}
+                      renderTextLayer={false}
+                      onLoadSuccess={onPageLoadSuccess}
+                      className={`${styles.page} ${styles.hidden}`}
+                      scale={scale}
+                    />
+                  )}
+                </>
+              ) : (
+                <>
+                  <Page
+                    pageNumber={pageNumber}
+                    width={getPageWidth()}
+                    renderAnnotationLayer={false}
+                    renderTextLayer={false}
+                    onLoadSuccess={onPageLoadSuccess}
+                    className={styles.page}
+                    scale={scale}
+                  />
+                  {pageNumber < numPages && (
+                    <Page
+                      pageNumber={pageNumber + 1}
+                      width={getPageWidth()}
+                      renderAnnotationLayer={false}
+                      renderTextLayer={false}
+                      className={styles.page}
+                      scale={scale}
+                    />
+                  )}
+                  {pageNumber + 1 < numPages && (
+                    <Page
+                      pageNumber={pageNumber + 2}
+                      width={getPageWidth()}
+                      renderAnnotationLayer={false}
+                      renderTextLayer={false}
+                      onLoadSuccess={onPageLoadSuccess}
+                      className={`${styles.page} ${styles.hidden}`}
+                      scale={scale}
+                    />
+                  )}
+                  {pageNumber + 2 < numPages && (
+                    <Page
+                      pageNumber={pageNumber + 3}
+                      width={getPageWidth()}
+                      renderAnnotationLayer={false}
+                      renderTextLayer={false}
+                      className={`${styles.page} ${styles.hidden}`}
+                      scale={scale}
+                    />
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </Document>
 
-      <div
-        className={`${styles.controlPanel} ${
-          showControls ? styles.active : ""
-        }`}
-      >
-        <div className={styles.controlsCenter}>
-          <button onClick={goToPrevPage} disabled={pageNumber === 1}>
-            <ArrowLeftIcon />
-          </button>
-          <button onClick={() => setPlaying((prev) => !prev)}>
-            {playing ? <PauseIcon /> : <PlayIcon />}
-          </button>
-          <button onClick={goToNextPage}>
-            <ArrowLeftIcon style={{ transform: "rotate(180deg)" }} />
-          </button>
-        </div>
-        <div className={styles.controlsBottom}>
-          <span>
-            {pageNumber} / {numPages}
-          </span>
-          <button onClick={toggleFullscreen}>
-            <FullscreenIcon />
-          </button>
+        <div
+          className={`${styles.controlPanel} ${
+            showControls ? styles.active : ""
+          }`}
+        >
+          <div className={styles.controlsCenter}>
+            <button onClick={goToPrevPage} disabled={pageNumber === 1}>
+              <ArrowLeftIcon />
+            </button>
+            <button onClick={() => setPlaying((prev) => !prev)}>
+              {playing ? <PauseIcon /> : <PlayIcon />}
+            </button>
+            <button onClick={goToNextPage}>
+              <ArrowLeftIcon style={{ transform: "rotate(180deg)" }} />
+            </button>
+          </div>
+          <div className={styles.controlsBottom}>
+            <span className={styles.pagesInfo}>
+              {pageNumber} / {numPages}
+            </span>
+            <button onClick={toggleFullscreen}>
+              <FullscreenIcon />
+            </button>
+          </div>
         </div>
       </div>
     </div>

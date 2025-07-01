@@ -25,8 +25,8 @@
   pointer-events: none;
 
   svg {
-    width: 16rem;
-    height: 16rem;
+    width: 20rem;
+    height: auto;
     path {
       fill: #fff;
       stroke: transparent;
@@ -91,7 +91,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 6rem;
+    padding: 20rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -99,8 +99,7 @@
 
   .pagesInfo {
     color: #fff;
-    font-size: 12rem;
-    font-weight: 600;
+    font-size: 16rem;
     margin-inline-start: 1rem;
   }
 
@@ -117,6 +116,9 @@
 .page {
   width: 100%;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &::after {
     content: "";
