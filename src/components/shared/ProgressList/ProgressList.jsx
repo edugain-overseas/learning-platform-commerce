@@ -3,6 +3,8 @@ import styles from "./ProgressList.module.scss";
 import ProgressListItem from "./ProgressListItem";
 
 const ProgressList = ({ items, blockedLessonMessage }) => {
+  if (!Array.isArray(items)) return null;
+
   const sortedItemsByNumber = [...items].sort(
     (itemA, itemB) => itemA.number - itemB.number
   );

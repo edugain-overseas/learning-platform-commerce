@@ -1,190 +1,229 @@
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
 import { ReactComponent as ArrowLeftIcon } from "../../images/icons/arrow-left.svg";
 import { ReactComponent as PlayIcon } from "../../images/icons/play.svg";
 import { ReactComponent as PauseIcon } from "../../images/icons/pause.svg";
 import { ReactComponent as FullscreenIcon } from "../../images/icons/fullscreen.svg";
-
-import React, { useEffect, useRef, useState } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
 import styles from "./PDFReader.module.scss";
+import samplePdf from "../../images/simple.pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-const options = {
-  cMapUrl: "/cmaps/",
-  standardFontDataUrl: "/standard_fonts/",
-  withCredentials: true,
-};
+const INTERVAL_DELAY = 5000;
 
-const PDFReader = ({ pdf }) => {
+const PDFReader = ({ pdf = samplePdf }) => {
+  const [fileObj] = useState({ url: pdf });
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
-  const [pageLoadedSucces, setPageLoadedSucces] = useState(false);
+  const [layoutMode, setLayoutMode] = useState("single");
   const [playing, setPlaying] = useState(false);
-  const [fullscreen, setFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(false);
-  const [pageHeight, setPageHeight] = useState(0);
-  // const [displayAlbum, setDisplayAlbum] = useState(false);
-
-  // eslint-disable-next-line
-  const [fileObj, setFileObj] = useState({ url: pdf });
-
-  console.log(pageHeight, fullscreen, setFileObj);
+  const [containerWidth, setContainerWidth] = useState(0);
 
   const containerRef = useRef(null);
-  const controlPanelRef = useRef(null);
-  const interval = useRef(null);
-  const mouseMoveTimeoutId = useRef(null);
+  const intervalRef = useRef(null);
+  const mouseMoveTimeoutRef = useRef(null);
 
-  useEffect(() => {
-    const onFullscreenChange = () => {
-      if (document.fullscreenElement === containerRef.current) {
-        setFullscreen(true);
-      } else {
-        setFullscreen(false);
-      }
-    };
-    document.addEventListener("fullscreenchange", onFullscreenChange);
+  const fullscreen = document.fullscreenElement === containerRef.current;
 
-    return () =>
-      document.removeEventListener("fullscreenchange", onFullscreenChange);
+  // Handle PDF load
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setNumPages(numPages);
+    updateContainerWidth();
+  };
+
+  // Determine layout mode
+  const onPageLoadSuccess = ({ width, height }) => {
+    setLayoutMode(width >= height ? "single" : "double");
+  };
+
+  // Update container width
+  const updateContainerWidth = useCallback(() => {
+    if (containerRef.current) {
+      setContainerWidth(containerRef.current.clientWidth);
+    }
   }, []);
 
-  const onLoadSuccess = ({ numPages }) => {
-    setNumPages(numPages);
-  };
+  // Resize + fullscreen listeners
+  useEffect(() => {
+    // const handleResize = () => updateContainerWidth();
+    // const handleFullscreenChange = () => {
+    //   // const isFs = document.fullscreenElement === containerRef.current;
+    //   // setFullscreen(isFs);
+    //   updateContainerWidth();
+    // };
 
-  const handlePageLoadSuccess = (info) => {
-    setPageLoadedSucces(true);
-    setPageHeight(info.height);
-  };
+    // window.addEventListener("resize", handleResize);
+    // document.addEventListener("fullscreenchange", handleFullscreenChange);
 
-  const handlePrev = (e) => {
-    e.stopPropagation();
-    if (pageNumber === 1) {
-      return;
+    // return () => {
+    //   window.removeEventListener("resize", handleResize);
+    //   document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    // };
+    updateContainerWidth()
+  }, [updateContainerWidth, fullscreen]);
+
+  // Auto-play logic
+  useEffect(() => {
+    if (playing) {
+      intervalRef.current = setInterval(() => {
+        setPageNumber((prev) => (prev === numPages ? 1 : prev + 1));
+      }, INTERVAL_DELAY);
+    } else {
+      clearInterval(intervalRef.current);
     }
-    setPageNumber((prev) => prev - 1);
+    return () => clearInterval(intervalRef.current);
+  }, [playing, numPages]);
+
+  // Controls visibility on mouse move
+  const handleMouseMove = () => {
+    setShowControls(true);
+    clearTimeout(mouseMoveTimeoutRef.current);
+    mouseMoveTimeoutRef.current = setTimeout(
+      () => setShowControls(false),
+      1000
+    );
   };
 
-  const handleNext = (e) => {
-    e.stopPropagation();
+  // Fullscreen toggle
+  const toggleFullscreen = () => {
+    if (fullscreen) {
+      document.exitFullscreen();
+    } else {
+      containerRef.current?.requestFullscreen();
+    }
+  };
 
+  // Page width based on mode
+  const getPageWidth = () => {
+    if (!containerWidth) return undefined;
+    return layoutMode === "double" ? containerWidth / 2 : containerWidth;
+  };
+
+  // Controls
+  const goToPrevPage = () => {
     setPageNumber((prev) => {
-      if (prev === numPages) return 1;
-      return prev + 1;
+      if (layoutMode === "double") {
+        return prev > 2 ? prev - 2 : prev - 1;
+      }
+      return prev - 1;
     });
   };
 
-  const handleContainerMouseEnter = () => {
-    setShowControls(true);
-  };
-  const handleContainerMouseLeave = () => {
-    setShowControls(false);
-  };
+  const goToNextPage = () => {
+    setPageNumber((prev) => {
+      const nextPagesAmount = numPages - prev;
 
-  const handlePlay = (e) => {
-    e.stopPropagation();
+      if (!nextPagesAmount) return 1;
 
-    if (playing && interval.current) {
-      window.clearInterval(interval.current);
-    } else {
-      interval.current = window.setInterval(
-        () =>
-          setPageNumber((prev) => {
-            if (prev === numPages) return 1;
-            return prev + 1;
-          }),
-        5000
-      );
-    }
-    setPlaying((prev) => !prev);
-  };
-
-  const handleContainerMouseMove = () => {    
-    clearTimeout(mouseMoveTimeoutId.current);
-    setShowControls(true);
-    mouseMoveTimeoutId.current = setTimeout(() => setShowControls(false), 1000);
-  };
-
-  const handleFullscreen = (e) => {
-    e.stopPropagation();
-
-    if (document.fullscreenElement === null) {
-      containerRef.current?.requestFullscreen();
-      containerRef.current?.addEventListener(
-        "mousemove",
-        handleContainerMouseMove
-      );
-    } else {
-      document.exitFullscreen();
-      containerRef.current?.removeEventListener(
-        "mousemove",
-        handleContainerMouseMove
-      );
-    }
+      if (layoutMode === "double") {
+        return nextPagesAmount >= 2 ? prev + 2 : prev + 1;
+      }
+      return prev === numPages ? 1 : prev + 1;
+    });
   };
 
   return (
     <div
       ref={containerRef}
       className={styles.documentContainer}
-      onMouseEnter={handleContainerMouseEnter}
-      onMouseLeave={handleContainerMouseLeave}
-      style={{
-        height: "100%",
-      }}
+      onMouseMove={handleMouseMove}
+      style={{ maxWidth: fullscreen ? "100%" : "880rem" }}
     >
-      {pageLoadedSucces && (
-        <div
-          className={`${styles.controlPanel} ${
-            showControls ? styles.active : ""
-          }`}
-          ref={controlPanelRef}
-        >
-          <div className={styles.controlsCenter}>
-            <button onClick={handlePrev} className={styles.controlPrevBtn}>
-              <ArrowLeftIcon />
-            </button>
-            <button className={styles.controlPlayBtn} onClick={handlePlay}>
-              {playing ? <PauseIcon /> : <PlayIcon />}
-            </button>
-            <button onClick={handleNext} className={styles.controlNextBtn}>
-              <ArrowLeftIcon />
-            </button>
-          </div>
-          <div className={styles.controlsBottom}>
-            <p className={styles.pagesInfo}>{`${pageNumber} / ${numPages}`}</p>
-            <button
-              className={styles.controllsFullscreenOn}
-              onClick={handleFullscreen}
-            >
-              <FullscreenIcon />
-            </button>
-          </div>
-        </div>
-      )}
       <Document
+        onLoadSuccess={onDocumentLoadSuccess}
         file={fileObj}
-        options={options}
-        onLoadSuccess={onLoadSuccess}
         onLoadError={console.error}
-        className={styles.document}
-        loading={null}
+        className={`${styles.document} ${
+          layoutMode === "double" && styles.documentFlex
+        }`}
       >
-        {containerRef.current && (
-          <Page
-            pageNumber={pageNumber}
-            renderAnnotationLayer={false}
-            renderTextLayer={false}
-            className={styles.page}
-            width={containerRef.current?.clientWidth}
-            // height={fullscreen ? containerRef.current?.clientHeight : undefined}
-            // height={containerRef.current?.clientHeight}
-            loading={null}
-            onLoadSuccess={handlePageLoadSuccess}
-          />
+        {containerWidth > 0 && (
+          <>
+            {layoutMode === "single" ? (
+              <>
+                <Page
+                  pageNumber={pageNumber}
+                  width={getPageWidth()}
+                  renderAnnotationLayer={false}
+                  renderTextLayer={false}
+                  onLoadSuccess={onPageLoadSuccess}
+                  className={styles.page}
+                />
+                <Page
+                  pageNumber={pageNumber + 1}
+                  width={getPageWidth()}
+                  renderAnnotationLayer={false}
+                  renderTextLayer={false}
+                  onLoadSuccess={onPageLoadSuccess}
+                  className={`${styles.page} ${styles.hidden}`}
+                />
+              </>
+            ) : (
+              <>
+                <Page
+                  pageNumber={pageNumber}
+                  width={getPageWidth()}
+                  renderAnnotationLayer={false}
+                  renderTextLayer={false}
+                  onLoadSuccess={onPageLoadSuccess}
+                  className={styles.page}
+                />
+                {pageNumber < numPages && (
+                  <Page
+                    pageNumber={pageNumber + 1}
+                    width={getPageWidth()}
+                    renderAnnotationLayer={false}
+                    renderTextLayer={false}
+                    className={styles.page}
+                  />
+                )}
+                <Page
+                  pageNumber={pageNumber + 2}
+                  width={getPageWidth()}
+                  renderAnnotationLayer={false}
+                  renderTextLayer={false}
+                  onLoadSuccess={onPageLoadSuccess}
+                  className={`${styles.page} ${styles.hidden}`}
+                />
+                <Page
+                  pageNumber={pageNumber + 3}
+                  width={getPageWidth()}
+                  renderAnnotationLayer={false}
+                  renderTextLayer={false}
+                  className={`${styles.page} ${styles.hidden}`}
+                />
+              </>
+            )}
+          </>
         )}
       </Document>
+
+      <div
+        className={`${styles.controlPanel} ${
+          showControls ? styles.active : ""
+        }`}
+      >
+        <div className={styles.controlsCenter}>
+          <button onClick={goToPrevPage} disabled={pageNumber === 1}>
+            <ArrowLeftIcon />
+          </button>
+          <button onClick={() => setPlaying((prev) => !prev)}>
+            {playing ? <PauseIcon /> : <PlayIcon />}
+          </button>
+          <button onClick={goToNextPage}>
+            <ArrowLeftIcon style={{ transform: "rotate(180deg)" }} />
+          </button>
+        </div>
+        <div className={styles.controlsBottom}>
+          <span>
+            {pageNumber} / {numPages}
+          </span>
+          <button onClick={toggleFullscreen}>
+            <FullscreenIcon />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
