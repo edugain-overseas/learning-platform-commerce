@@ -23,9 +23,10 @@ const TestContent = ({
   timeLeft = null,
   bottomTools,
   maxWidth = "100%",
+  wrapperStyles = {},
 }) => {
   const { id: testId, course_id: courseId, type: lessonType } = test;
-  
+
   const course = useSelector(getAllCourses)?.find(({ id }) => id === courseId);
   const courseName = course?.title;
   const courseLessons = course?.lessons;
@@ -269,6 +270,7 @@ const TestContent = ({
           pointerEvents: closed ? "none" : "auto",
           opacity: closed ? "0.5" : "1",
           maxWidth: maxWidth,
+          ...wrapperStyles,
         }}
       >
         <div className={styles.testContent}>

@@ -1,6 +1,4 @@
 .documentContainer {
-  // width: 1080rem;
-  // width: fit-content;
   width: 100%;
   margin: 0 auto;
 
@@ -27,12 +25,11 @@
   svg {
     width: 20rem;
     height: auto;
+
     path {
       fill: #fff;
       stroke: transparent;
     }
-    // color: #fff;
-    // font-size: 16rem;
   }
 
   button {

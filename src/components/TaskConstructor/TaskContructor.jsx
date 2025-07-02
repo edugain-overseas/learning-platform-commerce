@@ -16,6 +16,7 @@ import LectureContent from "../Lecture/LectureContent";
 import Spinner from "../Spinner/Spinner";
 import styles from "./TaskConstructor.module.scss";
 import { TestContructorProvider } from "../../context/TestContructorContext";
+import TestContent from "../Test/TestContent";
 
 const TaskContructor = () => {
   const [viewTypeIndex, setViewTypeIndex] = useState(0);
@@ -72,14 +73,23 @@ const TaskContructor = () => {
               switcherValue={viewTypeIndex}
               switcherOnChange={setViewTypeIndex}
             />
-            <TestConstructor
-              attempts={task[`${taskType}_data`]?.attempts}
-              initialBlocks={task[`${taskType}_data`]?.questions}
-              score={task[`${taskType}_data`]?.score}
-              testId={task[`${taskType}_data`]?.[`${taskType}_id`]}
-              lessonType={task.type}
-              timer={task[`${taskType}_data`]?.timer}
-            />
+            {viewTypeIndex === 0 && (
+              <TestConstructor
+                attempts={task[`${taskType}_data`]?.attempts}
+                initialBlocks={task[`${taskType}_data`]?.questions}
+                score={task[`${taskType}_data`]?.score}
+                testId={task[`${taskType}_data`]?.[`${taskType}_id`]}
+                lessonType={task.type}
+                timer={task[`${taskType}_data`]?.timer}
+              />
+            )}
+            {viewTypeIndex === 1 && (
+              <TestContent
+                test={task}
+                closed={true}
+                wrapperStyles={{ marginInline: "10%", opacity: 1 }}
+              />
+            )}
           </TestContructorProvider>
         );
       default:
