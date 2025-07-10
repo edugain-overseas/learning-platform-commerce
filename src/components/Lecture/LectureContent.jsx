@@ -74,8 +74,11 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
             </section>
           );
         case "present":
-          const filePath = files[0].file_path;
-          const encodedFilePathPresent = filePath?.replace(/ /g, "%20");
+          console.log(tepmplateData);
+
+          const filePath = files[0]?.file_path;
+          const encodedFilePathPresent =
+            filePath && filePath?.replace(/ /g, "%20");
           return (
             <section
               key={id}
@@ -192,10 +195,7 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
               {files && files.length !== 0 && (
                 <div className={styles.filesWrapper}>
                   {files.map((file) => (
-                    <DocumentLink
-                      file={file}
-                      key={file.file_id}
-                    />
+                    <DocumentLink file={file} key={file.file_id} />
                   ))}
                 </div>
               )}
@@ -272,7 +272,7 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
                 dangerouslySetInnerHTML={{ __html: title }}
               ></h3>
               {table_data && (
-                <div style={{overflow: 'auto'}}>
+                <div style={{ overflow: "auto" }}>
                   <TableUI tableData={table_data} />
                 </div>
               )}
