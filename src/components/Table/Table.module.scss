@@ -116,7 +116,6 @@
 }
 
 .table {
-  background-color: var(--content-light-secondary);
   border-collapse: collapse;
   width: 100%;
 
@@ -131,8 +130,10 @@
     }
   }
 
-  tbody tr:not(:last-child) {
-    border-bottom: 1rem solid var(--border-color-decorate);
+  tbody {
+    tr:not(:last-child) {
+      border-bottom: 1rem solid var(--border-color-decorate);
+    }
   }
 
   th,

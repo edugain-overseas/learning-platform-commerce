@@ -5,6 +5,7 @@ import { ReactComponent as PlayIcon } from "../../images/icons/play.svg";
 import { ReactComponent as PauseIcon } from "../../images/icons/pause.svg";
 import { ReactComponent as FullscreenIcon } from "../../images/icons/fullscreen.svg";
 import styles from "./PDFReader.module.scss";
+// import sample from '../../images/simple.pdf'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 

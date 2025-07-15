@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { message } from "antd";
 import { useSelector } from "react-redux";
 import { getUserType } from "../../redux/user/selectors";
 import { ReactComponent as ArrowRightIcon } from "../../images/icons/arrow-left.svg";
@@ -22,6 +23,13 @@ const TaskRow = ({ task }) => {
       <Link
         to={canUserGoToTask ? `/task/${task.id}` : null}
         className={styles.rowLink}
+        onClick={() =>
+          !canUserGoToTask &&
+          message.info({
+            content: "You can not access this lesson becouse it is blocked",
+            duration: 3,
+          })
+        }
       >
         <div className={styles.titleWrapper}>
           <span className={styles.taskTitle} title={task.title}>

@@ -37,7 +37,7 @@ const CoursesPanel = () => {
   const token = useSelector(getAccessToken);
   const isModer = useSelector(getUserType) === "moder";
   const showSwitcher = !pathname.includes("/intro");
-  const showFilters = !pathname.includes("/intro");
+  const showFilters = !pathname.includes("/intro") && false;
 
   const studentCoursesRenderLinks = token ? coursesLinks : coursesLinksPublic;
   const studentCourseRenderLinks = token ? courseLinks : courseLinksPublic;

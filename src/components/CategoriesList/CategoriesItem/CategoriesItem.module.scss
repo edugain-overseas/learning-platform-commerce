@@ -55,7 +55,7 @@
     font-weight: 500;
   }
 
-  button:not(.buyAll) {
+  button:not(.studentBtn) {
     border-radius: 5rem;
     background: var(--bg-rgba-default);
     box-shadow: var(--box-shadow-button-inset);
@@ -95,11 +95,10 @@
     }
   }
 
-  .buyAll {
-    width: 90rem;
+  .studentBtn {
+    flex-shrink: 0;
     height: 28rem;
     border-radius: 5rem;
-    background-color: var(--content-nav-hover);
     color: var(--content-light-secondary);
     display: flex;
     justify-content: center;
@@ -107,14 +106,36 @@
     gap: 10rem;
     transition: background-color var(--transition-time-min) ease;
 
-    &:hover {
-      background-color: var(--content-success);
-    }
-
     span {
       font-size: 14rem;
       color: inherit;
       font-weight: 500;
+    }
+  }
+
+  .buyAll {
+    width: 90rem;
+    background-color: var(--content-nav-hover);
+
+    &:hover {
+      background-color: var(--content-success);
+    }
+
+    &:disabled {
+      background-color: var(--content-datail-secondary);
+    }
+  }
+
+  .certificate {
+    width: 110rem;
+    background-color: var(--content-datail-secondary);
+
+    &:hover {
+      background-color: var(--content-main);
+    }
+
+    svg {
+      width: 14rem;
     }
   }
 

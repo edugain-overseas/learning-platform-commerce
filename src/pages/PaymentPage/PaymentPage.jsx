@@ -4,11 +4,11 @@ import { useCart } from "../../context/cartContext";
 import { useDispatch } from "react-redux";
 import { getCoursesThunk } from "../../redux/course/operations";
 import { subscribeCourses } from "../../http/services/user";
+import { getUserInfoThunk } from "../../redux/user/operations";
 import Spinner from "../../components/Spinner/Spinner";
 import Success from "./Success";
 import Cancel from "./Cancel";
 import styles from "./PaymentPage.module.scss";
-import { getUserInfoThunk } from "../../redux/user/operations";
 
 const PaymentPage = () => {
   const [searchParams] = useSearchParams();

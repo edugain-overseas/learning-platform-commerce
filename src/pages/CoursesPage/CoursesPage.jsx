@@ -23,10 +23,7 @@ const CoursesPage = () => {
     <div className={styles.pageWrapper}>
       <ListModeProvider>
         <CoursesPanel />
-        <div
-          className={styles.contentWrapper}
-          // style={{ paddingInline: isCoursesHomePage ? "32rem" : 0 }}
-        >
+        <div className={styles.contentWrapper}>
           <Outlet />
         </div>
       </ListModeProvider>

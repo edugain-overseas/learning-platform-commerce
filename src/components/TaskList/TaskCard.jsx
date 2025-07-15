@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getUserType } from "../../redux/user/selectors";
+import { message } from "antd";
 import { serverName } from "../../http/server";
 import { ReactComponent as ArrowRightIcon } from "../../images/icons/arrow-left.svg";
 import { ReactComponent as TaskViewIcon } from "../../images/icons/task-view.svg";
@@ -9,8 +10,8 @@ import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
 import { ReactComponent as QuestionsIcon } from "../../images/icons/document-question.svg";
 import { ReactComponent as ComplietedIcon } from "../../images/icons/task-check.svg";
 import poster from "../../images/noImage.webp";
-import styles from "./TaskList.module.scss";
 import ImageWithSkeleton from "../shared/Skeletons/ImageWithSkeleton";
+import styles from "./TaskList.module.scss";
 
 const TaskCard = ({ task }) => {
   const isModer = useSelector(getUserType) === "moder";
@@ -25,7 +26,13 @@ const TaskCard = ({ task }) => {
       <Link
         to={canUserGoToTask ? `/task/${task.id}` : null}
         className={styles.cardLink}
-        // style={{ pointerEvents: "none" }}
+        onClick={() =>
+          !canUserGoToTask &&
+          message.info({
+            content: "You can not access this lesson becouse it is blocked",
+            duration: 3,
+          })
+        }
       >
         <ImageWithSkeleton
           wrapperClassname={styles.poster}

@@ -7,19 +7,18 @@ import { useListMode } from "../../../context/ListModeContext";
 import { ReactComponent as BMIcon } from "../../../images/icons/bm.svg";
 import { ReactComponent as ChevronIcon } from "../../../images/icons/arrowDown.svg";
 import { ReactComponent as EditIcon } from "../../../images/icons/edit.svg";
-import { ReactComponent as BuyIcon } from "../../../images/icons/cart.svg";
 import CoursesList from "../../CoursesList/CoursesList";
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import InfoBtn from "../../shared/InfoBtn/InfoBtn";
 import CategoryModal from "../../CategoryModal/CategoryModal";
 import styles from "./CategoriesItem.module.scss";
 import InsetBtn from "../../shared/InsetBtn/InsetBtn";
-import { useCart } from "../../../context/cartContext";
+import CategoryBuyAllBtn from "./CategoryBuyAllBtn";
+import CategoryCertificateBtn from "./CategoryCertificateBtn";
 
 const CategoriesItem = ({ category }) => {
   const [dropDownOpen, setDropDownOpen] = useState(true);
   const [isEditCategoryModalOpen, setIsEditCatgoryModalOpen] = useState(false);
-  const { addAllCoursesInCategory } = useCart();
 
   const openEditCategoryModal = () => setIsEditCatgoryModalOpen(true);
 
@@ -33,12 +32,12 @@ const CategoriesItem = ({ category }) => {
     (course) => course.category_id === category.id
   );
 
-  const userCoursesinCategory = categoryCourses.filter(({ id }) =>
+  const userCoursesInCategory = categoryCourses.filter(({ id }) =>
     userCourses?.find(({ course_id }) => course_id === id)
   );
 
   const progress =
-    userCoursesinCategory.reduce((sum, { progress }) => sum + progress, 0) /
+    userCoursesInCategory.reduce((sum, { progress }) => sum + progress, 0) /
     categoryCourses.length;
 
   const handleToggleDropDown = (e) => {
@@ -54,6 +53,14 @@ const CategoriesItem = ({ category }) => {
     }
     setDropDownOpen((prev) => !prev);
   };
+
+  const studentBuyAllCourses = categoryCourses.every((course) => course.bought);
+
+  const studentBtn = studentBuyAllCourses ? (
+    <CategoryCertificateBtn categoryId={category.id} />
+  ) : (
+    <CategoryBuyAllBtn categoryId={category.id} disabled={!dropDownOpen} />
+  );
 
   return (
     <li className={styles.itemWrapper} id="wrapper">
@@ -75,13 +82,13 @@ const CategoriesItem = ({ category }) => {
             <>
               <p>
                 <span>Purchased: </span>
-                {`${userCoursesinCategory.length} / ${categoryCourses.length}`}
+                {`${userCoursesInCategory.length} / ${categoryCourses.length}`}
               </p>
               <div className={styles.progressWrapper}>
                 <span>Progress:</span>
                 <ProgressBar
                   value={Math.round(progress)}
-                  disabled={userCoursesinCategory.length === 0}
+                  disabled={userCoursesInCategory.length === 0}
                 />
               </div>
             </>
@@ -109,15 +116,7 @@ const CategoriesItem = ({ category }) => {
               <ChevronIcon />
             </span>
           </button>
-          {!isModer && (
-            <button
-              className={styles.buyAll}
-              onClick={() => addAllCoursesInCategory(category.id)}
-            >
-              <span>Buy all</span>
-              <BuyIcon />
-            </button>
-          )}
+          {!isModer && studentBtn}
         </div>
       </div>
       <div
