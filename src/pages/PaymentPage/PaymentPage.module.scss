@@ -12,10 +12,14 @@
 .successWrapper {
   p {
     font-size: 14rem;
+    opacity: 0;
+    animation: fade-from-bottom 1s ease forwards;
+    animation-delay: calc(var(--content-inner-anim-dur) * 0.75);
   }
 
   p:last-child {
     font-size: 20rem;
+    animation-delay: calc(var(--content-inner-anim-dur) * 0.8);
   }
 }
 
@@ -31,6 +35,7 @@
 
 .successWrapper,
 .cancelWrapper {
+  --content-inner-anim-dur: 2s;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,6 +70,9 @@
   border: 1.5rem solid var(--content-datail-secondary);
   border-radius: 5rem;
   transition: border-color var(--transition-time-min) ease;
+  opacity: 0;
+  animation: fade-from-bottom 1s ease forwards;
+  animation-delay: calc(var(--content-inner-anim-dur) * 0.9);
 
   &:hover {
     border-color: var(--content-main);
@@ -110,5 +118,128 @@
     & * {
       fill: var(--content-light-secondary);
     }
+  }
+}
+
+// circle animation elements
+.circlesWrapper {
+  position: relative;
+  width: 288rem;
+  height: 288rem;
+  margin-bottom: 32rem;
+  overflow: hidden;
+}
+.circlesWrapper div {
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: contain;
+}
+
+.circleOuter {
+  width: 288rem;
+  background-image: url("../../images/icons/circleAnimation/outer.svg");
+  opacity: 0;
+  transform: scale(0);
+  animation: wave-progress var(--content-inner-anim-dur)
+    cubic-bezier(0, 1.12, 0.74, 0.96) forwards;
+  animation-delay: 0.5s;
+}
+.circleMiddle {
+  width: 218rem;
+  background-image: url("../../images/icons/circleAnimation/middle.svg");
+  animation: wave-progress 3.75s cubic-bezier(0, 1.12, 0.74, 0.96) forwards;
+  animation-delay: 0.25s;
+}
+.circleInner {
+  width: 173rem;
+  background-image: url("../../images/icons/circleAnimation/inner.svg");
+  animation: wave-progress 3.5s cubic-bezier(0, 1.12, 0.74, 0.96) forwards;
+  animation-delay: 0.25s;
+}
+.contentInner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  scale: 0.1;
+  width: 157rem;
+  background-image: url("../../images/icons/circleAnimation/contentInner.svg");
+  animation: drop-progress var(--content-inner-anim-dur) ease-in-out forwards;
+}
+.like {
+  width: 86rem;
+  color: var(--content-light-secondary);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% 50%;
+  opacity: 0;
+  animation: fade-from-bottom-with-bounce
+    calc(var(--content-inner-anim-dur) - var(--content-inner-anim-dur) * 0.6)
+    forwards;
+  animation-delay: calc(var(--content-inner-anim-dur) * 0.6);
+}
+
+@keyframes wave-progress {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes drop-progress {
+  0% {
+    opacity: 1;
+    scale: 0.2;
+  }
+  15% {
+    opacity: 0.5;
+    scale: 0.05;
+  }
+  20% {
+    opacity: 0.6;
+    scale: 0.1;
+  }
+  85% {
+    scale: 1.05;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes fade-from-bottom-with-bounce {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0;
+  }
+  85% {
+    translate: -50% -65%;
+  }
+  100% {
+    opacity: 1;
+    translate: -50% -50%;
+  }
+}
+
+@keyframes fade-from-bottom {
+  0% {
+    translate: 0 300%;
+    opacity: 0;
+  }
+  100% {
+    translate: 0 0;
+    opacity: 1;
   }
 }

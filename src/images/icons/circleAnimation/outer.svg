@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="288" height="288" viewBox="0 0 288 288" fill="none">
+    <foreignObject x="-15.9257" y="-16.0146" width="319.976" height="319.978"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(9.36px);clip-path:url(#bgblur_0_2958_21250_clip_path);height:100%;width:100%"></div></foreignObject><g opacity="0.1" filter="url(#filter0_d_2958_21250)" data-figma-bg-blur-radius="18.7226">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M2.79688 143.974C2.79688 65.9552 66.044 2.70801 144.063 2.70801C222.083 2.70801 285.33 65.9552 285.33 143.974C285.33 221.994 222.083 285.241 144.063 285.241C66.044 285.241 2.79688 221.994 2.79688 143.974ZM144.063 21.1185C76.2119 21.1185 21.2074 76.123 21.2074 143.974C21.2074 211.826 76.2119 266.83 144.063 266.83C211.915 266.83 266.919 211.826 266.919 143.974C266.919 76.123 211.915 21.1185 144.063 21.1185Z" fill="#7E8CA8"/>
+    </g>
+    <defs>
+      <filter id="filter0_d_2958_21250" x="-15.9257" y="-16.0146" width="319.976" height="319.978" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+        <feOffset/>
+        <feGaussianBlur stdDeviation="1.17016"/>
+        <feComposite in2="hardAlpha" operator="out"/>
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0"/>
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2958_21250"/>
+        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2958_21250" result="shape"/>
+      </filter>
+      <clipPath id="bgblur_0_2958_21250_clip_path" transform="translate(15.9257 16.0146)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.79688 143.974C2.79688 65.9552 66.044 2.70801 144.063 2.70801C222.083 2.70801 285.33 65.9552 285.33 143.974C285.33 221.994 222.083 285.241 144.063 285.241C66.044 285.241 2.79688 221.994 2.79688 143.974ZM144.063 21.1185C76.2119 21.1185 21.2074 76.123 21.2074 143.974C21.2074 211.826 76.2119 266.83 144.063 266.83C211.915 266.83 266.919 211.826 266.919 143.974C266.919 76.123 211.915 21.1185 144.063 21.1185Z"/>
+    </clipPath></defs>
+  </svg>
