@@ -69,7 +69,7 @@ const ServicesBtns = () => {
       /** Requested scopes, seperated by spaces - eg: 'email name' */
       scope: "email name",
       /** Apple's redirectURI - must be one of the URIs you added to the serviceID - the undocumented trick in apple docs is that you should call auth from a page that is listed as a redirectURI, localhost fails */
-      redirectURI: "https://vps2.xyz",
+      redirectURI: "https://vps2.online",
       //   redirectURI: "https://bfe4-176-38-25-248.ngrok-free.app",
       /** State string that is returned with the apple response */
       state: "12345",
