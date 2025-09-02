@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import ReactQuill from "react-quill";
-import { stripHtmlTags } from "../../../utils/stripHtmlTags";
 import "react-quill/dist/quill.snow.css";
 import "./RichTextEditor.css";
 
@@ -48,17 +47,7 @@ const RichTextEditor = ({
   }, [type]);
 
   const handleChange = (content) => {
-    if (maxLength) {
-      const plainText = stripHtmlTags(content);
-
-      if (plainText.length > maxLength) {
-        setValue(value);
-      } else {
-        setValue(content);
-      }
-    } else {
-      content !== value && setValue(content);
-    }
+    setValue(content);
   };
 
   return (

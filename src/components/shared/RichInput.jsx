@@ -6,7 +6,8 @@ const RichInput = ({ control, name, placeholder, maxLength = null }) => {
   const { field } = useController({
     name,
     control,
-  });
+  });  
+
   return (
     <RichTextEditor
       value={field.value}

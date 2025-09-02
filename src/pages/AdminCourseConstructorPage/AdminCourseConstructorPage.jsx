@@ -37,9 +37,6 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(courseData);
-  
-
   const {
     register,
     handleSubmit,
@@ -81,8 +78,6 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const watchCLanguage = watch("c_language");
   const watchCLevel = watch("c_level");
   const watchCAward = watch("c_award");
-  // const watchCDuration = watch("c_duration");
-  // const watchCAccess = watch("c_access");
   const registerWithMask = useHookFormMask(register);
 
   const onSubmit = (data) => {
@@ -95,6 +90,16 @@ const AdminCourseConstructorPage = ({ courseData }) => {
       });
       isManualError = true;
     }
+    if (
+      stripHtmlTags(data.intro_text).length > courseFieldsMaxLength.intro_text
+    ) {
+      setError("intro_text", {
+        type: "maxLength",
+        message: "Maximum length overflow",
+      });
+      isManualError = true;
+    }
+
     if (!stripHtmlTags(data.skills_text)) {
       setError("skills_text", {
         type: "required",
@@ -102,6 +107,16 @@ const AdminCourseConstructorPage = ({ courseData }) => {
       });
       isManualError = true;
     }
+    if (
+      stripHtmlTags(data.skills_text).length > courseFieldsMaxLength.skills_text
+    ) {
+      setError("skills_text", {
+        type: "maxLength",
+        message: "Maximum length overflow",
+      });
+      isManualError = true;
+    }
+
     if (!stripHtmlTags(data.program_text)) {
       setError("program_text", {
         type: "required",
@@ -109,10 +124,31 @@ const AdminCourseConstructorPage = ({ courseData }) => {
       });
       isManualError = true;
     }
+    if (
+      stripHtmlTags(data.program_text).length >
+      courseFieldsMaxLength.program_text
+    ) {
+      setError("program_text", {
+        type: "maxLength",
+        message: "Maximum length overflow",
+      });
+      isManualError = true;
+    }
+
     if (!stripHtmlTags(data.about_text)) {
       setError("about_text", {
         type: "required",
         message: "This field is required",
+      });
+      isManualError = true;
+    }
+    if (
+      stripHtmlTags(data.about_text).length >
+      courseFieldsMaxLength.about_text
+    ) {
+      setError("about_text", {
+        type: "maxLength",
+        message: "Maximum length overflow",
       });
       isManualError = true;
     }
@@ -211,9 +247,16 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                   placeholder="Course main information"
                   maxLength={courseFieldsMaxLength.intro_text}
                 />
-                <span className={styles.maxLength}>{`${
-                  stripHtmlTags(watchIntroText).length
-                }/${courseFieldsMaxLength.intro_text}`}</span>
+                <span
+                  className={`${styles.maxLength} ${
+                    stripHtmlTags(watchIntroText).length >
+                    courseFieldsMaxLength.intro_text
+                      ? styles.lengthError
+                      : ""
+                  }`}
+                >{`${stripHtmlTags(watchIntroText).length}/${
+                  courseFieldsMaxLength.intro_text
+                }`}</span>
                 {errors.intro_text && (
                   <p className={styles.error}>{errors.intro_text.message}</p>
                 )}
@@ -227,9 +270,16 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                     placeholder="Course skills information"
                     maxLength={courseFieldsMaxLength.skills_text}
                   />
-                  <span className={styles.maxLength}>{`${
-                    stripHtmlTags(watchSkillsText).length
-                  }/${courseFieldsMaxLength.skills_text}`}</span>
+                  <span
+                    className={`${styles.maxLength} ${
+                      stripHtmlTags(watchSkillsText).length >
+                      courseFieldsMaxLength.skills_text
+                        ? styles.lengthError
+                        : ""
+                    }`}
+                  >{`${stripHtmlTags(watchSkillsText).length}/${
+                    courseFieldsMaxLength.skills_text
+                  }`}</span>
                   {errors.skills_text && (
                     <p className={styles.error}>{errors.skills_text.message}</p>
                   )}
@@ -245,9 +295,16 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                 {errors.program_text && (
                   <p className={styles.error}>{errors.program_text.message}</p>
                 )}
-                <span className={styles.maxLength}>{`${
-                  stripHtmlTags(watchProgramInfo).length
-                }/${courseFieldsMaxLength.program_text}`}</span>
+                <span
+                  className={`${styles.maxLength} ${
+                    stripHtmlTags(watchProgramInfo).length >
+                    courseFieldsMaxLength.program_text
+                      ? styles.lengthError
+                      : ""
+                  }`}
+                >{`${stripHtmlTags(watchProgramInfo).length}/${
+                  courseFieldsMaxLength.program_text
+                }`}</span>
               </div>
             </div>
             <div className={styles.visualContentWrapper}>
@@ -280,6 +337,10 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                         value: true,
                         message: "This field is required",
                       },
+                      maxLength: {
+                        value: 20,
+                        message: "Max length is 20",
+                      },
                     })}
                   />
                   <span className={styles.maxLength}>{`${
@@ -302,6 +363,10 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                       required: {
                         value: true,
                         message: "This field is required",
+                      },
+                      maxLength: {
+                        value: 20,
+                        message: "Max length is 20",
                       },
                     })}
                   />
@@ -326,6 +391,10 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                         value: true,
                         message: "This field is required",
                       },
+                      maxLength: {
+                        value: 20,
+                        message: "Max length is 20",
+                      },
                     })}
                   />
                   <span className={styles.maxLength}>{`${
@@ -348,6 +417,10 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                       required: {
                         value: true,
                         message: "This field is required",
+                      },
+                      maxLength: {
+                        value: 20,
+                        message: "Max length is 20",
                       },
                     })}
                   />
@@ -451,9 +524,16 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                       placeholder="Course about text"
                       maxLength={courseFieldsMaxLength.about_text}
                     />
-                    <span className={styles.maxLength}>{`${
-                      stripHtmlTags(watchAboutText).length
-                    }/${courseFieldsMaxLength.about_text}`}</span>
+                    <span
+                      className={`${styles.maxLength} ${
+                        stripHtmlTags(watchAboutText).length >
+                        courseFieldsMaxLength.about_text
+                          ? styles.lengthError
+                          : ""
+                      }`}
+                    >{`${stripHtmlTags(watchAboutText).length}/${
+                      courseFieldsMaxLength.about_text
+                    }`}</span>
                     {errors.about_text && (
                       <p className={styles.error}>
                         {errors.about_text.message}

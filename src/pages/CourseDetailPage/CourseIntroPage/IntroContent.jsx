@@ -43,8 +43,6 @@ const IntroContent = ({ course = {}, courses = [] }) => {
 
   const isUserCourse = userCourses?.find(({ course_id }) => course_id === id);
 
-  console.log(course);
-
   const otherCoursesThisCategory = courses.filter(
     ({ categoryId, id }) =>
       course.categoryId === categoryId &&

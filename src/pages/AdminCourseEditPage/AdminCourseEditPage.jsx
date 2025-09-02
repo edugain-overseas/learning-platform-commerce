@@ -12,8 +12,6 @@ const AdminCourseEditPage = () => {
     ({ id }) => id === +courseId
   );
 
-  console.log(courseData);
-
   return (
     <div className={styles.pageWrapper}>
       {courseData ? (
