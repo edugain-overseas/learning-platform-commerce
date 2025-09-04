@@ -107,7 +107,7 @@ h4.sectionSubTitle {
 
 .sectionContentWrapper {
   --line-height: 22rem;
-  color: #000;
+  color: var(--content-main);
   text-align: justify;
   // font-family: Inter, sans-serif;
   font-size: 14rem;
@@ -124,18 +124,18 @@ h4.sectionSubTitle {
   }
 
   ul li:not(.ql-direction-rtl) {
-    padding-left: 20rem;
+    padding-left: 16rem;
     position: relative;
 
     &::before {
       content: "";
       position: absolute;
-      left: 8rem;
+      left: 16rem;
       width: 4rem;
       height: 4rem;
-      background-color: var(--content-nav-hover);
+      background-color: var(--content-main);
+      border-radius: 50%;
       top: calc(var(--line-height) / 2);
-      border-radius: 1rem;
       transform: translateY(-50%);
     }
   }

@@ -12,9 +12,9 @@ import CardGrade from "../../shared/CardGrade/CardGrade";
 import CardPrice from "../../shared/CardPrice/CardPrice";
 import { serverName } from "../../../http/server";
 import { getUserType } from "../../../redux/user/selectors";
-import styles from "./CourseCard.module.scss";
 import ImageWithSkeleton from "../../shared/Skeletons/ImageWithSkeleton";
 import WrapperWithDynamicBgImage from "../../shared/Skeletons/WrapperWithDynamicBgImage";
+import styles from "./CourseCard.module.scss";
 
 const CourseCard = ({
   course,
@@ -54,7 +54,6 @@ const CourseCard = ({
   };
 
   const courseLink = `/course/${id}/` + (bought ? "tasks" : "intro");
-  
 
   return (
     <li

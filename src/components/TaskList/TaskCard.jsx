@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getUserType } from "../../redux/user/selectors";
 import { message } from "antd";
 import { serverName } from "../../http/server";
+import { getAllCourses } from "../../redux/course/selectors";
 import { ReactComponent as ArrowRightIcon } from "../../images/icons/arrow-left.svg";
 import { ReactComponent as TaskViewIcon } from "../../images/icons/task-view.svg";
 import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
@@ -11,11 +12,16 @@ import { ReactComponent as QuestionsIcon } from "../../images/icons/document-que
 import { ReactComponent as ComplietedIcon } from "../../images/icons/task-check.svg";
 import poster from "../../images/noImage.webp";
 import ImageWithSkeleton from "../shared/Skeletons/ImageWithSkeleton";
+import TaskDetailsPopover from "./TaskDetailsPopover";
 import styles from "./TaskList.module.scss";
 
 const TaskCard = ({ task }) => {
   const isModer = useSelector(getUserType) === "moder";
   const canUserGoToTask = (task.status && task.status !== "blocked") || isModer;
+  const { courseId } = useParams();
+  const isPublished = useSelector(getAllCourses).find(
+    (course) => course.id === +courseId
+  ).is_published;
 
   return (
     <div
@@ -47,6 +53,17 @@ const TaskCard = ({ task }) => {
                 <ArrowRightIcon />
               </span>
             </span>
+            {isModer && !isPublished && (
+              <div
+                className={styles.detailsWrapper}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+              >
+                <TaskDetailsPopover lessonId={task.id} />
+              </div>
+            )}
           </div>
           <div className={styles.secondaryWrapper}>
             <TaskViewIcon />

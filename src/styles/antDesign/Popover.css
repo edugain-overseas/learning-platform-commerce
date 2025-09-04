@@ -1,0 +1,27 @@
+/* .notes-popover .ant-popover-inner {
+  border-radius: 4px;
+  background: var(--bg-rgba-primary);
+
+  box-shadow: var(--drop-shadow-short);
+  backdrop-filter: blur(16px);
+  padding: 0;
+} */
+
+:where(.css-dev-only-do-not-override-6j9yrn).ant-popover .ant-popover-inner {
+  border-radius: 4px;
+  background-color: var(--bg-rgba-primary);
+
+  box-shadow: var(--drop-shadow-short);
+  backdrop-filter: blur(16px);
+  padding: 0;
+}
+
+.notes-popover .ant-popover-inner-content {
+  width: 180rem;
+}
+
+:where(.css-dev-only-do-not-override-6j9yrn).ant-popover
+  .ant-popover-inner-content {
+  color: var(--content-datail-secondary);
+  padding: 8rem 16rem 12rem;
+}

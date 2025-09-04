@@ -222,21 +222,21 @@ div.courseItemsWrapper {
 
 .courseItems {
   display: flex;
-  gap: 8rem;
+  gap: 24rem;
   flex-wrap: wrap;
 
   li {
     display: flex;
     gap: 8rem;
     align-items: center;
-    flex-basis: calc(100% / 3 - 16rem / 3);
+    flex-basis: calc(100% / 3 - 48rem / 3);
     position: relative;
+    justify-content: space-between;
 
     .property {
       display: flex;
       align-items: center;
-      flex-basis: 30%;
-      gap: 12rem;
+      gap: 8rem;
       flex-shrink: 0;
 
       color: var(--content-datail-secondary);
@@ -257,6 +257,7 @@ div.courseItemsWrapper {
     }
 
     input {
+      max-width: 314rem;
       width: 100%;
       padding: 4rem 8rem;
       border-radius: 5rem;
@@ -270,6 +271,10 @@ div.courseItemsWrapper {
       &::placeholder {
         color: var(--content-datail-secondary);
       }
+    }
+
+    textarea {
+      max-width: 314rem;
     }
 
     .maxLength {

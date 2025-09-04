@@ -28,6 +28,9 @@ const courseSlice = createSlice({
         (course) => course.id === courseId
       );
 
+      console.log(payload);
+      
+
       if (courseIndex !== -1) {
         const lessonIndex = state.courses[courseIndex].lessons.findIndex(
           (lesson) => lesson.id === lessonId

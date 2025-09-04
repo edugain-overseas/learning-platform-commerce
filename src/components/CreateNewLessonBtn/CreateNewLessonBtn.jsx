@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { ReactComponent as PlusIcon } from "../../images/icons/plus.svg";
+// import Modal from "../shared/Modal/Modal";
+// import CreateNewLessonForm from "../CreateNewLessonForm/CreateNewLessonForm";
+import LessonModal from "./LessonModal";
 import styles from "./CreateNewLessonBtn.module.scss";
-import Modal from "../shared/Modal/Modal";
-import CreateNewLessonForm from "../CreateNewLessonForm/CreateNewLessonForm";
 
 const CreateNewLessonBtn = ({ lessonNumber }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,15 +16,11 @@ const CreateNewLessonBtn = ({ lessonNumber }) => {
         <PlusIcon />
         <span>Create new lesson</span>
       </button>
-      <Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} width="auto">
-        <div className={styles.modalHeader}>
-          <h4>New Lesson</h4>
-        </div>
-        <CreateNewLessonForm
-          lessonNumber={lessonNumber}
-          closeModal={() => setIsOpen(false)}
-        />
-      </Modal>
+      <LessonModal
+        isOpen={isOpen}
+        closeModal={() => setIsOpen(false)}
+        lessonNumber={lessonNumber}
+      />
     </>
   );
 };

@@ -20,8 +20,8 @@ const RichTextEditor = ({
   value = "",
   setValue = () => null,
   placeholder = "Write your text here...",
-  maxLength = null,
   type = "normal",
+  className = "",
 }) => {
   const modules = useMemo(() => {
     return {
@@ -56,7 +56,7 @@ const RichTextEditor = ({
       modules={modules}
       className={`${
         type === "tableConstructor" ? "bottomToolbar" : ""
-      } richTextEditor`}
+      } richTextEditor ${className}`}
       placeholder={placeholder}
       value={value}
       onChange={handleChange}

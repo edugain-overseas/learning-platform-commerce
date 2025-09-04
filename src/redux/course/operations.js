@@ -76,7 +76,7 @@ export const createLessonInCourseThunk = createAsyncThunk(
       return response;
     } catch (error) {
       console.log(error);
-      
+
       return rejectWithValue({
         message: error.response ? error.response.data.detail : error.message,
         status: error.response ? error.response.status : null,
@@ -84,3 +84,4 @@ export const createLessonInCourseThunk = createAsyncThunk(
     }
   }
 );
+

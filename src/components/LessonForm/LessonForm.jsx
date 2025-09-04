@@ -4,26 +4,35 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createLessonInCourseThunk } from "../../redux/course/operations";
+import { updateLessonThunk } from "../../redux/lesson/operation";
+import { getIsLoading } from "../../redux/course/selectors";
+import { getIsLoading as getIsLessonStateLoading } from "../../redux/lesson/selectors";
 import Select from "../shared/Select/Select";
 import FileUploader from "../shared/Uploaders/FileUploader/FileUploader";
 import Spinner from "../Spinner/Spinner";
-import styles from "./CreateNewLessonForm.module.scss";
-import { getIsLoading } from "../../redux/course/selectors";
+import styles from "./LessonForm.module.scss";
 
-const CreateNewLessonForm = ({ lessonNumber, closeModal }) => {
+const LessonForm = ({ lessonNumber, closeModal, lessonData }) => {
   const {
     register,
     handleSubmit,
     reset,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: lessonData ? lessonData : {},
+  });
 
-  const [lessonType, setLessonType] = useState();
-  const [uploadedImage, setUploadedImage] = useState();
+  const [lessonType, setLessonType] = useState(
+    lessonData ? lessonData.type : undefined
+  );
+  const [uploadedImage, setUploadedImage] = useState(
+    lessonData ? lessonData.image_path : undefined
+  );
   const [messageApi, contextHolder] = useMessage();
   const { courseId } = useParams();
   const isLoading = useSelector(getIsLoading);
+  const isLessonStateLoading = useSelector(getIsLessonStateLoading);
   const dispatch = useDispatch();
 
   const onLessonTypeChange = (value) => {
@@ -51,19 +60,36 @@ const CreateNewLessonForm = ({ lessonNumber, closeModal }) => {
       return;
     }
 
-    const lessonData = {
-      ...data,
-      course_id: +courseId,
-      image_path: uploadedImage,
-      number: lessonNumber ? lessonNumber : 1,
-      type: lessonType,
-    };
-
     try {
-      await dispatch(createLessonInCourseThunk(lessonData)).unwrap();
-      setInitialState();
+      if (!lessonData) {
+        const lessonData = {
+          ...data,
+          course_id: +courseId,
+          image_path: uploadedImage,
+          number: lessonNumber ? lessonNumber : 1,
+          type: lessonType,
+        };
+        await dispatch(createLessonInCourseThunk(lessonData)).unwrap();
+        setInitialState();
+        reset();
+      } else {
+        const newLessonData = {
+          ...data,
+          image_path: uploadedImage,
+        };
+        await dispatch(
+          updateLessonThunk({
+            courseId: +courseId,
+            updatedLesson: { id: lessonData.id, ...newLessonData },
+          })
+        ).unwrap();
+        messageApi.success({
+          content: "Lesson was successfully updated.",
+          duration: 3,
+        });
+      }
+
       closeModal();
-      reset();
     } catch (error) {
       if (error.status === 403) {
         messageApi.error({
@@ -80,7 +106,11 @@ const CreateNewLessonForm = ({ lessonNumber, closeModal }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      onClick={(e) => e.stopPropagation()}
+      className={styles.form}
+    >
       {contextHolder}
       <Select
         options={[
@@ -90,7 +120,11 @@ const CreateNewLessonForm = ({ lessonNumber, closeModal }) => {
         ]}
         value={lessonType}
         placeholder="Select lesson type"
-        wrapperStyles={{ width: "100%", fontSize: "16rem" }}
+        wrapperStyles={{
+          width: "100%",
+          fontSize: "16rem",
+          pointerEvents: lessonData ? "none" : "auto",
+        }}
         allowClear={false}
         onChange={onLessonTypeChange}
         dropDownWrapperStyles={{ fontSize: "16rem" }}
@@ -142,9 +176,13 @@ const CreateNewLessonForm = ({ lessonNumber, closeModal }) => {
         />
       </div>
       <button type="submit" className={styles.createLessonBtn}>
-        {isLoading ? <Spinner /> : <span>Create</span>}
+        {(isLoading || isLessonStateLoading) ? (
+          <Spinner />
+        ) : (
+          <span>{lessonData ? "Update" : "Create"}</span>
+        )}
       </button>
     </form>
   );
 };
-export default CreateNewLessonForm;
+export default LessonForm;

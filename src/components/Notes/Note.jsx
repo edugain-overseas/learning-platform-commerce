@@ -6,7 +6,7 @@ import { useSelection } from "../../context/SelectionContext";
 import { ReactComponent as NoteIcon } from "../../images/icons/document-text.svg";
 import { ReactComponent as DeleteIcon } from "../../images/icons/trashRounded.svg";
 import styles from "./Notes.module.scss";
-import "./Popconfirm.css";
+import "../../styles/antDesign/Popconfirm.css";
 
 const Note = ({ note }) => {
   const messageApi = useSelection()?.messageApi;

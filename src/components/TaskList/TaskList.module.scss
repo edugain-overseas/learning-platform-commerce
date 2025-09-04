@@ -71,6 +71,17 @@
     backdrop-filter: blur(16rem);
     padding: 4rem 16rem 16rem;
     height: 100%;
+    position: relative;
+  }
+
+  .titleWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 4rem;
+  }
+
+  .taskTitle {
+    flex-grow: 1;
   }
 }
 
@@ -78,6 +89,7 @@
   width: 100%;
   height: 38rem;
   transition: opacity var(--transition-time-min) ease;
+  position: relative;
 
   &:hover {
     .rowLink {
@@ -128,6 +140,13 @@
 
   .secondaryWrapper:not(:last-child) {
     margin-bottom: 0;
+  }
+
+  .detailsWrapper {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
   }
 }
 
@@ -249,4 +268,53 @@
   background-color: var(--bg-rgba-default);
   backdrop-filter: blur(16rem);
   border-radius: 5rem;
+}
+
+.detailsOptionButton {
+  min-width: 132rem;
+  height: 32rem;
+  display: flex;
+  align-items: center;
+  gap: 8rem;
+  margin-inline: -12rem;
+
+  background-color: transparent;
+  padding-inline: 8rem;
+  border-radius: 5rem;
+  color: var(--content-datail-secondary);
+  transition: background-color var(--transition-time-min) ease;
+
+  svg {
+    width: 16rem;
+    height: 16rem;
+
+    path {
+      fill: currentColor;
+    }
+  }
+
+  span {
+    font-size: 16rem;
+  }
+
+  &:hover {
+    background-color: var(--border-color-decorate);
+    background-color: var(--bg-button-disabled);
+  }
+}
+
+.detailsWrapper {
+  button {
+    width: 24rem;
+    height: 24rem;
+    padding: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  svg {
+    height: 16rem;
+    width: auto;
+  }
 }

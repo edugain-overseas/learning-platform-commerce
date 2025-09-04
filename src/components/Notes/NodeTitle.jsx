@@ -5,7 +5,7 @@ import { deleteNotesFolderThunk } from "../../redux/user/operations";
 import { ReactComponent as DeleteIcon } from "../../images/icons/trashRounded.svg";
 import { Popconfirm } from "antd";
 import styles from "./Notes.module.scss";
-import "./Popconfirm.css";
+import "../../styles/antDesign/Popconfirm.css";
 
 const NodeTitle = ({ title, id, handleShowAddChildNode }) => {
   const [confirmDeleteLoading, setConfirmDeleteLoading] = useState(false);

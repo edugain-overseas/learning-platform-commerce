@@ -118,6 +118,21 @@
   & > * {
     flex-shrink: 0;
   }
+
+  & .textEditor {
+    text-indent: 16rem;
+    * {
+      font-size: 14rem;
+      line-height: 22rem;
+    }
+    ul * {
+      text-indent: 0;
+    }
+
+    ul {
+      padding-left: 6rem;
+    }
+  }
 }
 
 .titleInput {

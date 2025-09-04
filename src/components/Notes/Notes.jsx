@@ -4,7 +4,7 @@ import { useSelection } from "../../context/SelectionContext";
 import { ReactComponent as NoteIcon } from "../../images/icons/note.svg";
 import NotesPopoverContent from "./NotesPopoverContent";
 import styles from "./Notes.module.scss";
-import "./Popover.css";
+import "../../styles/antDesign/Popover.css";
 
 const Notes = () => {
   const [isOpenPopover, setIsOpenPopover] = useState(false);

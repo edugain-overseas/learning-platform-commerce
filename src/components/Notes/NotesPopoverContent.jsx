@@ -7,7 +7,7 @@ import { convertToHTML } from "../../utils/convrtToHTML";
 import { createNewNoteThunk } from "../../redux/user/operations";
 import TreeSelect from "./TreeSelect";
 import styles from "./Notes.module.scss";
-import "./TreeSelect.css";
+import "../../styles/antDesign/TreeSelect.css";
 
 const NotesPopoverContent = () => {
   const selectionText = useSelection()?.selectionText;

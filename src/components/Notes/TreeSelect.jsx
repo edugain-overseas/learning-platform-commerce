@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import { TreeSelect as AntTreeSelect } from "antd";
 import { getUserNotes } from "../../redux/user/selectors";
 import { ReactComponent as ChevronIcon } from "../../images/icons/dropdownArrow.svg";
-import "./TreeSelect.css";
 import AddChildNode from "./AddChildNode";
 import NodeTitle from "./NodeTitle";
 import Note from "./Note";
+import "../../styles/antDesign/TreeSelect.css";
 
 const treeSelectStyle = {
   width: "100%",
