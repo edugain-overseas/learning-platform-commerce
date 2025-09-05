@@ -28,9 +28,6 @@ const courseSlice = createSlice({
         (course) => course.id === courseId
       );
 
-      console.log(payload);
-      
-
       if (courseIndex !== -1) {
         const lessonIndex = state.courses[courseIndex].lessons.findIndex(
           (lesson) => lesson.id === lessonId
@@ -42,6 +39,17 @@ const courseSlice = createSlice({
             ...updatedLessonData,
           };
         }
+      }
+    },
+    deleteLessonInCourse: (state, { payload }) => {
+      const courseIndex = state.courses.findIndex(
+        (course) => course.id === payload.courseId
+      );
+
+      if (courseIndex !== -1) {
+        state.courses[courseIndex].lessons = state.courses[
+          courseIndex
+        ].lessons.filter((lesson) => lesson.id !== payload.lessonId);
       }
     },
   },
@@ -101,7 +109,7 @@ const courseSlice = createSlice({
       })
       .addCase(createCourseThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.courses.push({ ...payload, lessons: []});
+        state.courses.push({ ...payload, lessons: [] });
       })
       .addCase(createCourseThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -152,6 +160,9 @@ const courseSlice = createSlice({
       });
   },
 });
-export const { publishCourseAction, updateLessonInCourse } =
-  courseSlice.actions;
+export const {
+  publishCourseAction,
+  updateLessonInCourse,
+  deleteLessonInCourse,
+} = courseSlice.actions;
 export default courseSlice;

@@ -33,6 +33,18 @@ export const updateLesson = async (lessonId, updatedLesson) => {
   }
 };
 
+export const deleteLesson = async (lessonId) => {
+  try {
+    const data = await privateRoutesHandler(
+      "delete",
+      `/lesson/delete/${lessonId}`
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const confirmLecture = async (lessonId) => {
   try {
     const data = await privateRoutesHandler("post", "/lecture/confirm", null, {
@@ -211,8 +223,6 @@ export const createTestQuestions = async (
   lessonType = "test"
 ) => {
   try {
-    console.log(test_id);
-    
     const data = await privateRoutesHandler(
       "post",
       `${lessonType}/question/add`,

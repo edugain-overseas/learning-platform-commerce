@@ -6,6 +6,7 @@ import {
   createTestMatchingPairThunk,
   createTestQuestionsThunk,
   deleteLectureAttributeThunk,
+  deleteLessonThunk,
   deleteTestAnswerThunk,
   deleteTestMatchingPairThunk,
   deleteTestQuestionThunk,
@@ -71,6 +72,22 @@ const lessonSlice = createSlice({
         }
       })
       .addCase(updateLessonThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = { code: payload.code, message: payload.message };
+      })
+
+      .addCase(deleteLessonThunk.pending, (state, _) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteLessonThunk.fulfilled, (state, action) => {
+        const { lessonId } = action.meta.arg;
+        state.lessons = state.lessons.filter(
+          (lesson) => lesson.id !== lessonId
+        );
+        state.isLoading = false;
+      })
+      .addCase(deleteLessonThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = { code: payload.code, message: payload.message };
       })
@@ -184,7 +201,7 @@ const lessonSlice = createSlice({
       })
       .addCase(getTestAttemptsThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { test_id } = action.meta.arg;        
+        const { test_id } = action.meta.arg;
 
         const lessonIndex = state.lessons.findIndex(
           (lesson) => lesson.test_data?.test_id === test_id

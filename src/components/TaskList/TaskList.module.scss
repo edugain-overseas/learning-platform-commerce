@@ -318,3 +318,12 @@
     width: auto;
   }
 }
+
+.popconfirmTitle {
+  color: var(--content-main);
+  font-size: 18rem;
+}
+.popconfirmDescription {
+  color: var(--content-datail-secondary);
+  font-size: 16rem;
+}

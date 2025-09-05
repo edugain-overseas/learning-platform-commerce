@@ -7,6 +7,7 @@ import {
   createTestMatchingPair,
   createTestQuestions,
   deleteLectureAttribute,
+  deleteLesson,
   deleteTestAnswer,
   deleteTestMatchingPair,
   deleteTestQuestion,
@@ -24,7 +25,7 @@ import {
 import { store } from "../store";
 import { getCoursesThunk } from "../course/operations";
 import { blocksToLectureAttributes } from "../../utils/lectureAttributesToBlocks";
-import { updateLessonInCourse } from "../course/slice";
+import { deleteLessonInCourse, updateLessonInCourse } from "../course/slice";
 
 export const getLessonByIdThunk = createAsyncThunk(
   "lesson/getLesson",
@@ -47,11 +48,28 @@ export const updateLessonThunk = createAsyncThunk(
     try {
       const { id, ...updatedLessonData } = updatedLesson;
       const response = await updateLesson(id, updatedLessonData);
-      console.log(response);
-      
+
       store.dispatch(
         updateLessonInCourse({ courseId, lessonId: id, updatedLessonData })
       );
+      return response;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response ? error.response.data.detail : error.message,
+        status: error.response ? error.response.status : null,
+      });
+    }
+  }
+);
+
+export const deleteLessonThunk = createAsyncThunk(
+  "lesson/deleteLesson",
+  async ({ courseId, lessonId }, { rejectWithValue }) => {
+    try {
+      const response = await deleteLesson(lessonId);
+
+      store.dispatch(deleteLessonInCourse({ courseId, lessonId }));
+
       return response;
     } catch (error) {
       return rejectWithValue({
@@ -86,7 +104,12 @@ export const confirmTestThunk = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = await confirmTest(lessonId, studentTest, lessonType, spentMinutes);
+      const response = await confirmTest(
+        lessonId,
+        studentTest,
+        lessonType,
+        spentMinutes
+      );
       return response;
     } catch (error) {
       return rejectWithValue({

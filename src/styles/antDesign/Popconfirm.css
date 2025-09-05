@@ -34,20 +34,35 @@
 }
 
 .ant-btn.ant-btn-sm {
-    font-size: 12rem;
-    height: 20rem;
+  font-size: 12rem;
+  height: 20rem;
 }
 
+.deletePopconfirm .ant-btn.ant-btn-sm {
+  font-size: 16rem;
+  height: 32rem;
 
-.notes-popconfirm {
+  /* color: var(--content-main); */
 }
-.notes-popconfirm {
+
+.deletePopconfirm .ant-btn-default {
+  border-color: var(--content-datail-secondary);
+  color: var(--content-datail-secondary);
 }
-.notes-popconfirm {
+
+.deletePopconfirm .ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+  color: var(--content-main);
+  border-color: var(--content-main);
 }
-.notes-popconfirm {
+
+.deletePopconfirm .ant-btn-primary {
+  border-color: var(--content-datail-secondary);
+  color: var(--content-light-secondary);
+  background: var(--content-datail-secondary);
 }
-.notes-popconfirm {
-}
-.notes-popconfirm {
+
+.deletePopconfirm .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+  color: var(--content-contr-color);
+  background: var(--content-main);
+  border-color: var(--content-main);
 }
