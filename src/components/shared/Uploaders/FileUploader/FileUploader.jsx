@@ -24,6 +24,7 @@ const FileUploader = ({
   requestConfig = defaultRequestConfig,
   renderDropZoneLabel,
   renderProgressBar = true,
+  iconSize='l'
 }) => {
   const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(0);
@@ -129,6 +130,7 @@ const FileUploader = ({
             accept={accept}
             className={styles.dropzone}
             renderLabel={renderDropZoneLabel}
+            iconSize={iconSize}
           />
           {file && renderProgressBar && (
             <ProgressBar

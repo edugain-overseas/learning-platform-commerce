@@ -3,7 +3,13 @@ import { useDropzone } from "react-dropzone";
 import { ReactComponent as UploadIcon } from "../../../../images/icons/uploadBig.svg";
 import styles from "./DropZone.module.scss";
 
-const DropZone = ({ onDrop, accept, className = "", renderLabel = true }) => {
+const DropZone = ({
+  onDrop,
+  accept,
+  className = "",
+  renderLabel = true,
+  iconSize = "l",
+}) => {
   const acceptDropzoneProp = { [accept]: [] };
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -13,10 +19,10 @@ const DropZone = ({ onDrop, accept, className = "", renderLabel = true }) => {
 
   const getLabelbyType = () => {
     //handle multiple formats
-    if (typeof(accept) === 'object') {
-      const fileTypes = Object.values(accept).join().replaceAll('.', ' ')
-      
-      return `Click or drag ${fileTypes} to upload`
+    if (typeof accept === "object") {
+      const fileTypes = Object.values(accept).join().replaceAll(".", " ");
+
+      return `Click or drag ${fileTypes} to upload`;
     }
     //handle single format
     const fileType =
@@ -32,7 +38,9 @@ const DropZone = ({ onDrop, accept, className = "", renderLabel = true }) => {
     <div {...getRootProps({ className })}>
       <input {...getInputProps()} />
       <div className={styles.labelWrapper}>
-        <UploadIcon className={styles.uploadIcon} />
+        <UploadIcon
+          className={`${styles.uploadIcon} ${styles[`size-${iconSize}`]}`}
+        />
         {renderLabel && <p>{getLabelbyType()}</p>}
       </div>
     </div>

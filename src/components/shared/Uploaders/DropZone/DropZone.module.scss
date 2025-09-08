@@ -16,9 +16,18 @@
 }
 
 .uploadIcon {
-  width: min(60%, 130rem);
-  height: min(60%, 130rem);
   flex-shrink: 0;
+  height: auto;
+}
+
+.size-l {
+  width: min(60%, 130rem);
+}
+.size-m {
+  width: min(40%, 86rem);
+}
+.size-s {
+  width: min(20%, 44rem);
 }
 
 .uploadIcon path {

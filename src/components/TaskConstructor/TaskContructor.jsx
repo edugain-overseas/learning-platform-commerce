@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getLessonByIdThunk } from "../../redux/lesson/operation";
-import { getAllLessons, getIsLoading } from "../../redux/lesson/selectors";
-import { ReactComponent as EditIcon } from "../../images/icons/editBlack.svg";
-import { ReactComponent as ReadIcon } from "../../images/icons/list.svg";
-import { LectureConstructorProvider } from "../../context/LectureConstructorContext";
 import { getAllCourses } from "../../redux/course/selectors";
 import { getUserInfo } from "../../redux/user/selectors";
+import { getLessonByIdThunk } from "../../redux/lesson/operation";
+import { TestContructorProvider } from "../../context/TestContructorContext";
+import { getAllLessons, getIsLoading } from "../../redux/lesson/selectors";
+import { ReactComponent as EditIcon } from "../../images/icons/editBlack.svg";
+import { ReactComponent as EyeIcon } from "../../images/icons/eye.svg";
+import { LectureConstructorProvider } from "../../context/LectureConstructorContext";
 import LectureConstructor from "./LectureConstructor/LectureConstructor";
 import TestConstructor from "./TestConstructor/TestConstructor";
 import LectureHeader from "../TasksHeader/LectureHeader";
 import TestHeader from "../TasksHeader/TestHeader";
 import LectureContent from "../Lecture/LectureContent";
 import Spinner from "../Spinner/Spinner";
-import styles from "./TaskConstructor.module.scss";
-import { TestContructorProvider } from "../../context/TestContructorContext";
 import TestContent from "../Test/TestContent";
+import styles from "./TaskConstructor.module.scss";
 
 const TaskContructor = () => {
   const [viewTypeIndex, setViewTypeIndex] = useState(0);
@@ -50,7 +50,10 @@ const TaskContructor = () => {
             <LectureConstructorProvider>
               <LectureHeader
                 lecture={task}
-                switcherItems={[<EditIcon />, <ReadIcon />]}
+                switcherItems={[
+                  <EditIcon title="Edit" />,
+                  <EyeIcon title="Preview" />,
+                ]}
                 switcherValue={viewTypeIndex}
                 switcherOnChange={setViewTypeIndex}
               />
@@ -69,7 +72,7 @@ const TaskContructor = () => {
           <TestContructorProvider>
             <TestHeader
               test={task}
-              switcherItems={[<EditIcon />, <ReadIcon />]}
+              switcherItems={[<EditIcon />, <EyeIcon />]}
               switcherValue={viewTypeIndex}
               switcherOnChange={setViewTypeIndex}
             />

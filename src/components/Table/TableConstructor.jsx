@@ -131,6 +131,7 @@ const TableConstructor = ({ state, setState }) => {
             "application/vnd.ms-excel": [".xls"],
             "text/csv": [".csv"],
           }}
+          iconSize="m"
         />
       </div>
     </>

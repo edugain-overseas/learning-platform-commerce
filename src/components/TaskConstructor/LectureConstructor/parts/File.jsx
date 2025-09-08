@@ -22,6 +22,7 @@ const File = ({ partData, setters }) => {
         accept="*/*"
         setUploadedFile={setters.addFile}
         requestConfig={{ url: "lesson/upload/file", formDataKey: "file" }}
+        iconSize="m"
       />
       <TextInput value={partData.a_text} setValue={setters.text} />
     </>
