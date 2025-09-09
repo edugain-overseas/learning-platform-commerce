@@ -4,15 +4,16 @@ import { ReactComponent as ArrowLeftIcon } from "../../images/icons/arrow-left.s
 import { ReactComponent as PlayIcon } from "../../images/icons/play.svg";
 import { ReactComponent as PauseIcon } from "../../images/icons/pause.svg";
 import { ReactComponent as FullscreenIcon } from "../../images/icons/fullscreen.svg";
+import Skeleton from "../shared/Skeleton/Skeleton";
 import styles from "./PDFReader.module.scss";
-// import sample from '../../images/simple.pdf'
+import sample from "../../images/simple.pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const INTERVAL_DELAY = 5000;
 
 const PDFReader = ({ pdf }) => {
-  const [fileObj] = useState({ url: pdf });
+  const [fileObj] = useState({ url: sample });
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [layoutMode, setLayoutMode] = useState("single");
@@ -51,7 +52,7 @@ const PDFReader = ({ pdf }) => {
     }
   }, []);
 
-  // Handle page scale to avoid overflowing container in fullsceen mode
+  // Handle page scale to avoid overflowing container and listening keypress event in fullscreen mode
   useEffect(() => {
     const calculateScale = () => {
       if (!fullscreen) return 1;
@@ -71,8 +72,33 @@ const PDFReader = ({ pdf }) => {
       }
       return originalFrameRatio / containerRatio;
     };
+    const handleKeydown = (event) => {
+      const { code } = event;
+
+      switch (code) {
+        case "ArrowLeft":
+          goToPrevPage();
+          break;
+        case "ArrowRight":
+          goToNextPage();
+          break;
+        case "Space":
+          event.preventDefault();
+          event.stopPropagation();
+          togglePlay();
+          break;
+        default:
+          break;
+      }
+    };
 
     setScale(calculateScale());
+
+    if (fullscreen) {
+      window.addEventListener("keydown", handleKeydown);
+    }
+
+    return () => window.removeEventListener("keydown", handleKeydown);
     // eslint-disable-next-line
   }, [fullscreen]);
 
@@ -132,7 +158,6 @@ const PDFReader = ({ pdf }) => {
       return prev - 1;
     });
   };
-
   const goToNextPage = () => {
     setPageNumber((prev) => {
       const nextPagesAmount = numPages - prev;
@@ -145,6 +170,9 @@ const PDFReader = ({ pdf }) => {
       return prev === numPages ? 1 : prev + 1;
     });
   };
+  const togglePlay = () => {
+    setPlaying((prev) => !prev);
+  };
 
   return (
     <div
@@ -152,7 +180,7 @@ const PDFReader = ({ pdf }) => {
       className={styles.documentContainer}
       onMouseMove={handleMouseMove}
       onClick={handleMouseMove}
-      style={{ maxWidth: fullscreen ? "100%" : "886rem" }}
+      style={{ maxWidth: "100%" }}
     >
       <Document
         onLoadSuccess={onDocumentLoadSuccess}
@@ -161,6 +189,10 @@ const PDFReader = ({ pdf }) => {
         className={`${styles.document} ${
           layoutMode === "double" && styles.documentFlex
         }`}
+        error={
+          <div className={styles.errorFallback}>Failed to load PDF file</div>
+        }
+        loading={<Skeleton style={{ aspectRatio: 3.2 }} />}
       >
         {containerWidth > 0 && (
           <>
@@ -235,31 +267,34 @@ const PDFReader = ({ pdf }) => {
         )}
       </Document>
 
-      <div
-        className={`${styles.controlPanel} ${
-          showControls ? styles.active : ""
-        }`}
-      >
-        <div className={styles.controlsCenter}>
-          <button onClick={goToPrevPage} disabled={pageNumber === 1}>
-            <ArrowLeftIcon />
-          </button>
-          <button onClick={() => setPlaying((prev) => !prev)}>
-            {playing ? <PauseIcon /> : <PlayIcon />}
-          </button>
-          <button onClick={goToNextPage}>
-            <ArrowLeftIcon style={{ transform: "rotate(180deg)" }} />
-          </button>
-        </div>
-        <div className={styles.controlsBottom}>
-          <span className={styles.pagesInfo}>
-            {pageNumber} / {numPages}
-          </span>
+      {numPages && (
+        <div
+          className={`${styles.controlPanel} ${
+            showControls ? styles.active : ""
+          }`}
+        >
+          <div className={styles.controlsContainer}>
+            <button onClick={togglePlay} className={styles.playPauseBtn}>
+              {playing ? <PauseIcon /> : <PlayIcon />}
+            </button>
+
+            <div className={styles.pages}>
+              <button onClick={goToPrevPage} disabled={pageNumber === 1}>
+                <ArrowLeftIcon />
+              </button>
+              <span className={styles.pagesInfo}>
+                {pageNumber} / {numPages}
+              </span>
+              <button onClick={goToNextPage}>
+                <ArrowLeftIcon style={{ transform: "rotate(180deg)" }} />
+              </button>
+            </div>
+          </div>
           <button onClick={toggleFullscreen}>
             <FullscreenIcon />
           </button>
         </div>
-      </div>
+      )}
     </div>
   );
 };

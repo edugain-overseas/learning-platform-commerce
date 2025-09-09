@@ -4,7 +4,7 @@ import styles from "./FileUploader.module.scss";
 
 const UploadedAudio = ({ src, onDelete }) => {
   return (
-    <div className={styles.uploadedFileWrapper}>
+    <div className={`${styles.uploadedFileWrapper} ${styles.uploadedMediaWrapper} ${styles.uploadedAudioContainer}`}>
       <audio src={src} controls={true}></audio>
       <DeleteBtn onDelete={onDelete} />
     </div>

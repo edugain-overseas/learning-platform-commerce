@@ -13,17 +13,22 @@
 
 .controlPanel {
   position: absolute;
-  inset: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   z-index: 2;
-  padding: 0 24rem;
+  padding: 8rem 20rem;
   background: rgba(0, 0, 0, 0.25);
   opacity: 0;
   transition: opacity 300ms ease-out;
   color: #fff;
   pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   svg {
-    width: 20rem;
+    width: 16rem;
     height: auto;
 
     path {
@@ -32,11 +37,19 @@
     }
   }
 
+  .controlsContainer {
+    display: flex;
+    align-items: center;
+    gap: 16rem;
+  }
+
   button {
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 18rem;
+    height: 18rem;
   }
 
   &.active {
@@ -44,10 +57,13 @@
     pointer-events: all;
   }
 
-  .controlsCenter {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+  .pages {
+    display: flex;
+    align-items: center;
+    gap: 12rem;
+  }
+
+  .playControlsContainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -60,10 +76,7 @@
     height: 32rem;
     background-color: rgba(0, 0, 0, 0.22);
 
-    svg {
-      width: 22rem;
-      height: 22rem;
-    }
+    
   }
 
   .controlPlayBtn {
@@ -72,8 +85,8 @@
     background-color: rgba(0, 0, 0, 0.22);
 
     svg {
-      width: 22rem;
-      height: 22rem;
+      width: 16rem;
+      height: 16rem;
     }
   }
 
@@ -107,6 +120,9 @@
 
 .document {
   width: 100%;
+}
+
+.documentFlex {
   display: flex;
 }
 
@@ -134,4 +150,14 @@
   &.hidden {
     display: none;
   }
+}
+
+.errorFallback {
+  aspect-ratio: 3.2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: inherit;
+  color: var(--content-failture);
+  background-color: var(--border-color-main);
 }

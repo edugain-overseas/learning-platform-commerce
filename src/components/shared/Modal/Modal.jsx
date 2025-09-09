@@ -18,18 +18,21 @@ const Modal = ({
     }
   };
 
+  const handleKeydown = (e) => {
+    const { code } = e;
+    if (code === "Escape") {
+      closeModal();
+    }
+  };
+
   useEffect(() => {
-    const handleKeydown = (e) => {
-      const { code } = e;
-      if (code === "Escape") {
-        closeModal();
-      }
-    };
-    window.addEventListener("keydown", handleKeydown);
+    if (isOpen) {
+      window.addEventListener("keydown", handleKeydown);
+    }
 
     return () => window.removeEventListener("keydown", handleKeydown);
     // eslint-disable-next-line
-  }, []);
+  }, [isOpen]);
 
   return ReactDOM.createPortal(
     <div

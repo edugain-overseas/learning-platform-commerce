@@ -2,6 +2,7 @@ import React from "react";
 import { useDropzone } from "react-dropzone";
 import { ReactComponent as UploadIcon } from "../../../../images/icons/uploadBig.svg";
 import styles from "./DropZone.module.scss";
+import { message } from "antd";
 
 const DropZone = ({
   onDrop,
@@ -12,9 +13,24 @@ const DropZone = ({
 }) => {
   const acceptDropzoneProp = { [accept]: [] };
   const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
     accept: typeof accept === "string" ? acceptDropzoneProp : accept,
     multiple: false,
+    maxSize: 32 * 1024 * 1024, // 32 MB
+    onDrop: (acceptedFiles, fileRejections) => {
+      if (fileRejections.length > 0) {
+        fileRejections.forEach((rej) => {
+          rej.errors.forEach((err) => {
+            if (err.code === "file-too-large") {
+              message.error("File is too large! Maximum size is 32 MB.", 3);
+            } else {
+              message.error(err.message, 3);
+            }
+          });
+        });
+        return;
+      }
+      onDrop(acceptedFiles);
+    },
   });
 
   const getLabelbyType = () => {
@@ -41,7 +57,12 @@ const DropZone = ({
         <UploadIcon
           className={`${styles.uploadIcon} ${styles[`size-${iconSize}`]}`}
         />
-        {renderLabel && <p>{getLabelbyType()}</p>}
+        {renderLabel && (
+          <>
+            <p>{getLabelbyType()}</p>
+            <p>Allowed file size - up to 32 MB</p>
+          </>
+        )}
       </div>
     </div>
   );

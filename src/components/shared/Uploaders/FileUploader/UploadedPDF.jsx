@@ -3,9 +3,10 @@ import PDFReader from "../../../PDFReader/PDFReader";
 import DeleteBtn from "./DeleteBtn";
 import styles from "./FileUploader.module.scss";
 
+
 const UploadedPDF = ({ src, onDelete }) => {
   return (
-    <div className={`${styles.uploadedFileWrapper} ${styles.uploadedPDFWrapper}`}>
+    <div className={`${styles.uploadedFileWrapper} ${styles.uploadedMediaWrapper}`}>
       <PDFReader pdf={src} />
       <DeleteBtn onDelete={onDelete} />
     </div>
