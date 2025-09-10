@@ -14,6 +14,7 @@ import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
 import CompleteBtn from "../shared/CompleteBtn/CompleteBtn";
 import styles from "./Lecture.module.scss";
 import TableUI from "../Table/TableUI";
+import AudioPlayer from "../shared/AudioPlayer/AudioPlayer";
 
 const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
   const [fullscreen, setFullscreen] = useState(false);
@@ -44,7 +45,6 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
         // a_id: id,
         a_title: title,
         a_text: text,
-        downloadAllowed,
         hided,
         files,
         links,
@@ -137,13 +137,11 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
                 className={styles.sectionTitle}
                 dangerouslySetInnerHTML={{ __html: title }}
               ></h3>
-              <audio
-                src={`${serverName}/${encodedFilePathAudio}`}
-                controls={true}
-                width="true"
-                height="auto"
-                controlsList={downloadAllowed ? "" : "nodownload"}
-              ></audio>
+              {encodedFilePathAudio && (
+                <div style={{ marginBottom: "16rem" }}>
+                  <AudioPlayer src={`${serverName}/${encodedFilePathAudio}`} />
+                </div>
+              )}
               {text && text !== "" && (
                 <div
                   className={styles.sectionContentWrapper}

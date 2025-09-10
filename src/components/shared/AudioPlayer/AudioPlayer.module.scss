@@ -1,0 +1,70 @@
+.container {
+  min-height: 48rem;
+  border-radius: 5rem;
+  background-color: var(--content-contr-color);
+  box-shadow: var(--drop-shadow-middle-intense);
+  padding: 14rem 18rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 16rem;
+    height: 16rem;
+    & * {
+      fill: var(--content-datail-secondary);
+    }
+  }
+}
+
+.playBtn {
+  width: 16rem;
+  height: 16rem;
+  margin-right: 16rem;
+}
+
+.duration {
+  margin-right: 24rem;
+  color: var(--content-datail-secondary);
+  font-size: 14rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.progressContainer {
+  flex-grow: 1;
+  margin-right: 24rem;
+  .progressBar {
+    width: 100%;
+  }
+}
+
+.volumeContainer {
+  display: flex;
+  align-items: center;
+  gap: 8rem;
+  margin-right: 36rem;
+}
+
+.rateContainer {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+
+  button {
+    width: 16rem;
+    height: 16rem;
+  }
+
+  span {
+    color: var(--content-datail-secondary);
+    font-size: 14rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    display: block;
+    width: 3em;
+    text-align: center;
+  }
+}
