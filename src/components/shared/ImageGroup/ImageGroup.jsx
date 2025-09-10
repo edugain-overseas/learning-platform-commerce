@@ -14,6 +14,9 @@ const ImageGroup = ({
   // handleInputBlur = () => {},
   disabled = true,
 }) => {
+
+  console.log(imagesData);
+  
   return (
     <div>
       <Image.PreviewGroup>
@@ -32,7 +35,7 @@ const ImageGroup = ({
                       value={imageData.file_description}
                       maxRows={1}
                       onChange={(value) =>
-                        setDescription(imageData.filename, value)
+                        setDescription(index, value)
                       }
                     />
                   ) : (
@@ -43,7 +46,7 @@ const ImageGroup = ({
               {!disabled && (
                 <button
                   className={styles.deleteBtn}
-                  onClick={() => handleDeleteFile(imageData.filename)}
+                  onClick={() => handleDeleteFile(index)}
                 >
                   <TrashIcon className={styles.deleteIcon} />
                 </button>

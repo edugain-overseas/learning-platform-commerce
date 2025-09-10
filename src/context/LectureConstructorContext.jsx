@@ -118,26 +118,26 @@ export const LectureConstructorProvider = ({ children }) => {
     });
   };
 
-  const deleteFile = (id, filename) => {
+  const deleteFile = (id, index) => {
     setBlocks((prev) => {
       return prev.map((block) => {
         if (block.id !== id) return block;
         return {
           ...block,
-          files: block.files.filter((file) => file.filename !== filename),
+          files: block.files.filter((file, i) => i !== index),
         };
       });
     });
   };
 
-  const setDescriptionToFile = (id, filename, value) => {
+  const setDescriptionToFile = (id, index, value) => {
     setBlocks((prev) => {
       return prev.map((block) => {
         if (block.id !== id) return block;
         return {
           ...block,
-          files: block.files.map((file) => {
-            if (file.filename === filename) {
+          files: block.files.map((file, i) => {
+            if (i === index) {
               return { ...file, file_description: value };
             }
             return file;

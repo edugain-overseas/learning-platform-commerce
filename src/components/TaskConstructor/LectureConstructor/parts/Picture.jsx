@@ -29,7 +29,6 @@ const Picture = ({ partData, setters }) => {
           iconSize="m"
         />
       )}
-
       <TextInput value={partData.a_text} setValue={setters.text} />
     </>
   );

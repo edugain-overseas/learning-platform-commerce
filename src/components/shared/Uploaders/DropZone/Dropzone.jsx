@@ -1,36 +1,41 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import { ReactComponent as UploadIcon } from "../../../../images/icons/uploadBig.svg";
 import styles from "./DropZone.module.scss";
 import { message } from "antd";
 
 const DropZone = ({
-  onDrop,
+  onDrop: handleDrop,
   accept,
   className = "",
   renderLabel = true,
   iconSize = "l",
 }) => {
   const acceptDropzoneProp = { [accept]: [] };
+  const inputRef = useRef();
+
+  const onDrop = (acceptedFiles, fileRejections) => {
+    if (fileRejections.length > 0) {
+      fileRejections.forEach((rej) => {
+        rej.errors.forEach((err) => {
+          if (err.code === "file-too-large") {
+            message.error("File is too large! Maximum size is 32 MB.", 3);
+          } else {
+            message.error(err.message, 3);
+          }
+        });
+      });
+      return;
+    }
+    handleDrop(acceptedFiles);
+  };
+
   const { getRootProps, getInputProps } = useDropzone({
     accept: typeof accept === "string" ? acceptDropzoneProp : accept,
     multiple: false,
-    maxSize: 32 * 1024 * 1024, // 32 MB
-    onDrop: (acceptedFiles, fileRejections) => {
-      if (fileRejections.length > 0) {
-        fileRejections.forEach((rej) => {
-          rej.errors.forEach((err) => {
-            if (err.code === "file-too-large") {
-              message.error("File is too large! Maximum size is 32 MB.", 3);
-            } else {
-              message.error(err.message, 3);
-            }
-          });
-        });
-        return;
-      }
-      onDrop(acceptedFiles);
-    },
+    maxSize: 32 * 1024 * 1024,
+    noClick: true,
+    onDrop,
   });
 
   const getLabelbyType = () => {
@@ -51,8 +56,11 @@ const DropZone = ({
   };
 
   return (
-    <div {...getRootProps({ className })}>
-      <input {...getInputProps()} />
+    <div
+      {...getRootProps({ className })}
+      onClick={() => inputRef.current.click()}
+    >
+      <input {...getInputProps({ ref: inputRef })} />
       <div className={styles.labelWrapper}>
         <UploadIcon
           className={`${styles.uploadIcon} ${styles[`size-${iconSize}`]}`}
