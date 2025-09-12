@@ -1,27 +1,24 @@
 import React, { useState } from "react";
-import {
-  FolderOpenOutlined,
-  FolderOutlined,
-  FolderViewOutlined,
-} from "@ant-design/icons";
+import { FolderOpenOutlined, FolderViewOutlined } from "@ant-design/icons";
+import { Popover } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTemplates } from "../../../redux/template/selectors";
 import useMessage from "antd/es/message/useMessage";
-import { Popover } from "antd";
 import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
 import { getTemplateByIdAndType } from "../../../http/services/template";
 import { useLectureConstructor } from "../../../context/LectureConstructorContext";
 import { generateId } from "../../../utils/generateIdBasedOnTime";
 import { deleteTemplateByIdThunk } from "../../../redux/template/operation";
-import Modal from "../Modal/Modal";
-import LectureContent from "../../Lecture/LectureContent";
-import Spinner from "../../Spinner/Spinner";
-import "../../TasksHeader/AntPopoverStyles.css";
 import { useTestContructor } from "../../../context/TestContructorContext";
 import { getTemplateTypeByLessonType } from "../../../utils/getTemplateTypeByLessonType";
-import TestQuestions from "../../Test/TestQuestions";
-import styles from "./Template.module.scss";
 import { testQuestionsToBlocks } from "../../../utils/testQuestionsToBlocks";
+import { ReactComponent as FolderOutlined } from "../../../images/icons/folder-outlined.svg";
+import Modal from "../Modal/Modal";
+import LectureContent from "../../Lecture/LectureContent";
+import TestQuestions from "../../Test/TestQuestions";
+import Spinner from "../../Spinner/Spinner";
+import "../../TasksHeader/AntPopoverStyles.css";
+import styles from "./Template.module.scss";
 
 const TemplatesList = ({ type, closePopover }) => {
   const dispatch = useDispatch();
@@ -92,7 +89,7 @@ const TemplatesList = ({ type, closePopover }) => {
         (templateDetails) => templateDetails.id === id
       )[`${getTemplateTypeByLessonType(type)}_template`];
       console.log(templateData);
-      
+
       setBlocks(testQuestionsToBlocks(templateData));
     } else {
       try {

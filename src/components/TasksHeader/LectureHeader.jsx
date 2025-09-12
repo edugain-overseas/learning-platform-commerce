@@ -33,18 +33,20 @@ const LectureHeader = ({
         <span className={styles.divider}>|</span>
         <span className={styles.type}>{type}</span>
       </div>
-      {isModer && (
-        <>
-          <Template type="lecture" />
-          <Switcher
-            items={switcherItems}
-            value={switcherValue}
-            onChange={switcherOnChange}
-          />
-        </>
-      )}
+
       <div className={styles.toolsWrapper}>
-        {!isModer && <Notes />}
+        {isModer ? (
+          <>
+            <Template type="lecture" />
+            <Switcher
+              items={switcherItems}
+              value={switcherValue}
+              onChange={switcherOnChange}
+            />
+          </>
+        ) : (
+          <Notes />
+        )}
         {lectureSpeech && lectureSpeech?.length !== 0 && !isModer && (
           <LectureAudioPlayer lectureSpeeches={lectureInfo.lecture_speeches} />
         )}

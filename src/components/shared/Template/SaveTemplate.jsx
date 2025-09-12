@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FolderAddOutlined } from "@ant-design/icons";
+import { ReactComponent as FolderAddOutlined } from "../../../images/icons/folder-plus-outlined.svg";
 import { useDispatch } from "react-redux";
 import { createTemplateByTypeThunk } from "../../../redux/template/operation";
 import { useLectureConstructor } from "../../../context/LectureConstructorContext";
@@ -26,7 +26,7 @@ const SaveTemplate = ({ type }) => {
         duration: 3,
       });
       return;
-    }    
+    }
 
     const templateData = {
       title,

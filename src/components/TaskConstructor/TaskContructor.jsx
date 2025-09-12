@@ -7,7 +7,7 @@ import { getLessonByIdThunk } from "../../redux/lesson/operation";
 import { TestContructorProvider } from "../../context/TestContructorContext";
 import { getAllLessons, getIsLoading } from "../../redux/lesson/selectors";
 import { ReactComponent as EditIcon } from "../../images/icons/editBlack.svg";
-import { ReactComponent as EyeIcon } from "../../images/icons/eye.svg";
+import { ReactComponent as EyeIcon } from "../../images/icons/eye-secondary.svg";
 import { LectureConstructorProvider } from "../../context/LectureConstructorContext";
 import LectureConstructor from "./LectureConstructor/LectureConstructor";
 import TestConstructor from "./TestConstructor/TestConstructor";

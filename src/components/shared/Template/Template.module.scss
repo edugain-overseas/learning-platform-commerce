@@ -1,16 +1,22 @@
 .wrapper {
   height: 28rem;
   display: flex;
-  padding: 3rem;
+  align-items: center;
+  padding: 3rem 3rem 3rem 12rem;
 
   border-radius: 5rem;
   box-shadow: var(--box-shadow-button-inset);
 }
 
+.title {
+  font-size: 14rem;
+  font-weight: 400;
+  color: var(--content-datail-secondary);
+  margin-right: 12rem;
+}
+
 .openSaveNewTemplateModal,
 .openTemplatesBtn {
-  height: 100%;
-  width: 32px;
   padding: 2rem;
   display: flex;
   justify-content: center;
@@ -21,8 +27,8 @@
   transition: color var(--transition-time-min) ease;
 
   svg {
-    width: 20rem;
-    height: 20rem;
+    width: 18rem;
+    height: 18rem;
   }
 
   &:hover {
@@ -30,14 +36,20 @@
   }
 }
 
-.openSaveNewTemplateModal {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
 .openTemplatesBtn {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  margin-right: 10rem;
+  position: relative;
+
+  &::after {
+    content: '';
+    height: 16rem;
+    width: 1rem;
+    position: absolute;
+    top: 50%;
+    right: -4.5rem;
+    transform: translateY(-50%);
+    background-color: var(--content-datail-secondary);
+  }
 }
 
 // Save Template Form
@@ -171,7 +183,8 @@
   }
 }
 
-.btnsWrapper, .modalBtnsWrapper {
+.btnsWrapper,
+.modalBtnsWrapper {
   display: flex;
   justify-content: center;
   align-items: center;

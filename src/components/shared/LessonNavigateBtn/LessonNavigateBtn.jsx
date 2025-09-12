@@ -54,9 +54,10 @@ const LessonNavigateBtn = ({
           width,
           height,
           flexDirection: forward ? "row-reverse" : "row",
-          opacity: targetLesson ? "1" : "0",
+          opacity: targetLesson ? "1" : "0.5",
           pointerEvents: targetLesson ? "auto" : "none",
         }}
+        disabled={!targetLesson}
       >
         <ArrowDownIcon />
         <span>{label}</span>

@@ -1,0 +1,31 @@
+.container {
+  flex-grow: 1;
+  max-height: calc(100% - 60rem);
+  padding-right: 16rem;
+  display: flex;
+}
+
+.content {
+  flex-grow: 1;
+  height: 100%;
+  overflow-x: visible;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 32rem;
+  padding-right: 16rem;
+  filter: drop-shadow(var(--drop-shadow-middle-intense));
+}
+
+.tools {
+  width: 269rem;
+  flex-shrink: 0;
+  height: fit-content;
+  height: calc(100% - 48rem);
+  overflow: auto;
+  padding: 12rem;
+  border-radius: 5rem;
+  background: var(--bg-rgba-block);
+  box-shadow: var(--drop-shadow-middle-intense);
+  backdrop-filter: blur(16rem);
+}

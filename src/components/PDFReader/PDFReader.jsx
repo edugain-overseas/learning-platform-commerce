@@ -6,14 +6,14 @@ import { ReactComponent as PauseIcon } from "../../images/icons/pause.svg";
 import { ReactComponent as FullscreenIcon } from "../../images/icons/fullscreen.svg";
 import Skeleton from "../shared/Skeleton/Skeleton";
 import styles from "./PDFReader.module.scss";
-import sample from "../../images/simple.pdf";
+// import sample from "../../images/simple.pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const INTERVAL_DELAY = 5000;
 
 const PDFReader = ({ pdf }) => {
-  const [fileObj] = useState({ url: sample });
+  const [fileObj] = useState({ url: pdf });
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [layoutMode, setLayoutMode] = useState("single");

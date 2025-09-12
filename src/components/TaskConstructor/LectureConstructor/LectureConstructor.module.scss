@@ -1,36 +1,8 @@
-.wrapper {
-  flex-grow: 1;
-  max-height: calc(100% - 60rem);
-  padding-right: 16rem;
-  display: flex;
-  gap: 16rem;
-}
-
-.blocksWrapper {
-  flex-grow: 1;
+.toolsWrapper {
   height: 100%;
-  overflow-x: visible;
-  overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  gap: 32rem;
-}
-
-.toolsWrapper {
-  width: 25%;
-  flex-shrink: 0;
-  height: fit-content;
-  max-height: 100%;
-  overflow: auto;
-}
-
-.blocksWrapper,
-.toolsWrapper {
-  padding: 16rem 20rem;
-  border-radius: 5px;
-  background: var(--bg-rgba-default);
-  box-shadow: var(--drop-shadow-button-main-hover);
-  backdrop-filter: blur(16rem);
+  justify-content: space-between;
 }
 
 .addBlockBtns {
@@ -111,9 +83,9 @@
   gap: 16rem;
   padding: 20rem;
   padding-bottom: 36rem;
-  box-shadow: var(--drop-shadow-middle);
   border-radius: 5rem;
-  background-color: var(--bg-rgba-detail);
+  background-color: var(--bg-rgba-block);
+  backdrop-filter: blur(16rem);
 
   & > * {
     flex-shrink: 0;

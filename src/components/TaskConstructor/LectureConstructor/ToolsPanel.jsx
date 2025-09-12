@@ -3,8 +3,6 @@ import { useSelector } from "react-redux";
 import { getIsLoading } from "../../../redux/lesson/selectors";
 import { lectureParts } from "../../../costants/tasksParts";
 import { generateId } from "../../../utils/generateIdBasedOnTime";
-// import { ReactComponent as SaveIcon } from "../../../images/icons/save.svg";
-// import Spinner from "../../Spinner/Spinner";
 import SaveBtn from "../../shared/SaveBtn/SaveBtn";
 import styles from "./LectureConstructor.module.scss";
 

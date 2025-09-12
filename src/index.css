@@ -18,7 +18,8 @@
   --bg-rgba-secondary: rgba(255, 255, 255, 0.75);
   --bg-rgba-default: rgba(255, 255, 255, 0.65);
   --bg-rgba-detail: rgba(255, 255, 255, 0.2);
-  --bg-rgba-accent: rgba($color: #fcfcfc, $alpha: 0.9);
+  --bg-rgba-accent: rgba(252, 252, 252, 0.9);
+  --bg-rgba-block: rgba(252, 252, 252, 0.65);
 
   --bg-button-main: rgba(131, 131, 131, 0.2);
   --bg-rgba-primary: #fff;
@@ -63,7 +64,7 @@
 
   --transition-time-min: 0.2s;
   --transition-time-default: 0.3s;
-  --transition-time-max: 0.4s;
+  --transition-time-max: 0.5s;
 
   --sidebar-width-narrowed: 40rem;
   --sidebar-width-expanded: 148rem;

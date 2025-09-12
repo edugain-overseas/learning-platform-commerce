@@ -11,6 +11,7 @@ import Link from "./parts/Link";
 import ToolsPanel from "./ToolsPanel";
 import styles from "./LectureConstructor.module.scss";
 import Table from "./parts/Table";
+import TaskLayout from "../../shared/TaskLayout/TaskLayout";
 
 const LectureConstructor = () => {
   const {
@@ -47,8 +48,8 @@ const LectureConstructor = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.blocksWrapper}>
+    <TaskLayout.Container>
+      <TaskLayout.Content>
         {[...blocks]
           .sort((itemA, itemB) => itemA.a_number - itemB.a_number)
           .map((block) => (
@@ -63,12 +64,14 @@ const LectureConstructor = () => {
               </button>
             </div>
           ))}
-      </div>
-      <ToolsPanel
-        handleAddBlock={handleAddBlock}
-        handleSaveLectureParts={handleSaveLectureParts}
-      />
-    </div>
+      </TaskLayout.Content>
+      <TaskLayout.Tools>
+        <ToolsPanel
+          handleAddBlock={handleAddBlock}
+          handleSaveLectureParts={handleSaveLectureParts}
+        />
+      </TaskLayout.Tools>
+    </TaskLayout.Container>
   );
 };
 

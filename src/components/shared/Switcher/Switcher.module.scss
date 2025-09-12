@@ -9,26 +9,24 @@
   position: relative;
 
   button {
-    flex-grow: 1;
-    flex-basis: 1/2;
-    padding: 2rem;
+    padding: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: transparent;
     border-radius: 4rem;
-
-    transition: background-color var(--transition-time-min) ease;
     box-shadow: none;
+    position: relative;
+    z-index: 1;
 
     &.active {
-      background-color: var(--content-nav-hover);
       box-shadow: 0px 0px 2.2rem 0px rgba(0, 0, 0, 0.16);
       svg {
+        width: 16rem;
+        height: 16rem;
         * {
           stroke: var(--content-contr-color);
         }
-
         & > * {
           opacity: 1;
         }
@@ -51,4 +49,14 @@
       }
     }
   }
+}
+
+.indicator {
+  position: absolute;
+  left: 0;
+  top: 3rem;
+  background-color: var(--content-nav-hover);
+  border-radius: 5rem;
+  z-index: 0;
+  transition: transform var(--transition-time-min) ease;
 }

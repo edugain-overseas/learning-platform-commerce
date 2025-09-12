@@ -3,12 +3,12 @@ import Templates from "./Templates";
 import SaveTemplate from "./SaveTemplate";
 import styles from "./Template.module.scss";
 
-const Template = ({type}) => {
-
+const Template = ({ type }) => {
   return (
     <div className={styles.wrapper}>
-      <Templates type={type}/>
-      <SaveTemplate type={type}/>
+      <span className={styles.title}>Templates</span>
+      <Templates type={type} />
+      <SaveTemplate type={type} />
     </div>
   );
 };
