@@ -28,4 +28,52 @@
   background: var(--bg-rgba-block);
   box-shadow: var(--drop-shadow-middle-intense);
   backdrop-filter: blur(16rem);
+
+  display: flex;
+  flex-direction: column;
+
+  transition: all var(--transition-time-min) ease;
+
+  .chevronIcon {
+    transition: rotate var(--transition-time-min) ease;
+    transform-origin: center center;
+  }
+
+  &[data-narrowed="true"] {
+    width: 48rem;
+    padding: 12rem 5rem;
+
+    .toolsTitleContainer {
+      justify-content: flex-end;
+      span {
+        display: none;
+      }
+    }
+
+    .chevronIcon {
+      rotate: y 180deg;
+    }
+  }
+}
+
+.toolsContentContainer {
+  flex-grow: 1;
+}
+
+.toolsTitleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12rem;
+  margin-bottom: 12rem;
+  border-bottom: 1rem solid var(--content-datail-secondary);
+
+  span {
+    font-size: 18rem;
+    font-weight: 600;
+  }
+
+  button {
+    flex-shrink: 0;
+  }
 }

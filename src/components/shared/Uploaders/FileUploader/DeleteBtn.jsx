@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactComponent as DeleteIcon } from "../../../../images/icons/trashRounded.svg";
+import { ReactComponent as DeleteIcon } from "../../../../images/icons/delete.svg";
 import styles from "./FileUploader.module.scss";
 
 const DeleteBtn = ({ onDelete }) => {

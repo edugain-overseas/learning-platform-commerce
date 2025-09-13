@@ -7,24 +7,29 @@
 
 .addBlockBtns {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8rem;
-  margin-bottom: 16rem;
+  flex-direction: column;
+  gap: 6rem;
+  margin-bottom: 12rem;
 
   li {
-    width: calc(50% - 4rem);
-    aspect-ratio: 1;
+    width: 100%;
+    height: 38rem;
   }
 
   button {
     width: 100%;
     height: 100%;
     padding: 8rem 18rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12rem;
+
     background-color: var(--bg-rgba-secondary);
-    border-radius: 16rem;
+    border-radius: 5rem;
     color: var(--content-datail-secondary);
-    font-size: 14rem;
-    text-transform: uppercase;
+    font-size: 16rem;
+    text-transform: capitalize;
     box-shadow: var(--box-shadow-button);
     transition: all var(--transition-time-min) ease;
 
@@ -33,49 +38,28 @@
       color: var(--content-main);
       box-shadow: var(--box-shadow-button-inset);
     }
-  }
-}
 
-.saveBtn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8rem;
-  width: 90%;
-  height: 40rem;
-  margin: 0 auto;
-  background-color: transparent;
-  color: var(--content-datail-secondary);
-  font-size: 18rem;
-  border-radius: 5rem;
-  border: 1rem solid var(--content-datail-secondary);
-  opacity: 0.7;
-  transition: opacity var(--transition-time-min) ease,
-    color var(--transition-time-min) ease,
-    border-color var(--transition-time-min) ease,
-    background-color var(--transition-time-min) ease;
-
-  .saveIcon {
-    width: 24rem;
-    height: 24rem;
-    path {
-      stroke: var(--content-datail-secondary);
-      fill: var(--content-datail-secondary);
-      transition: all var(--transition-time-min) ease;
-    }
-  }
-
-  &:hover {
-    opacity: 1;
-    box-shadow: var(--box-shadow-button-inset);
-    color: var(--content-main);
-    background: var(--content-contr-color);
-    path {
-      stroke: var(--content-main);
-      fill: var(--content-main);
+    svg {
+      width: 18rem;
+      height: auto;
     }
   }
 }
+
+div[data-narrowed="true"] {
+  .addBlockBtns button {
+    padding: 0;
+
+    span {
+      display: none;
+    }
+  }
+
+  .saveBtn {
+  }
+}
+
+// content
 
 .block {
   display: flex;
@@ -93,6 +77,7 @@
 
   & .textEditor {
     text-indent: 16rem;
+    background-color: transparent;
     * {
       font-size: 14rem;
       line-height: 22rem;
@@ -110,31 +95,38 @@
 .titleInput {
   font-weight: 500;
   text-align: center;
+  background-color: transparent;
 }
 
 .deleteBtn {
-  width: auto;
-  align-self: self-end;
+  width: 38rem;
+  height: 38rem;
   font-size: 18rem;
   display: flex;
   align-items: center;
-  gap: 4rem;
+  gap: 0rem;
+  color: var(--content-datail-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  border: 1rem solid var(--content-datail-secondary);
+  border-radius: 5rem;
+
+  transition: all var(--transition-time-min) ease;
 
   &:hover {
-    path {
-      transition: fill var(--transition-time-max) ease;
-      fill: var(--content-nav-hover);
-    }
-
+    width: 245rem;
+    border-color: var(--content-nav-hover);
+    color: var(--content-nav-hover);
     span {
       width: 10em;
-      border-color: var(--border-color-main);
     }
   }
 
   svg {
-    width: 24rem;
-    height: 24rem;
+    width: 18rem;
+    height: 18rem;
   }
 
   span {
@@ -143,9 +135,8 @@
     overflow: hidden;
     text-align: center;
     transition: width var(--transition-time-min) ease;
-    color: var(--content-nav-hover);
-    border: 1px solid transparent;
-    height: 24rem;
+    font-size: 16rem;
+    text-overflow: clip;
   }
 }
 
@@ -241,7 +232,6 @@
     position: absolute;
     top: 12rem;
     right: 12rem;
-    // transform: translateY(-50%);
     width: 32rem;
     height: 32rem;
     display: flex;

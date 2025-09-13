@@ -1,6 +1,6 @@
 import React from "react";
 import { useLectureConstructor } from "../../../context/LectureConstructorContext";
-import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
+import { ReactComponent as TrashIcon } from "../../../images/icons/delete.svg";
 import Text from "./parts/Text";
 import Present from "./parts/Present";
 import Video from "./parts/Video";
@@ -9,9 +9,9 @@ import Picture from "./parts/Picture";
 import File from "./parts/File";
 import Link from "./parts/Link";
 import ToolsPanel from "./ToolsPanel";
-import styles from "./LectureConstructor.module.scss";
 import Table from "./parts/Table";
 import TaskLayout from "../../shared/TaskLayout/TaskLayout";
+import styles from "./LectureConstructor.module.scss";
 
 const LectureConstructor = () => {
   const {
