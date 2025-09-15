@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useRef } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -29,6 +29,8 @@ export const LectureConstructorProvider = ({ children }) => {
   const [blocks, setBlocks] = useState([
     ...lectureAttributesToBlocks(initialBlocks),
   ]);
+
+  const prevBlocksLength = useRef(blocks.length);
 
   const lectureAttrMaxNumber = blocks.reduce((maxNum, attr) => {
     return Math.max(attr.a_number, maxNum);
@@ -293,6 +295,21 @@ export const LectureConstructorProvider = ({ children }) => {
         onChangeLinksProperty(block.id, linkIndex, property, value),
     };
   };
+
+  useEffect(() => {
+    const contentContainerScrollEffect = () => {
+      const contentContainer = document.getElementById(
+        "task-content-container"
+      );
+      if (!contentContainer) return;
+      contentContainer.lastElementChild.scrollIntoView({ behavior: "smooth" });
+    };
+
+    if (blocks.length > prevBlocksLength.current) {
+      contentContainerScrollEffect();
+    }
+    prevBlocksLength.current = blocks.length;
+  }, [blocks]);
 
   return (
     <LectureConstructorContext.Provider

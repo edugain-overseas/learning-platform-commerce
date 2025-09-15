@@ -6,11 +6,7 @@ import styles from "./TaskLayout.module.scss";
 const ToolsContainer = ({ children, title = "Content" }) => {
   const [isNarrowed, setIsNarrowed] = useState(true);
   return (
-    <div
-      className={styles.tools}
-      id={`narrowed-${isNarrowed}`}
-      data-narrowed={isNarrowed}
-    >
+    <div className={styles.tools} data-narrowed={isNarrowed}>
       <div className={styles.toolsTitleContainer}>
         <span>{title}</span>
         <InsetBtn
@@ -24,7 +20,9 @@ const ToolsContainer = ({ children, title = "Content" }) => {
 };
 
 const ContentContainer = ({ children }) => (
-  <div className={styles.content}>{children}</div>
+  <div className={styles.content} id="task-content-container">
+    {children}
+  </div>
 );
 
 const Layout = ({ children }) => {

@@ -12,6 +12,12 @@
   p {
     font-size: inherit;
     text-align: center;
+    font-weight: 500;
+  }
+
+  p:last-child {
+    font-size: 12rem;
+    font-weight: 400;
   }
 }
 

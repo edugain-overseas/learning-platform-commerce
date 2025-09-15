@@ -1,8 +1,33 @@
 import React, { useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import { ReactComponent as UploadIcon } from "../../../../images/icons/uploadBig.svg";
-import styles from "./DropZone.module.scss";
 import { message } from "antd";
+import styles from "./DropZone.module.scss";
+
+const popularFormatsByAccept = (type) => {
+  switch (type) {
+    case "image":
+      return ["jpg", "png", "svg", "webp"];
+
+    case "video":
+      return ["mp4", "mov", "avi", "mkv"];
+
+    case "audio":
+      return ["mp3", "wav", "aac", "ogg"];
+
+    case "pdf":
+      return ["pdf", "ppt", "pptx", "pps"];
+
+    case "table":
+      return ["xls", "xlsx", "csv"];
+
+    case "file":
+      return ["doc", "docx", "otd", "rtf"];
+
+    default:
+      return null;
+  }
+};
 
 const DropZone = ({
   onDrop: handleDrop,
@@ -10,6 +35,7 @@ const DropZone = ({
   className = "",
   renderLabel = true,
   iconSize = "l",
+  type,
 }) => {
   const acceptDropzoneProp = { [accept]: [] };
   const inputRef = useRef();
@@ -55,6 +81,18 @@ const DropZone = ({
     } to this area to upload`;
   };
 
+  const getSublableByType = () => {
+    const sizeStr = "Maximum size 32 mb";
+    const formatsToDisplay = popularFormatsByAccept(type);
+    if (formatsToDisplay) {
+      return `Available formats: ${formatsToDisplay.join(
+        ", "
+      )}, etc. / ${sizeStr}`;
+    } else {
+      return sizeStr;
+    }
+  };
+
   return (
     <div
       {...getRootProps({ className })}
@@ -68,7 +106,7 @@ const DropZone = ({
         {renderLabel && (
           <>
             <p>{getLabelbyType()}</p>
-            <p>Allowed file size - up to 32 MB</p>
+            <p>{getSublableByType()}</p>
           </>
         )}
       </div>

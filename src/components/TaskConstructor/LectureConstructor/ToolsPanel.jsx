@@ -32,7 +32,7 @@ const ToolsPanel = ({ handleAddBlock, handleSaveLectureParts }) => {
       <ul className={styles.addBlockBtns}>
         {lectureParts.map((part) => (
           <li key={`${part.a_type}.${generateId()}`}>
-            <button onClick={() => handleAddBlock(part)}>
+            <button onClick={() => handleAddBlock(part)} title={part.a_type}>
               <span>{part.a_type}</span>
               {toolIcons[part.a_type]}
             </button>

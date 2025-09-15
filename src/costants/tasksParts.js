@@ -81,16 +81,20 @@ export const lectureParts = [
     template: lecturePartsTemplates.file,
   },
   {
-    a_type: "audio",
-    template: lecturePartsTemplates.file,
+    a_type: "picture",
+    template: lecturePartsTemplates.files,
   },
   {
     a_type: "video",
     template: lecturePartsTemplates.file,
   },
   {
-    a_type: "picture",
-    template: lecturePartsTemplates.files,
+    a_type: "table",
+    template: lecturePartsTemplates.table,
+  },
+  {
+    a_type: "audio",
+    template: lecturePartsTemplates.file,
   },
   {
     a_type: "file",
@@ -99,10 +103,6 @@ export const lectureParts = [
   {
     a_type: "link",
     template: lecturePartsTemplates.links,
-  },
-  {
-    a_type: "table",
-    template: lecturePartsTemplates.table,
   },
 ];
 

@@ -19,12 +19,13 @@
   border-radius: 5rem;
   border: 2rem dashed var(--color);
   background-color: var(--bg-rgba-default);
-  transition: border-color var(--transition-time-default) ease;
-  font-size: 20rem;
+  opacity: 0.5;
+  transition: opacity var(--transition-time-default) ease;
+  font-size: 14rem;
   cursor: pointer;
 
   &:hover {
-    --color: var(--content-main);
+    opacity: 1;
   }
 
   &:has(div:has(:only-child)) {

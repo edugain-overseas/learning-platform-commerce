@@ -132,6 +132,7 @@ const TableConstructor = ({ state, setState }) => {
             "text/csv": [".csv"],
           }}
           iconSize="m"
+          type='table'
         />
       </div>
     </>
