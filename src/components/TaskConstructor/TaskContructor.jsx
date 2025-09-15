@@ -33,8 +33,6 @@ const TaskContructor = () => {
   const course = courses.find(({ id }) => id === +courseId);
   const courseName = course?.title;
 
-  console.log(task);
-
   useEffect(() => {
     if (taskId && username) {
       dispatch(getLessonByIdThunk(+taskId));

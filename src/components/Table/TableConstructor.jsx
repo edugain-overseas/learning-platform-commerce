@@ -7,8 +7,6 @@ import styles from "./Table.module.scss";
 import Textarea from "../shared/Textarea/Textarea";
 
 const TableConstructor = ({ state, setState }) => {
-  console.log(state);
-
   const tableRef = useRef(null);
 
   const {
@@ -91,12 +89,6 @@ const TableConstructor = ({ state, setState }) => {
       >
         {row?.map((cell) => (
           <td key={cell.key}>
-            {/* <RichTextEditor
-              value={cell.label}
-              placeholder=""
-              setValue={(value) => onCellLabelChange(index, cell.key, value)}
-              type="tableConstructor"
-            /> */}
             <Textarea
               value={cell.label}
               onChange={(value) => onCellLabelChange(index, cell.key, value)}
@@ -132,7 +124,7 @@ const TableConstructor = ({ state, setState }) => {
             "text/csv": [".csv"],
           }}
           iconSize="m"
-          type='table'
+          type="table"
         />
       </div>
     </>

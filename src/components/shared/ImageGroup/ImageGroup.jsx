@@ -14,13 +14,14 @@ const ImageGroup = ({
   // handleInputBlur = () => {},
   disabled = true,
 }) => {
-
-  console.log(imagesData);
-  
   return (
     <div>
       <Image.PreviewGroup>
-        <div className={`${styles.imagesWrapper} ${styles[`grid-${imagesData?.length}`]}`}>
+        <div
+          className={`${styles.imagesWrapper} ${
+            styles[`grid-${imagesData?.length}`]
+          }`}
+        >
           {imagesData.map((imageData, index) => (
             <div key={index} className={styles.imageWrapper}>
               <Image
@@ -34,9 +35,7 @@ const ImageGroup = ({
                     <Textarea
                       value={imageData.file_description}
                       maxRows={1}
-                      onChange={(value) =>
-                        setDescription(index, value)
-                      }
+                      onChange={(value) => setDescription(index, value)}
                     />
                   ) : (
                     <p>{imageData.file_description}</p>

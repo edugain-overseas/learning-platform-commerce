@@ -4,7 +4,7 @@ import { ReactComponent as ChevronIcon } from "../../../images/icons/next.svg";
 import styles from "./TaskLayout.module.scss";
 
 const ToolsContainer = ({ children, title = "Content" }) => {
-  const [isNarrowed, setIsNarrowed] = useState(true);
+  const [isNarrowed, setIsNarrowed] = useState(false);
   return (
     <div className={styles.tools} data-narrowed={isNarrowed}>
       <div className={styles.toolsTitleContainer}>

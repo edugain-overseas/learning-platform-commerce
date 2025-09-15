@@ -21,8 +21,6 @@ const CourseTasksPage = () => {
   const lectures = courseLessons?.filter(({ type }) => type === "lecture");
   const tests = courseLessons?.filter(({ type }) => type === "test");
 
-  console.log(courseLessons?.length, isModer);
-
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.mainContentWrapper}>

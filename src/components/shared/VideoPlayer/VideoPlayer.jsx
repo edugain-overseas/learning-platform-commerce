@@ -6,6 +6,7 @@ const VideoPlayer = ({ file }) => {
 
   const handleLoadedMetadata = (e) => {
     const aspectRatio = e.target.videoWidth / e.target.videoHeight;
+    console.log(e);
 
     if (aspectRatio >= 1) {
       setVideoParmas({
@@ -21,6 +22,10 @@ const VideoPlayer = ({ file }) => {
     }
   };
 
+  const aspectRatio = videoParams.width / videoParams.height;
+  const vertical = aspectRatio < 1;
+
+
   return (
     <>
       <video
@@ -29,8 +34,9 @@ const VideoPlayer = ({ file }) => {
         style={{
           display: "block",
           margin: "0 auto",
-          width: videoParams.width ? videoParams.width : "100%",
-          height: videoParams.height ? videoParams.height : 0,
+          maxWidth: "100%",
+          width: vertical ? videoParams.width || 0 : "100%",
+          height: vertical ? videoParams.height || 0 : "auto",
         }}
         onContextMenu={(e) => e.preventDefault()}
         onLoadedMetadata={handleLoadedMetadata}

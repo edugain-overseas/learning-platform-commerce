@@ -31,8 +31,6 @@ const Switcher = ({
     onChange(index);
   };
 
-  console.log(indicatorCoords);
-
   return (
     <div className={styles.wrapper} style={{ width, height }}>
       <div
