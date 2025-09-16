@@ -46,8 +46,6 @@ const PDFReader = ({ pdf }) => {
   // Update container width
   const updateContainerWidth = useCallback(() => {
     if (containerRef.current) {
-      console.log(containerRef.current.clientWidth);
-
       setContainerWidth(containerRef.current.clientWidth);
     }
   }, []);

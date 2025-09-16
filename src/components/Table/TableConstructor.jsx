@@ -9,6 +9,9 @@ import Textarea from "../shared/Textarea/Textarea";
 const TableConstructor = ({ state, setState }) => {
   const tableRef = useRef(null);
 
+  console.log(state);
+  
+
   const {
     onColumnLabelChange,
     onColumnChildLabelChange,

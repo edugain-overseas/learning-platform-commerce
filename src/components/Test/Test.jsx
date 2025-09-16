@@ -9,6 +9,7 @@ import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
 import Spinner from "../Spinner/Spinner";
 import ExpiredAttemptsMessage from "../shared/ExpiredAttemptsMessage/ExpiredAttemptsMessage";
 import styles from "./Test.module.scss";
+import TaskLayout from "../shared/TaskLayout/TaskLayout";
 
 const Test = ({ test }) => {
   const {
@@ -73,35 +74,39 @@ const Test = ({ test }) => {
         {isLoading ? (
           <Spinner />
         ) : (
-          <div className={styles.bodyWrapper}>
-            {showTest || isTestClosed ? (
-              <>
-                {showExpiredAttemptsMessage && (
-                  <ExpiredAttemptsMessage
-                    testId={test.test_data?.test_id}
-                    wrapperClassname={styles.expiredMessageWrapper}
+          <TaskLayout.Container>
+            <TaskLayout.Content>
+              {showTest || isTestClosed ? (
+                <>
+                  {showExpiredAttemptsMessage && (
+                    <ExpiredAttemptsMessage
+                      testId={test.test_data?.test_id}
+                      wrapperClassname={styles.expiredMessageWrapper}
+                    />
+                  )}
+                  <TestContent
+                    studentAnswers={submitedAttemptData || studentAnswers}
+                    setStudentAnswers={setStudentAnswers}
+                    test={{ ...test }}
+                    closed={isTestClosed}
+                    answers={submitedAttemptData}
+                    timeLeft={timeLeft}
+                    bottomTools={bottomTools}
                   />
-                )}
-                <TestContent
-                  studentAnswers={submitedAttemptData || studentAnswers}
-                  setStudentAnswers={setStudentAnswers}
-                  test={{ ...test }}
-                  closed={isTestClosed}
-                  answers={submitedAttemptData}
-                  timeLeft={timeLeft}
-                  bottomTools={bottomTools}
+                </>
+              ) : (
+                <TestLanding
+                  onStartTest={startTestAttempt}
+                  testData={{ ...test.test_data, timer: test.scheduled_time }}
                 />
-              </>
-            ) : (
-              <TestLanding
-                onStartTest={startTestAttempt}
-                testData={{ ...test.test_data, timer: test.scheduled_time }}
-              />
-            )}
-            <div className={styles.progressWrapper}>
-              <CourseAsideProgressPanel courseId={courseId} />
-            </div>
-          </div>
+              )}
+            </TaskLayout.Content>
+            <TaskLayout.Tools>
+              {/* <div className={styles.progressWrapper}> */}
+                <CourseAsideProgressPanel courseId={courseId} />
+              {/* </div> */}
+            </TaskLayout.Tools>
+          </TaskLayout.Container>
         )}
       </div>
     </>

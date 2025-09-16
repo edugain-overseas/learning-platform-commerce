@@ -85,3 +85,13 @@
     }
   }
 }
+
+div[data-narrowed="true"] {
+  .listWrapper li {
+    justify-content: center;
+  }
+
+  .progressLink {
+    display: none;
+  }
+}

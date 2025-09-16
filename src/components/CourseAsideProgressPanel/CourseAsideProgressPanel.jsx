@@ -1,12 +1,12 @@
 import React from "react";
+import useMessage from "antd/es/message/useMessage";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getAllCourses } from "../../redux/course/selectors";
 import { ReactComponent as ExamIcon } from "../../images/icons/exam.svg";
 import ProgressBar from "../shared/ProgressBar/ProgressBar";
 import ProgressList from "../shared/ProgressList/ProgressList";
 import styles from "./CourseAsideProgressPanel.module.scss";
-import { useNavigate } from "react-router-dom";
-import useMessage from "antd/es/message/useMessage";
-import { useSelector } from "react-redux";
-import { getAllCourses } from "../../redux/course/selectors";
 
 const CourseAsideProgressPanel = ({ courseId }) => {
   const navigate = useNavigate();
@@ -45,7 +45,6 @@ const CourseAsideProgressPanel = ({ courseId }) => {
       {contextHolder}
       <div className={styles.wrapper}>
         <div className={styles.topWrapper}>
-          <h4>Content:</h4>
           <div className={styles.progressWrapper}>
             <span>Progress:</span>
             <ProgressBar value={courseProgress} width={172} height={24} />

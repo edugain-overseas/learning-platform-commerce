@@ -6,6 +6,7 @@ import LectureContent from "./LectureContent";
 import CourseAsideProgressPanel from "../CourseAsideProgressPanel/CourseAsideProgressPanel";
 import styles from "./Lecture.module.scss";
 import { SelectionProvider } from "../../context/SelectionContext";
+import TaskLayout from "../shared/TaskLayout/TaskLayout";
 
 const Lecture = ({ lecture }) => {
   const { course_id: courseId, id } = lecture;
@@ -21,16 +22,20 @@ const Lecture = ({ lecture }) => {
     <div className={styles.lectureWrapper}>
       <SelectionProvider>
         <LectureHeader lecture={lecture} />
-        <div className={styles.bodyWrapper}>
-          <LectureContent lecture={{ ...lecture, status, courseName }} />
-          <div className={styles.progressWrapper}>
+        {/* <div className={styles.bodyWrapper}> */}
+        <TaskLayout.Container>
+          <TaskLayout.Content>
+            <LectureContent lecture={{ ...lecture, status, courseName }} />
+          </TaskLayout.Content>
+          <TaskLayout.Tools>
             <CourseAsideProgressPanel
               courseLessons={courseLessons ? courseLessons : []}
               courseId={courseId}
               progress={course?.progress}
             />
-          </div>
-        </div>
+          </TaskLayout.Tools>
+        </TaskLayout.Container>
+        {/* </div> */}
       </SelectionProvider>
     </div>
   );

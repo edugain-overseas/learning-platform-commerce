@@ -17,6 +17,8 @@ import LectureContent from "../Lecture/LectureContent";
 import Spinner from "../Spinner/Spinner";
 import TestContent from "../Test/TestContent";
 import styles from "./TaskConstructor.module.scss";
+import TaskLayout from "../shared/TaskLayout/TaskLayout";
+import PreviewStudentAsideCourseProgressPanel from "./PreviewStudentAsideCourseProgressPanel";
 
 const TaskContructor = () => {
   const [viewTypeIndex, setViewTypeIndex] = useState(0);
@@ -57,9 +59,17 @@ const TaskContructor = () => {
               />
               {viewTypeIndex === 0 && <LectureConstructor />}
               {viewTypeIndex === 1 && (
-                <div className={styles.lectureContentWrapper}>
-                  <LectureContent lecture={{ courseName, ...task }} />
-                </div>
+                <TaskLayout.Container>
+                  <TaskLayout.Content>
+                    <LectureContent lecture={{ courseName, ...task }} />
+                  </TaskLayout.Content>
+                  <TaskLayout.Tools>
+                    <PreviewStudentAsideCourseProgressPanel
+                      lessons={course.lessons}
+                      currentLessonId={+taskId}
+                    />
+                  </TaskLayout.Tools>
+                </TaskLayout.Container>
               )}
             </LectureConstructorProvider>
           </>

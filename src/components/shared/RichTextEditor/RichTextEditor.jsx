@@ -1,9 +1,10 @@
 import React, { useMemo } from "react";
-import ReactQuill from 'react-quill-new';
+import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import "./RichTextEditor.css";
 
 const toolbarOptions = [
+  ["undo", "redo"],
   [{ header: [1, 2, false] }],
   ["bold", "italic", "underline", "strike", "blockquote"],
   [{ align: [] }],
@@ -11,6 +12,7 @@ const toolbarOptions = [
 ];
 
 const tableToolbarOptions = [
+  ["undo", "redo"],
   ["bold", "italic", "underline", "strike", "blockquote"],
   [{ align: [] }],
   [{ list: "ordered" }, { list: "bullet" }],
@@ -23,10 +25,48 @@ const RichTextEditor = ({
   type = "normal",
   className = "",
 }) => {
+  // const modules = useMemo(() => {
+  //   return {
+  //     toolbar:
+  //       type === "tableConstructor" ? tableToolbarOptions : toolbarOptions,
+  //     clipboard: {
+  //       matchers: [
+  //         [
+  //           "*",
+  //           (_, delta) => {
+  //             delta.ops.forEach((op) => {
+  //               if (op.attributes) {
+  //                 op.attributes.color = "";
+  //                 op.attributes.background = "";
+  //               }
+  //             });
+  //             return delta;
+  //           },
+  //         ],
+  //       ],
+  //     },
+  //   };
+  // }, [type]);
+
   const modules = useMemo(() => {
     return {
-      toolbar:
-        type === "tableConstructor" ? tableToolbarOptions : toolbarOptions,
+      toolbar: {
+        container:
+          type === "tableConstructor" ? tableToolbarOptions : toolbarOptions,
+        handlers: {
+          undo: function () {
+            this.quill.history.undo();
+          },
+          redo: function () {
+            this.quill.history.redo();
+          },
+        },
+      },
+      history: {
+        delay: 1000,
+        maxStack: 100,
+        userOnly: true,
+      },
       clipboard: {
         matchers: [
           [
@@ -45,7 +85,7 @@ const RichTextEditor = ({
       },
     };
   }, [type]);
-
+  
   const handleChange = (content) => {
     setValue(content);
   };

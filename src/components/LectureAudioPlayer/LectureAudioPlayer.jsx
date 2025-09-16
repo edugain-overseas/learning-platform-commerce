@@ -22,12 +22,19 @@ const LectureAudioPlayer = ({ lectureSpeeches }) => {
   const [audioSrc, setAudioSrc] = useState(lectureSpeeches[0]);
   const [volume, setVolume] = useState(1);
   const [rate, setRate] = useState(1);
+  const [isPlayeble, setIsPlayeble] = useState(false);
 
   const [messageApi, contextHolder] = useMessage();
 
   const handlePlay = () => {
-    audioRef.current?.play();
-    setIsPlaying(true);
+    try {
+      audioRef.current?.play();
+      setIsPlaying(true);
+    } catch {
+      messageApi.error({
+        content: "Something went wrong! Sorry for that, try again later",
+      });
+    }
   };
   const handlePause = () => {
     audioRef.current?.pause();
@@ -72,6 +79,8 @@ const LectureAudioPlayer = ({ lectureSpeeches }) => {
         className={styles.audio}
         src={`${serverName}/${audioSrc}`}
         controls={false}
+        onError={() => setIsPlayeble(false)}
+        onLoadedMetadata={() => setIsPlayeble(true)}
       />
       <span className={styles.title}>Voice acting:</span>
       {isPlaying ? (
@@ -79,7 +88,12 @@ const LectureAudioPlayer = ({ lectureSpeeches }) => {
           <PauseIcon />
         </button>
       ) : (
-        <button type="button" onClick={handlePlay} className={styles.playBtn}>
+        <button
+          type="button"
+          onClick={handlePlay}
+          className={styles.playBtn}
+          disabled={!isPlayeble}
+        >
           <PlayIcon />
         </button>
       )}

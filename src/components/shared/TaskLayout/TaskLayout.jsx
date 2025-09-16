@@ -1,10 +1,15 @@
-import React, { useState } from "react";
-import InsetBtn from "../InsetBtn/InsetBtn";
+import React from "react";
+import useLocalStorage from "../../../hooks/useLocalStorage";
 import { ReactComponent as ChevronIcon } from "../../../images/icons/next.svg";
+import InsetBtn from "../InsetBtn/InsetBtn";
 import styles from "./TaskLayout.module.scss";
 
 const ToolsContainer = ({ children, title = "Content" }) => {
-  const [isNarrowed, setIsNarrowed] = useState(false);
+  const [isNarrowed, setIsNarrowed] = useLocalStorage(
+    "taskLayoutAsideNarrow",
+    false
+  );
+
   return (
     <div className={styles.tools} data-narrowed={isNarrowed}>
       <div className={styles.toolsTitleContainer}>

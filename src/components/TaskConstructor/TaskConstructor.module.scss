@@ -16,3 +16,73 @@
   justify-content: center;
   align-items: center;
 }
+
+.asideCourseProgressCotainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.progressContainer {
+  padding-bottom: 12rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rem solid var(--content-datail-secondary);
+
+  & > span {
+    color: var(---content-datail-secondary);
+    font-size: 14rem;
+    font-weight: 500;
+  }
+}
+
+.progressListContainer {
+  margin-bottom: 12rem;
+  max-height: calc(100% - 71rem);
+  overflow-y: auto;
+}
+
+.examLink {
+  margin-top: auto;
+  width: 100%;
+  height: 38rem;
+
+  border-radius: 5px;
+  background-color: var(--content-datail-secondary);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  transition: background-color var(--transition-time-min) ease;
+
+  &:hover {
+    background-color: var(--content-main);
+  }
+
+  span {
+    color: var(--content-light-secondary);
+    font-weight: 500;
+    font-size: 16rem;
+  }
+
+  svg {
+    width: 18rem;
+    height: 18rem;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+div[data-narrowed="true"] {
+  .progressContainer > span {
+    display: none;
+  }
+
+  .examLink span {
+    display: none;
+  }
+}

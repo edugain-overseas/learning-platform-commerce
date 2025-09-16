@@ -24,13 +24,7 @@ const handleProgressColor = (value) => {
   return "transparent";
 };
 
-const ProgressBar = ({
-  width = 171,
-  height = 24,
-  value,
-  className = "",
-}) => {
-  
+const ProgressBar = ({ width = 171, height = 24, value, className = "" }) => {
   const disabled = value == null ? true : false;
 
   return (
@@ -56,11 +50,15 @@ const ProgressBar = ({
           }}
         ></div>
         <span style={{ fontSize: `${(10 / 24) * height}rem` }}>
-          {disabled
-            ? "Not purchased"
-            : value >= 100
-            ? "Completed"
-            : `${value ? value : 0} / 100 %`}
+          {disabled ? (
+            "Not purchased"
+          ) : value >= 100 ? (
+            "Completed"
+          ) : (
+            <>
+              {`${value ? value : 0}`} <span> / 100 %</span>
+            </>
+          )}
         </span>
       </div>
     </div>

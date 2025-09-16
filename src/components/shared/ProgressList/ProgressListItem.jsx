@@ -19,7 +19,7 @@ const ProgressListItem = ({ item, blockedLessonMessage }) => {
       <Link
         to={item.link}
         className={styles.progressLink}
-        onClick={() => !item.link && blockedLessonMessage()}
+        onClick={() => !item.link && blockedLessonMessage?.()}
       >
         <span title={item.label}>{item.label}</span>
       </Link>

@@ -1,22 +1,7 @@
 .wrapper {
-  width: 268rem;
-  flex-shrink: 0;
-
-  border-radius: 5rem;
-  background: var(--bg-rgba-default);
-
-  box-shadow: var(--drop-shadow-button-main);
-  backdrop-filter: blur(16rem);
-  padding: 12rem 12rem 30rem;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-
-  h4 {
-    font-size: 18rem;
-    font-weight: 600;
-    margin-bottom: 12rem;
-  }
 }
 
 .topWrapper {
@@ -27,12 +12,11 @@
 }
 
 .progressWrapper {
-  padding-block: 12rem;
+  padding-bottom: 12rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1rem solid var(--content-datail-secondary);
-  border-top: 1rem solid var(--content-datail-secondary);
 
   span {
     color: var(---content-datail-secondary);
@@ -48,10 +32,9 @@
 }
 
 .examLink {
-  display: block;
-  width: 172rem;
+  width: 100%;
   height: 38rem;
-  margin: 0 auto;
+  margin-top: auto;
 
   border-radius: 5px;
   background-color: var(--content-datail-secondary);
@@ -79,5 +62,15 @@
 
   &.disabled {
     opacity: 0.5;
+  }
+}
+
+div[data-narrowed="true"] {
+  .progressWrapper span {
+    display: none;
+  }
+
+  .examLink span {
+    display: none;
   }
 }
