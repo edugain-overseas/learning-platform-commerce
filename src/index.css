@@ -43,7 +43,7 @@
   --content-light-secondary: #fcfcfc;
   --content-accent: #4171cd;
   --content-detail: #5e5e5e;
-  --content-success: #29CA6A;
+  --content-success: #29ca6a;
   --content-failture: #ba3939;
   --content-contr-color: #fff;
   --content-datail-secondary: rgb(126, 140, 168);
@@ -127,7 +127,7 @@ span {
   border-radius: 10rem;
   background-color: transparent;
   border: 6rem solid transparent;
-  box-shadow: inset 7rem 10rem 12rem #f0f0f0;
+  box-shadow: 0 0 4rem 0 rgba(0, 0, 0, 0.12) inset;
 }
 
 *::-webkit-scrollbar-thumb {
@@ -139,7 +139,7 @@ span {
 
 @supports (scrollbar-color: var(--bg-thumb) var(--bg-accent-thumb)) {
   * {
-    scrollbar-color: var(--bg-thumb) var(--bg-accent-thumb);
+    scrollbar-color: rgba(126, 140, 168, 0.2) transparent;
     scrollbar-width: thin;
   }
 }

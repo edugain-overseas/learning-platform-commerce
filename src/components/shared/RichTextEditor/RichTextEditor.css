@@ -7,29 +7,16 @@
     overflow: visible;
   }
 
-  &:focus-within {
-    & > .ql-toolbar {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    & > .ql-toolbar.ql-snow + .ql-container.ql-snow {
-      border-radius: 0 0 5rem 5rem;
-    }
-  }
-
-  &.bottomToolbar:focus-within > .ql-toolbar.ql-snow + .ql-container.ql-snow  {
-    border-radius: 5rem 5rem 0 0;
+  &:focus-within .ql-toolbar {
+    opacity: 1;
+    pointer-events: all;
   }
 
   & > .ql-toolbar {
-    /* min-width: fit-content;
-    width: 100%; */
     width: fit-content;
     padding: 4rem 8rem;
     position: absolute;
     bottom: 100%;
-    /* border: 1rem solid var(--content-datail-secondary); */
     box-shadow: var(--drop-shadow-button-main);
     border-radius: 2.5rem;
     background-color: #fff;
@@ -37,10 +24,59 @@
     pointer-events: none;
     z-index: 1;
     transition: opacity var(--transition-time-min) ease;
+
+    text-indent: 0;
+
+    svg {
+      width: 16px;
+      height: auto;
+    }
+
+    .ql-snow .ql-icon-picker .ql-picker-label {
+      padding: 3px 5px;
+    }
+
+    .ql-editor.ql-blank::before {
+      text-indent: 0;
+    }
+
+    .ql-undo::before,
+    .ql-redo::before {
+      content: "";
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .ql-undo::before {
+      background-image: url("/src/images/icons/undo.svg");
+    }
+
+    .ql-redo::before {
+      background-image: url("/src/images/icons/redo.svg");
+    }
+
+    .ql-undo,
+    .ql-redo {
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .ql-toolbar.ql-snow .ql-formats {
+    margin-right: 8rem;
+  }
+
+  .ql-snow .ql-picker.ql-header {
+    width: 76px;
   }
 
   &.bottomToolbar > .ql-toolbar {
-    /* min-width: initial; */
     bottom: initial;
     top: 100%;
 
@@ -89,6 +125,10 @@
   font-style: normal;
   left: initial;
   right: initial;
+}
+
+.ql-editor.ql-blank::before {
+  text-indent: 0;
 }
 
 .ql-snow .ql-stroke,

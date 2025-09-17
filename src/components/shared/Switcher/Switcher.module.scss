@@ -18,35 +18,18 @@
     box-shadow: none;
     position: relative;
     z-index: 1;
+    color: var(--content-datail-secondary);
+
+    // transition: color var(--transition-time-min) ease;
 
     &.active {
       box-shadow: 0px 0px 2.2rem 0px rgba(0, 0, 0, 0.16);
-      svg {
-        width: 16rem;
-        height: 16rem;
-        * {
-          stroke: var(--content-contr-color);
-        }
-        & > * {
-          opacity: 1;
-        }
-      }
+      color: var(--content-light-secondary);
     }
 
     svg {
       width: 16rem;
       height: 16rem;
-
-      * {
-        stroke: var(--content-dark);
-        fill: transparent;
-        transition: stroke var(--transition-time-min) ease;
-      }
-
-      & > * {
-        opacity: 0.5;
-        transition: opacity var(--transition-time-min) ease;
-      }
     }
   }
 }

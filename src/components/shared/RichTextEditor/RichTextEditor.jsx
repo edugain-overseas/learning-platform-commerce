@@ -6,16 +6,12 @@ import "./RichTextEditor.css";
 const toolbarOptions = [
   ["undo", "redo"],
   [{ header: [1, 2, false] }],
-  ["bold", "italic", "underline", "strike", "blockquote"],
-  [{ align: [] }],
-  [{ list: "ordered" }, { list: "bullet" }],
+  ["bold", "italic", "underline", { list: "ordered" }, { list: "bullet" }, { align: [] }],
 ];
 
 const tableToolbarOptions = [
   ["undo", "redo"],
-  ["bold", "italic", "underline", "strike", "blockquote"],
-  [{ align: [] }],
-  [{ list: "ordered" }, { list: "bullet" }],
+  ["bold", "italic", "underline", { list: "ordered" }, { list: "bullet" }, { align: [] }],
 ];
 
 const RichTextEditor = ({
@@ -85,7 +81,7 @@ const RichTextEditor = ({
       },
     };
   }, [type]);
-  
+
   const handleChange = (content) => {
     setValue(content);
   };

@@ -54,9 +54,6 @@ div[data-narrowed="true"] {
       display: none;
     }
   }
-
-  .saveBtn {
-  }
 }
 
 // content
@@ -81,12 +78,17 @@ div[data-narrowed="true"] {
       font-size: 14rem;
       line-height: 22rem;
     }
-    ul * {
-      text-indent: 0;
-    }
+    ul,
+    ol {
+      padding-left: 16rem;
 
-    ul {
-      padding-left: 6rem;
+      li {
+        padding-left: 0;
+
+        span {
+          text-indent: 0;
+        }
+      }
     }
   }
 }
