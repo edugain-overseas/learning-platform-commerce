@@ -6,12 +6,26 @@ import "./RichTextEditor.css";
 const toolbarOptions = [
   ["undo", "redo"],
   [{ header: [1, 2, false] }],
-  ["bold", "italic", "underline", { list: "ordered" }, { list: "bullet" }, { align: [] }],
+  [
+    "bold",
+    "italic",
+    "underline",
+    { list: "ordered" },
+    { list: "bullet" },
+    { align: [] },
+  ],
 ];
 
 const tableToolbarOptions = [
   ["undo", "redo"],
-  ["bold", "italic", "underline", { list: "ordered" }, { list: "bullet" }, { align: [] }],
+  [
+    "bold",
+    "italic",
+    "underline",
+    { list: "ordered" },
+    { list: "bullet" },
+    { align: [] },
+  ],
 ];
 
 const RichTextEditor = ({
@@ -20,29 +34,8 @@ const RichTextEditor = ({
   placeholder = "Write your text here...",
   type = "normal",
   className = "",
+  onBlur,
 }) => {
-  // const modules = useMemo(() => {
-  //   return {
-  //     toolbar:
-  //       type === "tableConstructor" ? tableToolbarOptions : toolbarOptions,
-  //     clipboard: {
-  //       matchers: [
-  //         [
-  //           "*",
-  //           (_, delta) => {
-  //             delta.ops.forEach((op) => {
-  //               if (op.attributes) {
-  //                 op.attributes.color = "";
-  //                 op.attributes.background = "";
-  //               }
-  //             });
-  //             return delta;
-  //           },
-  //         ],
-  //       ],
-  //     },
-  //   };
-  // }, [type]);
 
   const modules = useMemo(() => {
     return {
@@ -86,6 +79,14 @@ const RichTextEditor = ({
     setValue(content);
   };
 
+  const handleBlur = (e, q, r) => {
+    const activeEl = document.activeElement;
+    if (activeEl && activeEl.closest(".ql-toolbar")) {
+      return;
+    }
+    onBlur?.();
+  };
+
   return (
     <ReactQuill
       theme="snow"
@@ -96,6 +97,7 @@ const RichTextEditor = ({
       placeholder={placeholder}
       value={value}
       onChange={handleChange}
+      onBlur={handleBlur}
     />
   );
 };

@@ -1,16 +1,15 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useTableContructor } from "../../hooks/useTableConstructor";
 import RichTextEditor from "../shared/RichTextEditor/RichTextEditor";
 import DropZone from "../shared/Uploaders/DropZone/Dropzone";
 import fileUploaderStyles from "../shared/Uploaders/FileUploader/FileUploader.module.scss";
 import styles from "./Table.module.scss";
-import Textarea from "../shared/Textarea/Textarea";
 
 const TableConstructor = ({ state, setState }) => {
   const tableRef = useRef(null);
+  const [editing, setEditing] = useState(null);
 
   console.log(state);
-  
 
   const {
     onColumnLabelChange,
@@ -35,6 +34,10 @@ const TableConstructor = ({ state, setState }) => {
         {state.columns?.map((column) => {
           const colSpan = column.children ? column.children.length : 1;
           const rowSpan = !column.children && isChildren ? 2 : 1;
+
+          const isEditing =
+            editing?.part === "head" && editing?.key === column.key;
+
           return (
             <th
               key={column.key}
@@ -44,12 +47,26 @@ const TableConstructor = ({ state, setState }) => {
                 handleContextMenu(e, "column", { key: column.key })
               }
             >
-              <RichTextEditor
-                value={column.label}
-                placeholder=""
-                setValue={(value) => onColumnLabelChange(column.key, value)}
-                type="tableConstructor"
-              />
+              {isEditing ? (
+                <RichTextEditor
+                  value={column.label}
+                  placeholder=""
+                  setValue={(value) => onColumnLabelChange(column.key, value)}
+                  type="tableConstructor"
+                  onBlur={() => setEditing(null)}
+                />
+              ) : (
+                <div
+                  className={styles.contentContainer}
+                  dangerouslySetInnerHTML={{ __html: column.label }}
+                  onClick={() =>
+                    setEditing({
+                      part: "head",
+                      key: column.key,
+                    })
+                  }
+                ></div>
+              )}
             </th>
           );
         })}
@@ -58,21 +75,41 @@ const TableConstructor = ({ state, setState }) => {
 
     const childrenRow = (
       <tr>
-        {children.map((child) => (
-          <th
-            key={child.key}
-            onContextMenu={(e) =>
-              handleContextMenu(e, "childColumn", { key: child.key })
-            }
-          >
-            <RichTextEditor
-              value={child.label}
-              placeholder=""
-              setValue={(value) => onColumnChildLabelChange(child.key, value)}
-              type="tableConstructor"
-            />
-          </th>
-        ))}
+        {children.map((child) => {
+          const isEditing =
+            editing?.part === "head" && editing?.key === child.key;
+          return (
+            <th
+              key={child.key}
+              onContextMenu={(e) =>
+                handleContextMenu(e, "childColumn", { key: child.key })
+              }
+            >
+              {isEditing ? (
+                <RichTextEditor
+                  value={child.label}
+                  placeholder=""
+                  setValue={(value) =>
+                    onColumnChildLabelChange(child.key, value)
+                  }
+                  type="tableConstructor"
+                  onBlur={() => setEditing(false)}
+                />
+              ) : (
+                <div
+                  className={styles.contentContainer}
+                  dangerouslySetInnerHTML={{ __html: child.label }}
+                  onClick={() =>
+                    setEditing({
+                      part: "head",
+                      key: child.key,
+                    })
+                  }
+                ></div>
+              )}
+            </th>
+          );
+        })}
       </tr>
     );
 
@@ -85,21 +122,45 @@ const TableConstructor = ({ state, setState }) => {
   };
 
   const renderBody = () =>
-    state.rows?.map((row, index) => (
+    state.rows?.map((row, rIndex) => (
       <tr
-        key={index}
-        onContextMenu={(e) => handleContextMenu(e, "row", { rowIndex: index })}
+        key={rIndex}
+        onContextMenu={(e) => handleContextMenu(e, "row", { rowIndex: rIndex })}
       >
-        {row?.map((cell) => (
-          <td key={cell.key}>
-            <Textarea
-              value={cell.label}
-              onChange={(value) => onCellLabelChange(index, cell.key, value)}
-              maxRows={4}
-              minRows={2}
-            />
-          </td>
-        ))}
+        {row?.map((cell, cIndex) => {
+          const isEditing =
+            editing?.part === "body" &&
+            rIndex === editing?.rowIndex &&
+            cIndex === editing?.cellIndex;
+
+          return (
+            <td key={cell.key}>
+              {isEditing ? (
+                <RichTextEditor
+                  value={cell.label}
+                  placeholder=""
+                  setValue={(value) =>
+                    onCellLabelChange(rIndex, cell.key, value)
+                  }
+                  type="tableConstructor"
+                  onBlur={() => setEditing(null)}
+                />
+              ) : (
+                <div
+                  className={styles.contentContainer}
+                  dangerouslySetInnerHTML={{ __html: cell.label }}
+                  onClick={() =>
+                    setEditing({
+                      part: "body",
+                      rowIndex: rIndex,
+                      cellIndex: cIndex,
+                    })
+                  }
+                ></div>
+              )}
+            </td>
+          );
+        })}
       </tr>
     ));
 

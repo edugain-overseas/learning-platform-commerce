@@ -131,6 +131,7 @@
   }
 
   tbody {
+    line-height: 1.42;
     tr:not(:last-child) {
       border-bottom: 1rem solid var(--border-color-decorate);
     }
@@ -216,4 +217,22 @@
       margin: 0;
     }
   }
+}
+
+.contentContainer {
+  min-height: calc(1em * 1.42 + 11rem);
+  border: 1rem solid var(--content-datail-secondary);
+  border-radius: 5rem;
+  padding: 4rem 8rem;
+
+  &:hover {
+    box-shadow: var(--drop-shadow-button-main-hover);
+  }
+}
+
+th .contentContainer{
+  color: var(--content-light-secondary);
+  text-align: initial;
+
+  border-color: var(--content-light-secondary);
 }
