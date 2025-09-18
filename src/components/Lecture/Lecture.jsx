@@ -22,7 +22,6 @@ const Lecture = ({ lecture }) => {
     <div className={styles.lectureWrapper}>
       <SelectionProvider>
         <LectureHeader lecture={lecture} />
-        {/* <div className={styles.bodyWrapper}> */}
         <TaskLayout.Container>
           <TaskLayout.Content>
             <LectureContent lecture={{ ...lecture, status, courseName }} />
@@ -35,7 +34,6 @@ const Lecture = ({ lecture }) => {
             />
           </TaskLayout.Tools>
         </TaskLayout.Container>
-        {/* </div> */}
       </SelectionProvider>
     </div>
   );

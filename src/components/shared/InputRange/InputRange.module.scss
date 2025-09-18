@@ -4,10 +4,10 @@
   align-items: center;
 
   input[type="range"] {
-    -webkit-appearance: none; /* прибрати дефолтний стиль */
+    -webkit-appearance: none;
     width: 100%;
-    height: 5rem; /* висота треку */
-    background: #b7b7b7; /* тумба */
+    height: 5rem;
+    background: #b7b7b7;
     border-radius: 2rem;
     outline: none;
     cursor: pointer;
@@ -16,7 +16,7 @@
   /* Chrome / Safari / Edge */
   input[type="range"]::-webkit-slider-runnable-track {
     height: 5rem;
-    background: #b7b7b7; /* тумба */
+    background: #b7b7b7;
     border-radius: 2rem;
   }
 
@@ -40,14 +40,14 @@
 
   input[type="range"]::-moz-range-progress {
     height: 5rem;
-    background: var(--content-datail-secondary); /* індикатор */
+    background: var(--content-datail-secondary);
     border-radius: 2rem;
   }
 
   input[type="range"]::-moz-range-thumb {
     width: 10rem;
     height: 10rem;
-    background: var(--content-datail-secondary); /* кружечок */
+    background: var(--content-datail-secondary);
     border-radius: 50%;
     cursor: pointer;
   }

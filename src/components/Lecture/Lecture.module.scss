@@ -143,9 +143,34 @@ h4.sectionSubTitle {
   }
 
   ol {
-    padding-inline-start: 2em;
     li {
       list-style: auto;
+      padding-left: 16rem;
+
+      &[data-list="bullet"] {
+        list-style: none;
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: 16rem;
+          width: 4rem;
+          height: 4rem;
+          background-color: var(--content-main);
+          border-radius: 50%;
+          top: calc(var(--line-height) / 2);
+          transform: translateY(-50%);
+        }
+      }
+    }
+  }
+
+  ol:has(li[data-list="ordered"]) {
+    padding-left: 32rem;
+    li {
+      text-indent: 0;
+      padding-left: 0;
     }
   }
 }

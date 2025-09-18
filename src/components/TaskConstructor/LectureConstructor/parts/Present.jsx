@@ -21,7 +21,7 @@ const Present = ({ partData, setters }) => (
       uploadedFilePath={partData.file_path}
       setUploadedFilePath={setters.filePath}
       requestConfig={{ url: "lesson/upload/file", formDataKey: "file" }}
-      iconSize="m"
+      iconSize="s"
     />
     <TextInput value={partData.a_text} setValue={setters.text} />
   </>

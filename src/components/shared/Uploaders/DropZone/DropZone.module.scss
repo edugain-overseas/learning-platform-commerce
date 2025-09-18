@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 4rem;
+  gap: 8rem;
   color: var(--color);
   transition: color var(--transition-time-default) ease;
 
@@ -24,6 +24,7 @@
 .uploadIcon {
   flex-shrink: 0;
   height: auto;
+  margin-bottom: 10rem;
 }
 
 .size-l {
@@ -33,7 +34,7 @@
   width: min(40%, 86rem);
 }
 .size-s {
-  width: min(20%, 44rem);
+  width: min(20%, 38rem);
 }
 
 .uploadIcon path {
