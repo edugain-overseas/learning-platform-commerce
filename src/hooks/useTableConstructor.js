@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ReactComponent as ChevronIcon } from "../images/icons/arrowDown.svg";
 import { createPortal } from "react-dom";
 import { generateTableStateFromFile } from "../utils/generateTableStateFromFile";
 
 export const useTableContructor = (state, setState, tableRef, styles) => {
   const [contextMenu, setContextMenu] = useState(null);
+  const resizingRef = useRef(null);
+  console.log(tableRef);
 
   const onColumnLabelChange = (key, value) => {
-    console.log('onColumnLabelChange');
-    
+    console.log("onColumnLabelChange");
+
     const updatedColumns = state.columns.map((column) =>
       column.key === key ? { ...column, label: value } : column
     );
@@ -177,6 +179,8 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
   const handleContextMenu = (event, type, data) => {
     event.preventDefault();
 
+    console.log(event, type, data);
+
     if (!type) {
       setContextMenu(null);
       return;
@@ -199,19 +203,88 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
   };
 
   const handleFileUpload = async (files) => {
-    
-    const file = files[0]
+    const file = files[0];
     if (!file) return;
-    
+
     try {
       const uploadedTableState = await generateTableStateFromFile(file);
       console.log(uploadedTableState);
-      
-      setState({...state, ...uploadedTableState});
+
+      setState({ ...state, ...uploadedTableState });
     } catch (err) {
       console.error("Failed to parse table file:", err);
     }
   };
+
+  const handleStartResizeCol = (e, colKey) => {
+    e.preventDefault();
+
+    const startX = e.clientX;
+    const targetTh = e.target.parentElement;
+    const targetTr = e.target.closest("tr");
+
+    const targetWidth = targetTh.offsetWidth;
+    const containerWidth = targetTr.offsetWidth;
+
+    resizingRef.current = {
+      startX,
+      targetWidth,
+      targetTh,
+      containerWidth,
+      colKey,
+      width: Math.round((targetWidth / containerWidth) * 100),
+    };
+
+    window.addEventListener("mousemove", handeResizeCol);
+    window.addEventListener("mouseup", handleStopResizeCol);
+
+    targetTh.closest("table").style.setProperty("cursor", "col-resize");
+    e.target.classList.add(styles.active);
+  };
+
+  const handeResizeCol = useCallback((e) => {
+    if (!resizingRef.current) return;
+
+    const { startX, targetWidth, containerWidth, targetTh } =
+      resizingRef.current;
+    const deltaX = e.clientX - startX;
+
+    const newAbsoluteWidth = targetWidth + deltaX;
+    const newPercentWidth = Math.round(
+      (newAbsoluteWidth / containerWidth) * 100
+    );
+    console.log(newPercentWidth);
+    targetTh.style.setProperty("width", `${newPercentWidth}%`);
+    resizingRef.current.width = newPercentWidth;
+  }, []);
+
+  const handleStopResizeCol = useCallback(() => {
+    window.removeEventListener("mousemove", handeResizeCol);
+    window.removeEventListener("mouseup", handleStopResizeCol);
+
+    const updatedColumns = state.columns.map((col) => {
+      console.log(col.key, resizingRef.current.colKey);
+
+      if (col.key === resizingRef.current.colKey) {
+        return { ...col, width: resizingRef.current.width };
+      }
+      return col;
+    });
+
+    setState({
+      ...state,
+      columns: updatedColumns,
+    });
+
+    resizingRef.current?.targetTh
+      .closest("table")
+      .style.removeProperty("cursor");
+
+    resizingRef.current?.targetTh
+      .querySelector("." + styles.resizer)
+      .classList.remove(styles.active);
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     //handle menu close action
@@ -312,6 +385,7 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
     onColumnLabelChange,
     onColumnChildLabelChange,
     onCellLabelChange,
+    handleStartResizeCol,
     handleContextMenu,
     renderContextMenu,
     handleFileUpload,

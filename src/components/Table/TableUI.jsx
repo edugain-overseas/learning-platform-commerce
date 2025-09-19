@@ -23,6 +23,7 @@ const TableUI = ({ tableData }) => {
               key={column.key}
               rowSpan={rowSpan}
               colSpan={colSpan}
+              style={{ width: column.width + "%" }}
               dangerouslySetInnerHTML={{ __html: column.label }}
             ></th>
           );

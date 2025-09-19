@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTableContructor } from "../../hooks/useTableConstructor";
 import RichTextEditor from "../shared/RichTextEditor/RichTextEditor";
 import DropZone from "../shared/Uploaders/DropZone/Dropzone";
@@ -8,6 +8,7 @@ import styles from "./Table.module.scss";
 const TableConstructor = ({ state, setState }) => {
   const tableRef = useRef(null);
   const [editing, setEditing] = useState(null);
+  const [tableHeight, setTableHeight] = useState(null);
 
   console.log(state);
 
@@ -15,6 +16,7 @@ const TableConstructor = ({ state, setState }) => {
     onColumnLabelChange,
     onColumnChildLabelChange,
     onCellLabelChange,
+    handleStartResizeCol,
     handleContextMenu,
     renderContextMenu,
     handleFileUpload,
@@ -31,7 +33,7 @@ const TableConstructor = ({ state, setState }) => {
 
     const parentRow = (
       <tr>
-        {state.columns?.map((column) => {
+        {state.columns?.map((column, index, array) => {
           const colSpan = column.children ? column.children.length : 1;
           const rowSpan = !column.children && isChildren ? 2 : 1;
 
@@ -43,6 +45,7 @@ const TableConstructor = ({ state, setState }) => {
               key={column.key}
               rowSpan={rowSpan}
               colSpan={colSpan}
+              style={{ width: column.width + "%" }}
               onContextMenu={(e) =>
                 handleContextMenu(e, "column", { key: column.key })
               }
@@ -67,6 +70,14 @@ const TableConstructor = ({ state, setState }) => {
                   }
                 ></div>
               )}
+
+              {index !== array.length - 1 && (
+                <span
+                  className={styles.resizer}
+                  onMouseDown={(e) => handleStartResizeCol(e, column.key)}
+                  style={{ height: tableHeight }}
+                ></span>
+              )}
             </th>
           );
         })}
@@ -80,6 +91,7 @@ const TableConstructor = ({ state, setState }) => {
             editing?.part === "head" && editing?.key === child.key;
           return (
             <th
+              className={styles.child}
               key={child.key}
               onContextMenu={(e) =>
                 handleContextMenu(e, "childColumn", { key: child.key })
@@ -164,14 +176,19 @@ const TableConstructor = ({ state, setState }) => {
       </tr>
     ));
 
+  useEffect(() => {
+    if (tableRef.current) {
+      setTableHeight(tableRef.current.clientHeight);
+    }
+  }, [tableRef]);
+
   return (
     <>
       <div
         className={styles.constructorWrapper}
-        ref={tableRef}
         onClick={(e) => handleContextMenu(e)}
       >
-        <table className={styles.table}>
+        <table className={styles.table} ref={tableRef}>
           <thead>{renderHead()}</thead>
           <tbody>{renderBody()}</tbody>
         </table>
