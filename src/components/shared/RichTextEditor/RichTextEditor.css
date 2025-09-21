@@ -13,7 +13,7 @@
   }
 
   & > .ql-toolbar {
-    width: fit-content;
+    width: max-content;
     padding: 4rem 8rem;
     position: absolute;
     bottom: 100%;
@@ -79,6 +79,10 @@
   &.bottomToolbar > .ql-toolbar {
     bottom: initial;
     top: 100%;
+  }
+
+  &.bottomToolbar .ql-editor {
+    line-height: inherit;
   }
 
   & > .ql-toolbar.ql-snow + .ql-container.ql-snow {

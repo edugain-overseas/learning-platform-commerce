@@ -224,6 +224,7 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
     const targetTr = e.target.closest("tr");
 
     const targetWidth = targetTh.offsetWidth;
+
     const containerWidth = targetTr.offsetWidth;
 
     resizingRef.current = {
@@ -258,23 +259,49 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
     resizingRef.current.width = newPercentWidth;
   }, []);
 
-  const handleStopResizeCol = useCallback(() => {
+  const handleStopResizeCol = () => {
     window.removeEventListener("mousemove", handeResizeCol);
     window.removeEventListener("mouseup", handleStopResizeCol);
 
-    const updatedColumns = state.columns.map((col) => {
-      console.log(col.key, resizingRef.current.colKey);
+    const targetIsChild = resizingRef.current.colKey.includes("child");
 
-      if (col.key === resizingRef.current.colKey) {
-        return { ...col, width: resizingRef.current.width };
-      }
-      return col;
-    });
+    if (targetIsChild) {
+      const parentKey = resizingRef.current.colKey.split("_")[0];
+      const updatedColumns = state.columns.map((col) => {
+        if (col.key === parentKey) {
+          return {
+            ...col,
+            children: col.children.map((child) => {
+              if (child.key === resizingRef.current.colKey) {
+                return {
+                  ...child,
+                  width: resizingRef.current.width,
+                };
+              }
+              return child;
+            }),
+          };
+        }
+        return col;
+      });
 
-    setState({
-      ...state,
-      columns: updatedColumns,
-    });
+      setState({
+        ...state,
+        columns: updatedColumns,
+      });
+    } else {
+      const updatedColumns = state.columns.map((col) => {
+        if (col.key === resizingRef.current.colKey) {
+          return { ...col, width: resizingRef.current.width };
+        }
+        return col;
+      });
+
+      setState({
+        ...state,
+        columns: updatedColumns,
+      });
+    }
 
     resizingRef.current?.targetTh
       .closest("table")
@@ -283,8 +310,7 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
     resizingRef.current?.targetTh
       .querySelector("." + styles.resizer)
       .classList.remove(styles.active);
-    // eslint-disable-next-line
-  }, []);
+  };
 
   useEffect(() => {
     //handle menu close action

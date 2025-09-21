@@ -49,6 +49,7 @@ const TableConstructor = ({ state, setState }) => {
               onContextMenu={(e) =>
                 handleContextMenu(e, "column", { key: column.key })
               }
+              data-key={column.key}
             >
               {isEditing ? (
                 <RichTextEditor
@@ -86,7 +87,7 @@ const TableConstructor = ({ state, setState }) => {
 
     const childrenRow = (
       <tr>
-        {children.map((child) => {
+        {children.map((child, index, array) => {
           const isEditing =
             editing?.part === "head" && editing?.key === child.key;
           return (
@@ -96,6 +97,7 @@ const TableConstructor = ({ state, setState }) => {
               onContextMenu={(e) =>
                 handleContextMenu(e, "childColumn", { key: child.key })
               }
+              data-key={child.key}
             >
               {isEditing ? (
                 <RichTextEditor
@@ -118,6 +120,13 @@ const TableConstructor = ({ state, setState }) => {
                     })
                   }
                 ></div>
+              )}
+
+              {index !== array.length - 1 && (
+                <span
+                  className={styles.resizer}
+                  onMouseDown={(e) => handleStartResizeCol(e, child.key)}
+                ></span>
               )}
             </th>
           );

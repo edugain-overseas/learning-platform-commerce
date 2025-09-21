@@ -6,6 +6,8 @@ export const generateTableStateFromFile = async (file) => {
 
     reader.onload = (event) => {
       const data = new Uint8Array(event.target.result);
+      console.log(XLSX);
+      
       const workbook = XLSX.read(data, { type: "array" });
 
       // Read the first sheet
