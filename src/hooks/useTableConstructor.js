@@ -312,6 +312,37 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
       .classList.remove(styles.active);
   };
 
+  const mergeRowCellsAmount = (rowIndex, cellKey) => {
+    const cellIndex = state.rows[rowIndex].findIndex(
+      (cell) => cell.key === cellKey
+    );
+
+    const targetCellsAmount = state.rows[rowIndex].length - (cellIndex + 1);
+    return targetCellsAmount;
+  };
+
+  const mergeCellInRow = (rowIndex, cellIndex, amountForMerge) => {
+    const updatedRows = state.rows.map((row, index) => {
+      if (index === rowIndex) {
+        const newRowsArray = [...row];
+
+        newRowsArray[cellIndex] = {
+          ...newRowsArray[cellIndex],
+          colspan: newRowsArray[cellIndex].colspan
+            ? newRowsArray[cellIndex].colspan + amountForMerge
+            : amountForMerge + 1,
+        };
+
+        newRowsArray.splice(cellIndex + 1, amountForMerge);
+
+        return newRowsArray;
+      }
+      return row;
+    });
+
+    setState({ ...state, rows: updatedRows });
+  };
+
   useEffect(() => {
     //handle menu close action
     const handleClick = () => setContextMenu(null);
@@ -352,6 +383,39 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
                   }
                 >
                   Delete Row
+                </li>
+                <li>
+                  <span>Merge cell</span>
+                  <ChevronIcon className={styles.expandOptionsIcon} />
+                  <ul>
+                    {Array.from(
+                      {
+                        length: mergeRowCellsAmount(
+                          contextMenu.data.rowIndex,
+                          contextMenu.data.cellKey
+                        ),
+                      },
+                      (_, i) => (
+                        <li
+                          key={i}
+                          onClick={() =>
+                            handleMenuAction(() =>
+                              mergeCellInRow(
+                                contextMenu.data.rowIndex,
+                                contextMenu.data.cellIndex,
+                                i + 1
+                              )
+                            )
+                          }
+                        >
+                          {i + 1}
+                        </li>
+                      )
+                    )}
+                    <li>
+                      <span>Full row</span>
+                    </li>
+                  </ul>
                 </li>
               </>
             )}

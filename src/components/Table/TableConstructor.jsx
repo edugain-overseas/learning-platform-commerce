@@ -144,10 +144,7 @@ const TableConstructor = ({ state, setState }) => {
 
   const renderBody = () =>
     state.rows?.map((row, rIndex) => (
-      <tr
-        key={rIndex}
-        onContextMenu={(e) => handleContextMenu(e, "row", { rowIndex: rIndex })}
-      >
+      <tr key={rIndex}>
         {row?.map((cell, cIndex) => {
           const isEditing =
             editing?.part === "body" &&
@@ -155,7 +152,18 @@ const TableConstructor = ({ state, setState }) => {
             cIndex === editing?.cellIndex;
 
           return (
-            <td key={cell.key}>
+            <td
+              key={cell.key}
+              data-key={`${cell.key}`}
+              colspan={cell.colspan}
+              onContextMenu={(e) =>
+                handleContextMenu(e, "row", {
+                  rowIndex: rIndex,
+                  cellKey: cell.key,
+                  cellIndex: cIndex,
+                })
+              }
+            >
               {isEditing ? (
                 <RichTextEditor
                   value={cell.label}
