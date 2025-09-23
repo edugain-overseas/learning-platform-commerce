@@ -56,6 +56,7 @@ const TableUI = ({ tableData }) => {
         {row?.map((cell) => (
           <td
             key={cell.key}
+            colspan={cell.colspan}
             dangerouslySetInnerHTML={{ __html: cell.label }}
           ></td>
         ))}

@@ -209,7 +209,7 @@
   }
 
   thead tr:not(:last-child) th[rowspan="2"] {
-    &:after {
+    &::after {
       content: "";
       position: absolute;
       top: 50%;
@@ -221,6 +221,17 @@
     }
     &:before {
       top: 50%;
+    }
+  }
+
+  thead tr:first-child th[colspan]:not([colspan="1"]) {
+    &::after {
+      bottom: 0.5rem;
+      height: 1rem;
+      width: calc(100% - 32rem);
+      transform: none;
+      top: initial;
+      left: 16rem;
     }
   }
 }

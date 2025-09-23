@@ -326,16 +326,36 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
       if (index === rowIndex) {
         const newRowsArray = [...row];
 
+        const colspan = newRowsArray.reduce((colspan, cell, index, array) => {
+          if (index < cellIndex) {
+            return colspan;
+          }
+          return (colspan += cell.colspan ? cell.colspan : 1);
+        }, 0);
+
         newRowsArray[cellIndex] = {
           ...newRowsArray[cellIndex],
-          colspan: newRowsArray[cellIndex].colspan
-            ? newRowsArray[cellIndex].colspan + amountForMerge
-            : amountForMerge + 1,
+          colspan,
         };
 
         newRowsArray.splice(cellIndex + 1, amountForMerge);
 
         return newRowsArray;
+      }
+      return row;
+    });
+
+    setState({ ...state, rows: updatedRows });
+  };
+
+  const mergeCellToFullRow = (rowIndex, cellIndex) => {
+    const updatedRows = state.rows.map((row, index) => {
+      if (index === rowIndex) {
+        const colspan = row.reduce(
+          (colspan, cell) => (colspan += cell.colspan ? cell.colspan : 1),
+          0
+        );
+        return [{ ...row[cellIndex], colspan }];
       }
       return row;
     });
@@ -412,7 +432,16 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
                         </li>
                       )
                     )}
-                    <li>
+                    <li
+                      onClick={() =>
+                        handleMenuAction(() =>
+                          mergeCellToFullRow(
+                            contextMenu.data.rowIndex,
+                            contextMenu.data.cellIndex
+                          )
+                        )
+                      }
+                    >
                       <span>Full row</span>
                     </li>
                   </ul>
