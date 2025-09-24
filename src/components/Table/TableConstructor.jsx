@@ -156,6 +156,7 @@ const TableConstructor = ({ state, setState }) => {
               key={cell.key}
               data-key={`${cell.key}`}
               colspan={cell.colspan}
+              rowspan={cell.rowspan}
               onContextMenu={(e) =>
                 handleContextMenu(e, "row", {
                   rowIndex: rIndex,

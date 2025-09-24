@@ -179,7 +179,7 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
   const handleContextMenu = (event, type, data) => {
     event.preventDefault();
 
-    console.log(event, type, data);
+    // console.log(event, type, data);
 
     if (!type) {
       setContextMenu(null);
@@ -321,32 +321,52 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
     return targetCellsAmount;
   };
 
+  // const mergeCellInRow = (rowIndex, cellIndex, amountForMerge) => {
+  //   const updatedRows = state.rows.map((row, index) => {
+  //     if (index === rowIndex) {
+  //       const newRowsArray = [...row];
+
+  //       const colspan = newRowsArray.reduce((colspan, cell, index, array) => {
+  //         if (index < cellIndex) {
+  //           return colspan;
+  //         }
+  //         return (colspan += cell.colspan ? cell.colspan : 1);
+  //       }, 0);
+
+  //       newRowsArray[cellIndex] = {
+  //         ...newRowsArray[cellIndex],
+  //         colspan,
+  //       };
+
+  //       newRowsArray.splice(cellIndex + 1, amountForMerge);
+
+  //       return newRowsArray;
+  //     }
+  //     return row;
+  //   });
+
+  //   setState({ ...state, rows: updatedRows });
+  // };
   const mergeCellInRow = (rowIndex, cellIndex, amountForMerge) => {
-    const updatedRows = state.rows.map((row, index) => {
-      if (index === rowIndex) {
-        const newRowsArray = [...row];
-
-        const colspan = newRowsArray.reduce((colspan, cell, index, array) => {
-          if (index < cellIndex) {
-            return colspan;
-          }
-          return (colspan += cell.colspan ? cell.colspan : 1);
-        }, 0);
-
-        newRowsArray[cellIndex] = {
-          ...newRowsArray[cellIndex],
-          colspan,
-        };
-
-        newRowsArray.splice(cellIndex + 1, amountForMerge);
-
-        return newRowsArray;
-      }
-      return row;
+    const updatedRows = state.rows.map((row, rIdx) => {
+      if (rIdx !== rowIndex) return row;
+  
+      const newRow = [...row];
+      const baseCell = { ...newRow[cellIndex] };
+  
+      const baseColspan = baseCell.colspan || 1;
+      baseCell.colspan = baseColspan + amountForMerge;
+  
+      // Видаляємо amountForMerge клітинок справа
+      newRow.splice(cellIndex, 1, baseCell); // замінюємо поточну на оновлену
+      newRow.splice(cellIndex + 1, amountForMerge);
+  
+      return newRow;
     });
-
+  
     setState({ ...state, rows: updatedRows });
   };
+  
 
   const mergeCellToFullRow = (rowIndex, cellIndex) => {
     const updatedRows = state.rows.map((row, index) => {
@@ -362,6 +382,64 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
 
     setState({ ...state, rows: updatedRows });
   };
+
+  const mergeColCellsAmount = (rowIndex, cellKey) =>
+    state.rows.length - rowIndex - 1;
+
+  // const mergeCellInCol = (rowIndex, cellIndex, amountForMerge) => {
+  //   const updatedRows = state.rows.map((row) => [...row]); // копія
+
+  //   const baseCell = updatedRows[rowIndex][cellIndex];
+  //   const baseRowspan = baseCell.rowspan || 1;
+
+  //   baseCell.rowspan = baseRowspan + amountForMerge;
+
+  //   for (let i = 1; i <= amountForMerge; i++) {
+  //     const targetRow = updatedRows[rowIndex + i];
+  //     if (!targetRow) continue;
+
+  //     let currentIndex = 0;
+  //     for (let c = 0; c < targetRow.length; c++) {
+  //       const prevCell = updatedRows[rowIndex][c];
+  //       if (c === cellIndex) {
+  //         targetRow.splice(c, 1);
+  //         break;
+  //       }
+  //       currentIndex++;
+  //     }
+  //   }
+
+  //   setState({ ...state, rows: updatedRows });
+  // };
+  const mergeCellInCol = (rowIndex, cellIndex, amountForMerge) => {
+    const updatedRows = state.rows.map((row) => [...row]);
+  
+    const baseCell = { ...updatedRows[rowIndex][cellIndex] };
+    const baseRowspan = baseCell.rowspan || 1;
+    baseCell.rowspan = baseRowspan + amountForMerge;
+  
+    updatedRows[rowIndex][cellIndex] = baseCell;
+  
+    // видаляємо клітинки з наступних рядків
+    for (let i = 1; i <= amountForMerge; i++) {
+      const targetRow = updatedRows[rowIndex + i];
+      if (!targetRow) continue;
+  
+      // шукаємо "вірний індекс" для видалення
+      let colCounter = 0;
+      for (let c = 0; c < targetRow.length; c++) {
+        const colspan = targetRow[c].colspan || 1;
+        if (colCounter === cellIndex) {
+          targetRow.splice(c, 1);
+          break;
+        }
+        colCounter += colspan;
+      }
+    }
+  
+    setState({ ...state, rows: updatedRows });
+  };
+  
 
   useEffect(() => {
     //handle menu close action
@@ -405,7 +483,7 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
                   Delete Row
                 </li>
                 <li>
-                  <span>Merge cell</span>
+                  <span>Merge cell in row</span>
                   <ChevronIcon className={styles.expandOptionsIcon} />
                   <ul>
                     {Array.from(
@@ -443,6 +521,48 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
                       }
                     >
                       <span>Full row</span>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span>Merge cell in column</span>
+                  <ChevronIcon className={styles.expandOptionsIcon} />
+                  <ul>
+                    {Array.from(
+                      {
+                        length: mergeColCellsAmount(
+                          contextMenu.data.rowIndex,
+                          contextMenu.data.cellKey
+                        ),
+                      },
+                      (_, i) => (
+                        <li
+                          key={i}
+                          onClick={() =>
+                            handleMenuAction(() =>
+                              mergeCellInCol(
+                                contextMenu.data.rowIndex,
+                                contextMenu.data.cellIndex,
+                                i + 1
+                              )
+                            )
+                          }
+                        >
+                          {i + 1}
+                        </li>
+                      )
+                    )}
+                    <li
+                      onClick={() =>
+                        handleMenuAction(() =>
+                          mergeCellToFullRow(
+                            contextMenu.data.rowIndex,
+                            contextMenu.data.cellIndex
+                          )
+                        )
+                      }
+                    >
+                      <span>Full column</span>
                     </li>
                   </ul>
                 </li>
