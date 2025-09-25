@@ -321,32 +321,6 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
     return targetCellsAmount;
   };
 
-  // const mergeCellInRow = (rowIndex, cellIndex, amountForMerge) => {
-  //   const updatedRows = state.rows.map((row, index) => {
-  //     if (index === rowIndex) {
-  //       const newRowsArray = [...row];
-
-  //       const colspan = newRowsArray.reduce((colspan, cell, index, array) => {
-  //         if (index < cellIndex) {
-  //           return colspan;
-  //         }
-  //         return (colspan += cell.colspan ? cell.colspan : 1);
-  //       }, 0);
-
-  //       newRowsArray[cellIndex] = {
-  //         ...newRowsArray[cellIndex],
-  //         colspan,
-  //       };
-
-  //       newRowsArray.splice(cellIndex + 1, amountForMerge);
-
-  //       return newRowsArray;
-  //     }
-  //     return row;
-  //   });
-
-  //   setState({ ...state, rows: updatedRows });
-  // };
   const mergeCellInRow = (rowIndex, cellIndex, amountForMerge) => {
     const updatedRows = state.rows.map((row, rIdx) => {
       if (rIdx !== rowIndex) return row;
@@ -357,8 +331,7 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
       const baseColspan = baseCell.colspan || 1;
       baseCell.colspan = baseColspan + amountForMerge;
   
-      // Видаляємо amountForMerge клітинок справа
-      newRow.splice(cellIndex, 1, baseCell); // замінюємо поточну на оновлену
+      newRow.splice(cellIndex, 1, baseCell);
       newRow.splice(cellIndex + 1, amountForMerge);
   
       return newRow;
@@ -386,31 +359,6 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
   const mergeColCellsAmount = (rowIndex, cellKey) =>
     state.rows.length - rowIndex - 1;
 
-  // const mergeCellInCol = (rowIndex, cellIndex, amountForMerge) => {
-  //   const updatedRows = state.rows.map((row) => [...row]); // копія
-
-  //   const baseCell = updatedRows[rowIndex][cellIndex];
-  //   const baseRowspan = baseCell.rowspan || 1;
-
-  //   baseCell.rowspan = baseRowspan + amountForMerge;
-
-  //   for (let i = 1; i <= amountForMerge; i++) {
-  //     const targetRow = updatedRows[rowIndex + i];
-  //     if (!targetRow) continue;
-
-  //     let currentIndex = 0;
-  //     for (let c = 0; c < targetRow.length; c++) {
-  //       const prevCell = updatedRows[rowIndex][c];
-  //       if (c === cellIndex) {
-  //         targetRow.splice(c, 1);
-  //         break;
-  //       }
-  //       currentIndex++;
-  //     }
-  //   }
-
-  //   setState({ ...state, rows: updatedRows });
-  // };
   const mergeCellInCol = (rowIndex, cellIndex, amountForMerge) => {
     const updatedRows = state.rows.map((row) => [...row]);
   
@@ -420,12 +368,10 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
   
     updatedRows[rowIndex][cellIndex] = baseCell;
   
-    // видаляємо клітинки з наступних рядків
     for (let i = 1; i <= amountForMerge; i++) {
       const targetRow = updatedRows[rowIndex + i];
       if (!targetRow) continue;
   
-      // шукаємо "вірний індекс" для видалення
       let colCounter = 0;
       for (let c = 0; c < targetRow.length; c++) {
         const colspan = targetRow[c].colspan || 1;

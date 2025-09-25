@@ -1,47 +1,21 @@
 import React, { useMemo } from "react";
 import ReactQuill from "react-quill-new";
+import quillModules from "../../../costants/reactQuillModules";
 import "react-quill-new/dist/quill.snow.css";
 import "./RichTextEditor.css";
-
-const toolbarOptions = [
-  ["undo", "redo"],
-  [{ header: [1, 2, false] }],
-  [
-    "bold",
-    "italic",
-    "underline",
-    { list: "ordered" },
-    { list: "bullet" },
-    { align: [] },
-  ],
-];
-
-const tableToolbarOptions = [
-  ["undo", "redo"],
-  [
-    "bold",
-    "italic",
-    "underline",
-    { list: "ordered" },
-    { list: "bullet" },
-    { align: [] },
-  ],
-];
 
 const RichTextEditor = ({
   value = "",
   setValue = () => null,
   placeholder = "Write your text here...",
-  type = "normal",
+  type = "expanded",
   className = "",
   onBlur,
 }) => {
-
   const modules = useMemo(() => {
     return {
       toolbar: {
-        container:
-          type === "tableConstructor" ? tableToolbarOptions : toolbarOptions,
+        container: quillModules[type],
         handlers: {
           undo: function () {
             this.quill.history.undo();

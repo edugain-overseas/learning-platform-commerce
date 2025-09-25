@@ -56,7 +56,7 @@ const TableConstructor = ({ state, setState }) => {
                   value={column.label}
                   placeholder=""
                   setValue={(value) => onColumnLabelChange(column.key, value)}
-                  type="tableConstructor"
+                  type="normal"
                   onBlur={() => setEditing(null)}
                 />
               ) : (
@@ -106,7 +106,7 @@ const TableConstructor = ({ state, setState }) => {
                   setValue={(value) =>
                     onColumnChildLabelChange(child.key, value)
                   }
-                  type="tableConstructor"
+                  type="normal"
                   onBlur={() => setEditing(false)}
                 />
               ) : (
@@ -172,7 +172,7 @@ const TableConstructor = ({ state, setState }) => {
                   setValue={(value) =>
                     onCellLabelChange(rIndex, cell.key, value)
                   }
-                  type="tableConstructor"
+                  type="normal"
                   onBlur={() => setEditing(null)}
                 />
               ) : (

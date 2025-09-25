@@ -88,10 +88,11 @@ const CategoryModal = ({
                     control={control}
                     name="certificate_info"
                     placeholder="Certificate info"
+                    toolbarType='normal'
                   />
                 )}
               ></Controller>
-              {errors.cerficate_info && <span>This field is required</span>}
+              {errors.certificate_info && <span>This field is required</span>}
             </div>
             <Textarea
               minRows={5}

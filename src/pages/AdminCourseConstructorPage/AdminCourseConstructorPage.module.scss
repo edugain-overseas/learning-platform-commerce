@@ -313,23 +313,21 @@ div.courseItemsWrapper {
     align-items: center;
     flex: 1;
     align-self: stretch;
+    position: relative;
+    cursor: pointer;
 
-    &:not(:last-child) {
-      position: relative;
-
-      &::after {
-        content: "";
-        position: absolute;
-        top: 18rem;
-        right: -17rem;
-        bottom: 34rem;
-        width: 2rem;
-        border-radius: 2rem;
-        background-color: var(--content-datail-secondary);
-      }
+    &:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 18rem;
+      right: -17rem;
+      bottom: 34rem;
+      width: 2rem;
+      border-radius: 2rem;
+      background-color: var(--content-datail-secondary);
     }
 
-    svg {
+    img {
       width: 56rem;
       height: 56rem;
       margin-bottom: 12rem;
@@ -346,6 +344,18 @@ div.courseItemsWrapper {
       font-size: 14rem;
       line-height: 18rem;
       text-align: center;
+    }
+
+    &:hover::before {
+      content: "";
+      position: absolute;
+      inset: -4rem;
+      border-radius: 5rem;
+      background-image: url("../../images/icons/edit.svg");
+      background-color: var(--content-secondary);
+      background-repeat: no-repeat;
+      background-size: 32rem 32rem;
+      background-position: center center;
     }
   }
 }
@@ -456,5 +466,111 @@ div.priceWrapper {
 
   &.update {
     background-color: var(--bg-button-edit);
+  }
+}
+
+.advantageForm {
+  min-width: 320rem;
+
+  h4 {
+    margin-bottom: 16rem;
+    font-weight: 500;
+    font-size: 24rem;
+    color: var(--content-main);
+  }
+
+  .inputsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20rem;
+    margin-bottom: 24rem;
+
+    .inputContainer {
+      position: relative;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      font-size: 18rem;
+      color: var(--content-main);
+      border-radius: 5rem;
+      border: 1rem solid var(--content-datail-secondary);
+      padding: 6rem 8rem;
+    }
+
+    input[type="text"]::placeholder {
+      font-size: 18rem;
+      line-height: 1.42;
+      color: var(--content-datail-secondary);
+    }
+
+    .error {
+      position: absolute;
+      top: 100%;
+      right: 0;
+    }
+  }
+
+  button {
+    --color: var(--content-datail-secondary);
+    width: 160rem;
+    height: 40rem;
+    padding: 8rem 32rem;
+    border-radius: 32rem;
+    border: 1rem solid var(--color);
+    box-shadow: none;
+    transition: border-color, color var(--transition-time-min) ease;
+    color: var(--color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    margin: 0 auto;
+
+    &:hover {
+      --color: var(--content-main);
+      box-shadow: var(--box-shadow-button-inset);
+    }
+  }
+
+  .icons {
+    display: flex;
+    gap: 16rem;
+    margin-bottom: 32rem;
+    padding-inline: 40rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    li {
+      padding: 8rem;
+      width: 64rem;
+      height: 64rem;
+      border-radius: 5rem;
+      // overflow: hidden;
+      position: relative;
+
+      transition: all var(--transition-time-min) ease;
+      &.selected {
+        border: 1rem solid var(--content-datail-secondary);
+        box-shadow: var(--box-shadow-button-inset);
+
+        &:hover::before {
+          content: none;
+        }
+      }
+
+      &:hover::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 5rem;
+        background-image: url("../../images/icons/check.svg");
+        background-color: var(--content-secondary);
+        background-repeat: no-repeat;
+        background-size: 32rem 32rem;
+        background-position: center center;
+      }
+    }
   }
 }

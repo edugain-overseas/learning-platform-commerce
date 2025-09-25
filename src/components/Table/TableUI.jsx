@@ -57,6 +57,7 @@ const TableUI = ({ tableData }) => {
           <td
             key={cell.key}
             colspan={cell.colspan}
+            rowspan={cell.rowspan}
             dangerouslySetInnerHTML={{ __html: cell.label }}
           ></td>
         ))}

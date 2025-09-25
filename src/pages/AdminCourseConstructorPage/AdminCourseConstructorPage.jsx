@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useHookFormMask } from "use-mask-input";
 import { useDispatch, useSelector } from "react-redux";
+import useMessage from "antd/es/message/useMessage";
 import {
   createCourseThunk,
   updateCourseThunk,
@@ -10,32 +11,116 @@ import {
 import { getIsLoading } from "../../redux/course/selectors";
 import { ReactComponent as LaptopIcon } from "../../images/icons/laptop.svg";
 import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
-import { ReactComponent as SchoolOnlineIcon } from "../../images/icons/courseIcons/school-online.svg";
-import { ReactComponent as ClockDarkIcon } from "../../images/icons/courseIcons/clock-dark.svg";
-import { ReactComponent as CertificateIcon } from "../../images/icons/courseIcons/certificate.svg";
 import { priceFormatter } from "../../utils/priceFormatter";
 import { stripHtmlTags } from "../../utils/stripHtmlTags";
 import {
+  courseAdvantages,
   courseFieldsMaxLength,
   courseProperties,
 } from "../../costants/courseProperties";
+import { serverBaseUrl, serverName } from "../../http/server";
 import devices from "../../images/devices.webp";
 import Textarea from "../../components/shared/Textarea/Textarea";
 import CategoryPicker from "../../components/CategoryPicker/CategoryPicker";
-import useMessage from "antd/es/message/useMessage";
 import FileUploader from "../../components/shared/Uploaders/FileUploader/FileUploader";
 import Spinner from "../../components/Spinner/Spinner";
 import RichInput from "../../components/shared/RichInput";
+import Modal from "../../components/shared/Modal/Modal";
 import styles from "./AdminCourseConstructorPage.module.scss";
+import { privateRoutesHandler } from "../../http/privateRoutesHandler";
+
+const AdvantageForm = ({ icon }) => {
+  const [selectedIconPath, setSelectedIconPath] = useState(icon.icon_path);
+  const [icons, setIcons] = useState([]);
+
+  const { register, formState, control, handleSubmit } = useForm({
+    defaultValues: {
+      icon_title: icon.icon_title,
+      icon_text: icon.icon_text,
+    },
+  });
+
+  const { errors } = formState;
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+  console.log(icons);
+
+  useEffect(() => {
+    const fetchIcons = async () => {
+      try {
+        const icons = await privateRoutesHandler(
+          "get",
+          `${serverBaseUrl}/course/icons`
+        );
+        setIcons(icons);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchIcons();
+  }, []);
+
+  return (
+    <form className={styles.advantageForm} onSubmit={handleSubmit(onSubmit)}>
+      <h4>Edit item</h4>
+      <ul className={styles.icons}>
+        {icons.map((icon, index) => (
+          <li
+            key={index}
+            onClick={() => setSelectedIconPath(icon)}
+            className={icon === selectedIconPath ? styles.selected : ""}
+          >
+            <img src={serverName + icon} alt={icon} />
+          </li>
+        ))}
+      </ul>
+      <div className={styles.inputsContainer}>
+        <div className={styles.inputContainer}>
+          <input
+            type="text"
+            placeholder="Title"
+            {...register("icon_title", {
+              required: { value: true, message: "This field is required" },
+            })}
+          />
+          {errors.icon_title && (
+            <span className={styles.error}>{errors.icon_title.message}</span>
+          )}
+        </div>
+        <div className={styles.inputContainer}>
+          <RichInput control={control} name="icon_text" placeholder="Text" />
+          {errors.icon_text && (
+            <span className={styles.error}>{errors.icon_text.message}</span>
+          )}
+        </div>
+      </div>
+      <button type="submit">
+        <span>Save</span>
+      </button>
+    </form>
+  );
+};
 
 const AdminCourseConstructorPage = ({ courseData }) => {
   const { courseId } = useParams();
   const [imagePath, setImagePath] = useState(courseData?.image_path);
   const [categoryId, setCategoryId] = useState(courseData?.category_id || null);
+  const [advantages, setAdvantages] = useState(
+    courseData && courseData.icons?.length !== 0
+      ? courseData.icons
+      : courseAdvantages
+  );
+  const [activeAdvantagesIndex, setActiveAdvantagesIndex] = useState(null);
+  const [isOpenAdvantagesModal, setIsOpenAdvantagesModal] = useState(false);
   const [messageApi, contextHolder] = useMessage();
   const isLoading = useSelector(getIsLoading);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  console.log(setAdvantages);
 
   const {
     register,
@@ -69,6 +154,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
           c_level: courseProperties.c_level,
         },
   });
+
   const watchTitle = watch("title");
   const watchProgramInfo = watch("program_text");
   const watchIntroText = watch("intro_text");
@@ -143,8 +229,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
       isManualError = true;
     }
     if (
-      stripHtmlTags(data.about_text).length >
-      courseFieldsMaxLength.about_text
+      stripHtmlTags(data.about_text).length > courseFieldsMaxLength.about_text
     ) {
       setError("about_text", {
         type: "maxLength",
@@ -542,28 +627,26 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                   </div>
                 </div>
                 <ul className={styles.advantagesList}>
-                  <li>
-                    <SchoolOnlineIcon />
-                    <h4>100% Online</h4>
-                    <p>
-                      Click through engaging and award winning course content.
-                    </p>
-                  </li>
-                  <li>
-                    <ClockDarkIcon />
-                    <h4>100% self-paced</h4>
-                    <p>
-                      Immediate start: study when, where, and how fast you want.
-                    </p>
-                  </li>
-                  <li>
-                    <CertificateIcon />
-                    <h4>Get your certificate</h4>
-                    <p>
-                      Download your personal certificate upon completion of this
-                      course.
-                    </p>
-                  </li>
+                  {advantages
+                    .toSorted(
+                      (itemA, itemB) => itemA.icon_number - itemB.icon_number
+                    )
+                    .map((item, index) => (
+                      <li
+                        key={index}
+                        onClick={() => {
+                          setActiveAdvantagesIndex(index);
+                          setIsOpenAdvantagesModal(true);
+                        }}
+                      >
+                        <img
+                          src={`${serverName}${item.icon_path}`}
+                          alt={item.icon_title}
+                        />
+                        <h4>{item.icon_title}</h4>
+                        <p>{item.icon_text}</p>
+                      </li>
+                    ))}
                 </ul>
               </div>
               <div
@@ -584,6 +667,17 @@ const AdminCourseConstructorPage = ({ courseData }) => {
           </button>
         </form>
       </div>
+      <Modal
+        isOpen={isOpenAdvantagesModal}
+        closeModal={() => {
+          setIsOpenAdvantagesModal(false);
+          setActiveAdvantagesIndex(null);
+        }}
+      >
+        {activeAdvantagesIndex !== null && (
+          <AdvantageForm icon={advantages[activeAdvantagesIndex]} />
+        )}
+      </Modal>
     </>
   );
 };
