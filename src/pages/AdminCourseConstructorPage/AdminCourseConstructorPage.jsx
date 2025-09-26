@@ -29,7 +29,7 @@ import Modal from "../../components/shared/Modal/Modal";
 import styles from "./AdminCourseConstructorPage.module.scss";
 import { privateRoutesHandler } from "../../http/privateRoutesHandler";
 
-const AdvantageForm = ({ icon }) => {
+const AdvantageForm = ({ icon, updateAdvantages }) => {
   const [selectedIconPath, setSelectedIconPath] = useState(icon.icon_path);
   const [icons, setIcons] = useState([]);
 
@@ -43,7 +43,12 @@ const AdvantageForm = ({ icon }) => {
   const { errors } = formState;
 
   const onSubmit = (data) => {
-    console.log(data);
+    const updatedIcon = {
+      ...data,
+      icon_path: selectedIconPath,
+    };
+
+    updateAdvantages(updatedIcon);
   };
 
   console.log(icons);
@@ -120,7 +125,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(setAdvantages);
+  console.log(advantages);
 
   const {
     register,
@@ -261,6 +266,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
       ...data,
       category_id: categoryId,
       image_path: imagePath,
+      icons: advantages,
     };
 
     courseData.price = +data.price;
@@ -281,7 +287,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
       }
     } else {
       try {
-        dispatch(createCourseThunk({ data: courseData }))
+        dispatch(createCourseThunk(courseData))
           .unwrap()
           .then(() => {
             messageApi.success({
@@ -294,6 +300,21 @@ const AdminCourseConstructorPage = ({ courseData }) => {
         console.log(error);
       }
     }
+  };
+
+  const onCloseModal = () => {
+    setIsOpenAdvantagesModal(false);
+    setActiveAdvantagesIndex(null);
+  };
+
+  const handleUpdateAdvantages = (updatedAdvantageData, index) => {
+    const updatedAdvantages = advantages.toSpliced(index, 1, {
+      ...advantages[index],
+      ...updatedAdvantageData,
+    });
+
+    setAdvantages(updatedAdvantages);
+    onCloseModal();
   };
 
   return (
@@ -644,7 +665,9 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                           alt={item.icon_title}
                         />
                         <h4>{item.icon_title}</h4>
-                        <p>{item.icon_text}</p>
+                        <p
+                          dangerouslySetInnerHTML={{ __html: item.icon_text }}
+                        />
                       </li>
                     ))}
                 </ul>
@@ -667,15 +690,17 @@ const AdminCourseConstructorPage = ({ courseData }) => {
           </button>
         </form>
       </div>
-      <Modal
-        isOpen={isOpenAdvantagesModal}
-        closeModal={() => {
-          setIsOpenAdvantagesModal(false);
-          setActiveAdvantagesIndex(null);
-        }}
-      >
+      <Modal isOpen={isOpenAdvantagesModal} closeModal={onCloseModal}>
         {activeAdvantagesIndex !== null && (
-          <AdvantageForm icon={advantages[activeAdvantagesIndex]} />
+          <AdvantageForm
+            icon={advantages[activeAdvantagesIndex]}
+            updateAdvantages={(updatedAdvantageData) =>
+              handleUpdateAdvantages(
+                updatedAdvantageData,
+                activeAdvantagesIndex
+              )
+            }
+          />
         )}
       </Modal>
     </>

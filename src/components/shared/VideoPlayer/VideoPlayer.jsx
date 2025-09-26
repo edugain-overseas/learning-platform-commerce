@@ -6,7 +6,6 @@ const VideoPlayer = ({ file }) => {
 
   const handleLoadedMetadata = (e) => {
     const aspectRatio = e.target.videoWidth / e.target.videoHeight;
-    console.log(e);
 
     if (aspectRatio >= 1) {
       setVideoParmas({
@@ -15,6 +14,7 @@ const VideoPlayer = ({ file }) => {
       });
     } else {
       const height = (e.target.scrollWidth / 16) * 9;
+      
       setVideoParmas({
         width: height * aspectRatio,
         height: height,
