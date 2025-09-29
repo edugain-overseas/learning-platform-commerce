@@ -20,6 +20,8 @@ const TableConstructor = ({ state, setState }) => {
     handleContextMenu,
     renderContextMenu,
     handleFileUpload,
+    getCustomRichTextEditorTools,
+    cellTypes,
   } = useTableContructor(state, setState, tableRef, styles);
 
   const renderHead = () => {
@@ -45,7 +47,10 @@ const TableConstructor = ({ state, setState }) => {
               key={column.key}
               rowSpan={rowSpan}
               colSpan={colSpan}
-              style={{ width: column.width + "%" }}
+              style={{
+                width: column.width + "%",
+                verticalAlign: column.verticalAlign,
+              }}
               onContextMenu={(e) =>
                 handleContextMenu(e, "column", { key: column.key })
               }
@@ -58,6 +63,10 @@ const TableConstructor = ({ state, setState }) => {
                   setValue={(value) => onColumnLabelChange(column.key, value)}
                   type="normal"
                   onBlur={() => setEditing(null)}
+                  customTools={getCustomRichTextEditorTools(
+                    cellTypes.COLUMN,
+                    column.key
+                  )}
                 />
               ) : (
                 <div
@@ -97,6 +106,10 @@ const TableConstructor = ({ state, setState }) => {
               onContextMenu={(e) =>
                 handleContextMenu(e, "childColumn", { key: child.key })
               }
+              style={{
+                width: child.width + "%",
+                verticalAlign: child.verticalAlign,
+              }}
               data-key={child.key}
             >
               {isEditing ? (
@@ -108,6 +121,10 @@ const TableConstructor = ({ state, setState }) => {
                   }
                   type="normal"
                   onBlur={() => setEditing(false)}
+                  customTools={getCustomRichTextEditorTools(
+                    cellTypes.COLUMNCHILD,
+                    child.key
+                  )}
                 />
               ) : (
                 <div
@@ -155,8 +172,8 @@ const TableConstructor = ({ state, setState }) => {
             <td
               key={cell.key}
               data-key={`${cell.key}`}
-              colspan={cell.colspan}
-              rowspan={cell.rowspan}
+              colSpan={cell.colspan}
+              rowSpan={cell.rowspan}
               onContextMenu={(e) =>
                 handleContextMenu(e, "row", {
                   rowIndex: rIndex,
@@ -164,6 +181,7 @@ const TableConstructor = ({ state, setState }) => {
                   cellIndex: cIndex,
                 })
               }
+              style={{ verticalAlign: cell.verticalAlign }}
             >
               {isEditing ? (
                 <RichTextEditor
@@ -174,6 +192,11 @@ const TableConstructor = ({ state, setState }) => {
                   }
                   type="normal"
                   onBlur={() => setEditing(null)}
+                  customTools={getCustomRichTextEditorTools(
+                    cellTypes.ROW,
+                    cell.key,
+                    rIndex
+                  )}
                 />
               ) : (
                 <div

@@ -127,9 +127,9 @@
 
   th .contentContainer {
     color: var(--content-light-secondary);
-    text-align: initial;
-
     border-color: var(--content-light-secondary);
+    text-align: initial;
+    line-height: 1.42;
   }
 
   .resizer {

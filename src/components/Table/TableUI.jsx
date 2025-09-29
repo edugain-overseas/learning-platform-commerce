@@ -23,7 +23,10 @@ const TableUI = ({ tableData }) => {
               key={column.key}
               rowSpan={rowSpan}
               colSpan={colSpan}
-              style={{ width: column.width + "%" }}
+              style={{
+                width: column.width + "%",
+                verticalAlign: column.verticalAlign,
+              }}
               dangerouslySetInnerHTML={{ __html: column.label }}
             ></th>
           );
@@ -37,6 +40,10 @@ const TableUI = ({ tableData }) => {
           <th
             key={child.key}
             dangerouslySetInnerHTML={{ __html: child.label }}
+            style={{
+              width: child.width + "%",
+              verticalAlign: child.verticalAlign,
+            }}
           ></th>
         ))}
       </tr>
@@ -59,6 +66,7 @@ const TableUI = ({ tableData }) => {
             colspan={cell.colspan}
             rowspan={cell.rowspan}
             dangerouslySetInnerHTML={{ __html: cell.label }}
+            style={{ verticalAlign: cell.verticalAlign }}
           ></td>
         ))}
       </tr>

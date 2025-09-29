@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
 import ReactQuill from "react-quill-new";
-import quillModules from "../../../costants/reactQuillModules";
+import quillModules, {
+  clipboardHandler,
+} from "../../../costants/reactQuillModules";
 import "react-quill-new/dist/quill.snow.css";
 import "./RichTextEditor.css";
 
@@ -9,21 +11,39 @@ const RichTextEditor = ({
   setValue = () => null,
   placeholder = "Write your text here...",
   type = "expanded",
+  customTools = null,
   className = "",
   onBlur,
 }) => {
   const modules = useMemo(() => {
+    const container = [...quillModules[type]];
+    const handlers = {
+      undo: function () {
+        this.quill.history.undo();
+      },
+      redo: function () {
+        this.quill.history.redo();
+      },
+    };
+
+    const isCustomHandlers = Array.isArray(customTools);
+
+    if (isCustomHandlers) {
+      container.push(
+        customTools.map((tool) => {
+          handlers[tool.name] = tool.handler;
+          return tool.name;
+        })
+      );
+    }
+
+    console.log("container ", container);
+    console.log("handlers ", handlers);
+
     return {
       toolbar: {
-        container: quillModules[type],
-        handlers: {
-          undo: function () {
-            this.quill.history.undo();
-          },
-          redo: function () {
-            this.quill.history.redo();
-          },
-        },
+        container,
+        handlers,
       },
       history: {
         delay: 1000,
@@ -31,22 +51,10 @@ const RichTextEditor = ({
         userOnly: true,
       },
       clipboard: {
-        matchers: [
-          [
-            "*",
-            (_, delta) => {
-              delta.ops.forEach((op) => {
-                if (op.attributes) {
-                  op.attributes.color = "";
-                  op.attributes.background = "";
-                }
-              });
-              return delta;
-            },
-          ],
-        ],
+        matchers: [["*", clipboardHandler]],
       },
     };
+    // eslint-disable-next-line
   }, [type]);
 
   const handleChange = (content) => {

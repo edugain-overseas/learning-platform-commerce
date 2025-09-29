@@ -169,3 +169,30 @@
 .ql-snow .ql-editor blockquote {
   border-left: 4rem solid var(--content-datail-secondary);
 }
+
+.ql-snow.ql-toolbar .ql-vertical-align-top,
+.ql-snow.ql-toolbar .ql-vertical-align-middle,
+.ql-snow.ql-toolbar .ql-vertical-align-bottom {
+  background-size: 16px;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.ql-snow.ql-toolbar .ql-vertical-align-top,
+.ql-snow.ql-toolbar .ql-vertical-align-bottom {
+  background-image: url("../../../images/icons/editTextIcons/verticalAlignTop.svg");
+}
+
+.ql-snow.ql-toolbar .ql-vertical-align-middle {
+  background-image: url("../../../images/icons/editTextIcons/verticalAlignMiddle.svg");
+}
+
+.ql-snow.ql-toolbar .ql-vertical-align-bottom {
+  rotate: 180deg;
+}

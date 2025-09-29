@@ -34,4 +34,14 @@ const toolbarOptions = {
   expanded: toolbarOptionsExpanded,
 };
 
+export const clipboardHandler = (_, delta) => {
+  delta.ops.forEach((op) => {
+    if (op.attributes) {
+      op.attributes.color = "";
+      op.attributes.background = "";
+    }
+  });
+  return delta;
+};
+
 export default toolbarOptions;

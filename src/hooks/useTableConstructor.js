@@ -3,6 +3,12 @@ import { ReactComponent as ChevronIcon } from "../images/icons/arrowDown.svg";
 import { createPortal } from "react-dom";
 import { generateTableStateFromFile } from "../utils/generateTableStateFromFile";
 
+const cellTypes = {
+  COLUMN: "COLUMN",
+  COLUMNCHILD: "COLUMNCHILD",
+  ROW: "ROW",
+};
+
 export const useTableContructor = (state, setState, tableRef, styles) => {
   const [contextMenu, setContextMenu] = useState(null);
   const resizingRef = useRef(null);
@@ -324,22 +330,21 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
   const mergeCellInRow = (rowIndex, cellIndex, amountForMerge) => {
     const updatedRows = state.rows.map((row, rIdx) => {
       if (rIdx !== rowIndex) return row;
-  
+
       const newRow = [...row];
       const baseCell = { ...newRow[cellIndex] };
-  
+
       const baseColspan = baseCell.colspan || 1;
       baseCell.colspan = baseColspan + amountForMerge;
-  
+
       newRow.splice(cellIndex, 1, baseCell);
       newRow.splice(cellIndex + 1, amountForMerge);
-  
+
       return newRow;
     });
-  
+
     setState({ ...state, rows: updatedRows });
   };
-  
 
   const mergeCellToFullRow = (rowIndex, cellIndex) => {
     const updatedRows = state.rows.map((row, index) => {
@@ -361,17 +366,17 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
 
   const mergeCellInCol = (rowIndex, cellIndex, amountForMerge) => {
     const updatedRows = state.rows.map((row) => [...row]);
-  
+
     const baseCell = { ...updatedRows[rowIndex][cellIndex] };
     const baseRowspan = baseCell.rowspan || 1;
     baseCell.rowspan = baseRowspan + amountForMerge;
-  
+
     updatedRows[rowIndex][cellIndex] = baseCell;
-  
+
     for (let i = 1; i <= amountForMerge; i++) {
       const targetRow = updatedRows[rowIndex + i];
       if (!targetRow) continue;
-  
+
       let colCounter = 0;
       for (let c = 0; c < targetRow.length; c++) {
         const colspan = targetRow[c].colspan || 1;
@@ -382,10 +387,108 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
         colCounter += colspan;
       }
     }
-  
+
     setState({ ...state, rows: updatedRows });
   };
-  
+
+  const getCustomRichTextEditorTools = (type, key, rowIndex) => {
+    switch (type) {
+      case cellTypes.COLUMN:
+        const colHandler = (value) => {
+          const columns = state.columns.map((col) => {
+            if (col.key === key) {
+              return { ...col, verticalAlign: value };
+            }
+            return col;
+          });
+          setState({ columns, rows: state.rows });
+        };
+
+        return [
+          {
+            name: "vertical-align-top",
+            handler: () => colHandler("top"),
+          },
+          {
+            name: "vertical-align-middle",
+            handler: () => colHandler("middle"),
+          },
+          {
+            name: "vertical-align-bottom",
+            handler: () => colHandler("bottom"),
+          },
+        ];
+
+      case cellTypes.COLUMNCHILD:
+        const parentKey = key.split("_")[0];
+        const colChildHandler = (value) => {
+          const columns = state.columns.map((col) => {
+            if (col.key === parentKey) {
+              return {
+                ...col,
+                children: col.children.map((child) => {
+                  if (child.key === key) {
+                    return { ...child, verticalAlign: value };
+                  }
+                  return child;
+                }),
+              };
+            }
+            return col;
+          });
+          setState({ columns, rows: state.rows });
+        };
+
+        return [
+          {
+            name: "vertical-align-top",
+            handler: () => colChildHandler("top"),
+          },
+          {
+            name: "vertical-align-middle",
+            handler: () => colChildHandler("middle"),
+          },
+          {
+            name: "vertical-align-bottom",
+            handler: () => colChildHandler("bottom"),
+          },
+        ];
+
+      case cellTypes.ROW:
+        const rowHandler = (value) => {
+          const rows = state.rows.map((row, index) => {
+            if (index === rowIndex) {
+              return row.map((cell) => {
+                if (cell.key === key) {
+                  return { ...cell, verticalAlign: value };
+                }
+                return cell;
+              });
+            }
+            return row;
+          });
+          setState({ columns: state.columns, rows });
+        };
+
+        return [
+          {
+            name: "vertical-align-top",
+            handler: () => rowHandler("top"),
+          },
+          {
+            name: "vertical-align-middle",
+            handler: () => rowHandler("middle"),
+          },
+          {
+            name: "vertical-align-bottom",
+            handler: () => rowHandler("bottom"),
+          },
+        ];
+
+      default:
+        return null;
+    }
+  };
 
   useEffect(() => {
     //handle menu close action
@@ -574,5 +677,7 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
     handleContextMenu,
     renderContextMenu,
     handleFileUpload,
+    getCustomRichTextEditorTools,
+    cellTypes,
   };
 };
