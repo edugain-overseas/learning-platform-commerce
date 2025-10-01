@@ -95,11 +95,21 @@ const TaskContructor = () => {
               />
             )}
             {viewTypeIndex === 1 && (
-              <TestContent
-                test={task}
-                closed={true}
-                wrapperStyles={{ marginInline: "10%", opacity: 1 }}
-              />
+              <TaskLayout.Container>
+                <TaskLayout.Content>
+                  <TestContent
+                    test={task}
+                    closed={true}
+                    wrapperStyles={{ opacity: 1 }}
+                  />
+                </TaskLayout.Content>
+                <TaskLayout.Tools>
+                  <PreviewStudentAsideCourseProgressPanel
+                    lessons={course.lessons}
+                    currentLessonId={+taskId}
+                  />
+                </TaskLayout.Tools>
+              </TaskLayout.Container>
             )}
           </TestContructorProvider>
         );

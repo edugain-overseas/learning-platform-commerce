@@ -10,8 +10,6 @@ const TableConstructor = ({ state, setState }) => {
   const [editing, setEditing] = useState(null);
   const [tableHeight, setTableHeight] = useState(null);
 
-  console.log(state);
-
   const {
     onColumnLabelChange,
     onColumnChildLabelChange,

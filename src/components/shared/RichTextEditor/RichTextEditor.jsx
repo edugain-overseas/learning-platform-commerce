@@ -37,9 +37,6 @@ const RichTextEditor = ({
       );
     }
 
-    console.log("container ", container);
-    console.log("handlers ", handlers);
-
     return {
       toolbar: {
         container,

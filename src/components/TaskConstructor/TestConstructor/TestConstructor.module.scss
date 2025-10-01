@@ -1,65 +1,8 @@
-.wrapper {
-  flex-grow: 1;
-  max-height: calc(100% - 60rem);
-  padding-right: 16rem;
-  display: flex;
-  gap: 16rem;
-}
-
-.blocksWrapper {
-  flex-grow: 1;
+.toolsWrapper {
   height: 100%;
-  overflow: auto;
   display: flex;
   flex-direction: column;
-  gap: 32rem;
-}
-
-.toolsWrapper {
-  width: 25%;
-  height: fit-content;
-}
-
-.blocksWrapper,
-.toolsWrapper {
-  padding: 16rem 20rem;
-  border-radius: 5px;
-  background: var(--bg-rgba-default);
-  box-shadow: var(--drop-shadow-button-main-hover);
-  backdrop-filter: blur(16rem);
-  max-height: 100%;
-  overflow: auto;
-}
-
-.addBlockBtns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8rem;
-  margin-bottom: 16rem;
-
-  li {
-    width: calc(50% - 4rem);
-    aspect-ratio: 1;
-  }
-
-  button {
-    width: 100%;
-    height: 100%;
-    padding: 8rem 18rem;
-    background-color: var(--bg-rgba-secondary);
-    border-radius: 16rem;
-    color: var(--content-datail-secondary);
-    font-size: 14rem;
-    text-transform: uppercase;
-    box-shadow: var(--box-shadow-button);
-    transition: all var(--transition-time-min) ease;
-
-    &:hover {
-      background-color: var(--bg-button-default);
-      color: var(--content-main);
-      box-shadow: var(--box-shadow-button-inset);
-    }
-  }
+  justify-content: space-between;
 }
 
 .attemptsWrapper {
@@ -76,6 +19,68 @@
     width: 32px;
     height: 32px;
     flex-shrink: 0;
+    color: var(--content-datail-secondary);
+    transition: color var(--transition-time-min) ease;
+
+    &:hover {
+      color: var(--content-main);
+    }
+  }
+}
+
+.addBlockBtns {
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+  margin-bottom: 12rem;
+
+  li {
+    width: 100%;
+    height: 38rem;
+  }
+
+  button {
+    width: 100%;
+    height: 100%;
+    padding: 8rem 18rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12rem;
+
+    background-color: var(--bg-rgba-secondary);
+    border-radius: 5rem;
+    color: var(--content-datail-secondary);
+    font-size: 16rem;
+    text-transform: capitalize;
+    box-shadow: var(--box-shadow-button);
+    transition: all var(--transition-time-min) ease;
+
+    &:hover {
+      background-color: var(--bg-button-default);
+      color: var(--content-main);
+      box-shadow: var(--box-shadow-button-inset);
+    }
+
+    svg {
+      width: 18rem;
+      height: auto;
+    }
+  }
+}
+
+div[data-narrowed="true"] {
+  .addBlockBtns button {
+    padding: 0;
+
+    span {
+      display: none;
+    }
+  }
+
+  .attemptsWrapper {
+    opacity: 0;
+    pointer-events: none;
   }
 }
 
@@ -84,48 +89,44 @@
   flex-direction: column;
   gap: 16rem;
   padding: 20rem;
-  box-shadow: var(--drop-shadow-middle);
   border-radius: 5rem;
-  background-color: var(--bg-rgba-detail);
+  background-color: var(--bg-rgba-block);
   position: relative;
 
   & > * {
     flex-shrink: 0;
   }
-
-  &.new {
-    box-shadow: 0 0 10rem rgba($color: #39ba6d, $alpha: 0.7);
-  }
-
-  &.edit {
-    box-shadow: var(--drop-shadow-middle);
-  }
 }
 
 .deleteBtn {
-  height: 24px;
-  width: auto;
-  align-self: self-end;
+  width: 38rem;
+  height: 38rem;
   font-size: 18rem;
   display: flex;
   align-items: center;
-  gap: 4rem;
+  gap: 0rem;
+  color: var(--content-datail-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  border: 1rem solid var(--content-datail-secondary);
+  border-radius: 5rem;
+
+  transition: all var(--transition-time-min) ease;
 
   &:hover {
-    path {
-      transition: fill var(--transition-time-max) ease;
-      fill: var(--content-nav-hover);
-    }
-
+    width: 245rem;
+    border-color: var(--content-nav-hover);
+    color: var(--content-nav-hover);
     span {
       width: 10em;
-      border-color: var(--border-color-main);
     }
   }
 
   svg {
-    width: 24rem;
-    height: 24rem;
+    width: 18rem;
+    height: 18rem;
   }
 
   span {
@@ -134,9 +135,8 @@
     overflow: hidden;
     text-align: center;
     transition: width var(--transition-time-min) ease;
-    color: var(--content-nav-hover);
-    border: 1px solid transparent;
-    height: 24rem;
+    font-size: 16rem;
+    text-overflow: clip;
   }
 }
 
@@ -148,7 +148,7 @@
 }
 
 .scoreInput {
-  width: 12em;
+  width: 14em;
   position: absolute;
   bottom: 20rem;
   left: 20rem;

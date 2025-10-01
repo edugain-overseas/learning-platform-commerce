@@ -15,8 +15,6 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
   console.log(tableRef);
 
   const onColumnLabelChange = (key, value) => {
-    console.log("onColumnLabelChange");
-
     const updatedColumns = state.columns.map((column) =>
       column.key === key ? { ...column, label: value } : column
     );
@@ -24,8 +22,6 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
   };
 
   const onColumnChildLabelChange = (key, value) => {
-    console.log(key, value);
-
     const parentKey = key.split("_")[0];
     const updatedColumns = state.columns.map((column) => {
       if (column.key === parentKey) {
@@ -163,8 +159,6 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
 
   const addRow = () => {
     const newRow = state.columns.reduce((row, column) => {
-      console.log(row, column);
-
       if (column.children?.length) {
         return [
           ...row,
@@ -184,8 +178,6 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
 
   const handleContextMenu = (event, type, data) => {
     event.preventDefault();
-
-    // console.log(event, type, data);
 
     if (!type) {
       setContextMenu(null);
@@ -214,7 +206,6 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
 
     try {
       const uploadedTableState = await generateTableStateFromFile(file);
-      console.log(uploadedTableState);
 
       setState({ ...state, ...uploadedTableState });
     } catch (err) {
@@ -260,7 +251,6 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
     const newPercentWidth = Math.round(
       (newAbsoluteWidth / containerWidth) * 100
     );
-    console.log(newPercentWidth);
     targetTh.style.setProperty("width", `${newPercentWidth}%`);
     resizingRef.current.width = newPercentWidth;
   }, []);
