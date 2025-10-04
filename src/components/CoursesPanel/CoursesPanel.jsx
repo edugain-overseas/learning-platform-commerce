@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useListMode } from "../../context/ListModeContext";
+import { useSelector } from "react-redux";
+import { getAccessToken, getUserType } from "../../redux/user/selectors";
 import {
   adminCourseLinks,
   courseLinks,
@@ -16,8 +18,6 @@ import Switcher from "../shared/Switcher/Switcher";
 import DropDownFilter from "../shared/DropDownFilter/DropDownFilter";
 import SearchBar from "../shared/SearchBar/SearchBar";
 import styles from "./CoursesPanel.module.scss";
-import { useSelector } from "react-redux";
-import { getAccessToken, getUserType } from "../../redux/user/selectors";
 
 const switchItems = [<GridIcon />, <ListIcon />];
 const filters = [

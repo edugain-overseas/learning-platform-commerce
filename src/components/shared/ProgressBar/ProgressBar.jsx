@@ -56,7 +56,8 @@ const ProgressBar = ({ width = 171, height = 24, value, className = "" }) => {
             "Completed"
           ) : (
             <>
-              {`${value ? value : 0}`} <span> / 100 %</span>
+              {`${value ? value : 0}`}{" "}
+              <span style={{ fontSize: "inherit" }}> / 100 %</span>
             </>
           )}
         </span>

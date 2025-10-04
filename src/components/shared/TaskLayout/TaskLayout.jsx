@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import useLocalStorage from "../../../hooks/useLocalStorage";
 import { ReactComponent as ChevronIcon } from "../../../images/icons/next.svg";
 import InsetBtn from "../InsetBtn/InsetBtn";
@@ -10,8 +11,14 @@ const ToolsContainer = ({ children, title = "Content" }) => {
     false
   );
 
+  const { pathname } = useLocation();
+
   return (
-    <div className={styles.tools} data-narrowed={isNarrowed}>
+    <div
+      className={styles.tools}
+      data-narrowed={isNarrowed}
+      style={{ height: pathname.includes("tasks") ? "100%" : null }}
+    >
       <div className={styles.toolsTitleContainer}>
         <span>{title}</span>
         <InsetBtn

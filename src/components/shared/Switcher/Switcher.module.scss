@@ -20,16 +20,20 @@
     z-index: 1;
     color: var(--content-datail-secondary);
 
-    // transition: color var(--transition-time-min) ease;
-
     &.active {
       box-shadow: 0px 0px 2.2rem 0px rgba(0, 0, 0, 0.16);
-      color: var(--content-light-secondary);
+
+      svg {
+        color: var(--content-light-secondary);
+      }
     }
 
     svg {
       width: 16rem;
       height: 16rem;
+
+      color: var(--content-datail-secondary);
+      transition: color var(--transition-time-min) ease;
     }
   }
 }

@@ -9,6 +9,7 @@ import TaskList from "../../../components/TaskList/TaskList";
 import CourseAsideProgressPanel from "../../../components/CourseAsideProgressPanel/CourseAsideProgressPanel";
 import styles from "./CourseTasksPage.module.scss";
 import { getUserType } from "../../../redux/user/selectors";
+import TaskLayout from "../../../components/shared/TaskLayout/TaskLayout";
 
 const CourseTasksPage = () => {
   const { courseId } = useParams();
@@ -46,11 +47,13 @@ const CourseTasksPage = () => {
         </div>
       </div>
       {!!courseLessons?.length && !isModer && (
-        <CourseAsideProgressPanel
-          courseLessons={courseLessons}
-          courseId={courseId}
-          progress={progress}
-        />
+        <TaskLayout.Tools>
+          <CourseAsideProgressPanel
+            courseLessons={courseLessons}
+            courseId={courseId}
+            progress={progress}
+          />
+        </TaskLayout.Tools>
       )}
     </div>
   );
