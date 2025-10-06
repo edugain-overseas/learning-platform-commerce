@@ -1,14 +1,14 @@
 import React, { useRef } from "react";
-import NavBar from "./NavBar/NavBar";
-import LogoutButton from "./LogoutButton/LogoutButton";
-import { ReactComponent as FixIcon } from "../../images/icons/fix.svg";
-import SupportBtn from "./SupportBtn/SupportBtn";
-import styles from "./SideBar.module.scss";
-import UserInfo from "./UserInfo/UserInfo";
 import { useSelector } from "react-redux";
 import { getAccessToken, getUserType } from "../../redux/user/selectors";
 import { adminSidebarNav, sidebarNav } from "../../costants/nav";
+import { ReactComponent as FixIcon } from "../../images/icons/fix.svg";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import NavBar from "./NavBar/NavBar";
+import LogoutButton from "./LogoutButton/LogoutButton";
+import SupportBtn from "./SupportBtn/SupportBtn";
+import UserInfo from "./UserInfo/UserInfo";
+import styles from "./SideBar.module.scss";
 
 const SideBar = () => {
   const accessToken = useSelector(getAccessToken);

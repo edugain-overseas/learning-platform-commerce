@@ -56,6 +56,7 @@ const StudentRouter = () => (
       </Route>
       <Route path="/task/:taskId" element={<TaskPage />} />
       <Route path="/me" element={<UserProfilePage />} />
+      <Route path="/education" element={null} />
       <Route path="/aboutIEU" element={<AboutIEUPage />} />
       <Route path="/instructions" element={<InstructionsPage />}>
         {instructionsLinks.map(({ to }) => (

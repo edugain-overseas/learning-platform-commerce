@@ -17,6 +17,12 @@ export const sidebarNav = [
     link: "/courses/available",
     children: null,
   },
+  {
+    label: "My education",
+    icon: <CoursesIcon />,
+    link: "/courses/available",
+    children: null,
+  },
   { label: "My profile", icon: <MyProfileIcon />, link: "/me", children: null },
   {
     label: "About IEU",
