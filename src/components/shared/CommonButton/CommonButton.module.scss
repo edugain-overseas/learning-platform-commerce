@@ -1,0 +1,102 @@
+.commonButton {
+  border-radius: 5rem;
+  display: flex;
+  justify-content: center;
+  gap: 8rem;
+  align-items: center;
+  flex-shrink: 0;
+
+  width: 126rem;
+  height: 38rem;
+  padding: 0.25em 0.5em;
+
+  font-size: 16rem;
+  line-height: normal;
+
+  background-color: var(--background-color);
+  transition: all var(--transition-time-min) ease;
+
+  &:hover {
+    &.hover-grey {
+      --background-color: var(--bg-button-disabled);
+      color: var(--content-light-secondary);
+    }
+
+    &.hover-lightGrey {
+      --background-color: var(--border-color-main);
+      color: var(--content-datail-secondary);
+    }
+
+    &.hover-darkBlue {
+      --background-color: var(--content-main);
+      color: var(--content-light-secondary);
+    }
+
+    &.hover-lightBlue {
+      --background-color: var(--content-datail-secondary);
+    }
+
+    &.hover-red {
+      --background-color: var(--content-nav-hover);
+    }
+
+    &.hover-green {
+      --background-color: var(--bg-button-success);
+    }
+
+    &.hover-transparentTextLight {
+      --background-color: transparent;
+      color: var(--content-datail-secondary);
+      border-color: var(--content-datail-secondary);
+    }
+
+    &.hover-transparentTextDark {
+      --background-color: transparent;
+      color: var(--content-main);
+      border-color: var(--content-main);
+    }
+  }
+
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+}
+
+.grey {
+  --background-color: var(--bg-button-disabled);
+  color: var(--content-light-secondary);
+}
+
+.lightGrey {
+  --background-color: var(--border-color-main);
+  color: var(--content-datail-secondary);
+}
+
+.darkBlue {
+  --background-color: var(--content-main);
+}
+
+.lightBlue {
+  --background-color: var(--content-datail-secondary);
+}
+
+.red {
+  --background-color: var(--content-nav-hover);
+}
+
+.green {
+  --background-color: var(--bg-button-success);
+}
+
+.transparentTextLight {
+  --background-color: transparent;
+  color: var(--content-datail-secondary);
+  border-color: var(--content-datail-secondary);
+}
+
+.transparentTextDark {
+  --background-color: transparent;
+  color: var(--content-main);
+  border-color: var(--content-main);
+}

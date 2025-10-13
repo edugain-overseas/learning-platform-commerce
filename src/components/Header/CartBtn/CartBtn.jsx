@@ -1,16 +1,17 @@
 import React from "react";
 import { useCart } from "../../../context/cartContext";
 import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";
-import styles from "./CartBtn.module.scss";
 import { priceFormatter } from "../../../utils/priceFormatter";
+import CommonButton from "../../shared/CommonButton/CommonButton";
 
 const CartBtn = () => {
   const { handleOpen, totalPrice } = useCart();
   return (
-    <button className={styles.cartBtn} onClick={handleOpen}>
-      <span>$ {priceFormatter(totalPrice)}</span>
-      <CartIcon className={styles.icon} />
-    </button>
+    <CommonButton
+      text={`$ ${priceFormatter(totalPrice)}`}
+      icon={<CartIcon style={{ width: "24rem", height: "24rem" }} />}
+      onClick={handleOpen}
+    />
   );
 };
 
