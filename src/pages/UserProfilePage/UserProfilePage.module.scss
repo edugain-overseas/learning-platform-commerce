@@ -23,7 +23,6 @@
     backdrop-filter: blur(16rem);
     border-radius: 5rem;
     padding: 20rem 28rem;
-    padding-right: 0;
     display: flex;
     flex-direction: column;
     overflow: auto;
@@ -31,8 +30,6 @@
 
     .blockHeader {
       padding-bottom: 16rem;
-      padding-right: 28rem;
-
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -63,7 +60,6 @@
     .blockBody {
       flex-grow: 1;
       overflow: auto;
-      padding-right: 28rem;
       overflow: auto;
       position: relative;
 
@@ -72,7 +68,7 @@
         position: absolute;
         top: -1rem;
         left: 0;
-        width: calc(100% - 28rem);
+        width: 100%;
         height: 2rem;
         border-radius: 10rem;
         background: var(--content-datail-secondary);

@@ -1,13 +1,13 @@
 import React from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { navLinkActiveHandler } from "../../../utils/navLinkActiveHandler";
-import styles from "./NavLinksPanel.module.scss";
 import { useSelector } from "react-redux";
 import { getAllCourses } from "../../../redux/course/selectors";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../../../hooks/useNotificationMessage";
+import styles from "./NavLinksPanel.module.scss";
 
 export default function NavLinksPanel({ renderLinks }) {
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
   const { courseId } = useParams();
   const course = useSelector(getAllCourses).find(
     (course) => course?.id === +courseId

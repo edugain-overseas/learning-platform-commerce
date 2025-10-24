@@ -1,11 +1,11 @@
 import React from "react";
+import { useNotificationMessage } from "../../../../hooks/useNotificationMessage";
 import { ReactComponent as BellIcon } from "../../../../images/icons/bellWithBadge.svg";
-
 import styles from "./NotificationButton.module.scss";
-import useMessage from "antd/es/message/useMessage";
 
 const NotificationButton = () => {
-  const [messageApi, contextHolder] = useMessage();
+  // const [messageApi, contextHolder] = useNotificationMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
   const amoutTodisplay = (messages) => {
     if (messages.length > 99) {
       return "99+";

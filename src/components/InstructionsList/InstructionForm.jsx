@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { ReactComponent as CrossIcon } from "../../images/icons/cross.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/category/selectors";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import {
   createInstructionThunk,
   editInstructionThunk,
@@ -34,7 +34,7 @@ const InstructionForm = ({
 }) => {
   const [files, setFiles] = useState(defaultValues ? defaultValues.files : []);
   const [categoryId, setCategoryId] = useState(defaultValues?.category_id);
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
   const dispatch = useDispatch();
 
   const categoryOptions = useSelector(getAllCategories).map((category) => ({

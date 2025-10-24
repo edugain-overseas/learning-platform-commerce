@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Empty, Popover } from "antd";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { submitTestAttemptThunk } from "../../redux/lesson/operation";
 import { getUserInfo } from "../../redux/user/selectors";
@@ -19,7 +19,7 @@ const AttemptsList = ({ test, closePopOver }) => {
   const [selectedAttemptId, setSelectedAttemptId] = useState(null);
   const [isLoadingAttemptId, setIsLoadingAttemptId] = useState(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
   const dispatch = useDispatch();
   const lessonType = test.type;
 

@@ -1,19 +1,25 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import { navLinkActiveHandler } from "../../utils/navLinkActiveHandler";
 import { ReactComponent as TaskIcon } from "../../images/icons/task.svg";
 import { ReactComponent as CalendarIcon } from "../../images/icons/calendar.svg";
 import { ReactComponent as ArrowDownIcon } from "../../images/icons/arrowDown.svg";
+import { getFormattedStrFromDate } from "../../utils/formatDate";
 import InsetBtn from "../shared/InsetBtn/InsetBtn";
 import styles from "./InstructionsList.module.scss";
-import { getFormattedStrFromDate } from "../../utils/formatDate";
 
 const InstructionItem = ({ instruction }) => {
+  const { pathname } = useLocation();
+  const params = useParams();
+
+  const isActiveInstruction = instruction.id === +params.instructionId;
+  const closedLink = pathname.replace(`/${params.instructionId}`, "");
+
   return (
     <>
       <NavLink
         className={({ isActive }) => navLinkActiveHandler(isActive, styles)}
-        to={`${instruction.id}`}
+        to={isActiveInstruction ? closedLink : `${instruction.id}`}
       >
         <div className={styles.leftWrapper}>
           <TaskIcon />

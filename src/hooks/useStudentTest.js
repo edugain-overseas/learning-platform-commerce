@@ -1,4 +1,4 @@
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../hooks/useNotificationMessage";
 import { useEffect, useRef, useState } from "react";
 import { getTestAttemptById } from "../http/services/lesson";
 import { useDispatch } from "react-redux";
@@ -28,7 +28,7 @@ export const useStudentTest = (test, lessonType) => {
   );
   const [showTestContent, setShowTestContent] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
   const studentAnswersRef = useRef([]);
 
   useEffect(() => {

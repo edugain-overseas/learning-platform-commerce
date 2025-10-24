@@ -6,7 +6,7 @@ import InsetBtn from "../InsetBtn/InsetBtn";
 const InfoBtn = ({
   infoContent = "Hello world",
   orientation = "left",
-  popupMaxWidth = "204rem",
+  popupMaxWidth = "400rem",
 }) => {
   return (
     <Tooltip

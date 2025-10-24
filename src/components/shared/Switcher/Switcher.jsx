@@ -16,7 +16,6 @@ const Switcher = ({
   });
 
   const handleToggle = (e, index) => {
-    console.dir(e.currentTarget);
     const {
       offsetWidth: width,
       offsetHeight: height,

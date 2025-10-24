@@ -9,7 +9,10 @@ const colors = {
 };
 
 const handleProgressColor = (value) => {
-  if (0 === value || value <= 33) {
+  if (!value) {
+    return "transparent";
+  }
+  if (value <= 33) {
     return colors.low;
   }
   if (33 < value && value <= 66) {
@@ -21,7 +24,6 @@ const handleProgressColor = (value) => {
   if (value >= 100) {
     return colors.full;
   }
-  return "transparent";
 };
 
 const ProgressBar = ({ width = 171, height = 24, value, className = "" }) => {

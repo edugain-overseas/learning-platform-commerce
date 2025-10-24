@@ -19,7 +19,7 @@ import {
   updateUsernameThunk,
 } from "../../redux/user/operations";
 import { validatePassword } from "../../utils/inputsValidateHandler";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 
 const UserInfoCard = ({ userInfo }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -32,7 +32,7 @@ const UserInfoCard = ({ userInfo }) => {
   const [phone, setPhone] = useState(userInfo.phone);
   const [country, setCountry] = useState(userInfo.country);
   const [isPasswordShown, setIsPasswrodSwown] = useState(false);
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
 
   const isUserLoggedIn = userInfo.username !== "";
 

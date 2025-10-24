@@ -3,15 +3,15 @@ import { ReactComponent as FolderAddOutlined } from "../../../images/icons/folde
 import { useDispatch } from "react-redux";
 import { createTemplateByTypeThunk } from "../../../redux/template/operation";
 import { useLectureConstructor } from "../../../context/LectureConstructorContext";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../../../hooks/useNotificationMessage";
+import { useTestContructor } from "../../../context/TestContructorContext";
 import SaveTemplateForm from "./SaveTemplateForm";
 import Modal from "../Modal/Modal";
 import styles from "./Template.module.scss";
-import { useTestContructor } from "../../../context/TestContructorContext";
 
 const SaveTemplate = ({ type }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
   const dispatch = useDispatch();
 
   const lectureBlocks = useLectureConstructor()?.blocks;

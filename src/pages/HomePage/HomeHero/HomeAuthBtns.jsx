@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAccessToken } from "../../../redux/user/selectors";
 import { logoutThunk } from "../../../redux/user/operations";
 import { instance } from "../../../http/instance";
+import CommonButton from "../../../components/shared/CommonButton/CommonButton";
 
 const HeroAuthBtns = () => {
   const accessToken = useSelector(getAccessToken);
@@ -31,10 +32,13 @@ const HeroAuthBtns = () => {
             <span>My profile</span>
             <ProfileIcon />
           </Link>
-          <button className={styles.login} onClick={handleLogout}>
-            <span>Log out</span>
-            <LogoutIcon />
-          </button>
+          <CommonButton
+            text="Log out"
+            icon={<LogoutIcon />}
+            onClick={handleLogout}
+            variant="transparentTextDark"
+            hoverVariant="transparentTextLight"
+          />
         </>
       ) : (
         <>

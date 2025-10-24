@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllCourses } from "../../../redux/course/selectors";
 import { ReactComponent as ArrowDownIcon } from "../../../images/icons/arrow-left.svg";
+import { useNotificationMessage } from "../../../hooks/useNotificationMessage";
 import styles from "./LessonNavigateBtn.module.scss";
-import useMessage from "antd/es/message/useMessage";
 
 const LessonNavigateBtn = ({
   forward = false,
@@ -19,7 +19,7 @@ const LessonNavigateBtn = ({
   const course = courses.find(({ id }) => id === +courseId);
   const courseLessons = course?.lessons || [];
 
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
 
   const courseSortedLessons = [...courseLessons]?.sort(
     (a, b) => a.number - b.number

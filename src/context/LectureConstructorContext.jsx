@@ -9,7 +9,7 @@ import {
 import { generateId } from "../utils/generateIdBasedOnTime";
 import { compareLecturePart } from "../utils/compareObjectsByKeys";
 import { lectureAttributesToBlocks } from "../utils/lectureAttributesToBlocks";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../hooks/useNotificationMessage";
 import { getAllLessons } from "../redux/lesson/selectors";
 import { useParams } from "react-router-dom";
 
@@ -37,7 +37,7 @@ export const LectureConstructorProvider = ({ children }) => {
   }, 0);
 
   const dispatch = useDispatch();
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
 
   const handleAddBlock = (part) => {
     setBlocks((prev) => [

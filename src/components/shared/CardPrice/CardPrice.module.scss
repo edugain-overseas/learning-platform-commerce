@@ -15,25 +15,13 @@
       bottom: 0;
       right: -4rem;
       background-color: var(--content-datail-secondary);
-      transform: rotateZ(135deg);
+      transform: rotateZ(145deg);
     }
   }
 
   .priceWrapper {
     order: 1;
-
     position: relative;
-
-    // &::after {
-    //   content: "";
-    //   height: 100%;
-    //   width: 1rem;
-    //   position: absolute;
-    //   bottom: 0;
-    //   right: -4rem;
-    //   background-color: var(--content-datail-secondary);
-    //   transform: rotateZ(135deg);
-    // }
   }
 }
 

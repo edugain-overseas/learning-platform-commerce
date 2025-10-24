@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +29,7 @@ const LessonForm = ({ lessonNumber, closeModal, lessonData }) => {
   const [uploadedImage, setUploadedImage] = useState(
     lessonData ? lessonData.image_path : undefined
   );
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
   const { courseId } = useParams();
   const isLoading = useSelector(getIsLoading);
   const isLessonStateLoading = useSelector(getIsLessonStateLoading);

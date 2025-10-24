@@ -11,7 +11,7 @@ import CardGrade from "../../shared/CardGrade/CardGrade";
 import CardPrice from "../../shared/CardPrice/CardPrice";
 import styles from "./CourseRow.module.scss";
 
-const CourseRow = ({ course, purchased, disabled }) => {
+const CourseRow = ({ course, disabled }) => {
   const { addItem, removeItem, cartItems, handleOpen } = useCart();
 
   const {
@@ -23,10 +23,9 @@ const CourseRow = ({ course, purchased, disabled }) => {
     price,
     id,
     progress,
-    grade
+    grade,
+    bought,
   } = course;
-
-  console.log(course);
 
   const isItemInCart = cartItems.find((item) => item === id) && true;
 
@@ -51,12 +50,7 @@ const CourseRow = ({ course, purchased, disabled }) => {
         <div className={styles.courseInfo}>
           <div className={styles.progressWrapper}>
             <span>Progress:</span>
-            <ProgressBar
-              value={purchased ? progress : 0}
-              width={104}
-              height={14}
-              disabled={!purchased}
-            />
+            <ProgressBar value={progress} width={104} height={14} />
           </div>
           <div className={styles.details}>
             <ClockIcon />
@@ -69,13 +63,14 @@ const CourseRow = ({ course, purchased, disabled }) => {
             </span>
           </div>
           <div className={styles.gradePriceContainer}>
-            {purchased ? (
+            {bought ? (
               <CardGrade grade={grade} />
             ) : (
               <CardPrice
                 price={price}
                 oldPrice={oldPrice}
                 orientation="horizontal"
+                wrapperStyles={{ width: oldPrice && "100%" }}
                 onClick={
                   !isItemInCart
                     ? () => {
@@ -89,7 +84,7 @@ const CourseRow = ({ course, purchased, disabled }) => {
           </div>
         </div>
       </Link>
-      {!purchased && (
+      {!bought && (
         <button
           className={styles.cardBtn}
           onClick={(e) =>

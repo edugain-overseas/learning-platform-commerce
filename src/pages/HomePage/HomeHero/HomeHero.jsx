@@ -27,7 +27,9 @@ const HomeHero = ({ showArrow }) => {
         </div>
         <HomeHeroAnimatedFragment />
       </div>
-      <ArrowIcon className={`${styles.arrow} ${showArrow ? '' : styles.hidden}`} />
+      <ArrowIcon
+        className={`${styles.arrow} ${showArrow ? "" : styles.hidden}`}
+      />
     </section>
   );
 };

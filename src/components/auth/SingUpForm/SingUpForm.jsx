@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from "react";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../../../hooks/useNotificationMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { activateUserThunk } from "../../../redux/user/operations";
 import { createUser, resendActivationCode } from "../../../http/services/user";
@@ -12,7 +12,7 @@ import { useCart } from "../../../context/cartContext";
 const SingUpForm = () => {
   const [isVerificationEmail, setIsVerificationEmail] = useState(false);
   const [verificationData, setVerificationData] = useState(null);
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
   const [errorField, setErrorField] = useState("");
   const accessToken = useSelector(getAccessToken);
 

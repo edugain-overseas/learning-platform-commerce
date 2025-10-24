@@ -5,12 +5,12 @@ import {
   validatePassword,
   validateText,
 } from "../../../../utils/inputsValidateHandler";
+import { useNotificationMessage } from "../../../../hooks/useNotificationMessage";
 import InputText from "../InputText/InputText";
 import AuthFormLink from "../AuthFormLink/AuthFormLink";
 import InputPassword from "../InputPassword/InputPassword";
-import styles from "./AuthForm.module.scss";
 import ServicesBtns from "./ServicesBtns";
-import useMessage from "antd/es/message/useMessage";
+import styles from "./AuthForm.module.scss";
 
 const AuthForm = ({
   handleSubmit,
@@ -25,7 +25,7 @@ const AuthForm = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
 
   const query = useLocation().search;
   const usernameFromQueryParams = new URLSearchParams(query).get("username");

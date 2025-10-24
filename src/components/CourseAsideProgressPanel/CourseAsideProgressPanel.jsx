@@ -1,16 +1,16 @@
 import React from "react";
-import useMessage from "antd/es/message/useMessage";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllCourses } from "../../redux/course/selectors";
 import { ReactComponent as ExamIcon } from "../../images/icons/exam.svg";
+import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import ProgressBar from "../shared/ProgressBar/ProgressBar";
 import ProgressList from "../shared/ProgressList/ProgressList";
 import styles from "./CourseAsideProgressPanel.module.scss";
 
 const CourseAsideProgressPanel = ({ courseId }) => {
   const navigate = useNavigate();
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
 
   const course = useSelector(getAllCourses)?.find(({ id }) => id === +courseId);
   const courseLessons = course?.lessons;

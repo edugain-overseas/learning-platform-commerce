@@ -3,7 +3,7 @@ import { ReactComponent as SaveIcon } from "../../images/icons/save.svg";
 import styles from "./Exam.module.scss";
 import Tooltip from "../shared/Tooltip/Tooltip";
 import { useDispatch } from "react-redux";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import { updateUserInfoThunk } from "../../redux/user/operations";
 import Spinner from "../Spinner/Spinner";
 
@@ -16,7 +16,7 @@ const ChangeNameForm = ({
 }) => {
   const [nameValue, setNameValue] = useState(name);
   const [surnameValue, setSurnameValue] = useState(surname);
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 

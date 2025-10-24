@@ -11,7 +11,7 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateLessonThunk } from "../../redux/lesson/operation";
@@ -55,7 +55,7 @@ const AnminListItem = ({ task }) => {
 
 const AdminList = ({ items }) => {
   const { selectedListModeIndex } = useListMode();
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
   const { courseId } = useParams();
   const [lessons, setLessons] = useState(items);
   const dispatch = useDispatch();

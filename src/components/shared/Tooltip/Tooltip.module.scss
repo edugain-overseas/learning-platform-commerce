@@ -30,10 +30,10 @@
     position: absolute;
     z-index: 99;
     transition: opacity var(--transition-time-min) ease;
-    padding: 8rem 10rem;
+    padding: 8rem 12rem;
     background-color: rgba($color: #fcfcfc, $alpha: 1);
     backdrop-filter: blur(16rem);
-    border-radius: 2rem;
+    border-radius: 10rem;
     box-shadow: var(--drop-shadow-button-main);
     width: max-content;
 

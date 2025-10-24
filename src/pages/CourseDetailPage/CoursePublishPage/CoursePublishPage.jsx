@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllCourses } from "../../../redux/course/selectors";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../../../hooks/useNotificationMessage";
 import Spinner from "../../../components/Spinner/Spinner";
 import LessonsTable from "./LessonTable";
 import PublishCourseBtn from "./PublishCourseBtn";
@@ -20,7 +20,7 @@ const CoursePublishPage = () => {
     : [];
   const isCoursePublished = course?.is_published;
 
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
 
   if (!courseLessons) {
     return (

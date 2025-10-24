@@ -3,7 +3,7 @@ import { FolderOpenOutlined, FolderViewOutlined } from "@ant-design/icons";
 import { Popover } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTemplates } from "../../../redux/template/selectors";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../../../hooks/useNotificationMessage";
 import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
 import { getTemplateByIdAndType } from "../../../http/services/template";
 import { useLectureConstructor } from "../../../context/LectureConstructorContext";
@@ -30,7 +30,7 @@ const TemplatesList = ({ type, closePopover }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [templatesDetails, setTemplatesDetails] = useState([]);
   const [selectedTemplateId, setSelectedTemplateId] = useState(null);
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
 
   const templates = useSelector(getAllTemplates).filter(
     (template) => template.type === getTemplateTypeByLessonType(type)

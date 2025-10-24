@@ -1,12 +1,12 @@
 import { createContext, useContext, useState } from "react";
 import { getAllCourses } from "../redux/course/selectors";
 import { useSelector } from "react-redux";
-import Drawer from "../components/shared/Drawer/Drawer";
-import Cart from "../components/Cart/Cart";
-import useLocalStorage from "../hooks/useLocalStorage";
 import { getUserCourses } from "../redux/user/selectors";
 import { getAllCategories } from "../redux/category/selectors";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../hooks/useNotificationMessage";
+import useLocalStorage from "../hooks/useLocalStorage";
+import Drawer from "../components/shared/Drawer/Drawer";
+import Cart from "../components/Cart/Cart";
 
 const CartContext = createContext({});
 
@@ -20,7 +20,7 @@ export const CartProvider = ({ children }) => {
   const categories = useSelector(getAllCategories);
   const [cartItems, setCartItems] = useLocalStorage("shopping-cart", []);
   const [isOpen, setIsOpen] = useState(false);
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
 
   const addItem = (courseId) => {
     if (cartItems.some((item) => item.id === courseId)) {

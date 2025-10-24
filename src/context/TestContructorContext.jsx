@@ -1,4 +1,4 @@
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../hooks/useNotificationMessage";
 import { createContext, useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { testQuestionsToBlocks } from "../utils/testQuestionsToBlocks";
@@ -40,7 +40,7 @@ export const TestContructorProvider = ({ children }) => {
   console.log(initialBlocks);
 
   const [blocks, setBlocks] = useState(testQuestionsToBlocks(initialBlocks));
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
 
   const dispatch = useDispatch();
 

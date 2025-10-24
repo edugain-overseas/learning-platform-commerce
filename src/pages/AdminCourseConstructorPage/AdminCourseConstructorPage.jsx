@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useHookFormMask } from "use-mask-input";
 import { useDispatch, useSelector } from "react-redux";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import {
   createCourseThunk,
   updateCourseThunk,
@@ -120,7 +120,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   );
   const [activeAdvantagesIndex, setActiveAdvantagesIndex] = useState(null);
   const [isOpenAdvantagesModal, setIsOpenAdvantagesModal] = useState(false);
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
   const isLoading = useSelector(getIsLoading);
   const navigate = useNavigate();
   const dispatch = useDispatch();

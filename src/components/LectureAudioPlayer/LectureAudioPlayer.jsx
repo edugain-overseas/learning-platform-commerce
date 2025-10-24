@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import { serverName } from "../../http/server";
 import { ReactComponent as PlayIcon } from "../../images/icons/play.svg";
 import { ReactComponent as PauseIcon } from "../../images/icons/pause.svg";
@@ -24,7 +24,7 @@ const LectureAudioPlayer = ({ lectureSpeeches }) => {
   const [rate, setRate] = useState(1);
   const [isPlayeble, setIsPlayeble] = useState(false);
 
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
 
   const handlePlay = () => {
     try {

@@ -1,5 +1,5 @@
 import React from "react";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { ReactComponent as TrashIcon } from "../../images/icons/trashRounded.svg";
@@ -7,7 +7,7 @@ import { deleteInstructionThunk } from "../../redux/instruction/operations";
 import styles from "./InstructionsList.module.scss";
 
 const DeleteIntruction = ({ instructionId }) => {
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
   const dispatch = useDispatch();
 
   const deleteIntruction = async () => {

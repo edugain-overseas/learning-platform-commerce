@@ -2,16 +2,16 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { getIsLoading } from "../../redux/category/selectors";
+import {
+  createCategoryThunk,
+  updateCategoryThunk,
+} from "../../redux/category/operations";
+import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import Modal from "../shared/Modal/Modal";
 import RichInput from "../shared/RichInput";
 import Textarea from "../shared/Textarea/Textarea";
 import Spinner from "../Spinner/Spinner";
 import styles from "./CategoryModal.module.scss";
-import useMessage from "antd/es/message/useMessage";
-import {
-  createCategoryThunk,
-  updateCategoryThunk,
-} from "../../redux/category/operations";
 
 const CategoryModal = ({
   isOpenModal,
@@ -20,7 +20,7 @@ const CategoryModal = ({
 }) => {
   const isLoading = useSelector(getIsLoading);
   const dispatch = useDispatch();
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
   const {
     register,
     handleSubmit,
@@ -88,7 +88,7 @@ const CategoryModal = ({
                     control={control}
                     name="certificate_info"
                     placeholder="Certificate info"
-                    toolbarType='normal'
+                    toolbarType="normal"
                   />
                 )}
               ></Controller>

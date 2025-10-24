@@ -164,3 +164,74 @@ span {
   background-color: var(--content-cold);
   white-space: initial;
 }
+
+/* message styles */
+
+div.ant-message .ant-message-notice-wrapper {
+  text-align: right;
+  /* padding-inline: 8rem 20rem; */
+
+  /* transition: padding var(--transition-time-min) ease; */
+}
+
+div.ant-message .ant-message-notice-wrapper .ant-message-notice-content {
+  padding: 16rem 24rem;
+  border: 1rem solid transparent;
+  border-radius: 10rem;
+  position: relative;
+}
+
+.ant-message-custom-content svg {
+  width: 20rem;
+  height: 20rem;
+  margin-right: 12rem;
+}
+.ant-message-custom-content span {
+  color: var(--content-main);
+  font-size: 14rem;
+  font-style: normal;
+  font-weight: 500;
+}
+
+div.ant-message .ant-message-notice-wrapper .successMessage .ant-message-notice-content {
+  background: #F2F9F6;
+  border-color: #CBEAD9;
+}
+
+div.ant-message .ant-message-notice-wrapper .warningMessage .ant-message-notice-content {
+  background: #FEF7EE;
+  border-color: #F5E7D4;
+}
+
+div.ant-message .ant-message-notice-wrapper .errorMessage .ant-message-notice-content {
+  background: #FEEEEE;
+  border-color: #F5D4D4;
+}
+
+div.ant-message .ant-message-notice-wrapper .guardMessage .ant-message-notice-content {
+  background: #F4FBFF;
+  border-color: #D4E3F5;
+}
+
+.messageCloseBtn {
+  position: absolute;
+  top: 4rem;
+  right: 4rem;
+  width: 16rem;
+  height: 16rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: 10rem;
+    height: auto;
+    flex-shrink: 0;
+    margin-right: 0;
+  }
+
+  path {
+    fill: var(--content-datail-secondary);
+  }
+}

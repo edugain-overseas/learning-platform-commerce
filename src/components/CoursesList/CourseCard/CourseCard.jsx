@@ -91,7 +91,7 @@ const CourseCard = ({
               <div className={styles.progressWrapper}>
                 <span>Progress:</span>
                 <ProgressBar
-                  value={purchased ? progress : 0}
+                  value={progress}
                   width={104}
                   height={14}
                   disabled={!purchased}

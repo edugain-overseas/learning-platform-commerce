@@ -1,13 +1,13 @@
 import { createContext, useContext, useRef, useState } from "react";
 import { handleHighlightSelection } from "../utils/selection";
-import useMessage from "antd/es/message/useMessage";
+import { useNotificationMessage } from "../hooks/useNotificationMessage";
 
 const SelectionContext = createContext();
 
 export const SelectionProvider = ({ children }) => {
   const selectionContaner = useRef();
   const [selectionText, setSelectionText] = useState("");
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
 
   const removeTheSelection = () => {
     const container = selectionContaner.current;

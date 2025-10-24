@@ -1,14 +1,14 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { appleAuthHelpers, useScript } from "react-apple-signin-auth";
 import { ReactComponent as GoogleIcon } from "../../../../images/icons/google.svg";
 import { ReactComponent as AppleIcon } from "../../../../images/icons/social/app-store.svg";
-import styles from "./AuthForm.module.scss";
-import useMessage from "antd/es/message/useMessage";
 import { loginWithAppleThunk } from "../../../../redux/user/operations";
-import { useDispatch } from "react-redux";
+import { useNotificationMessage } from "../../../../hooks/useNotificationMessage";
+import styles from "./AuthForm.module.scss";
 
 const ServicesBtns = () => {
-  const [messageApi, contextHolder] = useMessage();
+  const [messageApi, contextHolder] = useNotificationMessage();
   const dispatch = useDispatch();
   useScript(appleAuthHelpers.APPLE_SCRIPT_SRC);
 

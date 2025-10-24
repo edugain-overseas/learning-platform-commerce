@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllCourses } from "../../../redux/course/selectors";
@@ -11,12 +11,13 @@ import CoursesList from "../../CoursesList/CoursesList";
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import InfoBtn from "../../shared/InfoBtn/InfoBtn";
 import CategoryModal from "../../CategoryModal/CategoryModal";
-import styles from "./CategoriesItem.module.scss";
 import InsetBtn from "../../shared/InsetBtn/InsetBtn";
 import CategoryBuyAllBtn from "./CategoryBuyAllBtn";
 import CategoryCertificateBtn from "./CategoryCertificateBtn";
+import styles from "./CategoriesItem.module.scss";
 
 const CategoriesItem = ({ category }) => {
+  const dropdownRef = useRef();
   const [dropDownOpen, setDropDownOpen] = useState(true);
   const [isEditCategoryModalOpen, setIsEditCatgoryModalOpen] = useState(false);
 
@@ -26,7 +27,7 @@ const CategoriesItem = ({ category }) => {
   const userCourses = useSelector(getUserCourses);
   const isModer = useSelector(getUserType) === "moder";
 
-  const { listModeIndex } = useListMode();
+  const { selectedListModeIndex } = useListMode();
 
   const categoryCourses = courses.filter(
     (course) => course.category_id === category.id
@@ -40,20 +41,6 @@ const CategoriesItem = ({ category }) => {
     userCoursesInCategory.reduce((sum, { progress }) => sum + progress, 0) /
     categoryCourses.length;
 
-  const handleToggleDropDown = (e) => {
-    const dropdown = [...e.target.closest("#wrapper")?.children]?.find(
-      ({ id }) => id === "dropdown"
-    );
-    if (dropdown) {
-      if (!dropDownOpen) {
-        dropdown.style.maxHeight = dropdown.scrollHeight + "px";
-      } else {
-        dropdown.style.maxHeight = 0 + "px";
-      }
-    }
-    setDropDownOpen((prev) => !prev);
-  };
-
   const studentBuyAllCourses = categoryCourses.every((course) => course.bought);
 
   const studentBtn = studentBuyAllCourses ? (
@@ -61,6 +48,28 @@ const CategoriesItem = ({ category }) => {
   ) : (
     <CategoryBuyAllBtn categoryId={category.id} disabled={!dropDownOpen} />
   );
+
+  const handleToggleDropDown = (e) => {
+    const dropdown = dropdownRef.current;
+
+    if (dropdown) {
+      dropdown.style.maxHeight = dropDownOpen
+        ? 0 + "px"
+        : dropdown.scrollHeight + "px";
+    }
+    setDropDownOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const dropdown = dropdownRef.current;    
+
+    if (dropdown) {
+      dropdown.style.maxHeight = dropDownOpen
+        ? dropdown.scrollHeight + "px"
+        : 0 + "px";
+    }
+    // eslint-disable-next-line
+  }, [selectedListModeIndex]);
 
   return (
     <li className={styles.itemWrapper} id="wrapper">
@@ -122,10 +131,11 @@ const CategoriesItem = ({ category }) => {
       <div
         className={`${styles.dropdown} ${dropDownOpen ? styles.open : ""}`}
         id="dropdown"
+        ref={dropdownRef}
       >
         <div
           className={styles.dropDownContent}
-          style={{ paddingTop: listModeIndex ? "16rem" : "8rem" }}
+          style={{ paddingTop: selectedListModeIndex ? "16rem" : "8rem" }}
         >
           <CoursesList courses={categoryCourses} />
         </div>

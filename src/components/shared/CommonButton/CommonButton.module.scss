@@ -13,7 +13,10 @@
   font-size: 16rem;
   line-height: normal;
 
+  --border-color: transparent;
+
   background-color: var(--background-color);
+  border: 1rem solid var(--border-color);
   transition: all var(--transition-time-min) ease;
 
   &:hover {
@@ -91,12 +94,12 @@
 
 .transparentTextLight {
   --background-color: transparent;
+  --border-color: var(--content-datail-secondary);
   color: var(--content-datail-secondary);
-  border-color: var(--content-datail-secondary);
 }
 
 .transparentTextDark {
   --background-color: transparent;
+  --border-color: var(--content-main);
   color: var(--content-main);
-  border-color: var(--content-main);
 }

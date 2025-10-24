@@ -39,8 +39,6 @@
   box-shadow: var(--drop-shadow-button-main);
   backdrop-filter: blur(16rem);
 
-  // position: relative;
-  // z-index: 2;
 
   transition: background-color var(--transition-time-min) ease;
 
@@ -141,6 +139,7 @@
   display: flex;
   gap: 40rem;
   align-items: center;
+  color: var(--content-datail-secondary);
 
   span {
     font-size: 12rem;
@@ -168,6 +167,7 @@
   flex-shrink: 0;
   flex-grow: 1;
   display: flex;
+  justify-content: center;
 }
 
 .cardBtn {

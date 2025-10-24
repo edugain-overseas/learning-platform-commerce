@@ -34,9 +34,20 @@
 
   transition: all var(--transition-time-min) ease;
 
-  .chevronIcon {
-    transition: rotate var(--transition-time-min) ease;
-    transform-origin: center center;
+  .expandBtn {
+    width: 24rem;
+    height: 24rem;
+    color: var(--content-datail-secondary);
+    transition: color var(--transition-time-min) ease;
+
+    &:hover {
+      color: var(--content-main);
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   &[data-narrowed="true"] {
@@ -44,14 +55,10 @@
     padding: 12rem 5rem;
 
     .toolsTitleContainer {
-      justify-content: flex-end;
+      justify-content: center;
       span {
         display: none;
       }
-    }
-
-    .chevronIcon {
-      rotate: y 180deg;
     }
   }
 }

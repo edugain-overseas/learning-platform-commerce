@@ -1,11 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/category/selectors";
 import { ReactComponent as CategoryIcon } from "../../images/icons/bm.svg";
 import HomeSlider from "./shared/HomeSlider";
 import SliderSectionHeader from "./shared/SliderSectionHeader";
 import styles from "./HomePage.module.scss";
-import { Link } from "react-router-dom";
 
 const renderItem = (category) => {
   return (
