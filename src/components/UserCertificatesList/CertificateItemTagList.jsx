@@ -5,8 +5,8 @@ import { CheckCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { getAllCourses } from "../../redux/course/selectors";
 // import { getAllCategories } from "../../redux/category/selectors";
 import { ReactComponent as BasketIcon } from "../../images/icons/cart.svg";
-import styles from "./UserCertificatesList.module.scss";
 import { useCart } from "../../context/cartContext";
+import styles from "./UserCertificatesList.module.scss";
 
 const tagColors = {
   type: "geekblue",
@@ -23,10 +23,10 @@ const CertificateItemTagList = ({ certificate, type }) => {
   const { addItem, handleOpen } = useCart();
 
   const courses = useSelector(getAllCourses);
-//   const category =
-//     useSelector(getAllCategories).find(
-//       (category) => category.id === id && type === "category"
-//     ) || null;
+  //   const category =
+  //     useSelector(getAllCategories).find(
+  //       (category) => category.id === id && type === "category"
+  //     ) || null;
 
   const coursesOfCategory =
     type === "category"
@@ -39,7 +39,6 @@ const CertificateItemTagList = ({ certificate, type }) => {
   const isAllCoursesPurchased =
     coursesOfCategory?.length === purchasedCoursesOfCategory?.length;
 
-
   const purchaseAllTheRest = () => {
     coursesOfCategory
       .filter(({ bought }) => !bought)
@@ -50,19 +49,7 @@ const CertificateItemTagList = ({ certificate, type }) => {
   };
 
   const tags = {
-    common: [
-      { value: type, color: tagColors.type, icon: null },
-      {
-        value: certificateLink ? "certificate" : "no certificate",
-        color:
-          tagColors[`${certificateLink ? "certificate" : "noCertificate"}`],
-        icon: certificateLink ? (
-          <CheckCircleOutlined />
-        ) : (
-          <MinusCircleOutlined />
-        ),
-      },
-    ],
+    common: [{ value: type, color: tagColors.type, icon: null }],
     category: [
       {
         value: `purchased ${purchasedCoursesOfCategory?.length}/${coursesOfCategory?.length} courses`,
@@ -82,13 +69,24 @@ const CertificateItemTagList = ({ certificate, type }) => {
             },
       },
     ],
-    course: [],
+    course: [
+      {
+        value: certificateLink ? "certificate" : "no certificate",
+        color:
+          tagColors[`${certificateLink ? "certificate" : "noCertificate"}`],
+        icon: certificateLink ? (
+          <CheckCircleOutlined />
+        ) : (
+          <MinusCircleOutlined />
+        ),
+      },
+    ],
   };
 
   return (
     <div className={styles.tagsWrapper}>
       {tags.common.map(({ value, color, icon }, index) => (
-        <Tag key={index} color={color} icon={icon}>
+        <Tag key={index} color={color} icon={icon} className={styles.typeTag}>
           {value}
         </Tag>
       ))}

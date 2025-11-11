@@ -1,5 +1,4 @@
 import React from "react";
-import InfoBtn from "../shared/InfoBtn/InfoBtn";
 import styles from "./CircleProgressCard.module.scss";
 import CircleProgressBar from "../shared/CircleProgressBar/CircleProgressBar";
 
@@ -22,15 +21,12 @@ const CircleProgressCard = ({
           <CircleProgressBar
             strokeColor={strokeColor}
             progress={progress}
-            width={180}
+            width={138}
             strokeWidth={8}
             backgroundColor={strokeBackgroundColor}
           />
         </div>
         <div className={styles.progressInner}>{progressTitle}</div>
-      </div>
-      <div className={styles.infoBtnWrapper}>
-        <InfoBtn infoContent="The average score is calculated based on all courses you have completed" />
       </div>
     </div>
   );

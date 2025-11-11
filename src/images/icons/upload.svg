@@ -1,19 +1,19 @@
 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_3992_6253)">
-        <path d="M1 6L1 11.5H3.5" stroke="#7E8CA8" stroke-width="0.8" stroke-linecap="round"
+        <path d="M1 6L1 11.5H3.5" stroke="currentColor" stroke-width="0.8" stroke-linecap="round"
             stroke-linejoin="round" />
-        <path d="M13 6V11.5H10.5" stroke="#7E8CA8" stroke-width="0.8" stroke-linecap="round"
+        <path d="M13 6V11.5H10.5" stroke="currentColor" stroke-width="0.8" stroke-linecap="round"
             stroke-linejoin="round" />
         <path
             d="M5.51213 10.9879C5.32314 11.1769 5.45699 11.5 5.72426 11.5H8.27574C8.54301 11.5 8.67686 11.1769 8.48787 10.9879L7.21213 9.71213C7.09497 9.59497 6.90503 9.59497 6.78787 9.71213L5.51213 10.9879Z"
-            fill="#7E8CA8" />
-        <path d="M7 13V11.5" stroke="#7E8CA8" stroke-width="0.8" stroke-linecap="round" />
-        <rect x="3.425" y="0.425" width="7.15" height="8.15" rx="0.875" stroke="#7E8CA8"
+            fill="currentColor" />
+        <path d="M7 13V11.5" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" />
+        <rect x="3.425" y="0.425" width="7.15" height="8.15" rx="0.875" stroke="currentColor"
             stroke-width="0.85" />
         <path
             d="M5.73321 5.65019C5.63352 5.79972 5.74071 6 5.92042 6H8.07958C8.25929 6 8.36648 5.79972 8.26679 5.65019L7.18721 4.03082C7.09815 3.89723 6.90185 3.89723 6.81279 4.03082L5.73321 5.65019Z"
-            fill="#7E8CA8" />
-        <circle cx="8" cy="3.5" r="0.5" fill="#7E8CA8" />
+            fill="currentColor" />
+        <circle cx="8" cy="3.5" r="0.5" fill="currentColor" />
     </g>
     <defs>
         <clipPath id="clip0_3992_6253">

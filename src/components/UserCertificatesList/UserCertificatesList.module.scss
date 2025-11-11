@@ -1,59 +1,114 @@
 .certificatesList {
-  padding-inline: 8rem;
-  padding-block: 3rem;
   display: flex;
   flex-direction: column;
-  gap: 6rem;
   height: 100%;
-  overflow: auto;
   scroll-behavior: smooth;
+  gap: 2rem;
+
+  li .course {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      left: 0;
+      width: 100%;
+      height: 1rem;
+      background-color: var(--border-color-main);
+      border-radius: 10rem;
+    }
+  }
+
+  li:last-child .course::after {
+    content: none;
+  }
+
+  &:has(.itemHeader) {
+    gap: 10rem;
+  }
+
+  &:has(.itemContent) {
+    .certificateItem:not(.course) .btnsWrapper {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
+
+.itemContainer {
+  border-radius: 5rem;
+  background: var(--bg-rgba-default);
+
+  box-shadow: var(--drop-shadow-middle-intense);
+  backdrop-filter: blur(16px);
 }
 
 .certificateItem {
-  padding-block: 10rem;
+  height: 44rem;
+  padding-inline-start: 18rem;
   display: flex;
   align-items: center;
-  gap: 46rem;
+  justify-content: space-between;
 
   border-radius: 4px;
 
   transition: all var(--transition-time-min) ease;
 
-  &:hover {
-    background-color: var(--bg-rgba-default);
+  &.course {
+    padding: 0;
+    margin-inline: 18rem;
+    padding-inline-end: 10rem;
 
-    box-shadow: var(--drop-shadow-short);
+    &:hover {
+      border-radius: 4rem;
+      background: var(--bg-rgba-default);
+      box-shadow: var(--drop-shadow-middle-intense);
+      backdrop-filter: blur(16rem);
 
-    & .btnsWrapper {
-      opacity: 1;
+      .btnsWrapper {
+        opacity: 1;
+        pointer-events: auto;
+      }
     }
   }
 
-  &:not(:last-child) {
-    position: relative;
+  &.course .certificateLink h4 {
+    padding-inline-start: 16rem;
+    font-weight: 400;
+  }
 
-    &:after {
-      content: "";
-      position: absolute;
-      bottom: -3rem;
-      left: 0;
-      width: 100%;
-      height: 1rem;
-      border-radius: 10rem;
-      background-color: var(--content-datail-secondary);
-    }
+  &.course {
+    height: 40rem;
+  }
+}
+
+.itemContent {
+  padding-block: 6rem 8rem;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 4rem;
+    left: 18rem;
+    width: calc(100% - 36rem);
+    height: 2rem;
+    border-radius: 10rem;
+    background-color: var(--border-color-main);
   }
 }
 
 .linkWrapper {
   flex-grow: 1;
   display: flex;
-  gap: 32rem;
+  gap: 20rem;
   align-items: center;
 }
 
 .certificateLink {
   display: inline-block;
+  cursor: pointer;
 
   &:hover {
     h4 {
@@ -63,65 +118,76 @@
 
   h4 {
     display: block;
-    max-width: 400rem;
-    padding-inline-start: 22rem;
+    width: 360rem;
     position: relative;
 
     font-size: 14rem;
     line-height: 18rem;
-    font-weight: 400;
+    font-weight: 600;
     color: var(--content-main);
 
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 8rem;
-      transform: translateY(-50%);
-      width: 5rem;
-      height: 5rem;
-      border-radius: 50%;
-      background-color: var(--content-main);
-    }
   }
 }
 
+div[data-expanded-fixed="true"] + main .certificateItem h4 {
+  width: 300rem;
+}
+
 .btnsWrapper {
-  padding-right: 12rem;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 32rem;
+  gap: 10rem;
   opacity: 0;
+  pointer-events: none;
   transition: opacity var(--transition-time-min) ease;
+
 
   & > button,
   & > a {
-    display: flex;
-    align-items: center;
-    gap: 8rem;
     color: var(--content-datail-secondary);
     transition: color var(--transition-time-min) ease;
+    flex-shrink: 0;
 
     &:hover {
       color: var(--content-main);
-    }
-
-    span {
-      font-size: 14rem;
-      font-weight: 400;
     }
   }
 }
 
 .tagsWrapper {
+  display: flex;
+  align-items: center;
+
+  .typeTag {
+    width: 74rem;
+    text-align: center;
+  }
+
+  & > span,
+  .hoverTagContainer > span {
+    line-height: 16rem;
+    font-size: 12rem;
+    padding: 2rem 8rem;
+    text-transform: capitalize;
+  }
+
+  & > span:not(:last-child) {
+    margin-right: 16rem;
+  }
+
   .hoverTagContainer {
     position: relative;
     display: inline-block;
+    height: 22rem;
     cursor: pointer;
+
+    & > span:not(:last-child) {
+      margin-right: 16rem;
+    }
 
     & > * {
       transition: opacity var(--transition-time-min) ease;
@@ -148,7 +214,6 @@
 
   .buyBtn {
     width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -156,12 +221,12 @@
     gap: 8rem;
 
     svg {
-      width: 14px;
+      width: 16rem;
       height: auto;
     }
 
     span {
-      font-size: 14px;
+      font-size: 12rem;
       font-weight: 500;
     }
   }

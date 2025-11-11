@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/user/selectors";
 import { getAllCourses } from "../../redux/course/selectors";
 import UserCertificatesItem from "./UserCertificatesItem";
+import Accordion from "../shared/Accordion/Accordion";
 import styles from "./UserCertificatesList.module.scss";
 
 const UserCertificatesList = () => {
@@ -21,20 +22,29 @@ const UserCertificatesList = () => {
         }) => {
           return (
             <li key={categoryCertificate.category_certificate_id}>
-              <UserCertificatesItem
-                certificate={categoryCertificate}
-                type="category"
+              <Accordion
+                header={
+                  <UserCertificatesItem
+                    certificate={categoryCertificate}
+                    type="category"
+                  />
+                }
+                content={
+                  <ul className={`${styles.certificatesList}`}>
+                    {coursesCertificates.map((courseCertificate) => (
+                      <li key={courseCertificate.course_certificate_id}>
+                        <UserCertificatesItem
+                          certificate={courseCertificate}
+                          type="course"
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                }
+                containerClassName={styles.itemContainer}
+                contentClassName={styles.itemContent}
+                headerClassName={styles.itemHeader}
               />
-              <ul className={`${styles.certificatesList}`}>
-                {coursesCertificates.map((courseCertificate) => (
-                  <li key={courseCertificate.course_certificate_id}>
-                    <UserCertificatesItem
-                      certificate={courseCertificate}
-                      type="course"
-                    />
-                  </li>
-                ))}
-              </ul>
             </li>
           );
         }

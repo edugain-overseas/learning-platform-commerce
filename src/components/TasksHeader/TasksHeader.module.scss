@@ -186,24 +186,18 @@
     gap: 4rem;
 
     margin-right: 12rem;
-    transition: background-color var(--transition-time-min) ease;
+    color: var(--content-datail-secondary);
+
+    transition: all var(--transition-time-min) ease;
 
     &:hover {
       background-color: var(--content-datail-secondary);
-
-      span {
-        color: var(--content-light-secondary);
-      }
-
-      svg * {
-        fill: var(--content-light-secondary);
-      }
+      color: var(--content-light-secondary);
     }
 
     span {
       font-size: 14rem;
       font-weight: 500;
-      color: var(--content-datail-secondary);
       transition: color var(--transition-time-min) ease;
     }
 

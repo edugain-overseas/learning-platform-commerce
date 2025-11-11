@@ -1,23 +1,25 @@
 import React from "react";
-import { ReactComponent as ArrowDownIcon } from "../../images/icons/arrowDown.svg";
 import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
 import { ReactComponent as TaskViewIcon } from "../../images/icons/task-view.svg";
 import { ReactComponent as TaskCompletedIcon } from "../../images/icons/task-completed.svg";
-import InsetBtn from "../shared/InsetBtn/InsetBtn";
+import { useSelector } from "react-redux";
+import { getActiveTime } from "../../redux/user/selectors";
+import { useActiveTime } from "../../context/activeTimeContext";
+import { convertMillisecondsToHoursAndMinutes } from "../../utils/formatTime";
 import styles from "./UserStats.module.scss";
 
-const UserStats = ({
-  hours,
-  minutes,
-  progressCourses,
-  completedCourses,
-  minimized,
-  handleCollapseCerficates,
-  isUserLoggedIn,
-}) => {
+const UserStats = ({ progressCourses, completedCourses, isUserLoggedIn }) => {
+  const prevActiveTime = useSelector(getActiveTime);
+  const activeTime = useActiveTime();
+  const activeTimeToDisplay = prevActiveTime
+    ? prevActiveTime + activeTime
+    : activeTime;
+
+  const { hours, minutes } =
+    convertMillisecondsToHoursAndMinutes(activeTimeToDisplay);
+
   return (
-    <div className={`${styles.wrapper} ${minimized ? styles.minimized : ""}`}>
-      {minimized && <h3>My Profile</h3>}
+    <div className={`${styles.wrapper}`}>
       <div>
         <ClockIcon className={styles.clock} />
         <div className={styles.divider}></div>
@@ -48,14 +50,6 @@ const UserStats = ({
           <span className={styles.name}>courses</span>
         </div>
       </div>
-      {minimized && (
-        <InsetBtn
-          icon={<ArrowDownIcon className={styles.arrowIcon} />}
-          width="24rem"
-          height="24rem"
-          onClick={handleCollapseCerficates}
-        />
-      )}
     </div>
   );
 };

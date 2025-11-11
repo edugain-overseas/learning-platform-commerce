@@ -105,11 +105,7 @@ const AvatarEditor = () => {
         ) : (
           <div className={styles.avatarWrapper}>
             {userAvatar ? (
-              <Avatar
-                size="200rem"
-                src={`${serverName}/${userAvatar}`}
-                editable={false}
-              />
+              <Avatar size="200rem" src={userAvatar} editable={false} />
             ) : (
               <img
                 src={noAvatar}
@@ -153,11 +149,7 @@ const AvatarEditor = () => {
               key={id}
               onClick={() => dispatch(setNewMainImageThunk(id))}
             >
-              <Avatar
-                size="70rem"
-                editable={false}
-                src={`${serverName}/${path}`}
-              />
+              <Avatar size="70rem" editable={false} src={path} />
             </li>
           ))
         ) : (

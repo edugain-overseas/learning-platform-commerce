@@ -100,7 +100,7 @@
   backdrop-filter: blur(16rem);
   pointer-events: none;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   transition: opacity var(--transition-time-min) ease,
     height var(--transition-time-min) ease,
     padding var(--transition-time-min) ease;

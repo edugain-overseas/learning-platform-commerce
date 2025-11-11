@@ -81,7 +81,13 @@
     gap: 10rem;
     border: 1rem solid var(--content-datail-secondary);
     border-radius: 5rem;
-    transition: opacity var(--transition-time-min) ease;
+    color: var(--content-datail-secondary);
+    transition: all var(--transition-time-min) ease;
+    
+    &:hover {
+      color: var(--content-main);
+      border-color: var(--content-main);
+    }
 
     &:disabled {
       opacity: 0.5;
@@ -90,8 +96,7 @@
     span {
       font-family: Roboto;
       font-size: 12rem;
-      font-weight: 600;
-      color: var(--content-datail-secondary);
+      font-weight: 500;
     }
 
     svg {

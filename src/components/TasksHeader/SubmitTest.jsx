@@ -112,7 +112,7 @@ const AttemptsList = ({ test, closePopOver }) => {
                   <span>Show details</span>
                 </>
               ) : (
-                <Spinner />
+                <Spinner contrastColor={true} />
               )}
             </button>
             {!test[`${lessonType}_data`].my_attempt_id && (
@@ -136,7 +136,7 @@ const AttemptsList = ({ test, closePopOver }) => {
           closeModal={() => setIsOpenModal(false)}
         >
           <div className={styles.testContentWrapper}>
-            <TestContent test={test} studentAnswers={answers} closed={true}/>
+            <TestContent test={test} studentAnswers={answers} closed={true} />
           </div>
         </Modal>
       )}

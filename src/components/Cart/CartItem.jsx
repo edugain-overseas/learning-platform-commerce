@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { getAllCourses } from "../../redux/course/selectors";
 import { useCart } from "../../context/cartContext";
 import { ReactComponent as TrashIcon } from "../../images/icons/trash-cart.svg";
-import styles from "./Cart.module.scss";
 import CartCourseCard from "./CartCourseCard";
+import styles from "./Cart.module.scss";
 
 const ProposedItems = ({ proposedCourses }) => {
   const [isOpen, setIsOpen] = useState(false);

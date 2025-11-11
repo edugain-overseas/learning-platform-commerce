@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { serverName } from "../../http/server";
-import { ReactComponent as PreviewIcon } from "../../images/icons/search.svg";
-import { ReactComponent as DownloadIcon } from "../../images/icons/download-file.svg";
+import { ReactComponent as PreviewIcon } from "../../images/icons/eye-fullscreen.svg";
+import { ReactComponent as DownloadIcon } from "../../images/icons/document-download.svg";
 import PdfPreview from "../PdfPreview/PdfPreview";
-import styles from "./UserCertificatesList.module.scss";
 import CertificateItemTagList from "./CertificateItemTagList";
+import styles from "./UserCertificatesList.module.scss";
 
 const UserCertificatesItem = ({ certificate, type }) => {
   const [previewVisible, setPreviewVisible] = useState(false);
@@ -14,9 +14,8 @@ const UserCertificatesItem = ({ certificate, type }) => {
 
   const title = certificate[`${type}_name`];
 
-
   return (
-    <div className={styles.certificateItem}>
+    <div className={`${styles.certificateItem} ${styles[type]}`}>
       <div className={styles.linkWrapper}>
         <Link
           to={certificate.course_id && `/course/${certificate.course_id}/intro`}
@@ -28,8 +27,7 @@ const UserCertificatesItem = ({ certificate, type }) => {
       </div>
       {certificateLink && (
         <div className={styles.btnsWrapper}>
-          <button onClick={() => setPreviewVisible(true)}>
-            <span>Preview</span>
+          <button onClick={() => setPreviewVisible(true)} title="Preview">
             <PreviewIcon />
           </button>
           <a
@@ -37,8 +35,8 @@ const UserCertificatesItem = ({ certificate, type }) => {
             href={`${serverName}/${certificateLink}`}
             target="_blank"
             rel="noreferrer"
+            title="Download"
           >
-            <span>Certificate</span>
             <DownloadIcon />
           </a>
         </div>
