@@ -14,13 +14,13 @@ export const sidebarNav = [
   {
     label: "Courses",
     icon: <CoursesIcon />,
-    link: "/courses/available",
+    link: "/courses",
     children: null,
   },
   {
     label: "My education",
     icon: <CoursesIcon />,
-    link: "/courses/available",
+    link: "/education",
     children: null,
   },
   { label: "My profile", icon: <MyProfileIcon />, link: "/me", children: null },
@@ -62,40 +62,48 @@ export const adminSidebarNav = [
 
 export const coursesLinks = [
   {
-    to: "my",
-    content: `my courses`,
+    to: "all",
+    content: `All Courses`,
   },
   {
-    to: "available",
-    content: "available courses",
+    to: "short",
+    content: "Short",
   },
   {
-    to: "completed",
-    content: "completed courses",
+    to: "long",
+    content: "Long",
   },
 ];
 
-export const coursesLinksPublic = [
+export const educationLinks = [
   {
-    to: "available",
-    content: "available courses",
+    to: "in-progress",
+    content: "In Progress",
+  },
+  {
+    to: "completed",
+    content: "Completed",
+  },
+  {
+    to: "all",
+    content: "All Courses",
   },
 ];
 
 export const adminCourseLinks = [
   {
     to: "intro",
-    content: `intro`,
+    content: `Intro`,
     element: <CourseIntroPage />,
   },
   {
     to: "tasks",
-    content: "tasks",
+    content: "Tasks",
     element: <CourseTasksPage />,
   },
   {
     to: "publish",
-    content: "publish",
+    content: "Publish",
     element: <CoursePublishPage />,
   },
   // {
@@ -113,17 +121,17 @@ export const adminCourseLinks = [
 export const courseLinks = [
   {
     to: "intro",
-    content: `intro`,
+    content: `Intro`,
     element: <CourseIntroPage />,
   },
   {
     to: "tasks",
-    content: "tasks",
+    content: "Tasks",
     element: <CourseTasksPage />,
   },
   {
     to: "exam-certificate",
-    content: "exam | certificate",
+    content: "Exam | Certificate",
     element: <CourseCerificatePage />,
   },
 ];
@@ -131,7 +139,7 @@ export const courseLinks = [
 export const courseLinksPublic = [
   {
     to: "intro",
-    content: `intro`,
+    content: `Intro`,
     element: <CourseIntroPage />,
   },
 ];
@@ -139,10 +147,10 @@ export const courseLinksPublic = [
 export const instructionsLinks = [
   {
     to: "general",
-    content: "general instruction",
+    content: "General Instruction",
   },
   {
     to: "courses",
-    content: "instruction courses",
+    content: "Instruction Courses",
   },
 ];

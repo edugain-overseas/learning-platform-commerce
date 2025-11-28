@@ -37,13 +37,13 @@
     transition: border-color var(--transition-time-max) ease;
   }
 
-  &:hover {
+  &:hover,
+  &.navLink--active {
     .navButton {
       border-color: var(--content-contr-color);
     }
 
     .expanded {
-      background-color: var(--bg-accent-block);
       span {
         color: var(--content-nav-hover);
       }
@@ -51,6 +51,10 @@
         fill: var(--content-nav-hover);
       }
     }
+  }
+
+  &:hover .expanded {
+    background-color: var(--bg-accent-block);
   }
 
   & svg {

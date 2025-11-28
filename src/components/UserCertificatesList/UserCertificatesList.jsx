@@ -1,17 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/user/selectors";
-import { getAllCourses } from "../../redux/course/selectors";
 import UserCertificatesItem from "./UserCertificatesItem";
 import Accordion from "../shared/Accordion/Accordion";
 import styles from "./UserCertificatesList.module.scss";
 
 const UserCertificatesList = () => {
   const certificates = useSelector(getUserInfo)?.certificates;
-  const courses = useSelector(getAllCourses);
-
-  console.log(certificates);
-  console.log(courses);
 
   return (
     <ul className={styles.certificatesList}>
@@ -32,7 +27,7 @@ const UserCertificatesList = () => {
                 content={
                   <ul className={`${styles.certificatesList}`}>
                     {coursesCertificates.map((courseCertificate) => (
-                      <li key={courseCertificate.course_certificate_id}>
+                      <li key={courseCertificate.course_id}>
                         <UserCertificatesItem
                           certificate={courseCertificate}
                           type="course"

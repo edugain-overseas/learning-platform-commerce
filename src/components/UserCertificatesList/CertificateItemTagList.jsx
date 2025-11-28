@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { Tag } from "antd";
 import { CheckCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { getAllCourses } from "../../redux/course/selectors";
-// import { getAllCategories } from "../../redux/category/selectors";
 import { ReactComponent as BasketIcon } from "../../images/icons/cart.svg";
 import { useCart } from "../../context/cartContext";
 import styles from "./UserCertificatesList.module.scss";
@@ -12,6 +11,7 @@ const tagColors = {
   type: "geekblue",
   certificate: "success",
   noCertificate: "default",
+  inProgress: "processing",
   purchased: "orange",
   purchasedAll: "green",
 };
@@ -23,10 +23,6 @@ const CertificateItemTagList = ({ certificate, type }) => {
   const { addItem, handleOpen } = useCart();
 
   const courses = useSelector(getAllCourses);
-  //   const category =
-  //     useSelector(getAllCategories).find(
-  //       (category) => category.id === id && type === "category"
-  //     ) || null;
 
   const coursesOfCategory =
     type === "category"
@@ -60,7 +56,7 @@ const CertificateItemTagList = ({ certificate, type }) => {
           : {
               value: (
                 <button onClick={purchaseAllTheRest} className={styles.buyBtn}>
-                  <span>Buy all the rest</span>
+                  <span>Buy all</span>
                   <BasketIcon />
                 </button>
               ),
@@ -71,14 +67,40 @@ const CertificateItemTagList = ({ certificate, type }) => {
     ],
     course: [
       {
-        value: certificateLink ? "certificate" : "no certificate",
+        value: certificateLink
+          ? "certificate"
+          : certificate.course_status
+          ? "In progress"
+          : "no certificate",
         color:
-          tagColors[`${certificateLink ? "certificate" : "noCertificate"}`],
+          tagColors[
+            `${
+              certificateLink
+                ? "certificate"
+                : certificate.course_status
+                ? "inProgress"
+                : "noCertificate"
+            }`
+          ],
         icon: certificateLink ? (
           <CheckCircleOutlined />
         ) : (
           <MinusCircleOutlined />
         ),
+        // hoverChild: !certificateLink &&
+        //   !certificate.course_status && {
+        //     value: (
+        //       <button
+        //         onClick={() => console.log("buy")}
+        //         className={styles.buyBtn}
+        //       >
+        //         <span>Buy</span>
+        //         <BasketIcon />
+        //       </button>
+        //     ),
+        //     color: "#d00000",
+        //     icon: null,
+        //   },
       },
     ],
   };
@@ -86,23 +108,33 @@ const CertificateItemTagList = ({ certificate, type }) => {
   return (
     <div className={styles.tagsWrapper}>
       {tags.common.map(({ value, color, icon }, index) => (
-        <Tag key={index} color={color} icon={icon} className={styles.typeTag}>
+        <Tag
+          key={`common-${type}-${id}-${index}`}
+          color={color}
+          icon={icon}
+          className={styles.typeTag}
+        >
           {value}
         </Tag>
       ))}
       {tags[type].map(({ value, color, icon, hoverChild }, index) => {
+        const baseKey = `${type}-${id}-${index}`;
+
         if (!hoverChild) {
           return (
-            <Tag key={index} color={color} icon={icon}>
+            <Tag key={baseKey} color={color} icon={icon}>
               {value}
             </Tag>
           );
         }
 
         return (
-          <div className={styles.hoverTagContainer}>
+          <div
+            className={styles.hoverTagContainer}
+            key={`${baseKey}-hover-container`}
+          >
             <Tag
-              key={index}
+              key={value}
               color={color}
               icon={icon}
               className={styles.hoverParent}

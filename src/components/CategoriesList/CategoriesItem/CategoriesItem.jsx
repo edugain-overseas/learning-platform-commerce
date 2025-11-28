@@ -15,6 +15,7 @@ import InsetBtn from "../../shared/InsetBtn/InsetBtn";
 import CategoryBuyAllBtn from "./CategoryBuyAllBtn";
 import CategoryCertificateBtn from "./CategoryCertificateBtn";
 import styles from "./CategoriesItem.module.scss";
+import { useFilteredCoursesData } from "../../../hooks/useFiltredCoursesData";
 
 const CategoriesItem = ({ category }) => {
   const dropdownRef = useRef();
@@ -23,13 +24,19 @@ const CategoriesItem = ({ category }) => {
 
   const openEditCategoryModal = () => setIsEditCatgoryModalOpen(true);
 
-  const courses = useSelector(getAllCourses);
+  const allCourses = useSelector(getAllCourses);
+  const { courses } = useFilteredCoursesData();
+
   const userCourses = useSelector(getUserCourses);
   const isModer = useSelector(getUserType) === "moder";
 
   const { selectedListModeIndex } = useListMode();
 
-  const categoryCourses = courses.filter(
+  const categoryCourses = allCourses.filter(
+    (course) => course.category_id === category.id
+  );
+
+  const coursesToDisplay = courses.filter(
     (course) => course.category_id === category.id
   );
 
@@ -61,7 +68,7 @@ const CategoriesItem = ({ category }) => {
   };
 
   useEffect(() => {
-    const dropdown = dropdownRef.current;    
+    const dropdown = dropdownRef.current;
 
     if (dropdown) {
       dropdown.style.maxHeight = dropDownOpen
@@ -137,7 +144,7 @@ const CategoriesItem = ({ category }) => {
           className={styles.dropDownContent}
           style={{ paddingTop: selectedListModeIndex ? "16rem" : "8rem" }}
         >
-          <CoursesList courses={categoryCourses} />
+          <CoursesList courses={coursesToDisplay} />
         </div>
       </div>
     </li>

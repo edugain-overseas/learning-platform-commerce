@@ -1,8 +1,7 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import {
   courseLinks,
-  coursesLinks,
   instructionsLinks,
 } from "../../costants/nav";
 import MainLayout from "../MainLayout/MainLayout";
@@ -45,9 +44,8 @@ const StudentRouter = () => (
       <Route path="/registration" element={<SingUpForm />} />
       <Route path="/login" element={<SingInForm />} />
       <Route path="/courses" element={<CoursesPage />}>
-        {coursesLinks.map(({ to }) => (
-          <Route key={to} path={to} element={<CategoriesList />} />
-        ))}
+        <Route index element={<Navigate to="all" replace />} />
+        <Route path=":filter" element={<CategoriesList />} />
       </Route>
       <Route path="/course/:courseId" element={<CourseDetailPage />}>
         {courseLinks.map(({ to, element }) => (
@@ -55,8 +53,11 @@ const StudentRouter = () => (
         ))}
       </Route>
       <Route path="/task/:taskId" element={<TaskPage />} />
+      <Route path="/education" element={<CoursesPage />}>
+        <Route index element={<Navigate to="all" replace />} />
+        <Route path=":filter" element={<CategoriesList />} />
+      </Route>
       <Route path="/me" element={<UserProfilePage />} />
-      <Route path="/education" element={null} />
       <Route path="/aboutIEU" element={<AboutIEUPage />} />
       <Route path="/instructions" element={<InstructionsPage />}>
         {instructionsLinks.map(({ to }) => (

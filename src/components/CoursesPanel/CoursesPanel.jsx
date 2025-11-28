@@ -8,7 +8,7 @@ import {
   courseLinks,
   courseLinksPublic,
   coursesLinks,
-  coursesLinksPublic,
+  educationLinks,
 } from "../../costants/nav";
 import { ReactComponent as GridIcon } from "../../images/icons/grid.svg";
 import { ReactComponent as ListIcon } from "../../images/icons/list.svg";
@@ -39,11 +39,12 @@ const CoursesPanel = () => {
   const showSwitcher = !pathname.includes("/intro");
   const showFilters = !pathname.includes("/intro") && false;
 
-  const studentCoursesRenderLinks = token ? coursesLinks : coursesLinksPublic;
-  const studentCourseRenderLinks = token ? courseLinks : courseLinksPublic;
-  const studentRenderLinks = courseId
-    ? studentCourseRenderLinks
-    : studentCoursesRenderLinks;
+  const coursesBasedLinks = pathname.includes("courses")
+    ? coursesLinks
+    : educationLinks;
+
+  const studentCourseLinks = token ? courseLinks : courseLinksPublic;
+  const studentRenderLinks = courseId ? studentCourseLinks : coursesBasedLinks;
 
   const renderLinks = isModer ? adminCourseLinks : studentRenderLinks;
 

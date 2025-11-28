@@ -1,0 +1,22 @@
+.buyCourseBtn {
+  padding: 4rem 12rem;
+  background-color: var(--content-nav-hover);
+  border-radius: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rem;
+
+  color: var(--content-light-secondary);
+  font-size: 12rem;
+  font-weight: 500;
+
+  svg {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  &:hover {
+    background-color: var(--content-main);
+  }
+}

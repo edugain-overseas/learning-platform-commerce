@@ -9,7 +9,7 @@ import styles from "./HomePage.module.scss";
 
 const renderItem = (category) => {
   return (
-    <Link to={`/courses/available`} state={{ categoryId: category.id }}>
+    <Link to={`/courses/all`} state={{ categoryId: category.id }}>
       <div className={styles.categoryCard}>
         <CategoryIcon className={styles.categoryIcon} />
         <div className={styles.categoryInfo}>

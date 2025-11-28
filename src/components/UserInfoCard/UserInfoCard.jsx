@@ -30,13 +30,11 @@ const UserInfoCard = ({ userInfo }) => {
     (course) => course.status === "completed"
   ).length;
 
-  const userStudingStatsStr = `${userInfo.courses?.length} course${
-    userCoursesNumber > 1 && "s"
+  const userStudingStatsStr = `${userCoursesNumber} course${
+    userCoursesNumber > 1 ? "s" : ""
   } | ${userCertificatesNumber} certificate${
-    userCertificatesNumber > 1 && "s"
+    userCertificatesNumber > 1 ? "s" : ""
   }`;
-
-  console.log("userInfo", userInfo);
 
   const dispatch = useDispatch();
 

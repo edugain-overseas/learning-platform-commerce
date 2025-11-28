@@ -145,7 +145,6 @@ div[data-expanded-fixed="true"] + main .certificateItem h4 {
   pointer-events: none;
   transition: opacity var(--transition-time-min) ease;
 
-
   & > button,
   & > a {
     color: var(--content-datail-secondary);
@@ -185,8 +184,12 @@ div[data-expanded-fixed="true"] + main .certificateItem h4 {
     height: 22rem;
     cursor: pointer;
 
-    & > span:not(:last-child) {
+    &:not(:last-child) {
       margin-right: 16rem;
+    }
+
+    & > span {
+      margin: 0;
     }
 
     & > * {
@@ -228,6 +231,39 @@ div[data-expanded-fixed="true"] + main .certificateItem h4 {
     span {
       font-size: 12rem;
       font-weight: 500;
+    }
+  }
+}
+
+.notPurchasedCourse {
+  opacity: 0.5;
+  transition: opacity var(--transition-time-min) ease;
+
+  .buyIcon {
+    width: 18rem;
+    height: 18rem;
+    color: var(--content-datail-secondary);
+  }
+
+  .hidden {
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &:hover {
+    opacity: 1;
+
+    .hidden {
+      opacity: 1;
+      position: static;
+      pointer-events: auto;
+    }
+
+    .buyIcon {
+      opacity: 0;
+      position: absolute;
+      pointer-events: none;
     }
   }
 }

@@ -8,7 +8,6 @@ const Success = () => {
   return (
     <div className={styles.successWrapper}>
       <div className={styles.topContentWrapper}>
-        {/* <img src={SuccessImg} alt="success" /> */}
         <div className={styles.circlesWrapper}>
           <div className={styles.circleOuter}>
             <div className={styles.circleMiddle}>
@@ -24,7 +23,7 @@ const Success = () => {
         <p>Your purchase</p>
         <p>Was successful!</p>
       </div>
-      <Link className={styles.link} to="/courses/my">
+      <Link className={styles.link} to="/education/all">
         <span>Go to the purchased course</span>
         <Arrow />
       </Link>
