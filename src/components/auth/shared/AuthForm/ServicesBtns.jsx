@@ -5,6 +5,7 @@ import { ReactComponent as GoogleIcon } from "../../../../images/icons/google.sv
 import { ReactComponent as AppleIcon } from "../../../../images/icons/social/app-store.svg";
 import { loginWithAppleThunk } from "../../../../redux/user/operations";
 import { useNotificationMessage } from "../../../../hooks/useNotificationMessage";
+import { domain } from "../../../../http/server";
 import styles from "./AuthForm.module.scss";
 
 const ServicesBtns = () => {
@@ -69,7 +70,7 @@ const ServicesBtns = () => {
       /** Requested scopes, seperated by spaces - eg: 'email name' */
       scope: "email name",
       /** Apple's redirectURI - must be one of the URIs you added to the serviceID - the undocumented trick in apple docs is that you should call auth from a page that is listed as a redirectURI, localhost fails */
-      redirectURI: "https://vps2.online",
+      redirectURI: `https://${domain}`,
       //   redirectURI: "https://bfe4-176-38-25-248.ngrok-free.app",
       /** State string that is returned with the apple response */
       state: "12345",

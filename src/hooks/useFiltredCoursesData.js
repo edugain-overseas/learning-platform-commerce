@@ -27,7 +27,7 @@ const getFilterCourses = (courses, filter) => {
 const getFilterEducationCourses = (courses, filter) => {
   const userCourses = courses.filter((course) => course.bought);
 
-  console.log(filter);
+//   console.log(filter);
   switch (filter) {
     case "all":
       return userCourses;
@@ -46,15 +46,15 @@ export const useFilteredCoursesData = () => {
   const courses = useSelector(getAllCourses);
   const categories = useSelector(getAllCategories);
 
-  console.log(courses);
-  console.log(categories);
+//   console.log(courses);
+//   console.log(categories);
 
   const { filter } = useParams();
   const { pathname } = useLocation();
 
   const isEducationPage = pathname.includes("education");
 
-  console.log(filter);
+//   console.log(filter);
 
   const filtredCourses = isEducationPage
     ? getFilterEducationCourses(courses, filter)
@@ -68,7 +68,7 @@ export const useFilteredCoursesData = () => {
     ? courses.filter((course) => !course.bought)
     : [];
 
-  console.log(filtredCourses);
+//   console.log(filtredCourses);
 
   return {
     categories: filtredCategories,

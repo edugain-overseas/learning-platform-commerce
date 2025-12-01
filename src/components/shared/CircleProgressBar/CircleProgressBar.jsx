@@ -30,7 +30,7 @@ const CircleProgressBar = ({
         cy={width / 2}
         fill="transparent"
         stroke={backgroundColor}
-        strokeWidth={`${strokeWidth}rem`}
+        strokeWidth={`${strokeWidth - 1}rem`}
       ></circle>
       <circle
         className={styles.progressCircle}

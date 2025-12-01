@@ -42,6 +42,8 @@ const DownloadCertificate = () => {
     } else {
       clearInterval(intervalRef.current);
     }
+
+    return () => clearInterval(intervalRef.current);
     // eslint-disable-next-line
   }, [certificateLink, intervalRef.current, userInfo.studentId]);
 

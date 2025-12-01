@@ -14,12 +14,12 @@ const circleProgressCardStaticProps = {
     grade: "#FCC400",
   },
   outerColor: {
-    progress: "#d9d9d9",
-    grade: "#f7f6f5",
+    progress: "#fdfdfd",
+    grade: "#fdfdfd",
   },
   strokeBackgroundColor: {
-    progress: "#f0f0f0",
-    grade: "#fafafa",
+    progress: "#ececec",
+    grade: "#ececec",
   },
   progress: {
     progress: (value) => value,

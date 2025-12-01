@@ -1,3 +1,4 @@
-export const serverBaseUrl = "https://vps2.online/api/v1";
-export const serverName = "https://vps2.online/api";
-export const webSocketUrl = "wss://vps2.online/api/v1/chat";
+export const domain = "courses.ieuukraine.com";
+export const serverBaseUrl = `https://${domain}/api/v1`;
+export const serverName = `https://${domain}/api`;
+export const webSocketUrl = `wss://${domain}/api/v1/chat`;

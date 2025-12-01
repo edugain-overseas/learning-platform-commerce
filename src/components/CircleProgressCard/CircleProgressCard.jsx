@@ -22,7 +22,7 @@ const CircleProgressCard = ({
             strokeColor={strokeColor}
             progress={progress}
             width={138}
-            strokeWidth={8}
+            strokeWidth={9}
             backgroundColor={strokeBackgroundColor}
           />
         </div>

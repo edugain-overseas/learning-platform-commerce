@@ -368,12 +368,28 @@ div.courseItemsWrapper {
 
 .categoryPriceInfoWrapper {
   overflow: visible;
+  gap: 2%;
+
+  & > div {
+    flex-basis: 40%;
+    max-width: 40%;
+  }
 }
 
-.categoryWrapper {
+.categoryWrapper,
+.typeWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+div.typeWrapper {
+  flex-basis: 16%;
+  gap: 8rem;
+
+  & > span {
+    color: var(--content-datail-secondary);
+  }
 }
 
 div.priceWrapper {

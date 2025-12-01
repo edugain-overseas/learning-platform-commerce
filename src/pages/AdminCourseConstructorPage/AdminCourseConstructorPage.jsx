@@ -19,6 +19,7 @@ import {
   courseProperties,
 } from "../../costants/courseProperties";
 import { serverBaseUrl, serverName } from "../../http/server";
+import { privateRoutesHandler } from "../../http/privateRoutesHandler";
 import devices from "../../images/devices.webp";
 import Textarea from "../../components/shared/Textarea/Textarea";
 import CategoryPicker from "../../components/CategoryPicker/CategoryPicker";
@@ -26,8 +27,8 @@ import FileUploader from "../../components/shared/Uploaders/FileUploader/FileUpl
 import Spinner from "../../components/Spinner/Spinner";
 import RichInput from "../../components/shared/RichInput";
 import Modal from "../../components/shared/Modal/Modal";
+import Select from "../../components/shared/Select/Select";
 import styles from "./AdminCourseConstructorPage.module.scss";
-import { privateRoutesHandler } from "../../http/privateRoutesHandler";
 
 const AdvantageForm = ({ icon, updateAdvantages }) => {
   const [selectedIconPath, setSelectedIconPath] = useState(icon.icon_path);
@@ -113,6 +114,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const { courseId } = useParams();
   const [imagePath, setImagePath] = useState(courseData?.image_path);
   const [categoryId, setCategoryId] = useState(courseData?.category_id || null);
+  const [type, setType] = useState(courseData?.type || "short");
   const [advantages, setAdvantages] = useState(
     courseData && courseData.icons?.length !== 0
       ? courseData.icons
@@ -124,8 +126,6 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const isLoading = useSelector(getIsLoading);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  console.log(advantages);
 
   const {
     register,
@@ -260,11 +260,21 @@ const AdminCourseConstructorPage = ({ courseData }) => {
       isManualError = true;
     }
 
+    if (!type) {
+      messageApi.open({
+        type: "error",
+        content: "Please select course type",
+        duration: 2.5,
+      });
+      isManualError = true;
+    }
+
     if (isManualError) return;
 
     const courseData = {
       ...data,
       category_id: categoryId,
+      type,
       image_path: imagePath,
       icons: advantages,
     };
@@ -575,6 +585,25 @@ const AdminCourseConstructorPage = ({ courseData }) => {
           >
             <div className={styles.categoryWrapper}>
               <CategoryPicker value={categoryId} setValue={setCategoryId} />
+            </div>
+            <div className={styles.typeWrapper}>
+              <span>Type: </span>
+              <Select
+                options={[
+                  { label: "Short", value: "short" },
+                  { label: "Long", value: "long" },
+                ]}
+                value={type}
+                onChange={setType}
+                allowClear={false}
+                wrapperStyles={{
+                  flexGrow: 1,
+                  fontSize: "20rem",
+                }}
+                dropDownWrapperStyles={{
+                  fontSize: "16rem",
+                }}
+              />
             </div>
             <div className={styles.priceWrapper}>
               <div className={styles.price}>

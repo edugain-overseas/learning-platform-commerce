@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { getAllCourses } from "../../../redux/course/selectors";
 import { getUserCourses, getUserType } from "../../../redux/user/selectors";
 import { useListMode } from "../../../context/ListModeContext";
+import { useFilteredCoursesData } from "../../../hooks/useFiltredCoursesData";
 import { ReactComponent as BMIcon } from "../../../images/icons/bm.svg";
 import { ReactComponent as ChevronIcon } from "../../../images/icons/arrowDown.svg";
 import { ReactComponent as EditIcon } from "../../../images/icons/edit.svg";
@@ -15,11 +16,10 @@ import InsetBtn from "../../shared/InsetBtn/InsetBtn";
 import CategoryBuyAllBtn from "./CategoryBuyAllBtn";
 import CategoryCertificateBtn from "./CategoryCertificateBtn";
 import styles from "./CategoriesItem.module.scss";
-import { useFilteredCoursesData } from "../../../hooks/useFiltredCoursesData";
 
-const CategoriesItem = ({ category }) => {
+const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
   const dropdownRef = useRef();
-  const [dropDownOpen, setDropDownOpen] = useState(true);
+  const [dropDownOpen, setDropDownOpen] = useState(defaultDropdownOpen);
   const [isEditCategoryModalOpen, setIsEditCatgoryModalOpen] = useState(false);
 
   const openEditCategoryModal = () => setIsEditCatgoryModalOpen(true);
@@ -120,7 +120,7 @@ const CategoriesItem = ({ category }) => {
           )}
           <div className={styles.infoWrapper}>
             <span>Info the courses</span>
-            <InfoBtn infoContent={category.description} orientation="bottom" />
+            <InfoBtn infoContent={category.description} orientation="left" />
           </div>
           <button
             className={`${styles.dropdownBtn} ${

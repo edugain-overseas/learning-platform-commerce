@@ -11,8 +11,12 @@ const AdminCoursesDashboard = () => {
   return (
     <div className={styles.wrapper}>
       <ul className={styles.categoryList}>
-        {categories.map((category) => (
-          <CategoriesItem key={category.id} category={category} />
+        {categories.map((category, index) => (
+          <CategoriesItem
+            key={category.id}
+            category={category}
+            defaultDropdownOpen={index === 0}
+          />
         ))}
         <li>
           <CreateCategoryBtn />
