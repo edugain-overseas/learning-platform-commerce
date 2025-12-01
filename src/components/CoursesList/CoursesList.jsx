@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { getUserCourses, getUserType } from "../../redux/user/selectors";
+import { getUserType } from "../../redux/user/selectors";
 import { useListMode } from "../../context/ListModeContext";
 import CourseCard from "./CourseCard/CourseCard";
 import CourseRow from "./CourseRow/CourseRow";
@@ -11,7 +11,6 @@ import CreateNewCourseItem from "./CreateNewCourseItem/CreateNewCourseItem";
 const CoursesList = ({ courses }) => {
   const { selectedListModeIndex } = useListMode();
   const { pathname } = useLocation();
-  const userCourses = useSelector(getUserCourses) ?? [];
   const isModer = useSelector(getUserType) === "moder";
   const coursesToDisplay = isModer
     ? courses
@@ -23,13 +22,9 @@ const CoursesList = ({ courses }) => {
       style={{ gap: selectedListModeIndex ? "8rem" : "16rem" }}
     >
       {coursesToDisplay.map((course) => {
-        const purchased = userCourses.find(
-          (userCourse) =>
-            userCourse.course_id === course.id &&
-            (userCourse.status === "in_progress" ||
-              userCourse.status === "completed")
-        );
-        const disabled = !purchased && pathname === "/courses/my";
+        const purchased = course.bought;
+        const disabled = !purchased && pathname.includes("education");
+
         return selectedListModeIndex ? (
           <CourseRow
             key={course.id}

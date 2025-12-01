@@ -16,7 +16,7 @@ const UserCertificatesList = () => {
           ...categoryCertificate
         }) => {
           return (
-            <li key={categoryCertificate.category_certificate_id}>
+            <li key={categoryCertificate.category_id}>
               <Accordion
                 header={
                   <UserCertificatesItem
