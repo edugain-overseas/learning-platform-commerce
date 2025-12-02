@@ -7,7 +7,7 @@ import HomeSlider from "./shared/HomeSlider";
 import SliderSectionHeader from "./shared/SliderSectionHeader";
 import styles from "./HomePage.module.scss";
 
-const renderItem = (category) => {
+export const renderCategoryItem = (category) => {
   return (
     <Link to={`/courses/all`} state={{ categoryId: category.id }}>
       <div className={styles.categoryCard}>
@@ -30,7 +30,7 @@ const HomeCategories = () => {
     <section className={styles.categories}>
       <div className={styles.sectionContainer}>
         <HomeSlider
-          renderItem={renderItem}
+          renderItem={renderCategoryItem}
           items={[...categories, ...categories, ...categories]}
         >
           <SliderSectionHeader

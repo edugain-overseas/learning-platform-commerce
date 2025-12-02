@@ -25,20 +25,27 @@ const CoursesList = ({ courses }) => {
         const purchased = course.bought;
         const disabled = !purchased && pathname.includes("education");
 
-        return selectedListModeIndex ? (
-          <CourseRow
+        return (
+          <li
             key={course.id}
-            course={course}
-            purchased={purchased}
-            disabled={disabled}
-          />
-        ) : (
-          <CourseCard
-            key={course.id}
-            course={course}
-            purchased={purchased}
-            disabled={disabled}
-          />
+            className={selectedListModeIndex ? styles.rowItem : styles.cardItem}
+          >
+            {selectedListModeIndex ? (
+              <CourseRow
+                key={course.id}
+                course={course}
+                purchased={purchased}
+                disabled={disabled}
+              />
+            ) : (
+              <CourseCard
+                key={course.id}
+                course={course}
+                purchased={purchased}
+                disabled={disabled}
+              />
+            )}
+          </li>
         );
       })}
       {isModer && <CreateNewCourseItem />}

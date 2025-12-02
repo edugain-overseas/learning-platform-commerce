@@ -39,7 +39,7 @@ const CourseRow = ({ course, disabled }) => {
     removeItem(id);
   };
   return (
-    <li className={`${styles.wrapper} ${disabled ? styles.disabled : ""}`}>
+    <div className={`${styles.wrapper} ${disabled ? styles.disabled : ""}`}>
       <Link className={styles.courseLink} to={`/course/${id}/intro`}>
         <h3 className={styles.title}>
           {courseName}
@@ -94,7 +94,7 @@ const CourseRow = ({ course, disabled }) => {
           {isItemInCart ? <TrashIcon /> : <CartIcon />}
         </button>
       )}
-    </li>
+    </div>
   );
 };
 

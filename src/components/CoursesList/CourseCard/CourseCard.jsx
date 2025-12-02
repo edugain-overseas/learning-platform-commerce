@@ -56,7 +56,7 @@ const CourseCard = ({
   const courseLink = `/course/${id}/` + (bought ? "tasks" : "intro");
 
   return (
-    <li
+    <div
       className={`${styles.courseCard} ${containerClassname} ${
         disabled ? styles.disabled : ""
       } ${!isPublished ? styles.disabled : ""}`}
@@ -129,7 +129,7 @@ const CourseCard = ({
           {isItemInCart ? <TrashIcon /> : <CartIcon />}
         </button>
       )}
-    </li>
+    </div>
   );
 };
 

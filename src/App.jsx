@@ -6,9 +6,9 @@ import useAdjustFontSize from "./hooks/useAdjustFontSize";
 import useGoogleAuthentication from "./hooks/useGoogleAuthentication";
 
 function App() {
+  useAdjustFontSize();
   useGoogleAuthentication();
   useInitialData();
-  useAdjustFontSize();
 
   const userType = useSelector(getUserType);
 

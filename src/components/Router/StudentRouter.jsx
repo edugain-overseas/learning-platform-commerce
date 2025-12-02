@@ -1,11 +1,9 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import {
-  courseLinks,
-  instructionsLinks,
-} from "../../costants/nav";
+import { courseLinks, instructionsLinks } from "../../costants/nav";
 import MainLayout from "../MainLayout/MainLayout";
 import HomePage from "../../pages/HomePage/HomePage";
+import SearchPage from "../../pages/SearchPage/SearchPage";
 const SingUpForm = React.lazy(() => import("../auth/SingUpForm/SingUpForm"));
 const SingInForm = React.lazy(() => import("../auth/SingInForm/SingInForm"));
 const CoursesPage = React.lazy(() =>
@@ -67,6 +65,7 @@ const StudentRouter = () => (
         ))}
       </Route>
       <Route path="/payment" element={<PaymentPage />} />
+      <Route path="/search" element={<SearchPage />} />
       <Route path="/*" element={<div>Not Found Page</div>} />
     </Route>
   </Routes>

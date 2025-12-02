@@ -1,4 +1,14 @@
 .coursesList {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.rowItem {
+  flex-basis: 100%;
+}
+
+.cardItem {
+  width: calc(25% - 12rem);
+  flex-shrink: 0;
+  margin-bottom: 16rem;
 }

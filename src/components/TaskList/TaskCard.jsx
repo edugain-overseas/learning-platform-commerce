@@ -21,7 +21,7 @@ const TaskCard = ({ task }) => {
   const { courseId } = useParams();
   const isPublished = useSelector(getAllCourses).find(
     (course) => course.id === +courseId
-  ).is_published;
+  )?.is_published;
 
   return (
     <div

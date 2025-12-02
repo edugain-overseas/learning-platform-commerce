@@ -12,7 +12,7 @@ import CoursePublishPage from "../pages/CourseDetailPage/CoursePublishPage/Cours
 export const sidebarNav = [
   { label: "Home", icon: <HomeIcon />, link: "/", children: null },
   {
-    label: "Courses",
+    label: "All Courses",
     icon: <CoursesIcon />,
     link: "/courses",
     children: null,
@@ -63,15 +63,15 @@ export const adminSidebarNav = [
 export const coursesLinks = [
   {
     to: "all",
-    content: `All Courses`,
+    content: `All`,
   },
   {
     to: "short",
-    content: "Short",
+    content: "Short Courses",
   },
   {
     to: "long",
-    content: "Long",
+    content: "Long Courses",
   },
 ];
 

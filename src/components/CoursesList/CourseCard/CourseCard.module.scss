@@ -1,7 +1,5 @@
 .courseCard {
-  width: calc(100% / 4 - 16rem * 3 / 4);
-  flex-shrink: 0;
-  margin-bottom: 16rem;
+  width: 100%;
   position: relative;
 
   &:hover {
