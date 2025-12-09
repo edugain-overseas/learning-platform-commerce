@@ -10,6 +10,7 @@
   border-radius: 10.5rem;
   background: rgba(252, 252, 252, 0.32);
   box-shadow: 0 0 9rem 0 rgba(0, 0, 0, 0.16) inset;
+  position: relative;
 
   input {
     width: 100%;
@@ -24,6 +25,56 @@
 
     &::placeholder {
       color: var(--content-datail-secondary);
+    }
+  }
+}
+
+.suggestionsContainer {
+  position: absolute;
+  top: 100%;
+  left: 6rem;
+  right: 6rem;
+  background-color: var(--bg-thumb);
+  box-shadow: var(--box-shadow-button);
+  font-size: 15rem;
+  max-height: 300rem;
+  overflow-y: auto;
+  z-index: 10;
+
+  p,
+  span {
+    color: var(--content-datail-secondary);
+  }
+
+  p {
+    padding: 6rem 12rem;
+  }
+
+  .suggestionsList {
+    li {
+      background-color: transparent;
+      cursor: pointer;
+      display: flex;
+      gap: 16rem;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6rem 12rem;
+
+      transition: background-color var(--transition-time-min) ease;
+
+      &:hover {
+        background-color: var(--bg-rgba-accent);
+      }
+
+      h5 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      span {
+        flex-shrink: 0;
+      }
     }
   }
 }

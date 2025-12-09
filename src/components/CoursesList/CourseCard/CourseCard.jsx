@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { getUserType } from "../../../redux/user/selectors";
 import { useCart } from "../../../context/cartContext";
+import { serverName } from "../../../http/server";
 import { ReactComponent as ArrowRightIcon } from "../../../images/icons/arrow-left.svg";
 import { ReactComponent as ClockIcon } from "../../../images/icons/clock.svg";
 import { ReactComponent as LaptopIcon } from "../../../images/icons/laptop.svg";
@@ -10,15 +12,12 @@ import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import CardGrade from "../../shared/CardGrade/CardGrade";
 import CardPrice from "../../shared/CardPrice/CardPrice";
-import { serverName } from "../../../http/server";
-import { getUserType } from "../../../redux/user/selectors";
 import ImageWithSkeleton from "../../shared/Skeletons/ImageWithSkeleton";
 import WrapperWithDynamicBgImage from "../../shared/Skeletons/WrapperWithDynamicBgImage";
 import styles from "./CourseCard.module.scss";
 
 const CourseCard = ({
   course,
-  purchased,
   disabled,
   containerClassname = "",
   renderBuyBtn = true,
@@ -94,7 +93,7 @@ const CourseCard = ({
                   value={progress}
                   width={104}
                   height={14}
-                  disabled={!purchased}
+                  disabled={!bought}
                 />
               </div>
             )}
@@ -109,7 +108,7 @@ const CourseCard = ({
               </span>
             </div>
             <div className={styles.gradePriceContainer}>
-              {purchased ? (
+              {bought ? (
                 <CardGrade grade={grade} />
               ) : (
                 <CardPrice price={price} oldPrice={oldPrice} />
@@ -118,7 +117,7 @@ const CourseCard = ({
           </div>
         </div>
       </Link>
-      {!purchased && !isModer && renderBuyBtn && (
+      {!bought && !isModer && renderBuyBtn && (
         <button
           className={styles.cardBtn}
           onClick={(e) =>

@@ -8,7 +8,7 @@ import styles from "./SearchPage.module.scss";
 const SearchResults = ({ data }) => {
   const renderFunctions = {
     categories: renderCategoryItem,
-    courses: (item) => <CourseCard course={item} />,
+    courses: (item) => <CourseCard course={item} renderBuyBtn={false}/>,
     lessons: (item) => <TaskCard task={item} />,
   };
 

@@ -25,7 +25,6 @@ const SearchPage = () => {
       return;
     }
 
-    // cache
     if (CACHE.has(qFromUrl)) {
       setData(CACHE.get(qFromUrl));
       return;
