@@ -45,7 +45,7 @@
 .tools {
   display: flex;
   align-items: center;
-  gap: 24rem;
+  gap: 32rem;
   padding-block: 16rem;
   padding-right: 24rem;
 
@@ -116,6 +116,11 @@
   .buyAll {
     width: 90rem;
     background-color: var(--content-nav-hover);
+
+    svg {
+      width: 14rem;
+      height: 14rem;
+    }
 
     &:hover {
       background-color: var(--content-success);

@@ -14,9 +14,10 @@ const BuyCourseBtn = ({ courseId, className = "" }) => {
     <button
       type="button"
       className={`${styles.buyCourseBtn} ${className}`}
-      onClick={() =>
-        isCourseInCart ? removeItem(courseId) : addItem(courseId)
-      }
+      onClick={(e) => {
+        e.preventDefault()
+        isCourseInCart ? removeItem(courseId) : addItem(courseId);
+      }}
     >
       <span>{isCourseInCart ? "Remove" : "Buy"}</span>
       {!isCourseInCart && <CartIcon />}

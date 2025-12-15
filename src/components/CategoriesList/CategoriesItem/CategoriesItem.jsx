@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllCourses } from "../../../redux/course/selectors";
 import { getUserCourses, getUserType } from "../../../redux/user/selectors";
@@ -21,6 +21,9 @@ const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
   const dropdownRef = useRef();
   const [dropDownOpen, setDropDownOpen] = useState(defaultDropdownOpen);
   const [isEditCategoryModalOpen, setIsEditCatgoryModalOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  const isProgressHidden = pathname.includes("courses");
 
   const openEditCategoryModal = () => setIsEditCatgoryModalOpen(true);
 
@@ -100,13 +103,13 @@ const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
                 <span>Purchased: </span>
                 {`${userCoursesInCategory.length} / ${categoryCourses.length}`}
               </p>
-              <div className={styles.progressWrapper}>
+              {!isProgressHidden && <div className={styles.progressWrapper}>
                 <span>Progress:</span>
                 <ProgressBar
                   value={Math.round(progress)}
                   disabled={userCoursesInCategory.length === 0}
                 />
-              </div>
+              </div>}
             </>
           ) : (
             <>
