@@ -9,6 +9,7 @@ const CardPrice = ({
   onClick = () => {},
   size = "s",
   wrapperStyles = {},
+  divider = false,
 }) => {
   const handleClick = (e) => {
     e.preventDefault();
@@ -21,7 +22,7 @@ const CardPrice = ({
     <div
       className={`${styles.wrapper} ${
         orientation === "horizontal" ? styles.horizontal : ""
-      }`}
+      } ${divider ? styles.divider : ""}`}
       onClick={handleClick}
       style={{
         transform: `scale(${size === "s" ? 1 : size === "m" ? 1.3 : 1.6})`,

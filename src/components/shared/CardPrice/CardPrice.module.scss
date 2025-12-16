@@ -6,17 +6,17 @@
   .oldPriceWrapper {
     order: 2;
     margin-bottom: 0;
+  }
 
-    // & + .priceWrapper::after {
-    //   content: "";
-    //   // height: 100%;
-    //   // width: 1rem;
-    //   // position: absolute;
-    //   // bottom: 0;
-    //   // right: -4rem;
-    //   // background-color: var(--content-datail-secondary);
-    //   // transform: rotateZ(145deg);
-    // }
+  &.divider .oldPriceWrapper + .priceWrapper::after {
+    content: "";
+    height: 100%;
+    width: 1rem;
+    position: absolute;
+    bottom: 0;
+    right: -4rem;
+    background-color: var(--content-datail-secondary);
+    transform: rotateZ(145deg);
   }
 
   .priceWrapper {

@@ -2,6 +2,7 @@
   width: 100%;
   position: relative;
 
+
   &:hover {
     // .cardBtn {
     //   height: 24rem;
@@ -208,6 +209,8 @@ button.cardBtn {
   width: 92rem;
   height: 28rem;
   background-color: var(--content-datail-secondary);
+  padding: 2rem;
+
   // min-width: 64rem;
   // height: 0;
   // overflow: hidden;

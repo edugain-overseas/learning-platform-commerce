@@ -1,6 +1,7 @@
 import React from "react";
 import { useCart } from "../../../context/cartContext";
 import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";
+import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
 import styles from "./BuyCourseBtn.module.scss";
 
 const BuyCourseBtn = ({ courseId, className = "" }) => {
@@ -15,12 +16,12 @@ const BuyCourseBtn = ({ courseId, className = "" }) => {
       type="button"
       className={`${styles.buyCourseBtn} ${className}`}
       onClick={(e) => {
-        e.preventDefault()
+        e.preventDefault();
         isCourseInCart ? removeItem(courseId) : addItem(courseId);
       }}
     >
       <span>{isCourseInCart ? "Remove" : "Buy"}</span>
-      {!isCourseInCart && <CartIcon />}
+      {isCourseInCart ? <TrashIcon /> : <CartIcon />}
     </button>
   );
 };

@@ -4,15 +4,14 @@ import { useCart } from "../../../context/cartContext";
 import { ReactComponent as ArrowRightIcon } from "../../../images/icons/arrow-left.svg";
 import { ReactComponent as ClockIcon } from "../../../images/icons/clock.svg";
 import { ReactComponent as LaptopIcon } from "../../../images/icons/laptop.svg";
-import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";
-import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import CardGrade from "../../shared/CardGrade/CardGrade";
 import CardPrice from "../../shared/CardPrice/CardPrice";
 import styles from "./CourseRow.module.scss";
+import BuyCourseBtn from "../../shared/BuyCourseBtn/BuyCourseBtn";
 
 const CourseRow = ({ course, disabled }) => {
-  const { addItem, removeItem, cartItems, handleOpen } = useCart();
+  const { addItem, cartItems, handleOpen } = useCart();
 
   const {
     title: courseName,
@@ -29,15 +28,24 @@ const CourseRow = ({ course, disabled }) => {
 
   const isItemInCart = cartItems.find((item) => item === id) && true;
 
-  const handleAddToCart = (e, id) => {
-    e.preventDefault();
-    addItem(id);
+
+  const handleMouseEnder = (e) => {
+    console.dir(e.target.querySelector("span"));
+    const text = e.target.querySelector("span");
+
+    if (text) {
+      text.style.setProperty("width", `${text.scrollWidth}px`);
+    }
   };
 
-  const handleRemoveFromCart = (e, id) => {
-    e.preventDefault();
-    removeItem(id);
+  const handleMouseLeave = (e) => {
+    const text = e.target.querySelector("span");
+
+    if (text) {
+      text.style.setProperty("width", "0px");
+    }
   };
+
   return (
     <div className={`${styles.wrapper} ${disabled ? styles.disabled : ""}`}>
       <Link className={styles.courseLink} to={`/course/${id}/intro`}>
@@ -48,13 +56,17 @@ const CourseRow = ({ course, disabled }) => {
           </span>
         </h3>
         <div className={styles.courseInfo}>
-          <div className={styles.progressWrapper}>
-            <span>Progress:</span>
-            <ProgressBar value={progress} width={104} height={14} />
-          </div>
+          {bought && (
+            <div className={styles.progressWrapper}>
+              <span>Progress:</span>
+              <ProgressBar value={progress} width={104} height={14} />
+            </div>
+          )}
           <div className={styles.details}>
             <ClockIcon />
-            <span>{courseDuration}</span>
+            <span>
+              {courseDuration} hours {"(self paced)"}
+            </span>
           </div>
           <div className={styles.details}>
             <LaptopIcon />
@@ -71,6 +83,7 @@ const CourseRow = ({ course, disabled }) => {
                 oldPrice={oldPrice}
                 orientation="horizontal"
                 wrapperStyles={{ width: oldPrice && "100%" }}
+                divider={true}
                 onClick={
                   !isItemInCart
                     ? () => {
@@ -82,18 +95,16 @@ const CourseRow = ({ course, disabled }) => {
               />
             )}
           </div>
+          {!bought && (
+            <div
+              onMouseEnter={handleMouseEnder}
+              onMouseLeave={handleMouseLeave}
+            >
+              <BuyCourseBtn courseId={course.id} className={styles.cardBtn} />
+            </div>
+          )}
         </div>
       </Link>
-      {!bought && (
-        <button
-          className={styles.cardBtn}
-          onClick={(e) =>
-            isItemInCart ? handleRemoveFromCart(e, id) : handleAddToCart(e, id)
-          }
-        >
-          {isItemInCart ? <TrashIcon /> : <CartIcon />}
-        </button>
-      )}
     </div>
   );
 };
