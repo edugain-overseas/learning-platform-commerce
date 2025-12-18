@@ -5,7 +5,7 @@ import styles from "./CardGrade.module.scss";
 const CardGrade = ({ grade = 0, maxGrade = 200 }) => {
   return (
     <div className={styles.wrapper}>
-      {letterGrade(200)}
+      {letterGrade(grade)}
       <div className={styles.infoWrapper}>
         <span>Grade</span>
         <div>

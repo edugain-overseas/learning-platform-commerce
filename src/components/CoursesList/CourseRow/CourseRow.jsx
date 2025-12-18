@@ -7,8 +7,8 @@ import { ReactComponent as LaptopIcon } from "../../../images/icons/laptop.svg";
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import CardGrade from "../../shared/CardGrade/CardGrade";
 import CardPrice from "../../shared/CardPrice/CardPrice";
-import styles from "./CourseRow.module.scss";
 import BuyCourseBtn from "../../shared/BuyCourseBtn/BuyCourseBtn";
+import styles from "./CourseRow.module.scss";
 
 const CourseRow = ({ course, disabled }) => {
   const { addItem, cartItems, handleOpen } = useCart();
@@ -28,13 +28,11 @@ const CourseRow = ({ course, disabled }) => {
 
   const isItemInCart = cartItems.find((item) => item === id) && true;
 
-
   const handleMouseEnder = (e) => {
-    console.dir(e.target.querySelector("span"));
     const text = e.target.querySelector("span");
 
     if (text) {
-      text.style.setProperty("width", `${text.scrollWidth}px`);
+      text.style.setProperty("width", `${text.scrollWidth + 2}px`);
     }
   };
 
@@ -64,9 +62,7 @@ const CourseRow = ({ course, disabled }) => {
           )}
           <div className={styles.details}>
             <ClockIcon />
-            <span>
-              {courseDuration} hours {"(self paced)"}
-            </span>
+            <span>{courseDuration} hours (self-paced)</span>
           </div>
           <div className={styles.details}>
             <LaptopIcon />
@@ -100,7 +96,10 @@ const CourseRow = ({ course, disabled }) => {
               onMouseEnter={handleMouseEnder}
               onMouseLeave={handleMouseLeave}
             >
-              <BuyCourseBtn courseId={course.id} className={styles.cardBtn} />
+              <BuyCourseBtn
+                courseId={course.id}
+                className={styles.cardBtn}
+              />
             </div>
           )}
         </div>

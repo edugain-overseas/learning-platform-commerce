@@ -2,7 +2,6 @@
   width: 100%;
   position: relative;
 
-
   &:hover {
     // .cardBtn {
     //   height: 24rem;
@@ -98,12 +97,15 @@
 }
 
 .courseName {
+  display: -webkit-box;
+  position: relative;
+  white-space: normal;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   font-weight: 700;
   margin-right: 6rem;
-  overflow: visible;
-  white-space: normal;
 
-  position: relative;
 
   &::before {
     content: "";
@@ -170,9 +172,6 @@
 }
 
 .courseInfo {
-  // display: grid;
-  // gap: 10rem;
-  // grid-template-columns: 2fr 1fr;
   span {
     color: var(--content-datail-secondary);
     font-size: 12rem;
@@ -184,7 +183,6 @@
   display: flex;
   align-items: center;
   gap: 4rem;
-  margin-bottom: 10rem;
 }
 
 .details {
@@ -203,6 +201,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  height: 30rem;
 }
 
 button.cardBtn {
