@@ -7,6 +7,7 @@ import { useNotificationMessage } from "../hooks/useNotificationMessage";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Drawer from "../components/shared/Drawer/Drawer";
 import Cart from "../components/Cart/Cart";
+import { useLocation } from "react-router-dom";
 
 const CartContext = createContext({});
 
@@ -19,7 +20,10 @@ export const CartProvider = ({ children }) => {
   const courses = useSelector(getAllCourses);
   const categories = useSelector(getAllCategories);
   const [cartItems, setCartItems] = useLocalStorage("shopping-cart", []);
-  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(() =>
+    location.state?.reopenCart ? true : false
+  );
   const [messageApi, contextHolder] = useNotificationMessage();
 
   const addItem = (courseId) => {

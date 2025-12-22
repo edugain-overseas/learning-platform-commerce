@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { message } from "antd";
 import { useSelector } from "react-redux";
 import { getUserType } from "../../redux/user/selectors";
 import { getAllCourses } from "../../redux/course/selectors";
@@ -12,13 +11,25 @@ import { ReactComponent as ComplietedIcon } from "../../images/icons/task-check.
 import TaskDetailsPopover from "./TaskDetailsPopover";
 import styles from "./TaskList.module.scss";
 
-const TaskRow = ({ task }) => {
+const TaskRow = ({ task, messageApi }) => {
   const isModer = useSelector(getUserType) === "moder";
   const { courseId } = useParams();
   const isPublished = useSelector(getAllCourses).find(
     (course) => course.id === +courseId
   ).is_published;
+
   const canUserGoToTask = (task.status && task.status !== "blocked") || isModer;
+
+  const handleLinkClick = (e) => {
+    if (!canUserGoToTask) {
+      e.preventDefault();
+      messageApi.open({
+        type: "info",
+        content: "You can not access this lesson becouse it is blocked",
+        duration: 3,
+      });
+    }
+  };
 
   return (
     <div
@@ -29,13 +40,7 @@ const TaskRow = ({ task }) => {
       <Link
         to={canUserGoToTask ? `/task/${task.id}` : null}
         className={styles.rowLink}
-        onClick={() =>
-          !canUserGoToTask &&
-          message.info({
-            content: "You can not access this lesson becouse it is blocked",
-            duration: 3,
-          })
-        }
+        onClick={handleLinkClick}
       >
         <div className={styles.titleWrapper}>
           <span className={styles.taskTitle} title={task.title}>

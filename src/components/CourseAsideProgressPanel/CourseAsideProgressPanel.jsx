@@ -27,7 +27,8 @@ const CourseAsideProgressPanel = ({ courseId }) => {
   const exam = courseLessons?.find((lesson) => lesson.type === "exam");
 
   const blockedLessonMessage = () =>
-    messageApi.info({
+    messageApi.open({
+      type: "info",
       content: "You can not access this lesson becouse it is blocked",
       duration: 3,
     });

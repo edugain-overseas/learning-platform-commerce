@@ -15,7 +15,7 @@ export default function NavLinksPanel({ renderLinks }) {
 
   const isExamIsBlocked =
     course?.lessons?.find((lesson) => lesson.type === "exam")?.status ===
-    "blocked";
+      "blocked" || (course && !course.bought);
 
   const linkBlockedByExam = (link) =>
     link.to === "exam-certificate" && isExamIsBlocked;
@@ -34,16 +34,16 @@ export default function NavLinksPanel({ renderLinks }) {
               )
             }
             to={linkBlockedByExam(link) ? null : link.to}
-            onClick={
-              linkBlockedByExam(link)
-                ? () =>
-                    messageApi.info({
-                      content:
-                        "You can not access this lesson becouse it is blocked",
-                      duration: 3,
-                    })
-                : () => {}
-            }
+            onClick={(e) => {
+              if (linkBlockedByExam(link)) {
+                e.preventDefault();
+                messageApi.info({
+                  content:
+                    "You can not access this lesson becouse it is blocked",
+                  duration: 3,
+                });
+              }
+            }}
           >
             {link.content}
           </NavLink>

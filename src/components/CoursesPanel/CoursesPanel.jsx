@@ -12,22 +12,22 @@ import {
 } from "../../costants/nav";
 import { ReactComponent as GridIcon } from "../../images/icons/grid.svg";
 import { ReactComponent as ListIcon } from "../../images/icons/list.svg";
-import { ReactComponent as FiltersIcon } from "../../images/icons/filters.svg";
+// import { ReactComponent as FiltersIcon } from "../../images/icons/filters.svg";
 import NavLinksPanel from "../shared/NavLinksPanel/NavLinksPanel";
 import Switcher from "../shared/Switcher/Switcher";
-import DropDownFilter from "../shared/DropDownFilter/DropDownFilter";
+// import DropDownFilter from "../shared/DropDownFilter/DropDownFilter";
 import SearchBar from "../shared/SearchBar/SearchBar";
 import styles from "./CoursesPanel.module.scss";
 
 const switchItems = [<GridIcon />, <ListIcon />];
-const filters = [
-  <p style={{ marginBottom: "16rem" }}>Filter A</p>,
-  <p style={{ marginBottom: "16rem" }}>Filter B</p>,
-  <p style={{ marginBottom: "16rem" }}>Filter C</p>,
-  <p style={{ marginBottom: "16rem" }}>Filter D</p>,
-  <p style={{ marginBottom: "16rem" }}>Filter E</p>,
-  <p>Filter F</p>,
-];
+// const filters = [
+//   <p style={{ marginBottom: "16rem" }}>Filter A</p>,
+//   <p style={{ marginBottom: "16rem" }}>Filter B</p>,
+//   <p style={{ marginBottom: "16rem" }}>Filter C</p>,
+//   <p style={{ marginBottom: "16rem" }}>Filter D</p>,
+//   <p style={{ marginBottom: "16rem" }}>Filter E</p>,
+//   <p>Filter F</p>,
+// ];
 
 const CoursesPanel = () => {
   const [searchValue, setSerchValue] = useState("");
@@ -37,7 +37,7 @@ const CoursesPanel = () => {
   const token = useSelector(getAccessToken);
   const isModer = useSelector(getUserType) === "moder";
   const showSwitcher = !pathname.includes("/intro");
-  const showFilters = !pathname.includes("/intro") && false;
+  // const showFilters = !pathname.includes("/intro") && false;
 
   const coursesBasedLinks = pathname.includes("courses")
     ? coursesLinks
@@ -59,9 +59,9 @@ const CoursesPanel = () => {
             items={switchItems}
           />
         )}
-        {showFilters && (
+        {/* {showFilters && (
           <DropDownFilter icon={<FiltersIcon />} dropwownOptions={filters} />
-        )}
+        )} */}
         <SearchBar
           width="226rem"
           value={searchValue}

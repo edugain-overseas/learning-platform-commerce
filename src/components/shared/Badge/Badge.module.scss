@@ -3,6 +3,11 @@
   width: fit-content;
   height: fit-content;
 
+  &:hover .filled {
+    --background-color: var(--content-nav-hover);
+    --pulse-color: 208, 0, 0;
+  }
+
   .badge {
     position: absolute;
     aspect-ratio: 1;
@@ -15,9 +20,13 @@
     justify-content: center;
   }
 
-  div.filled {
-    background-color: var(--bg-color-accent);
-    color: var(--content-contr-color);
+  .filled {
+    --background-color: var(--bg-color-accent);
+    --text-color: var(--content-contr-color);
+    --pulse-color: 65, 113, 205;
+
+    background-color: var(--background-color);
+    color: var(--text-color);
     border: none;
   }
 
@@ -45,12 +54,12 @@
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(#335ba9, 0.7);
+    box-shadow: 0 0 0 0 rgba(var(--pulse-color), 0.7);
   }
   70% {
-    box-shadow: 0 0 0 4rem rgba(#335ba9, 0);
+    box-shadow: 0 0 0 4rem rgba(var(--pulse-color), 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(#335ba9, 0);
+    box-shadow: 0 0 0 0 rgba(var(--pulse-color), 0);
   }
 }

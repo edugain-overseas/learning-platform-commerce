@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getUserType } from "../../redux/user/selectors";
-import { message } from "antd";
 import { serverName } from "../../http/server";
 import { getAllCourses } from "../../redux/course/selectors";
 import { ReactComponent as ArrowRightIcon } from "../../images/icons/arrow-left.svg";
@@ -15,13 +14,24 @@ import ImageWithSkeleton from "../shared/Skeletons/ImageWithSkeleton";
 import TaskDetailsPopover from "./TaskDetailsPopover";
 import styles from "./TaskList.module.scss";
 
-const TaskCard = ({ task }) => {
+const TaskCard = ({ task, messageApi }) => {
   const isModer = useSelector(getUserType) === "moder";
   const canUserGoToTask = (task.status && task.status !== "blocked") || isModer;
   const { courseId } = useParams();
   const isPublished = useSelector(getAllCourses).find(
     (course) => course.id === +courseId
   )?.is_published;
+
+  const handleLinkClick = (e) => {
+    if (!canUserGoToTask) {
+      e.preventDefault();
+      messageApi.open({
+        type: "info",
+        content: "You can not access this lesson becouse it is blocked",
+        duration: 3,
+      });
+    }
+  };
 
   return (
     <div
@@ -32,13 +42,7 @@ const TaskCard = ({ task }) => {
       <Link
         to={canUserGoToTask ? `/task/${task.id}` : null}
         className={styles.cardLink}
-        onClick={() =>
-          !canUserGoToTask &&
-          message.info({
-            content: "You can not access this lesson becouse it is blocked",
-            duration: 3,
-          })
-        }
+        onClick={handleLinkClick}
       >
         <ImageWithSkeleton
           wrapperClassname={styles.poster}

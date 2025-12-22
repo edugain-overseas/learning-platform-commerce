@@ -25,11 +25,12 @@ const messageTypes = {
   },
   info: {
     type: "info",
+    className: "infoMessage",
   },
 };
 
 export const useNotificationMessage = () => {
-  const [messageApi, contextHolder] = useMessage({ top: "86rem" });
+  const [messageApi, contextHolder] = useMessage({ top: "94rem" });
 
   const api = {
     open: ({ type, ...config }) => {
@@ -113,6 +114,7 @@ export const useNotificationMessage = () => {
       return messageApi.open({
         key,
         ...config,
+        ...messageTypes.info,
         content: (
           <div className="message-content">
             <span>{config.content}</span>

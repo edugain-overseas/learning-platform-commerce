@@ -3,16 +3,17 @@ import { useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/user/selectors";
 import { useCart } from "../../context/cartContext";
 import { ReactComponent as CartIcon } from "../../images/icons/cart.svg";
+import { getPaymentLink } from "../../http/services/user";
+import { useLocation, useNavigate } from "react-router-dom";
 import Spinner from "../Spinner/Spinner";
 import styles from "./Cart.module.scss";
-import { getPaymentLink } from "../../http/services/user";
-import { useNavigate } from "react-router-dom";
 
 const PaymentButton = () => {
   const { cartQuantity, handleClose, cartItems } = useCart();
   const [isLoading, setIsloading] = useState(false);
   const studentId = useSelector(getUserInfo).studentId;
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleStripePay = async () => {
     setIsloading(true);
@@ -43,11 +44,21 @@ const PaymentButton = () => {
   };
 
   const handlePay = async () => {
-    if (studentId) {      
+    if (studentId) {
       await handleStripePay();
     } else {
-      handleClose()
-      navigate("/login");
+      handleClose();
+      navigate("/login", {
+        state: {
+          message: {
+            type: "warning",
+            content: "Please sign in to continue",
+            duration: 3,
+          },
+          from: pathname,
+          openCartAfterLogin: true,
+        },
+      });
     }
   };
 

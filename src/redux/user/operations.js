@@ -22,6 +22,7 @@ import {
 } from "../../http/services/user";
 import { store } from "../store";
 import { setDefaultState } from "../lesson/slice";
+import { getCoursesThunk } from "../course/operations";
 
 export const activateUserThunk = createAsyncThunk(
   "user/activate",
@@ -149,6 +150,7 @@ export const logoutThunk = createAsyncThunk(
     try {
       const response = await logout();
       store.dispatch(setDefaultState());
+      store.dispatch(getCoursesThunk());
       return response;
     } catch (error) {
       return rejectWithValue({

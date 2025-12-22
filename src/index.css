@@ -167,11 +167,13 @@ span {
 
 /* message styles */
 
+div.ant-message {
+  padding-inline: 12rem;
+}
+
 div.ant-message .ant-message-notice-wrapper {
   text-align: right;
-  /* padding-inline: 8rem 20rem; */
-
-  /* transition: padding var(--transition-time-min) ease; */
+  padding: 10rem 8rem;
 }
 
 div.ant-message .ant-message-notice-wrapper .ant-message-notice-content {
@@ -193,24 +195,40 @@ div.ant-message .ant-message-notice-wrapper .ant-message-notice-content {
   font-weight: 500;
 }
 
-div.ant-message .ant-message-notice-wrapper .successMessage .ant-message-notice-content {
-  background: #F2F9F6;
-  border-color: #CBEAD9;
+div.ant-message
+  .ant-message-notice-wrapper
+  .successMessage
+  .ant-message-notice-content {
+  background: #f2f9f6;
+  border-color: #cbead9;
 }
 
-div.ant-message .ant-message-notice-wrapper .warningMessage .ant-message-notice-content {
-  background: #FEF7EE;
-  border-color: #F5E7D4;
+div.ant-message
+  .ant-message-notice-wrapper
+  .warningMessage
+  .ant-message-notice-content {
+  background: #fef7ee;
+  border-color: #f5e7d4;
 }
 
-div.ant-message .ant-message-notice-wrapper .errorMessage .ant-message-notice-content {
-  background: #FEEEEE;
-  border-color: #F5D4D4;
+div.ant-message
+  .ant-message-notice-wrapper
+  .errorMessage
+  .ant-message-notice-content {
+  background: #feeeee;
+  border-color: #f5d4d4;
 }
 
-div.ant-message .ant-message-notice-wrapper .guardMessage .ant-message-notice-content {
-  background: #F4FBFF;
-  border-color: #D4E3F5;
+div.ant-message
+  .ant-message-notice-wrapper
+  .guardMessage
+  .ant-message-notice-content,
+div.ant-message
+  .ant-message-notice-wrapper
+  .infoMessage
+  .ant-message-notice-content {
+  background: #f4fbff;
+  border-color: #d4e3f5;
 }
 
 .messageCloseBtn {

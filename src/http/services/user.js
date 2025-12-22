@@ -114,6 +114,7 @@ export const logout = async () => {
     const data = await privateRoutesHandler("get", "/user/logout", {
       withCredentials: true,
     });
+    instance.defaults.headers["Authorization"] = "";
     return data;
   } catch (error) {
     throw error;
