@@ -13,8 +13,6 @@ const CartCourseCard = ({ course, isProposed = false, checked = false }) => {
     (category) => category.id === course?.category_id
   );
 
-  console.log(checked);
-
   const { addItem, toggleChecked } = useCart();
   return (
     <div className={styles.card}>

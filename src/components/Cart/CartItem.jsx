@@ -11,7 +11,6 @@ const ProposedItems = ({ proposedCourses }) => {
   const accordionRef = useRef(null);
 
   const toggleOpen = () => {
-    console.dir(accordionRef.current);
     accordionRef.current.style.setProperty(
       "max-height",
       `${isOpen ? 0 : accordionRef.current.scrollHeight}px`
@@ -43,7 +42,6 @@ const CartItem = ({ item }) => {
 
   const { removeItem, getCoursesToPropose } = useCart();
   const proposedCourses = getCoursesToPropose(item.id);
-  console.log(courseInfo);
 
   return (
     <li className={styles.cartItem}>

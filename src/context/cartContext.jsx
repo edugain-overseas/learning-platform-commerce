@@ -154,7 +154,7 @@ export const CartProvider = ({ children }) => {
 
   const totalPrice = getSubtotal() - getDiscount();
 
-  const cartQuantity = cartItems.length;
+  const cartQuantity = cartItems.filter((item) => item.checked).length;
 
   return (
     <CartContext.Provider

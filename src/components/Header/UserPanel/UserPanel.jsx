@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getUserInfo } from "../../../redux/user/selectors";
 import NotificationButton from "./NotificationButton/NotificationButton";
@@ -20,7 +21,9 @@ const UserPanel = () => {
             size="36rem"
           />
         </div>
-        <span className={styles.userName}>{userInfo.username}</span>
+        <Link to="/me">
+          <span className={styles.userName}>{userInfo.username}</span>
+        </Link>
       </div>
     </div>
   );

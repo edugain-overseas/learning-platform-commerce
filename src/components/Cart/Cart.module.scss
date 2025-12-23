@@ -274,7 +274,7 @@
 
     transition: all var(--transition-time-min) ease;
 
-    &:hover {
+    &:hover, &:disabled {
       background-color: var(--content-success);
       color: var(--content-contr-color);
     }

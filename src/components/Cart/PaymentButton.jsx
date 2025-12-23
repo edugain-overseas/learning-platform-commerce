@@ -69,7 +69,7 @@ const PaymentButton = () => {
       disabled={isLoading}
     >
       {isLoading ? (
-        <Spinner height={16} />
+        <Spinner height={16} size={7} contrastColor={true} />
       ) : (
         <>
           <span>{cartQuantity === 0 ? "Continue shopping" : "Checkout"}</span>

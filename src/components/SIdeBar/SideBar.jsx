@@ -1,27 +1,25 @@
 import React, { useRef } from "react";
 import { useSelector } from "react-redux";
-import { getAccessToken, getUserType } from "../../redux/user/selectors";
+import { getUserType } from "../../redux/user/selectors";
 import { adminSidebarNav, sidebarNav } from "../../costants/nav";
 import { ReactComponent as FixIcon } from "../../images/icons/fix.svg";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import NavBar from "./NavBar/NavBar";
 import LogoutButton from "./LogoutButton/LogoutButton";
-import SupportBtn from "./SupportBtn/SupportBtn";
+// import SupportBtn from "./SupportBtn/SupportBtn";
 import UserInfo from "./UserInfo/UserInfo";
 import styles from "./SideBar.module.scss";
 
 const SideBar = () => {
-  const accessToken = useSelector(getAccessToken);
+  // const accessToken = useSelector(getAccessToken);
   const isModer = useSelector(getUserType) === "moder";
 
   const navItems = isModer ? adminSidebarNav : sidebarNav;
 
-  // const [isExpandedFixed, setIsExpandedFixed] = useState(false);
   const [isExpandedFixed, setIsExpandedFixed] = useLocalStorage(
     "isExpandedFixed",
     false
   );
-  // const [isNarrowedFixed, setIsNarrowedFixed] = useState(false);
   const [isNarrowedFixed, setIsNarrowedFixed] = useLocalStorage(
     "isNarrowedFixed",
     false
@@ -63,7 +61,7 @@ const SideBar = () => {
         <div className={styles.itemsWrapper}>
           <NavBar navItems={navItems} />
           <div className={styles.bottomItemsWrapper}>
-            {accessToken && !isModer && <SupportBtn />}
+            {/* {accessToken && !isModer && <SupportBtn />} */}
             <LogoutButton />
           </div>
         </div>

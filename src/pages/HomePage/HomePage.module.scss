@@ -100,8 +100,7 @@
   display: flex;
   gap: 56rem;
 
-  a,
-  button {
+  a {
     width: 175rem;
     height: 48rem;
     border-radius: 5rem;
@@ -110,6 +109,7 @@
     align-items: center;
     gap: 12rem;
     color: var(--content-main);
+    transition: background-color var(--transition-time-min) ease;
 
     span {
       font-family: Roboto;
@@ -123,22 +123,22 @@
       height: 18rem;
     }
   }
-  .register {
+
+  .primaryBtn {
     background-color: var(--content-nav-hover);
     color: var(--content-contr-color);
-    transition: background-color var(--transition-time-min) ease;
 
     &:hover {
       background-color: var(--content-main);
     }
   }
 
-  .login {
-    border: 2rem solid var(--content-main);
-    transition: opacity var(--transition-time-min) ease;
+  .secondaryBtn {
+    background-color: var(--content-main);
+    color: var(--content-contr-color);
 
     &:hover {
-      opacity: 0.5;
+      background-color: var(--content-nav-hover);
     }
   }
 }

@@ -6,11 +6,13 @@ import CommonButton from "../../shared/CommonButton/CommonButton";
 
 const CartBtn = () => {
   const { handleOpen, totalPrice } = useCart();
+
   return (
     <CommonButton
       text={`$ ${priceFormatter(totalPrice)}`}
       icon={<CartIcon style={{ width: "24rem", height: "24rem" }} />}
       onClick={handleOpen}
+      variant={!!totalPrice ? "lightBlue" : "lightGrey"}
     />
   );
 };
