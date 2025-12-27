@@ -15,7 +15,6 @@ import {
   setNewMainImageThunk,
   updateUserImageThunk,
 } from "../../../redux/user/operations";
-import { serverName } from "../../../http/server";
 import { getUserInfo } from "../../../redux/user/selectors";
 
 const AvatarEditor = () => {

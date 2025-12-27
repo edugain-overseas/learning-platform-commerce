@@ -146,7 +146,7 @@
     gap: 2rem;
     position: relative;
 
-    span {
+    & > span {
       font-size: 14rem;
       font-weight: 400;
       color: var(--content-datail-secondary);
@@ -225,45 +225,68 @@
     grid-column: 1 / span 2;
   }
 
-  .phoneContainer {
-    input:disabled + div {
-      div {
-        border: none;
-      }
-    }
+  .phoneContainer input:disabled + div div {
+    border: none;
+  }
 
-    .phoneInput {
-      font-weight: 500;
-      font-size: 14rem;
-      color: var(--content-main);
+  .phoneBtn {
+    border: none;
+    border-radius: 5rem 0 0 5rem;
+    background: none;
+    margin: 4rem;
+    margin-right: 0;
+  }
 
-      display: block;
-      padding-left: 44px;
+  .phoneDropDown,
+  .countryDropDown {
+    margin: 12rem 0 12rem -4rem;
+    border-radius: 5rem;
+    background: var(--bg-rgba-primary);
+    box-shadow: var(--drop-shadow-button-main);
+    backdrop-filter: blur(16rem);
+  }
+
+  .phoneDropDown {
+    width: 300rem;
+  }
+
+  .countryWrapper {
+    position: relative;
+    width: 100%;
+
+    .phoneContainer {
       height: 28rem;
-      width: 100%;
+      position: absolute;
+    }
+  }
 
+  .phoneInput,
+  .countryInput {
+    font-weight: 500;
+    font-size: 14rem;
+    color: var(--content-main);
+
+    display: block;
+    padding-left: 44px;
+    height: 28rem;
+    width: 100%;
+
+    background-color: var(--bg-button-default);
+    box-shadow: var(--box-shadow-button-inset);
+    border-radius: 5rem;
+    border: none;
+
+    &:disabled {
       background-color: var(--bg-button-default);
       box-shadow: var(--box-shadow-button-inset);
-      border-radius: 5rem;
-      border: none;
-
-      &:disabled {
-        background-color: transparent;
-        box-shadow: none;
-        padding-left: 44px;
-      }
     }
+  }
 
-    .phoneBtn {
-      border: none;
-      border-radius: 5rem 0 0 5rem;
-      background: none;
-      margin: 4rem;
-      margin-right: 0;
-    }
+  .countryDropDown {
+    max-width: 164rem;
 
-    .phoneDropDown {
-      border-radius: 5rem;
+    & li[role="option"] span:last-child {
+      display: none;
     }
   }
 

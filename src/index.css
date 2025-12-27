@@ -253,3 +253,42 @@ div.ant-message
     fill: var(--content-datail-secondary);
   }
 }
+
+/* react-tel-2 styles */
+div.react-tel-input .selected-flag .arrow {
+  width: 6px;
+  height: 5px;
+  background-image: url("./images/icons/dropdownArrow.svg");
+  background-size: contain;
+  border: none;
+
+  transform: rotateZ(180deg);
+  transform-origin: center center;
+  transition: transform var(--transition-time-min) ease;
+}
+
+div.react-tel-input .selected-flag .arrow.up {
+  border: none;
+  transform: rotateZ(0);
+}
+
+div.react-tel-input {
+  font-size: 14rem;
+}
+
+div.react-tel-input .country-list .country {
+  padding: 6rem 8rem;
+  white-space: nowrap;
+}
+
+div.react-tel-input .flag-dropdown.open .selected-flag {
+  background: none;
+}
+
+div.react-tel-input .country-list .search-box {
+  margin: 0 auto;
+}
+
+div.react-tel-input .country-list .search {
+  padding: 6rem 8rem;
+}

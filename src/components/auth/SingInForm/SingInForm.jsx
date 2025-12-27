@@ -39,7 +39,7 @@ const SingInForm = () => {
         loginThunk({ credentials: data, messageApi, setErrorField, navigate })
       ).unwrap();
 
-      const reopenCart = Boolean(location.state.openCartAfterLogin);
+      const reopenCart = Boolean(location.state?.openCartAfterLogin);
 
       location.state.from
         ? navigate(location.state.from, {

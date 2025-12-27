@@ -14,6 +14,9 @@ const CartCourseCard = ({ course, isProposed = false, checked = false }) => {
   );
 
   const { addItem, toggleChecked } = useCart();
+
+  if (!course) return null;
+  
   return (
     <div className={styles.card}>
       <label className={styles.checkbox}>

@@ -49,17 +49,30 @@
 
 .placeholder {
   color: var(--content-datail-secondary);
+  font-weight: 400;
 }
 
 .openBtn,
 .clearBtn {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   height: 100%;
   aspect-ratio: 1;
   path {
     transition: fill var(--transition-time-min) ease,
       fill-opacity var(--transition-time-min) ease;
+  }
+}
+
+.clearBtn {
+  svg {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  path {
+    fill: var(--content-datail-secondary);
   }
 }
 
@@ -94,7 +107,7 @@
   left: 0;
   z-index: 10;
 
-  border-radius: 4rem;
+  border-radius: 5rem;
   background: var(--bg-rgba-primary);
   box-shadow: var(--drop-shadow-button-main);
   backdrop-filter: blur(16rem);

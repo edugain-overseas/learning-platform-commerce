@@ -12,15 +12,21 @@ const Select = ({
   wrapperStyles = {},
   dropDownWrapperStyles = {},
   allowClear = true,
+  wrapperClassname = "",
+  dropdownClassname = "",
 }) => {
   const [isOpen, setIsOpen] = useState();
   const [highlightedIndex, setHightlightedIndex] = useState(0);
   const selectRef = useRef(null);
   const highlightedOptionRef = useRef(null);
 
+  const normalizedValue = value ?? "";
+
   const selectedOption = options.find(
-    ({ value: optionValue }) => optionValue === value
+    ({ value: optionValue }) => optionValue === normalizedValue
   );
+
+  console.log(value);
 
   const handleOptionClick = (e, value) => {
     e.stopPropagation();
@@ -39,17 +45,14 @@ const Select = ({
   };
 
   useEffect(() => {
-    const select = document.getElementById("select");
-    const handleWindowClick = (e) => {
-      if (e.target !== select) {
+    const handleClickOutside = (e) => {
+      if (!selectRef.current?.contains(e.target)) {
         setIsOpen(false);
       }
     };
-    window.addEventListener("click", handleWindowClick);
 
-    return () => {
-      window.removeEventListener("click", handleWindowClick);
-    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   useEffect(() => {
@@ -102,9 +105,8 @@ const Select = ({
       ref={selectRef}
       className={`${styles.wrapper} ${borderless && styles.borderless} ${
         isOpen && styles.open
-      }`}
+      } ${wrapperClassname}`}
       style={wrapperStyles}
-      onClick={(e) => handleOpen(e)}
     >
       {selectedOption ? (
         <span className={styles.value} title={selectedOption.label}>
@@ -119,25 +121,24 @@ const Select = ({
         </span>
       )}
 
-      {value !== "" && allowClear ? (
+      {normalizedValue !== "" && allowClear ? (
         <button
           type="button"
           className={styles.clearBtn}
-          onClick={(e) => handleClear(e)}
+          onMouseUp={handleClear}
         >
           <CrossIcon />
         </button>
       ) : (
-        <button
-          type="button"
-          className={styles.openBtn}
-          onClick={(e) => handleOpen(e)}
-        >
+        <button type="button" className={styles.openBtn} onClick={handleOpen}>
           <DropDownArrowIcon />
         </button>
       )}
 
-      <div className={styles.dropDownWrapper} style={dropDownWrapperStyles}>
+      <div
+        className={`${styles.dropDownWrapper} ${dropdownClassname}`}
+        style={dropDownWrapperStyles}
+      >
         <ul className={styles.dropDownList}>
           {options.map((option, index) => (
             <li

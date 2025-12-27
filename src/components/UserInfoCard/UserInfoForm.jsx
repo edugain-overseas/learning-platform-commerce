@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { getCode } from "country-list";
 import PhoneInput from "react-phone-input-2";
 import { ReactComponent as EyeIcon } from "../../images/icons/eye.svg";
 import { ReactComponent as EyeInvisibleIcon } from "../../images/icons/eye-invisible.svg";
 import { ReactComponent as ReloadIcon } from "../../images/icons/reload.svg";
 import { ReactComponent as SaveIcon } from "../../images/icons/save.svg";
 import Tooltip from "../shared/Tooltip/Tooltip";
-import "react-phone-input-2/lib/style.css";
 import styles from "./UserInfoCard.module.scss";
+import "react-phone-input-2/lib/style.css";
 
 const UserInfoForm = ({ userInfo, onSubmit, closeEdit }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const countryWrapperRef = useRef(null);
 
   const {
     register,
@@ -40,7 +42,23 @@ const UserInfoForm = ({ userInfo, onSubmit, closeEdit }) => {
 
   const handlePhoneChange = (value, countryData) => {
     setValue("phone", value, { shouldDirty: true });
+
+    if ((watch("country") && dirtyFields.country) || userInfo.country) return;
+
+    setValue("country", countryData.name, { shouldDirty: false });
+
+    if (countryWrapperRef.current) {
+      countryWrapperRef.current.querySelector(".flag").className =
+        "flag " + countryData.countryCode;
+    }
+  };
+
+  const handleCountryChange = (value, countryData) => {
     setValue("country", countryData.name, { shouldDirty: true });
+
+    if ((watch("phone") && dirtyFields.phone) || userInfo.phone) return;
+
+    setValue("phone", value, { shouldDirty: false });
   };
 
   const handleFormSubmit = (data) => {
@@ -50,7 +68,6 @@ const UserInfoForm = ({ userInfo, onSubmit, closeEdit }) => {
     }, {});
 
     console.log(changedData);
-    
 
     if (Object.keys(changedData).length > 0) {
       onSubmit(changedData);
@@ -156,7 +173,32 @@ const UserInfoForm = ({ userInfo, onSubmit, closeEdit }) => {
 
         <label>
           <span>Your country:</span>
-          <input type="text" {...register("country")} />
+          <div className={styles.countryWrapper} ref={countryWrapperRef}>
+            <PhoneInput
+              containerClass={styles.phoneContainer}
+              inputClass={styles.phoneInput}
+              buttonClass={styles.phoneBtn}
+              dropdownClass={styles.countryDropDown}
+              placeholder="Select country"
+              onChange={handleCountryChange}
+              autoFormat={false}
+              disableCountryCode={true}
+              enableSearch={true}
+              prefix=""
+              autocompleteSearch={true}
+              disableSearchIcon={true}
+              inputProps={{ type: "hidden" }}
+              country={getCode(userInfo.country)?.toLowerCase()}
+            />
+            <input
+              type="text"
+              value={watch("country")}
+              onChange={() => {}}
+              className={styles.countryInput}
+              placeholder="Your country"
+              disabled={true}
+            />
+          </div>
         </label>
       </div>
 
