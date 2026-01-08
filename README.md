@@ -70,7 +70,7 @@ Frontend application for an online learning platform with commerce features, use
 
 ## 📁 Project Structure
 
-![Architecture diagram](images/architecture.png)
+![Architecture diagram](src/images/architecture.png)
 
 ---
 
