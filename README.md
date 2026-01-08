@@ -70,19 +70,7 @@ Frontend application for an online learning platform with commerce features, use
 
 ## 📁 Project Structure
 
-src
-├── components/ # Reusable UI components and feature blocks
-├── pages/ # Route-level pages
-├── redux/ # Redux store, slices, persistence
-├── hooks/ # Custom React hooks
-├── context/ # React Context providers
-├── http/ # API layer and services
-├── utils/ # Helper and utility functions
-├── constants/ # App-wide constants and configs
-├── styles/ # Global styles and theme overrides
-├── images/ # Static assets
-├── App.jsx # Root application component
-└── index.js # Application entry point
+![Architecture diagram](images/architecture.png)
 
 ---
 
