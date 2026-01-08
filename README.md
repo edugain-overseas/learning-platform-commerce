@@ -1,70 +1,128 @@
-# Getting Started with Create React App
+# Learning Platform Commerce
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Frontend application for an online learning platform with commerce features, user profile management, payments, and rich interactive UI.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Tech Stack
 
-### `npm start`
+**Core**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* React 18
+* Create React App
+* React Router v6
+* Redux Toolkit + Redux Persist
+* React Hook Form
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**UI & UX**
 
-### `npm test`
+* Ant Design (antd)
+* Framer Motion (animations)
+* Swiper (sliders)
+* Sass (SCSS modules)
+* React Spinners
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Forms & Inputs**
 
-### `npm run build`
+* react-hook-form
+* react-phone-input-2
+* use-mask-input
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Media & Content**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* react-pdf / pdfjs-dist
+* react-quill-new (rich text editor)
+* react-avatar-editor
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Drag & Drop / Tables**
 
-### `npm run eject`
+* @dnd-kit (core, sortable, modifiers)
+* react-dropzone
+* xlsx (CSV / Excel import)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Utilities**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* axios
+* dayjs / moment
+* country-list
+* franc (language detection)
+* react-countup
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Auth & Integrations**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+* Apple Sign In
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## ✨ Features
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* User authentication & profile management
+* Editable user information (phone, country, password, avatar)
+* Course browsing & purchasing flow
+* Commerce-ready architecture
+* Custom reusable UI components (Select, Tooltip, Tables, etc.)
+* Drag-and-drop data handling
+* PDF rendering
+* Responsive layout
+* Smooth animations
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📁 Project Structure
 
-### Analyzing the Bundle Size
+src
+├── components/ # Reusable UI components and feature blocks
+├── pages/ # Route-level pages
+├── redux/ # Redux store, slices, persistence
+├── hooks/ # Custom React hooks
+├── context/ # React Context providers
+├── http/ # API layer and services
+├── utils/ # Helper and utility functions
+├── constants/ # App-wide constants and configs
+├── styles/ # Global styles and theme overrides
+├── images/ # Static assets
+├── App.jsx # Root application component
+└── index.js # Application entry point
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 🧠 Architectural Notes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+* Global state is managed with **Redux Toolkit**
+* Persistent state via **redux-persist**
+* Forms are handled with **react-hook-form** for performance and scalability
+* UI components are designed to be reusable and isolated
+* Complex logic (tables, drag & drop, timers) is extracted into custom hooks
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🛠️ Scripts
 
-### Deployment
+```bash
+npm start       # Run development server
+npm run build   # Build for production
+npm test        # Run tests
+npm run eject   # Eject CRA configuration
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## 🌍 Browser Support
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Defined via `browserslist`:
+
+* Modern evergreen browsers
+* No support for legacy or dead browsers
+
+---
+
+## 📌 Notes
+
+* This project is private and intended for internal or controlled use
+* README structure is prepared for future expansion (architecture, diagrams, API docs)
+
+---
+
+## 📄 License
+
+Private project. All rights reserved.

@@ -117,6 +117,7 @@
   background-color: var(--bg-rgba-default);
   box-shadow: var(--drop-shadow-button-main);
   border-radius: 5rem;
+  overflow-y: auto;
 
   .fallback {
     height: 100%;

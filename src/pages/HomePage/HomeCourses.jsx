@@ -18,7 +18,7 @@ const HomeCourses = () => {
         <HomeSlider renderItem={renderItem} items={courses}>
           <SliderSectionHeader
             title="Most popular Courses"
-            link="courses/available"
+            link="courses/all"
           />
         </HomeSlider>
       </div>

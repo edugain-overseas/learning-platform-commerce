@@ -35,7 +35,7 @@ const HomeCategories = () => {
         >
           <SliderSectionHeader
             title="Categories of Courses"
-            link="courses/available"
+            link="courses/all"
           />
         </HomeSlider>
       </div>
