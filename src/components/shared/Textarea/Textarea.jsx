@@ -33,21 +33,7 @@ const Textarea = forwardRef(
       onBlur(e);
       if (setMinRowsOnBlur) {
         const originalHeight = fontSize * minRows * 1.2 + 8;
-        // const maxHeight = maxRows ? fontSize * maxRows * 1.2 + 8 : null;
-
         textareaRef.current.style.height = originalHeight + "rem";
-        //   textareaRef.current.style.height =
-        //     value === ""
-        //       ? originalHeight + "rem"
-        //       : Math.max(
-        //           originalHeight,
-        //           maxHeight
-        //             ? Math.min(
-        //                 pxToRem(textareaRef.current.scrollHeight),
-        //                 maxHeight
-        //               )
-        //             : pxToRem(textareaRef.current.scrollHeight)
-        //         ) + "rem";
       }
     };
 
