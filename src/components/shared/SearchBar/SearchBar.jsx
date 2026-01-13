@@ -28,7 +28,14 @@ const SearchBar = ({
         </div>
       </label>
       {clearBtn && (
-        <button onClick={() => onChange("")} className={styles.clearBtn}>
+        <button
+          onClick={() => onChange("")}
+          className={styles.clearBtn}
+          style={{
+            opacity: value ? 1 : 0,
+            pointerEvents: value ? "auto" : "none",
+          }}
+        >
           <CrossIcon />
         </button>
       )}
