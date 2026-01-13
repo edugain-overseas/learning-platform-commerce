@@ -274,9 +274,13 @@
 
     transition: all var(--transition-time-min) ease;
 
-    &:hover, &:disabled {
+    &:hover {
       background-color: var(--content-success);
       color: var(--content-contr-color);
+    }
+
+    &:disabled {
+      opacity: 0.5;
     }
 
     span {
@@ -287,6 +291,16 @@
     svg {
       width: 20rem;
       height: 20rem;
+    }
+
+    &.activePay {
+      background-color: var(--content-success);
+      color: var(--content-contr-color);
+
+      &:hover {
+        background-color: var(--content-datail-secondary);
+        color: var(--content-light-secondary);
+      }
     }
   }
 }

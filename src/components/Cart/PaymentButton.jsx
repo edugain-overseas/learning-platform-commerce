@@ -33,7 +33,6 @@ const PaymentButton = () => {
         cancel_url
       );
       const paymentLink = response.link;
-      console.log(paymentLink);
 
       window.location = paymentLink;
     } catch (error) {
@@ -64,7 +63,9 @@ const PaymentButton = () => {
 
   return (
     <button
-      className={styles.paymentBtn}
+      className={`${styles.paymentBtn} ${
+        !!cartQuantity ? styles.activePay : ""
+      }`}
       onClick={cartQuantity === 0 ? handleClose : handlePay}
       disabled={isLoading}
     >
@@ -72,7 +73,7 @@ const PaymentButton = () => {
         <Spinner height={16} size={7} contrastColor={true} />
       ) : (
         <>
-          <span>{cartQuantity === 0 ? "Continue shopping" : "Checkout"}</span>
+          <span>{!!cartQuantity ? "Checkout" : "Continue shopping"}</span>
           <CartIcon />
         </>
       )}
