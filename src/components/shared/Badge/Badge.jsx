@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Badge.module.scss";
 
 const orientationClassName = (o) => {
-  switch (0) {
+  switch (o) {
     case "bottom-right":
       return styles.b_r;
     case "bottom-left":

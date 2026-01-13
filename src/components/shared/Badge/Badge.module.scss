@@ -21,9 +21,9 @@
   }
 
   .filled {
-    --background-color: var(--bg-color-accent);
+    --background-color: var(--content-nav-hover);
     --text-color: var(--content-contr-color);
-    --pulse-color: 65, 113, 205;
+    --pulse-color: 208, 0, 0;
 
     background-color: var(--background-color);
     color: var(--text-color);
@@ -31,8 +31,9 @@
   }
 
   .b_r {
-    bottom: -10%;
-    right: -10%;
+    bottom: 0;
+    right: 0;
+    transform: translate(50%, 50%);
   }
   .b_l {
     bottom: -10%;

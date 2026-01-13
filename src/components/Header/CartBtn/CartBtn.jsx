@@ -12,7 +12,8 @@ const CartBtn = () => {
       text={`$ ${priceFormatter(totalPrice)}`}
       icon={<CartIcon style={{ width: "24rem", height: "24rem" }} />}
       onClick={handleOpen}
-      variant={!!totalPrice ? "lightBlue" : "lightGrey"}
+      variant={!!totalPrice ? "darkBlue" : "lightGrey"}
+      hoverVariant={!!totalPrice ? "green" : "darkBlue"}
     />
   );
 };
