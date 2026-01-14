@@ -1,8 +1,9 @@
-import { ReactComponent as HomeIcon } from "../images/icons/home.svg";
-import { ReactComponent as CoursesIcon } from "../images/icons/courses.svg";
-import { ReactComponent as MyProfileIcon } from "../images/icons/myProfile.svg";
-import { ReactComponent as AboutIEUIcon } from "../images/icons/aboutIEU.svg";
-import { ReactComponent as InstructionsIcon } from "../images/icons/instructions.svg";
+import { ReactComponent as HomeIcon } from "../images/icons/nav/home.svg";
+import { ReactComponent as CoursesIcon } from "../images/icons/nav/all-courses.svg";
+import { ReactComponent as EducationIcon } from "../images/icons/nav/my-education.svg";
+import { ReactComponent as MyProfileIcon } from "../images/icons/nav/my-profile.svg";
+import { ReactComponent as AboutIEUIcon } from "../images/icons/nav/about.svg";
+import { ReactComponent as InstructionsIcon } from "../images/icons/nav/instruction.svg";
 import CourseIntroPage from "../pages/CourseDetailPage/CourseIntroPage/CourseIntroPage";
 import CourseTasksPage from "../pages/CourseDetailPage/CourseTasksPage/CourseTasksPage";
 import CourseCerificatePage from "../pages/CourseDetailPage/CourseCerificatePage/CourseCerificatePage";
@@ -19,7 +20,7 @@ export const sidebarNav = [
   },
   {
     label: "My education",
-    icon: <CoursesIcon />,
+    icon: <EducationIcon />,
     link: "/education",
     children: null,
   },

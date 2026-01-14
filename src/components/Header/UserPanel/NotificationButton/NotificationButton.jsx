@@ -1,11 +1,16 @@
 import React from "react";
 import { useNotificationMessage } from "../../../../hooks/useNotificationMessage";
-import { ReactComponent as BellIcon } from "../../../../images/icons/bellWithBadge.svg";
+import { ReactComponent as BellIcon } from "../../../../images/icons/bell.svg";
+import { ReactComponent as BadgeBellIcon } from "../../../../images/icons/bell-for-badge.svg";
 import styles from "./NotificationButton.module.scss";
 
+// const messages = [];
+
+const messages = [{}, {}];
+
 const NotificationButton = () => {
-  // const [messageApi, contextHolder] = useNotificationMessage();
   const [messageApi, contextHolder] = useNotificationMessage();
+
   const amoutTodisplay = (messages) => {
     if (messages.length > 99) {
       return "99+";
@@ -26,8 +31,10 @@ const NotificationButton = () => {
           })
         }
       >
-        <BellIcon />
-        <span className={styles.badge}>{amoutTodisplay([])}</span>
+        {messages.length !== 0 ? <BadgeBellIcon /> : <BellIcon />}
+        {messages.length !== 0 && (
+          <span className={styles.badge}>{amoutTodisplay(messages)}</span>
+        )}
       </button>
     </>
   );

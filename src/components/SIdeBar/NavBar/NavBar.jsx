@@ -2,9 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { ReactComponent as NavTriangleIcon } from "../../../images/icons/navTriangle.svg";
 import { navLinkActiveHandler } from "../../../utils/navLinkActiveHandler";
-import styles from "./NavBar.module.scss";
 import { useSelector } from "react-redux";
 import { getAccessToken } from "../../../redux/user/selectors";
+import styles from "./NavBar.module.scss";
 
 const NavBar = ({ navItems }) => {
   const isUserLoggedIn = useSelector(getAccessToken);

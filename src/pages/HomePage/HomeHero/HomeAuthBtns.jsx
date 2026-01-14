@@ -1,28 +1,14 @@
 import { ReactComponent as RegisterIcon } from "../../../images/icons/user.svg";
 import { ReactComponent as LoginIcon } from "../../../images/icons/login.svg";
-import { ReactComponent as CoursesIcon } from "../../../images/icons/courses.svg";
-// import { ReactComponent as LogoutIcon } from "../../../images/icons/logout.svg";
+import { ReactComponent as EducationIcon } from "../../../images/icons/nav/my-education.svg";
+import { ReactComponent as CoursesIcon } from "../../../images/icons/nav/all-courses.svg";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAccessToken } from "../../../redux/user/selectors";
-// import { logoutThunk } from "../../../redux/user/operations";
-// import { instance } from "../../../http/instance";
-// import CommonButton from "../../../components/shared/CommonButton/CommonButton";
 import styles from "../HomePage.module.scss";
 
 const HeroAuthBtns = () => {
   const accessToken = useSelector(getAccessToken);
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-
-  // const handleLogout = () => {
-  //   dispatch(logoutThunk())
-  //     .unwrap()
-  //     .then(() => {
-  //       instance.defaults.headers.Authorization = null;
-  //       navigate("/login");
-  //     });
-  // };
 
   return (
     <div className={styles.heroAuthBtns}>
@@ -30,7 +16,7 @@ const HeroAuthBtns = () => {
         <>
           <Link className={styles.primaryBtn} to="/education">
             <span>My education</span>
-            <CoursesIcon />
+            <EducationIcon />
           </Link>
           <Link className={styles.secondaryBtn} to="/courses">
             <span>All courses</span>
