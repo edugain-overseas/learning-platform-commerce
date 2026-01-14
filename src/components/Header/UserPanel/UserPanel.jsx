@@ -12,7 +12,7 @@ const UserPanel = () => {
   return (
     <div className={styles.wrapper}>
       <NotificationButton />
-      <div className={styles.userWrapper}>
+      <Link to="/me" className={styles.userWrapper}>
         <div className={styles.userAvatarWrapper}>
           <Avatar
             src={userInfo.avatarURL}
@@ -21,10 +21,8 @@ const UserPanel = () => {
             size="36rem"
           />
         </div>
-        <Link to="/me">
-          <span className={styles.userName}>{userInfo.username}</span>
-        </Link>
-      </div>
+        <span className={styles.userName}>{userInfo.username}</span>
+      </Link>
     </div>
   );
 };

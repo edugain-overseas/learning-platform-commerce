@@ -18,12 +18,30 @@
   justify-content: center;
   align-items: center;
   gap: 10rem;
+
+  &:hover {
+    .userAvatarWrapper::before,
+    .userName::before {
+      opacity: 1;
+    }
+  }
 }
 
 .userAvatarWrapper {
   width: 36rem;
   height: 36rem;
   border-radius: 50%;
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    inset: -4rem;
+    background-color: var(--bg-thumb);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity var(--transition-time-min) ease;
+  }
 
   & img {
     width: 100%;
@@ -64,4 +82,19 @@
   line-height: 19rem;
   font-weight: 500;
   color: var(--content-main);
+  position: relative;
+  display: block;
+  overflow: initial;
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: -10rem -20rem;
+    background-color: var(--bg-thumb);
+    border-radius: 5rem;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity var(--transition-time-min) ease;
+  }
 }

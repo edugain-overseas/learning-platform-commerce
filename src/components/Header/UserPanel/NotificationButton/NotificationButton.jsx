@@ -4,9 +4,9 @@ import { ReactComponent as BellIcon } from "../../../../images/icons/bell.svg";
 import { ReactComponent as BadgeBellIcon } from "../../../../images/icons/bell-for-badge.svg";
 import styles from "./NotificationButton.module.scss";
 
-// const messages = [];
+const messages = [];
 
-const messages = [{}, {}];
+// const messages = [{}, {}];
 
 const NotificationButton = () => {
   const [messageApi, contextHolder] = useNotificationMessage();

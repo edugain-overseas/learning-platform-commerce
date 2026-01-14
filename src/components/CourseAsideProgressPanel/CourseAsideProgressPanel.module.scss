@@ -66,8 +66,13 @@
 }
 
 div[data-narrowed="true"] {
-  .progressWrapper span {
+  // .progressWrapper span#progress-max-value,
+  .progressWrapper > span {
     display: none;
+  }
+
+  .progressWrapper span#progress-value-100 {
+    opacity: 0;
   }
 
   .examLink span {

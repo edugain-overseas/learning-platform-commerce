@@ -51,15 +51,24 @@ const ProgressBar = ({ width = 171, height = 24, value, className = "" }) => {
             backgroundColor: `${handleProgressColor(value)}`,
           }}
         ></div>
-        <span style={{ fontSize: `${(10 / 24) * height}rem` }}>
+        <span
+          style={{ fontSize: `${(10 / 24) * height}rem` }}
+          id={`progress-value-${value}`}
+        >
           {disabled ? (
             "Not purchased"
           ) : value >= 100 ? (
-            "Completed"
+            <>
+              <span>Completed</span>
+              <span id="numeric-value">100</span>
+            </>
           ) : (
             <>
               {`${value ? value : 0}`}{" "}
-              <span style={{ fontSize: "inherit" }}> / 100 %</span>
+              <span style={{ fontSize: "inherit" }} id="prosgress-max-value">
+                {" "}
+                / 100 %
+              </span>
             </>
           )}
         </span>

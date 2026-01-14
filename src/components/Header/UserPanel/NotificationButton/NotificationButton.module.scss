@@ -13,7 +13,9 @@
 
   transition: background-color var(--transition-time-min) ease;
 
-  &:hover {
+  &:hover,
+  &:active,
+  &:focus {
     background-color: var(--bg-thumb);
   }
 

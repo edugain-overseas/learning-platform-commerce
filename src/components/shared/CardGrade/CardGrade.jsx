@@ -1,11 +1,11 @@
 import React from "react";
-import { letterGrade } from "../../../utils/gradingScale";
+import { getIcon } from "../../../utils/gradingScale";
 import styles from "./CardGrade.module.scss";
 
 const CardGrade = ({ grade = 0, maxGrade = 200 }) => {
   return (
     <div className={styles.wrapper}>
-      {letterGrade(grade)}
+      {getIcon(grade)}
       <div className={styles.infoWrapper}>
         <span>Grade</span>
         <div>

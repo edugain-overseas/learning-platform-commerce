@@ -20,6 +20,11 @@
   span {
     font-weight: 500;
     font-size: inherit;
+    line-height: 1;
+  }
+
+  span[id="numeric-value"] {
+    display: none;
   }
 }
 
@@ -53,5 +58,8 @@
 div[data-narrowed="true"] {
   .innerWrapper span span {
     display: none;
+  }
+  .innerWrapper span span[id="numeric-value"] {
+    display: block;
   }
 }

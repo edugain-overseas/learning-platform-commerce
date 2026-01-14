@@ -30,12 +30,10 @@
     position: absolute;
     z-index: 99;
     transition: opacity var(--transition-time-min) ease;
-    padding: 2rem 10rem;
-    background-color: rgba($color: #fcfcfc, $alpha: 1);
-    background-color: var(--bg-rgba-default);
+    padding: 8rem;
+    background-color: var(--bg-accent-block);
     backdrop-filter: blur(16rem);
     border-radius: 4rem;
-    box-shadow: var(--drop-shadow-button-main);
     box-shadow: var(--drop-shadow-middle-intense);
     width: max-content;
 
@@ -48,7 +46,6 @@
     }
 
     &.left {
-      padding-right: 6rem;
       right: calc(100% + 10rem);
       top: 50%;
       transform: translateY(-50%);
@@ -58,14 +55,13 @@
         left: 100%;
         transform: translateY(-50%);
         z-index: 1;
-        border-left: 6rem solid #fcfcfc;
+        border-left: 6rem solid var(--bg-accent-block);
         border-bottom: 6rem solid transparent;
         border-top: 6rem solid transparent;
       }
     }
 
     &.top {
-      padding-bottom: 6rem;
       left: 50%;
       bottom: calc(100% + 6rem);
       transform: translateX(-50%);
@@ -75,14 +71,13 @@
         left: 50%;
         transform: translateX(-50%);
         z-index: 1;
-        border-top: 6rem solid #fcfcfc;
+        border-top: 6rem solid var(--bg-accent-block);
         border-left: 6rem solid transparent;
         border-right: 6rem solid transparent;
       }
     }
 
     &.bottom {
-      padding-top: 6rem;
       left: 50%;
       top: calc(100% + 6rem);
       transform: translateX(-50%);
@@ -92,7 +87,7 @@
         left: 50%;
         transform: translateX(-50%);
         z-index: 1;
-        border-bottom: 6rem solid #fcfcfc;
+        border-bottom: 6rem solid var(--bg-accent-block);
         border-left: 6rem solid transparent;
         border-right: 6rem solid transparent;
       }

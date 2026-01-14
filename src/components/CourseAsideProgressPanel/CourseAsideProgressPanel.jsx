@@ -33,7 +33,7 @@ const CourseAsideProgressPanel = ({ courseId }) => {
       duration: 3,
     });
 
-  const handleNavigateToExam = (e) => {
+  const handleNavigateToExam = () => {
     if (exam.status === "blocked") {
       blockedLessonMessage();
     } else {

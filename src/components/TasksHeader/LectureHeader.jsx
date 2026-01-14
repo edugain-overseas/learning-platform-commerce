@@ -45,11 +45,12 @@ const LectureHeader = ({
             />
           </>
         ) : (
-          <Notes />
+          // <Notes />
+          null
         )}
-        {lectureSpeech && lectureSpeech?.length !== 0 && !isModer && (
+        {/* {lectureSpeech && lectureSpeech?.length !== 0 && !isModer && (
           <LectureAudioPlayer lectureSpeeches={lectureInfo.lecture_speeches} />
-        )}
+        )} */}
         <div className={styles.navBtnsWrapper}>
           <LessonNavigateBtn
             forward={false}
