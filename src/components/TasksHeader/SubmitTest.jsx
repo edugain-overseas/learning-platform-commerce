@@ -155,6 +155,9 @@ const SubmitTest = ({ test }) => {
 
   const closePopOver = () => handleOpenChange(false);
 
+  const amountOfUserAttempts =
+    test[`${lessonType}_data`]?.attempts_data?.length;
+
   return (
     <Popover
       rootClassName="custom-popover"
@@ -166,10 +169,9 @@ const SubmitTest = ({ test }) => {
           {test[`${lessonType}_data`]?.attempts_data && (
             <span
               title={`You can do ${
-                test[`${lessonType}_data`].attempts -
-                test[`${lessonType}_data`].attempts_data.length
+                test[`${lessonType}_data`].attempts - amountOfUserAttempts
               } attempts more`}
-            >{`${test[`${lessonType}_data`].attempts_data.length}/${
+            >{`${amountOfUserAttempts}/${
               test[`${lessonType}_data`].attempts
             }`}</span>
           )}
@@ -180,7 +182,11 @@ const SubmitTest = ({ test }) => {
       open={isOpen}
       onOpenChange={handleOpenChange}
     >
-      <button className={styles.attemptsBtn}>
+      <button
+        className={`${styles.attemptsBtn} ${
+          amountOfUserAttempts !== 0 ? styles.hasAttempts : ""
+        }`}
+      >
         <span>Attempts</span>
         <ListIcon />
       </button>

@@ -23,7 +23,7 @@ const Success = () => {
         <p>Your purchase</p>
         <p>Was successful!</p>
       </div>
-      <Link className={styles.link} to="/education/all">
+      <Link className={styles.link} to="/education/in-progress">
         <span>Go to the purchased course</span>
         <Arrow />
       </Link>

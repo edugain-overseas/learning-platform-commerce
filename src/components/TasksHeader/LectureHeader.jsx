@@ -1,12 +1,12 @@
 import React from "react";
-import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
-import styles from "./TasksHeader.module.scss";
-import LectureAudioPlayer from "../LectureAudioPlayer/LectureAudioPlayer";
 import { useSelector } from "react-redux";
 import { getUserType } from "../../redux/user/selectors";
+import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
+// import LectureAudioPlayer from "../LectureAudioPlayer/LectureAudioPlayer";
+// import Notes from "../Notes/Notes";
 import Switcher from "../shared/Switcher/Switcher";
 import Template from "../shared/Template/Template";
-import Notes from "../Notes/Notes";
+import styles from "./TasksHeader.module.scss";
 
 const LectureHeader = ({
   lecture,
@@ -18,11 +18,11 @@ const LectureHeader = ({
     title,
     type,
     number,
-    lecture_info: lectureInfo,
+    // lecture_info: lectureInfo,
     course_id: courseId,
   } = lecture;
 
-  const lectureSpeech = lectureInfo?.lecture_speeches;
+  // const lectureSpeech = lectureInfo?.lecture_speeches;
 
   const isModer = useSelector(getUserType) === "moder";
 

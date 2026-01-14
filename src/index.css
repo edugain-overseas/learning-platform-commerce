@@ -25,8 +25,9 @@
   --bg-rgba-primary: #fff;
   --bg-button-disabled: #d9d9d9;
   --bg-button-success: #39ba6d;
-  --bg-button-failture: #ba3939;
+  --bg-button-success-accent: #258D4F;
   --bg-button-decorate-success: #00c808;
+  --bg-button-failture: #ba3939;
   --bg-button-edit: #fcc400;
   --bg-color-accent: #335ba9;
   --bg-button-active-link: #81acff;
@@ -45,7 +46,7 @@
   --content-detail: #5e5e5e;
   --content-success: #29ca6a;
   --content-failture: #ba3939;
-  --content-contr-color: #fff;
+  --content-contr-color: #ffffff;
   --content-datail-secondary: rgb(126, 140, 168);
   --content-cold: #ffd700;
   --content-nav-hover: #d00000;

@@ -77,18 +77,31 @@
     align-items: center;
     gap: 8rem;
     border-radius: 5rem;
-    border: 1rem solid var(--content-success);
+    border: 1rem solid var(--bg-button-success);
     background-color: transparent;
-    transition: background-color var(--transition-time-min) ease;
+    transition: all var(--transition-time-min) ease;
 
-    &:hover {
-      background-color: var(--content-success);
+    &.hasAttempts {
+      background-color: var(--bg-button-success);
+
       span {
-        color: var(--content-light-secondary);
+        color: var(--content-contr-color);
       }
 
       svg {
-        color: var(--content-light-secondary);
+        color: var(--content-contr-color);
+      }
+    }
+
+    &:hover {
+      background-color: var(--bg-button-success-accent);
+      border-color: var();
+      span {
+        color: var(--content-contr-color);
+      }
+
+      svg {
+        color: var(--content-contr-color);
       }
     }
 
@@ -192,7 +205,7 @@
 
     &:hover {
       background-color: var(--content-datail-secondary);
-      color: var(--content-light-secondary);
+      color: var(--content-contr-color);
     }
 
     span {
@@ -234,7 +247,7 @@
     span {
       font-size: 14rem;
       font-weight: 500;
-      color: var(--content-light-secondary);
+      color: var(--content-contr-color);
     }
 
     svg {
@@ -242,7 +255,7 @@
       height: 14rem;
 
       * {
-        fill: var(--content-light-secondary);
+        fill: var(--content-contr-color);
       }
     }
   }

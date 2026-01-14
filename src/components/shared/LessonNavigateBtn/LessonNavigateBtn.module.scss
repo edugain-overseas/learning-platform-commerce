@@ -56,19 +56,19 @@
     }
 
     &:hover {
-      background-color: var(--border-color-main);
+      background-color: var(--content-main);
 
       span {
-        color: var(--content-datail-secondary);
+        color: var(--content-light-secondary);
       }
       svg * {
-        fill: var(--content-datail-secondary);
+        fill: var(--content-light-secondary);
       }
     }
   }
 
   span {
-    font-size: 16rem;
+    font-size: 14rem;
     font-weight: 500;
     transition: color var(--transition-time-min) ease;
   }
@@ -79,18 +79,6 @@
 
     * {
       transition: fill var(--transition-time-min) ease;
-    }
-  }
-
-  &:hover {
-    // background-color: var(--content-datail-secondary);
-
-    span {
-      //   color: var(--content-light-secondary);
-    }
-
-    svg * {
-      //   fill: var(--content-light-secondary);
     }
   }
 }
