@@ -1,13 +1,17 @@
 .pageWrapper {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .contentWrapper {
-    flex-grow: 1;
-    overflow-y: scroll;
-    padding-inline: 32rem;
-    padding-bottom: 72rem;
-    scroll-behavior: smooth;
+  flex-grow: 1;
+  overflow-y: scroll;
+  padding-inline: 20rem 32rem;
+  padding-bottom: 72rem;
+  scroll-behavior: smooth;
+}
+
+.discountWrapper {
+  padding: 20rem 32rem 4rem 20rem;
 }

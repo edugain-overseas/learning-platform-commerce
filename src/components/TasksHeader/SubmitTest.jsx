@@ -96,25 +96,23 @@ const AttemptsList = ({ test, closePopOver }) => {
                 : ""
             }
           >
-            <span
-              className={styles.marker}
-            >{`${attempt.attempt_number})`}</span>
-            <span
-              className={styles.scoreData}
-            >{`${attempt.attempt_score}/${maxScore}`}</span>
-            <button
-              className={styles.showAttemptDetailBtn}
-              onClick={() => handleOpenDetails(attempt)}
-            >
-              {isLoadingAttemptId !== attempt.id ? (
-                <>
-                  <EyeIcon />
-                  <span>Show details</span>
-                </>
-              ) : (
-                <Spinner contrastColor={true} />
-              )}
-            </button>
+            <div className={styles.scoreWrapper}>
+              <span className={styles.scoreTitle}>Grade</span>
+              <span className={styles.scoreData}>
+                {`${attempt.attempt_score}`} \ {`${maxScore}`}
+              </span>
+            </div>
+            {isLoadingAttemptId !== attempt.id ? (
+              <button
+                className={styles.showAttemptDetailBtn}
+                onClick={() => handleOpenDetails(attempt)}
+              >
+                <EyeIcon />
+              </button>
+            ) : (
+              <Spinner color="#001c54" size={6} />
+            )}
+
             {!test[`${lessonType}_data`].my_attempt_id && (
               <button
                 className={styles.submitAttemptBtn}
@@ -187,8 +185,17 @@ const SubmitTest = ({ test }) => {
           amountOfUserAttempts !== 0 ? styles.hasAttempts : ""
         }`}
       >
-        <span>Attempts</span>
-        <ListIcon />
+        {test.testData?.my_score ? (
+          <>
+            <span>Complete</span>
+            <ComplieteIcon />
+          </>
+        ) : (
+          <>
+            <span>Attempts</span>
+            <ListIcon />
+          </>
+        )}
       </button>
     </Popover>
   );

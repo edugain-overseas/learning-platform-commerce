@@ -95,7 +95,9 @@ const CourseCard = ({
               {bought ? (
                 <>
                   <Progress progress={progress} />
-                  <CardGrade grade={grade} />
+                  <div className={styles.courseCardGradeWrapper}>
+                    <CardGrade grade={grade} />
+                  </div>
                 </>
               ) : (
                 <>

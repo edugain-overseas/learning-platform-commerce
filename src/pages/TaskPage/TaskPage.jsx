@@ -18,6 +18,12 @@ const TaskPage = () => {
   const task = lessons.find(({ id }) => id === +taskId);
   const taskType = task?.type;
 
+  console.log(
+    courses.find((course) =>
+      course.lessons.find((lesson) => lesson.id === +taskId)
+    )
+  );
+
   const courseId = courses.find((course) =>
     course.lessons.find((lesson) => lesson.id === +taskId)
   )?.id;

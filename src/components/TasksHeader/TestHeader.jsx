@@ -15,13 +15,14 @@ const TestHeader = ({
   switcherItems,
   switcherOnChange,
   completedQuestionsAmount = 0,
-  testScore,
   isExam = false,
 }) => {
-  const { title, type, number, course_id: courseId } = test;  
+  const { title, type, number, course_id: courseId } = test;
 
   const testData = isExam ? test.exam_data : test.test_data;
   const isModer = useSelector(getUserType) === "moder";
+
+  const testScore = testData?.my_score;
 
   return (
     <div className={styles.wrapper}>
@@ -55,6 +56,7 @@ const TestHeader = ({
                   <span>{`Questions: ${completedQuestionsAmount}/${testData?.questions?.length}`}</span>
                 </div>
                 <SubmitTest test={test} />
+                <LessonGrade grade={0} maxGrade={testData?.score} />
               </>
             )}
           </>

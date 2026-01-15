@@ -183,6 +183,10 @@
   align-items: center;
   gap: 4rem;
   align-self: center;
+
+  div span {
+    font-size: 6rem;
+  }
 }
 
 .details {
@@ -202,6 +206,12 @@
   align-items: flex-end;
   justify-content: space-between;
   height: 30rem;
+}
+
+.courseCardGradeWrapper {
+  span {
+    font-size: 14rem;
+  }
 }
 
 button.cardBtn {

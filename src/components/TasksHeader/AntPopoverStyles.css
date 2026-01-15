@@ -3,10 +3,16 @@
   background-color: var(--bg-rgba-primary);
   backdrop-filter: blur(28rem);
   border-radius: 5rem;
+  min-width: 258rem;
+  padding: 15rem;
 
   /* --antd-arrow-background-color: var(--bg-rgba-default); */
 }
 
 .ant-popover-content .ant-popover-inner .ant-popover-title {
-  margin-bottom: 20rem;
+  margin-bottom: 8rem;
+}
+
+.custom-popover .ant-empty .ant-empty-image {
+  margin-block: 22rem 0;
 }

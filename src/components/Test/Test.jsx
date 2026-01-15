@@ -25,7 +25,7 @@ const Test = ({ test }) => {
     onSubmitAttemptBtnClick,
   } = useStudentTest(test, "test");
 
-  const { course_id: courseId } = test;
+  const { course_id: courseId } = test;    
 
   const isTestClosed =
     test?.test_data?.attempts <= test.test_data?.attempts_data?.length ||
@@ -68,7 +68,6 @@ const Test = ({ test }) => {
         {contextHolder}
         <TestHeader
           test={test}
-          testScore={0}
           questionsDoneAmount={completedQuestionsAmount}
         />
         {isLoading ? (

@@ -1,7 +1,7 @@
 .container {
   display: flex;
   align-items: center;
-  gap: 6rem;
+  gap: 4rem;
 
   svg {
     width: 13.5rem;
@@ -12,13 +12,12 @@
 .subContainer {
   display: flex;
   align-items: center;
-  gap: 12rem;
+  gap: 6rem;
 }
 
 .left {
   display: flex;
   flex-direction: column;
-  padding-right: 10rem;
 
   .value {
     text-align: right;
@@ -29,6 +28,7 @@
   font-size: 8rem;
   font-weight: 500;
   line-height: 1;
+  margin-inline-end: 2rem;
 }
 
 .value {
@@ -44,10 +44,10 @@
     content: "";
     position: absolute;
     width: 1rem;
-    height: 36rem;
-    left: -10rem;
+    height: 17rem;
+    left: -4rem;
     top: 50%;
-    transform: translateY(-50%) rotateZ(140deg);
+    transform: translateY(-35%) rotateZ(160deg);
     background-color: var(--content-datail-secondary);
     transform-origin: center center;
   }

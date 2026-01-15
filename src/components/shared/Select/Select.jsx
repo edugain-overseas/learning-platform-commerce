@@ -26,8 +26,6 @@ const Select = ({
     ({ value: optionValue }) => optionValue === normalizedValue
   );
 
-  console.log(value);
-
   const handleOptionClick = (e, value) => {
     e.stopPropagation();
     onChange(value);
