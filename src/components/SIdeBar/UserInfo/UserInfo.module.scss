@@ -5,14 +5,36 @@
   min-width: 148rem;
   transform: translateX(-100%);
   transition: transform var(--transition-time-max) ease;
+
+  a {
+    display: block;
+    margin-top: 10rem;
+    width: 100%;
+    text-align: center;
+    position: relative;
+
+    &:hover::before {
+      opacity: 1;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -7rem 0;
+      background-color: var(--bg-thumb);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity var(--transition-time-min) ease;
+    }
+  }
 }
 
 .fullName {
   color: var(--content-main);
   font-size: 14rem;
+  line-height: 1;
   font-style: normal;
   font-weight: 500;
-  margin-top: 10rem;
   white-space: normal;
   text-align: center;
   max-width: 100%;
