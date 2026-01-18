@@ -19,11 +19,15 @@ const CommonButton = ({
   hoverVariant = variants.darkBlue,
   className = "",
   onClick,
+  wrapperStyles = {},
 }) => {
   return (
     <button
-      className={`${styles.commonButton} ${styles[variant]} ${styles[`hover-${hoverVariant}`]} ${className}`}
+      className={`${styles.commonButton} ${styles[variant]} ${
+        styles[`hover-${hoverVariant}`]
+      } ${className}`}
       onClick={onClick}
+      style={{ ...wrapperStyles }}
     >
       <span>{text}</span>
       {icon}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/user/selectors";
 import { getAllCourses } from "../../redux/course/selectors";
@@ -8,6 +8,8 @@ import ExamHeader from "./ExamHeader";
 import ClosedExamPanel from "./ClosedExamPanel";
 import TestContent from "../Test/TestContent";
 import styles from "./Exam.module.scss";
+import { useLeaveConfirm } from "../../hooks/useLeaveConfirm";
+import LeaveModal from "./LeaveModal";
 
 const Exam = ({ exam }) => {
   const userInfo = useSelector(getUserInfo);
@@ -38,7 +40,6 @@ const Exam = ({ exam }) => {
         (attemptA, attemptB) => attemptB.attempt_score - attemptA.attempt_score
       )[0]
     : null;
-
 
   const examScore = bestAttempt?.attempt_score;
   const examMaxScore = examData.score;
@@ -88,36 +89,68 @@ const Exam = ({ exam }) => {
     ).unwrap();
   };
 
+  //logic for invoke when user is leaving/reloading the page or closing the tab
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+
+    if (showExam) {
+      window.addEventListener("beforeunload", handleBeforeUnload);
+    }
+
+    return () => {
+      if (showExam) {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      }
+    };
+  }, [showExam]);
+
+  //react-router-based page leave bloker
+  const { isOpen, confirm, cancel } = useLeaveConfirm(showExam);
+
+  const handleLeaveExam = async () => {
+    await onSubmitAttemptBtnClick();
+    confirm();
+  };
+
   return (
-    <div className={styles.examWrapper}>
-      {contextHolder}
-      <ExamHeader
-        exam={exam}
-        examInProgress={showExam}
-        studentAnswersLength={completedQuestionsAmount}
-        submitAttempt={onSubmitAttemptBtnClick}
-        examScore={examScore}
-        examMaxScore={examMaxScore}
-      />
-      <div className={styles.bodyWrapper}>
-        {showExam ? (
-          <TestContent
-            test={{ ...exam, status }}
-            studentAnswers={studentAnswers}
-            setStudentAnswers={setStudentAnswers}
+    <>
+      <div className={styles.examWrapper}>
+        {contextHolder}
+        {showExam && (
+          <ExamHeader
+            exam={exam}
+            examInProgress={showExam}
+            studentAnswersLength={completedQuestionsAmount}
+            submitAttempt={onSubmitAttemptBtnClick}
+            examScore={examScore}
+            examMaxScore={examMaxScore}
             timeLeft={timeLeft}
           />
-        ) : (
-          <ClosedExamPanel
-            examData={examData}
-            isCompleted={isExamComleted}
-            stats={examStatus()}
-            handleStartExam={startTestAttempt}
-            handleCompleteCourse={handleCompleteCourse}
-          />
         )}
+        <div className={styles.bodyWrapper}>
+          {showExam ? (
+            <TestContent
+              test={{ ...exam, status }}
+              studentAnswers={studentAnswers}
+              setStudentAnswers={setStudentAnswers}
+              timeLeft={timeLeft}
+            />
+          ) : (
+            <ClosedExamPanel
+              examData={examData}
+              isCompleted={isExamComleted}
+              stats={examStatus()}
+              handleStartExam={startTestAttempt}
+              handleCompleteCourse={handleCompleteCourse}
+            />
+          )}
+        </div>
       </div>
-    </div>
+      <LeaveModal isOpen={isOpen} confirm={handleLeaveExam} cancel={cancel} />
+    </>
   );
 };
 

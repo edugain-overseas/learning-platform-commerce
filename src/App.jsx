@@ -4,6 +4,7 @@ import { getRouterByUserType } from "./utils/getRouterByUserType";
 import { useInitialData } from "./hooks/useInitialData";
 import useAdjustFontSize from "./hooks/useAdjustFontSize";
 import useGoogleAuthentication from "./hooks/useGoogleAuthentication";
+import { RouterProvider } from "react-router-dom";
 
 function App() {
   useAdjustFontSize();
@@ -12,7 +13,9 @@ function App() {
 
   const userType = useSelector(getUserType);
 
-  return getRouterByUserType(userType);
+  const router = getRouterByUserType(userType);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;

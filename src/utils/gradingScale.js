@@ -11,6 +11,7 @@ import { ReactComponent as DPlus } from "../images/icons/letterGrade/d-plus.svg"
 import { ReactComponent as D } from "../images/icons/letterGrade/d.svg";
 import { ReactComponent as DMinus } from "../images/icons/letterGrade/d-minus.svg";
 import { ReactComponent as F } from "../images/icons/letterGrade/f.svg";
+import { ReactComponent as E } from "../images/icons/letterGrade/f.svg";
 
 export const letterGrade = (grade) => {
   if (195 <= grade) {
@@ -49,6 +50,9 @@ export const letterGrade = (grade) => {
   if (90 <= grade) {
     return "D-";
   }
+  if (80 <= grade) {
+    return "E";
+  }
   if (0 < grade) {
     return "F";
   }
@@ -73,6 +77,7 @@ const icons = {
   "D-": <DMinus />,
 
   F: <F />,
+  E: <E />,
 };
 
 export const getIcon = (grade) => {

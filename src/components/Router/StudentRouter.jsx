@@ -1,9 +1,14 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Navigate,
+  Route,
+} from "react-router-dom";
 import { courseLinks, instructionsLinks } from "../../costants/nav";
-import MainLayout from "../MainLayout/MainLayout";
 import HomePage from "../../pages/HomePage/HomePage";
 import SearchPage from "../../pages/SearchPage/SearchPage";
+import Root from "../Root";
 const SingUpForm = React.lazy(() => import("../auth/SingUpForm/SingUpForm"));
 const SingInForm = React.lazy(() => import("../auth/SingInForm/SingInForm"));
 const CoursesPage = React.lazy(() =>
@@ -35,9 +40,9 @@ const PaymentPage = React.lazy(() =>
   import("../../pages/PaymentPage/PaymentPage")
 );
 
-const StudentRouter = () => (
-  <Routes>
-    <Route path="/" element={<MainLayout />}>
+export const studentRouter = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Root />}>
       <Route index element={<HomePage />} />
       <Route path="/registration" element={<SingUpForm />} />
       <Route path="/login" element={<SingInForm />} />
@@ -68,7 +73,43 @@ const StudentRouter = () => (
       <Route path="/search" element={<SearchPage />} />
       <Route path="/*" element={<div>Not Found Page</div>} />
     </Route>
-  </Routes>
+  )
 );
 
-export default StudentRouter;
+// const StudentRouter = () => (
+//   <Routes>
+//     <Route path="/" element={<MainLayout />}>
+//       <Route index element={<HomePage />} />
+//       <Route path="/registration" element={<SingUpForm />} />
+//       <Route path="/login" element={<SingInForm />} />
+//       <Route path="/courses" element={<CoursesPage />}>
+//         <Route index element={<Navigate to="all" replace />} />
+//         <Route path=":filter" element={<CategoriesList />} />
+//       </Route>
+//       <Route path="/course/:courseId" element={<CourseDetailPage />}>
+//         {courseLinks.map(({ to, element }) => (
+//           <Route key={to} path={to} element={element} />
+//         ))}
+//       </Route>
+//       <Route path="/task/:taskId" element={<TaskPage />} />
+//       <Route path="/education" element={<CoursesPage />}>
+//         <Route index element={<Navigate to="all" replace />} />
+//         <Route path=":filter" element={<CategoriesList />} />
+//       </Route>
+//       <Route path="/me" element={<UserProfilePage />} />
+//       <Route path="/aboutIEU" element={<AboutIEUPage />} />
+//       <Route path="/instructions" element={<InstructionsPage />}>
+//         {instructionsLinks.map(({ to }) => (
+//           <Route path={to} key={to} element={<InstructionsList />}>
+//             <Route path=":instructionId" element={<InstructionContent />} />
+//           </Route>
+//         ))}
+//       </Route>
+//       <Route path="/payment" element={<PaymentPage />} />
+//       <Route path="/search" element={<SearchPage />} />
+//       <Route path="/*" element={<div>Not Found Page</div>} />
+//     </Route>
+//   </Routes>
+// );
+
+// export default StudentRouter;

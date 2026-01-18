@@ -4,7 +4,6 @@ import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { submitTestAttemptThunk } from "../../redux/lesson/operation";
 import { getUserInfo } from "../../redux/user/selectors";
-import { ReactComponent as ListIcon } from "../../images/icons/list.svg";
 import { ReactComponent as ComplieteIcon } from "../../images/icons/task-check.svg";
 import { ReactComponent as EyeIcon } from "../../images/icons/eye.svg";
 import { getTestAttemptById } from "../../http/services/lesson";
@@ -153,6 +152,8 @@ const SubmitTest = ({ test }) => {
 
   const closePopOver = () => handleOpenChange(false);
 
+  console.log(test);
+
   const amountOfUserAttempts =
     test[`${lessonType}_data`]?.attempts_data?.length;
 
@@ -185,7 +186,7 @@ const SubmitTest = ({ test }) => {
           amountOfUserAttempts !== 0 ? styles.hasAttempts : ""
         }`}
       >
-        {test.testData?.my_score ? (
+        {test.test_data?.my_score ? (
           <>
             <span>Complete</span>
             <ComplieteIcon />
@@ -193,7 +194,7 @@ const SubmitTest = ({ test }) => {
         ) : (
           <>
             <span>Attempts</span>
-            <ListIcon />
+            <ComplieteIcon />
           </>
         )}
       </button>

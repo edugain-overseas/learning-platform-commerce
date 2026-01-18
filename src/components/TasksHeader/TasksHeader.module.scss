@@ -41,8 +41,14 @@
 .toolsWrapper {
   display: flex;
   align-items: center;
-  gap: 32rem;
+  gap: 18rem;
   color: var(--content-datail-secondary);
+
+  .toolsSubwrapper {
+    display: flex;
+    align-items: center;
+    gap: 42rem;
+  }
 
   .navBtnsWrapper {
     display: flex;
@@ -80,6 +86,11 @@
     border: 1rem solid var(--bg-button-success);
     background-color: transparent;
     transition: all var(--transition-time-min) ease;
+    color: var(--content-contr-color);
+
+    svg * {
+      fill: var(--bg-button-success);
+    }
 
     &.hasAttempts {
       background-color: var(--bg-button-success);
@@ -98,13 +109,12 @@
 
     &:hover {
       background-color: var(--bg-button-success-accent);
-      border-color: var();
       span {
         color: var(--content-contr-color);
       }
 
-      svg {
-        color: var(--content-contr-color);
+      svg * {
+        fill: var(--content-contr-color);
       }
     }
 

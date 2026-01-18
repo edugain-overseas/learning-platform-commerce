@@ -1,7 +1,11 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
 import { adminCourseLinks, instructionsLinks } from "../../costants/nav";
-import MainLayout from "../MainLayout/MainLayout";
+import Root from "../Root";
 
 const AdminPage = React.lazy(() => import("../../pages/AdminPage/AdminPage"));
 const SingInForm = React.lazy(() => import("../auth/SingInForm/SingInForm"));
@@ -30,35 +34,66 @@ const TaskConstructor = React.lazy(() =>
   import("../TaskConstructor/TaskContructor")
 );
 
-const AdminRouter = () => (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<AdminPage />} />
-        <Route path="/login" element={<SingInForm />} />
-        <Route path="/courses" element={<AdminCoursesDashboard />} />
-        <Route path="/course">
-          <Route
-            path="constructor/new"
-            element={<AdminCourseConstructorPage />}
-          />
-          <Route path=":courseId" element={<CourseDetailPage />}>
-            {adminCourseLinks.map(({ to, element }) => (
-              <Route key={to} path={to} element={element} />
-            ))}
-          </Route>
-        </Route>
-        <Route path="/task/:taskId" element={<TaskConstructor />} />
-        <Route path="/aboutIEU" element={<AboutIEUPage />} />
-        <Route path="/instructions" element={<InstructionsPage />}>
-          {instructionsLinks.map(({ to }) => (
-            <Route path={to} key={to} element={<InstructionsList />}>
-              <Route path=":instructionId" element={<InstructionContent />} />
-            </Route>
+export const adminRouter = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Root />}>
+      <Route index element={<AdminPage />} />
+      <Route path="/login" element={<SingInForm />} />
+      <Route path="/courses" element={<AdminCoursesDashboard />} />
+      <Route path="/course">
+        <Route
+          path="constructor/new"
+          element={<AdminCourseConstructorPage />}
+        />
+        <Route path=":courseId" element={<CourseDetailPage />}>
+          {adminCourseLinks.map(({ to, element }) => (
+            <Route key={to} path={to} element={element} />
           ))}
         </Route>
-        <Route path="/*" element={<div>Not Found Page</div>} />
       </Route>
-    </Routes>
+      <Route path="/task/:taskId" element={<TaskConstructor />} />
+      <Route path="/aboutIEU" element={<AboutIEUPage />} />
+      <Route path="/instructions" element={<InstructionsPage />}>
+        {instructionsLinks.map(({ to }) => (
+          <Route path={to} key={to} element={<InstructionsList />}>
+            <Route path=":instructionId" element={<InstructionContent />} />
+          </Route>
+        ))}
+      </Route>
+      <Route path="/*" element={<div>Not Found Page</div>} />
+    </Route>
+  )
 );
 
-export default AdminRouter;
+// const AdminRouter = () => (
+//   <Routes>
+//     <Route path="/" element={<MainLayout />}>
+//       <Route index element={<AdminPage />} />
+//       <Route path="/login" element={<SingInForm />} />
+//       <Route path="/courses" element={<AdminCoursesDashboard />} />
+//       <Route path="/course">
+//         <Route
+//           path="constructor/new"
+//           element={<AdminCourseConstructorPage />}
+//         />
+//         <Route path=":courseId" element={<CourseDetailPage />}>
+//           {adminCourseLinks.map(({ to, element }) => (
+//             <Route key={to} path={to} element={element} />
+//           ))}
+//         </Route>
+//       </Route>
+//       <Route path="/task/:taskId" element={<TaskConstructor />} />
+//       <Route path="/aboutIEU" element={<AboutIEUPage />} />
+//       <Route path="/instructions" element={<InstructionsPage />}>
+//         {instructionsLinks.map(({ to }) => (
+//           <Route path={to} key={to} element={<InstructionsList />}>
+//             <Route path=":instructionId" element={<InstructionContent />} />
+//           </Route>
+//         ))}
+//       </Route>
+//       <Route path="/*" element={<div>Not Found Page</div>} />
+//     </Route>
+//   </Routes>
+// );
+
+// export default AdminRouter;

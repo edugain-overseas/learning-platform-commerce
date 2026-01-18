@@ -32,35 +32,37 @@ const TestHeader = ({
         <span className={styles.type}>{type}</span>
       </div>
       <div className={styles.toolsWrapper}>
-        {isModer && (
-          <>
-            <Template type={isExam ? "exam" : "test"} />
-            <Switcher
-              items={switcherItems}
-              value={switcherValue}
-              onChange={switcherOnChange}
-            />
-          </>
-        )}
-        {!isModer && (
-          <>
-            {testScore ? (
-              <>
-                <SubmitTest test={test} />
-                <LessonGrade grade={testScore} maxGrade={testData?.score} />
-              </>
-            ) : (
-              <>
-                <div className={styles.questionsDoneWrapper}>
-                  <DocQuestionIcon />
-                  <span>{`Questions: ${completedQuestionsAmount}/${testData?.questions?.length}`}</span>
-                </div>
-                <SubmitTest test={test} />
-                <LessonGrade grade={0} maxGrade={testData?.score} />
-              </>
-            )}
-          </>
-        )}
+        <div className={styles.toolsSubwrapper}>
+          {isModer && (
+            <>
+              <Template type={isExam ? "exam" : "test"} />
+              <Switcher
+                items={switcherItems}
+                value={switcherValue}
+                onChange={switcherOnChange}
+              />
+            </>
+          )}
+          {!isModer && (
+            <>
+              {testScore ? (
+                <>
+                  <SubmitTest test={test} />
+                  <LessonGrade grade={testScore} maxGrade={testData?.score} />
+                </>
+              ) : (
+                <>
+                  <div className={styles.questionsDoneWrapper}>
+                    <DocQuestionIcon />
+                    <span>{`Questions: ${completedQuestionsAmount}/${testData?.questions?.length}`}</span>
+                  </div>
+                  <SubmitTest test={test} />
+                  <LessonGrade grade={0} maxGrade={testData?.score} />
+                </>
+              )}
+            </>
+          )}
+        </div>
         <div className={styles.navBtnsWrapper}>
           <LessonNavigateBtn
             forward={false}

@@ -56,6 +56,7 @@ const QuestionMatching = ({ answers, setState, id, state }) => {
                     backgroundColor: "transparent",
                     width: "48rem",
                   }}
+                  dropdownClassname={styles.optionsDropdown}
                 />
               </li>
             );

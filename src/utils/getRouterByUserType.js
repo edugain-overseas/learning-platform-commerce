@@ -1,31 +1,13 @@
-import AdminRouter from "../components/Router/AdminRouter";
-import StudentRouter from "../components/Router/StudentRouter";
-import { ActiveTimeProvider } from "../context/activeTimeContext";
-import { CartProvider } from "../context/cartContext";
-import { ChatProvider } from "../context/chatContext";
+import { adminRouter } from "../components/Router/AdminRouter";
+import { studentRouter } from "../components/Router/StudentRouter";
 
 export const getRouterByUserType = (userType) => {
   switch (userType) {
     case "student":
-      return (
-        <ChatProvider>
-          <CartProvider>
-            <ActiveTimeProvider>
-              <StudentRouter />
-            </ActiveTimeProvider>
-          </CartProvider>
-        </ChatProvider>
-      );
+      return studentRouter;
     case "moder":
-      return <AdminRouter />;
-
+      return adminRouter;
     default:
-      return (
-        <CartProvider>
-          <ActiveTimeProvider>
-            <StudentRouter />
-          </ActiveTimeProvider>
-        </CartProvider>
-      );
+      return studentRouter;
   }
 };

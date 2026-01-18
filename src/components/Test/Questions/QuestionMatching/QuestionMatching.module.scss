@@ -60,3 +60,10 @@
     }
   }
 }
+
+.optionsDropdown {
+  max-width: initial;
+  ul {
+    flex-direction: row;
+  }
+}

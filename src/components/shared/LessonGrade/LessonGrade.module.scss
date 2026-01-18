@@ -1,18 +1,10 @@
 .container {
-  display: flex;
-  align-items: center;
-  gap: 4rem;
-
-  svg {
-    width: 13.5rem;
-    height: 23rem;
-  }
 }
 
 .subContainer {
   display: flex;
   align-items: center;
-  gap: 6rem;
+  gap: 1rem;
 }
 
 .left {
@@ -20,7 +12,8 @@
   flex-direction: column;
 
   .value {
-    text-align: right;
+    text-align: center;
+    margin-inline-start: 4rem;
   }
 }
 
@@ -29,25 +22,34 @@
   font-weight: 500;
   line-height: 1;
   margin-inline-end: 2rem;
+  margin-block-end: 3rem;
 }
 
 .value {
-  font-size: 16rem;
+  font-size: 14rem;
   font-weight: 500;
   line-height: 1;
 }
 
 .right {
   position: relative;
+  margin-inline-end: 4rem;
+
+  span {
+    font-size: 14rem;
+    line-height: 1;
+    display: block;
+    margin-block-start: 4rem;
+  }
 
   &:before {
     content: "";
     position: absolute;
     width: 1rem;
-    height: 17rem;
-    left: -4rem;
+    height: 18rem;
+    left: -3rem;
     top: 50%;
-    transform: translateY(-35%) rotateZ(160deg);
+    transform: translateY(-20%) rotateZ(160deg);
     background-color: var(--content-datail-secondary);
     transform-origin: center center;
   }

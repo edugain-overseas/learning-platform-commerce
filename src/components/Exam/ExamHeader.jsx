@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
+import { ReactComponent as AttemptsIcon } from "../../images/icons/warning-circle.svg";
 import { ReactComponent as QuestionIcon } from "../../images/icons/document-question.svg";
 import { ReactComponent as CheckIcon } from "../../images/icons/checked.svg";
 import LessonGrade from "../shared/LessonGrade/LessonGrade";
 import styles from "./Exam.module.scss";
 import Spinner from "../Spinner/Spinner";
+import { convertMillisecondsToMinutesAndSeconds } from "../../utils/formatTime";
 
 const ExamHeader = ({
   exam,
@@ -13,6 +15,7 @@ const ExamHeader = ({
   submitAttempt,
   examScore,
   examMaxScore,
+  timeLeft,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,12 +42,24 @@ const ExamHeader = ({
       </div>
       <div className={styles.tools}>
         <div className={styles.stat}>
-          <ClockIcon />
+          <AttemptsIcon />
           <span>{attemptsLeft} attempts</span>
         </div>
         <div className={styles.stat}>
           <ClockIcon />
-          <span>{timer} minutes</span>
+          {timeLeft ? (
+            <span className={styles.currentTime}>
+              {`${
+                convertMillisecondsToMinutesAndSeconds(timeLeft).minutes
+              }`.padStart(2, "0") +
+                ":" +
+                `${
+                  convertMillisecondsToMinutesAndSeconds(timeLeft).seconds
+                }`.padStart(2, "0")}
+            </span>
+          ) : (
+            <span>{timer} minutes</span>
+          )}
         </div>
         <div className={styles.stat}>
           <QuestionIcon />

@@ -413,3 +413,49 @@
     text-align: center;
   }
 }
+
+.currentTime {
+  font-variant-numeric: tabular-nums;
+}
+
+.leaveModalContainer {
+  margin-bottom: -16rem;
+  text-align: center;
+
+  h4 {
+    padding-bottom: 16rem;
+    position: relative;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 18rem;
+
+    &:after {
+      content: "";
+      width: 275rem;
+      height: 2rem;
+      border-radius: 10rem;
+      background-color: var(--content-datail-secondary);
+
+      position: absolute;
+      bottom: -2rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  p {
+    font-size: 14rem;
+    font-weight: 400;
+  }
+
+  .leaveModalBtnsContainer {
+    margin-block: 16rem;
+    display: flex;
+    justify-content: center;
+    gap: 28rem;
+  }
+
+  .leaveModalDesciption {
+    font-size: 8rem;
+  }
+}
