@@ -33,6 +33,11 @@ const TaskCard = ({ task, messageApi }) => {
     }
   };
 
+  const taskLink =
+    task.type === "exam"
+      ? `/course/${courseId}/exam-certificate`
+      : `/task/${task.id}`;
+
   return (
     <div
       className={`${styles.card} ${
@@ -40,7 +45,7 @@ const TaskCard = ({ task, messageApi }) => {
       }`}
     >
       <Link
-        to={canUserGoToTask ? `/task/${task.id}` : null}
+        to={canUserGoToTask ? taskLink : null}
         className={styles.cardLink}
         onClick={handleLinkClick}
       >

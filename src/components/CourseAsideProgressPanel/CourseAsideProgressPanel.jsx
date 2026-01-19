@@ -16,13 +16,22 @@ const CourseAsideProgressPanel = ({ courseId }) => {
   const courseLessons = course?.lessons;
   const courseProgress = course?.progress;
 
-  const progressItems = courseLessons?.map(({ id, title, status, number }) => ({
-    id,
-    label: title,
-    status,
-    number,
-    link: status && status !== "blocked" ? `/task/${id}` : null,
-  }));
+  const progressItems = courseLessons?.map(
+    ({ id, title, status, number, type }) => {
+      const itemLink =
+        type === "exam"
+          ? `/course/${course.id}/exam-certificate`
+          : `/task/${id}`;
+
+      return {
+        id,
+        label: title,
+        status,
+        number,
+        link: status && status !== "blocked" ? itemLink : null,
+      };
+    }
+  );
 
   const exam = courseLessons?.find((lesson) => lesson.type === "exam");
 

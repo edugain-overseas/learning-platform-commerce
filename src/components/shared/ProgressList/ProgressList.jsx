@@ -9,6 +9,9 @@ const ProgressList = ({ items, blockedLessonMessage }) => {
     (itemA, itemB) => itemA.number - itemB.number
   );
 
+  console.log(sortedItemsByNumber);
+  
+
   return (
     <ul className={styles.listWrapper}>
       {sortedItemsByNumber.map((item) => (

@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { serverName } from "../../../http/server";
 import { ReactComponent as LaptopIcon } from "../../../images/icons/laptop.svg";
 import { ReactComponent as ClockIcon } from "../../../images/icons/clock.svg";
+import { ReactComponent as AwardIcon } from "../../../images/icons/award.svg";
+import { ReactComponent as LanguageIcon } from "../../../images/icons/planet.svg";
+import { ReactComponent as LevelIcon } from "../../../images/icons/brain.svg";
+import { ReactComponent as CreditIcon } from "../../../images/icons/lock.svg";
 import { ReactComponent as ArrowLeftIcon } from "../../../images/icons/arrow-left.svg";
 import { ReactComponent as SchoolOnlineIcon } from "../../../images/icons/courseIcons/school-online.svg";
 import { ReactComponent as ClockDarkIcon } from "../../../images/icons/courseIcons/clock-dark.svg";
@@ -112,28 +116,28 @@ const IntroContent = ({ course = {}, courses = [] }) => {
               </li>
               <li>
                 <span className={styles.property}>
-                  <ClockIcon />
+                  <AwardIcon />
                   Award:
                 </span>
                 <span className={styles.value}>{courseAward}</span>
               </li>
               <li>
                 <span className={styles.property}>
-                  <ClockIcon />
+                  <LanguageIcon />
                   Language:
                 </span>
                 <span className={styles.value}>{courseLanguage}</span>
               </li>
               <li>
                 <span className={styles.property}>
-                  <ClockIcon />
+                  <LevelIcon />
                   Level:
                 </span>
                 <span className={styles.value}>{courseLevel}</span>
               </li>
               <li>
                 <span className={styles.property}>
-                  <ClockIcon />
+                  <CreditIcon />
                   Credits:
                 </span>
                 <span className={styles.value}>{courseCredits}</span>
