@@ -8,7 +8,7 @@ import styles from "./AdminCourseEditPage.module.scss";
 const AdminCourseEditPage = () => {
   const { courseId } = useParams();
 
-  const courseData = useSelector(getAllCourses).find(
+  const courseData = useSelector(getAllCourses)?.find(
     ({ id }) => id === +courseId
   );
 

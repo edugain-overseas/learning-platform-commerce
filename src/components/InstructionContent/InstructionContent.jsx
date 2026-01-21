@@ -11,11 +11,11 @@ const InstructionContent = () => {
   const { instructionId: id } = useParams();
   const instructions = useSelector(getAllInstructions);
 
-  const instruction = instructions.find(
+  const instruction = instructions?.find(
     ({ id: instructionId }) => instructionId === +id
   );
 
-  const category = useSelector(getAllCategories).find(
+  const category = useSelector(getAllCategories)?.find(
     ({ id }) => id === instruction?.category_id
   );
 

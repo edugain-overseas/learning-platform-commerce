@@ -9,7 +9,7 @@ import styles from "./CourseIntroPage.module.scss";
 const CourseIntroPage = () => {
   const { courseId } = useParams();
   const courses = useSelector(getAllCourses);
-  const course = courses.find(({ id }) => id === +courseId);
+  const course = courses?.find(({ id }) => id === +courseId);
   const containerRef = useRef(null);
 
   useEffect(() => {

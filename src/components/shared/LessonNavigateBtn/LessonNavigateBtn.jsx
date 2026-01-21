@@ -16,7 +16,7 @@ const LessonNavigateBtn = ({
 }) => {
   const navigate = useNavigate();
   const courses = useSelector(getAllCourses);
-  const course = courses.find(({ id }) => id === +courseId);
+  const course = courses?.find(({ id }) => id === +courseId);
   const courseLessons = course?.lessons || [];
 
   const [messageApi, contextHolder] = useNotificationMessage();

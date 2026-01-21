@@ -61,7 +61,7 @@ const lessonSlice = createSlice({
       .addCase(updateLessonThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         const { updatedLesson } = action.meta.arg;
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           ({ id }) => id === updatedLesson.id
         );
         if (lessonIndex !== -1) {
@@ -100,7 +100,7 @@ const lessonSlice = createSlice({
       .addCase(createLectureAttributesThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         const { lectureId } = action.meta.arg;
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) => lesson.lecture_info?.lecture_id === lectureId
         );
         if (lessonIndex !== -1) {
@@ -122,14 +122,14 @@ const lessonSlice = createSlice({
         state.isLoading = false;
         const { lectureId } = action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) => lesson.lecture_info?.lecture_id === lectureId
         );
 
         action.payload.forEach((payloadItem) => {
           const attrIndex = state.lessons[
             lessonIndex
-          ].lecture_info.attributes.findIndex(
+          ].lecture_info.attributes?.findIndex(
             (attr) => attr.a_id === payloadItem.a_id
           );
           if (attrIndex !== -1) {
@@ -151,13 +151,13 @@ const lessonSlice = createSlice({
         state.isLoading = false;
         const { lectureId, attrId } = action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) => lesson.lecture_info?.lecture_id === lectureId
         );
         if (lessonIndex !== -1) {
           const attrIndex = state.lessons[
             lessonIndex
-          ].lecture_info.attributes.findIndex((attr) => attr.a_id === attrId);
+          ].lecture_info.attributes?.findIndex((attr) => attr.a_id === attrId);
           if (attrIndex !== -1) {
             state.lessons[lessonIndex].lecture_info.attributes.splice(
               attrIndex,
@@ -181,7 +181,7 @@ const lessonSlice = createSlice({
 
         const { message, ...newAttempt } = action.payload;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) => lesson.id === lessonId
         );
         if (lessonIndex !== -1) {
@@ -203,7 +203,7 @@ const lessonSlice = createSlice({
         state.isLoading = false;
         const { test_id } = action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) => lesson.test_data?.test_id === test_id
         );
         if (lessonIndex !== -1) {
@@ -226,7 +226,7 @@ const lessonSlice = createSlice({
         state.isLoading = false;
         const { exam_id } = action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) => lesson.exam_data?.exam_id === exam_id
         );
         if (lessonIndex !== -1) {
@@ -249,7 +249,7 @@ const lessonSlice = createSlice({
         state.isLoading = false;
         const { lesson_id, attempt_id, lessonType } = action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) => lesson.id === lesson_id
         );
         if (lessonIndex !== -1) {
@@ -270,7 +270,7 @@ const lessonSlice = createSlice({
         state.isLoading = false;
         const { testId, newTestMetaData, lessonType } = action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) =>
             lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
@@ -294,7 +294,7 @@ const lessonSlice = createSlice({
         state.isLoading = false;
         const { testId, lessonType } = action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) =>
             lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
@@ -320,14 +320,14 @@ const lessonSlice = createSlice({
         const { testId, question_id, questionData, lessonType } =
           action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) =>
             lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
         if (lessonIndex !== -1) {
           const questionIndex = state.lessons[lessonIndex][
             `${lessonType}_data`
-          ].questions.findIndex((question) => question.q_id === question_id);
+          ].questions?.findIndex((question) => question.q_id === question_id);
 
           if (questionIndex !== -1) {
             state.lessons[lessonIndex][`${lessonType}_data`].questions[
@@ -354,7 +354,7 @@ const lessonSlice = createSlice({
         state.isLoading = false;
         const { testId, question_id, lessonType } = action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) =>
             lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
@@ -378,14 +378,14 @@ const lessonSlice = createSlice({
         state.isLoading = false;
         const { testId, question_id, lessonType } = action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) =>
             lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
         if (lessonIndex !== -1) {
           const questionIndex = state.lessons[lessonIndex][
             `${lessonType}_data`
-          ].questions.findIndex((question) => question.q_id === question_id);
+          ].questions?.findIndex((question) => question.q_id === question_id);
 
           if (questionIndex !== -1) {
             state.lessons[lessonIndex][`${lessonType}_data`].questions[
@@ -407,14 +407,14 @@ const lessonSlice = createSlice({
         state.isLoading = false;
         const { testId, question_id, lessonType } = action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) =>
             lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
         if (lessonIndex !== -1) {
           const questionIndex = state.lessons[lessonIndex][
             `${lessonType}_data`
-          ].questions.findIndex((question) => question.q_id === question_id);
+          ].questions?.findIndex((question) => question.q_id === question_id);
 
           if (questionIndex !== -1) {
             state.lessons[lessonIndex][`${lessonType}_data`].questions[
@@ -446,7 +446,7 @@ const lessonSlice = createSlice({
         const { testId, question_id, answer_id, answerData, lessonType } =
           action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) =>
             lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
@@ -454,12 +454,12 @@ const lessonSlice = createSlice({
         if (lessonIndex !== -1) {
           const questionIndex = state.lessons[lessonIndex][
             `${lessonType}_data`
-          ]?.questions.findIndex((question) => question.q_id === question_id);
+          ]?.questions?.findIndex((question) => question.q_id === question_id);
 
           if (questionIndex !== -1) {
             const answerIndex = state.lessons[lessonIndex][
               `${lessonType}_data`
-            ].questions[questionIndex].answers.findIndex(
+            ].questions[questionIndex].answers?.findIndex(
               (answer) => answer.a_id === answer_id
             );
 
@@ -485,24 +485,24 @@ const lessonSlice = createSlice({
         const { testId, question_id, left_option_id, pairData, lessonType } =
           action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) =>
             lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
         if (lessonIndex !== -1) {
           const questionIndex = state.lessons[lessonIndex][
             `${lessonType}_data`
-          ].questions.findIndex((question) => question.q_id === question_id);
+          ].questions?.findIndex((question) => question.q_id === question_id);
 
           if (questionIndex !== -1) {
             const leftOptionIndex = state.lessons[lessonIndex][
               `${lessonType}_data`
-            ].questions[questionIndex].answers.left.find(
+            ].questions[questionIndex].answers.left?.find(
               ({ id }) => id === left_option_id
             );
             const rightOptionIndex = state.lessons[lessonIndex][
               `${lessonType}_data`
-            ].questions[questionIndex].answers.right.find(
+            ].questions[questionIndex].answers.right?.find(
               ({ id }) => id === left_option_id
             );
             if (leftOptionIndex) {
@@ -531,7 +531,7 @@ const lessonSlice = createSlice({
         state.isLoading = false;
         const { testId, answer_id, lessonType } = action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) =>
             lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );
@@ -565,7 +565,7 @@ const lessonSlice = createSlice({
         state.isLoading = false;
         const { testId, left_option_id, lessonType } = action.meta.arg;
 
-        const lessonIndex = state.lessons.findIndex(
+        const lessonIndex = state.lessons?.findIndex(
           (lesson) =>
             lesson[`${lessonType}_data`]?.[`${lessonType}_id`] === testId
         );

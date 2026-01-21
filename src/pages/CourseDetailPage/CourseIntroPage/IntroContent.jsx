@@ -57,7 +57,7 @@ const IntroContent = ({ course = {}, courses = [] }) => {
   const otherCoursesDifferentCategory = courses.filter(
     ({ categoryId, id }) =>
       course.categoryId !== categoryId &&
-      !userCourses.find(({ course_id }) => course_id === id)
+      !userCourses?.find(({ course_id }) => course_id === id)
   );
   const studentsAlsoBuyCourses = [
     ...otherCoursesThisCategory,

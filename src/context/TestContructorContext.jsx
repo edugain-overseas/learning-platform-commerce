@@ -28,7 +28,7 @@ export const useTestContructor = () => useContext(TestConstructorContext);
 
 export const TestContructorProvider = ({ children }) => {
   const { taskId } = useParams();
-  const task = useSelector(getAllLessons).find(
+  const task = useSelector(getAllLessons)?.find(
     (lesson) => lesson.id === +taskId
   );
   
@@ -269,7 +269,7 @@ export const TestContructorProvider = ({ children }) => {
 
     // Save blocks to create on server
     if (blocksToCreate.length !== 0) {
-      if (blocksToCreate.find((block) => block.q_score === 0)) {
+      if (blocksToCreate?.find((block) => block.q_score === 0)) {
         messageApi.error({
           content: "Question score must be grater then 0",
           duration: 3,
@@ -318,7 +318,7 @@ export const TestContructorProvider = ({ children }) => {
     if (blocksToCompare.length !== 0) {
       const formattedInitialBlocks = testQuestionsToBlocks(initialBlocks);
       blocksToCompare.forEach((block) => {
-        const initialBlock = formattedInitialBlocks.find(
+        const initialBlock = formattedInitialBlocks?.find(
           ({ q_id }) => q_id === block.q_id
         );
         if (compareTestQuestion(block, initialBlock)) {
@@ -446,7 +446,7 @@ export const TestContructorProvider = ({ children }) => {
 
         if (answersToCompare.length !== 0) {
           answersToCompare.forEach((answer) => {
-            const initialAnswer = initialBlock.answers.find(
+            const initialAnswer = initialBlock.answers?.find(
               ({ a_id }) => answer.a_id === a_id
             );
             if (compareTestAnswer(answer, initialAnswer, block.q_type)) {

@@ -12,7 +12,7 @@ const ChatsFeed = () => {
   const userId = useSelector(getUserId);
   const chatScrollerRef = useRef(null);
 
-  const chat = chats.find(({ id }) => id === selectedChatId);
+  const chat = chats?.find(({ id }) => id === selectedChatId);
 
   console.log(chat);
 

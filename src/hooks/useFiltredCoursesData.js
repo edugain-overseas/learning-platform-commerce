@@ -61,7 +61,7 @@ export const useFilteredCoursesData = () => {
     : getFilterCourses(courses, filter);
 
   const filtredCategories = categories.filter((category) =>
-    filtredCourses.find((course) => course.category_id === category.id)
+    filtredCourses?.find((course) => course.category_id === category.id)
   );
 
   const coursesAvailableForPurchase = isEducationPage

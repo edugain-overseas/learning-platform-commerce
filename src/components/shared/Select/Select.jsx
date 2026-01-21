@@ -22,7 +22,7 @@ const Select = ({
 
   const normalizedValue = value ?? "";
 
-  const selectedOption = options.find(
+  const selectedOption = options?.find(
     ({ value: optionValue }) => optionValue === normalizedValue
   );
 

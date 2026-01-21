@@ -59,7 +59,7 @@ const AdminList = ({ items }) => {
   const { courseId } = useParams();
   const [lessons, setLessons] = useState(items);
   const dispatch = useDispatch();
-  const isCoursePublished = useSelector(getAllCourses).find(
+  const isCoursePublished = useSelector(getAllCourses)?.find(
     (course) => course.id === +courseId
   )?.is_published;
 
@@ -80,7 +80,7 @@ const AdminList = ({ items }) => {
   const updateLessonsNumbers = async (newLessons) => {
     const lessonsToUpdate = newLessons.filter(
       (lesson) =>
-        items.find(({ id }) => id === lesson.id).number !== lesson.number
+        items?.find(({ id }) => id === lesson.id).number !== lesson.number
     );
     const updatedLessonsData = lessonsToUpdate.map(({ id, number }) => ({
       id,
@@ -120,10 +120,10 @@ const AdminList = ({ items }) => {
         return;
       }
       setLessons((prevLessons) => {
-        const activeIndex = prevLessons.findIndex(
+        const activeIndex = prevLessons?.findIndex(
           (lesson) => lesson.id === active.id
         );
-        const overIndex = prevLessons.findIndex(
+        const overIndex = prevLessons?.findIndex(
           (lesson) => lesson.id === over?.id
         );
         const newLessons = arrayMove(prevLessons, activeIndex, overIndex).map(

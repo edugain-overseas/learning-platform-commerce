@@ -5,7 +5,7 @@ export const testQuestionsToBlocks = (questions) => {
       const answers = responseAnswers.left.map(({ id, value }) => ({
         a_id: id,
         left_text: value,
-        right_text: responseAnswers.right.find(
+        right_text: responseAnswers.right?.find(
           ({ id: rightId }) => rightId === id
         ).value,
       }));

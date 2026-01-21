@@ -15,11 +15,11 @@ const TaskPage = () => {
   const lessons = useSelector(getAllLessons);
   const courses = useSelector(getAllCourses);
 
-  const task = lessons.find(({ id }) => id === +taskId);
+  const task = lessons?.find(({ id }) => id === +taskId);
   const taskType = task?.type;
 
-  const courseId = courses.find((course) =>
-    course.lessons.find((lesson) => lesson.id === +taskId)
+  const courseId = courses?.find((course) =>
+    course.lessons?.find((lesson) => lesson.id === +taskId)
   )?.id;
 
   useEffect(() => {

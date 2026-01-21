@@ -22,7 +22,7 @@ const NotesPopoverContent = () => {
   const [selectedNote, setSelectedNote] = useState();
 
   const saveNewNote = () => {
-    const lectureId = lessons.find(({ id }) => id === +taskId)?.lecture_info
+    const lectureId = lessons?.find(({ id }) => id === +taskId)?.lecture_info
       ?.lecture_id;
 
     const noteData = {

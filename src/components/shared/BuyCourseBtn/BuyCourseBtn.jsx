@@ -7,7 +7,7 @@ import styles from "./BuyCourseBtn.module.scss";
 const BuyCourseBtn = ({ courseId, className = "" }) => {
   const { addItem, removeItem, cartItems } = useCart();
 
-  const isCourseInCart = cartItems.find((item) => item.id === courseId);
+  const isCourseInCart = cartItems?.find((item) => item.id === courseId);
 
   if (!courseId) return null;
 

@@ -15,7 +15,7 @@ const CourseTasksPage = () => {
   const { courseId } = useParams();
   const courses = useSelector(getAllCourses);
   const isModer = useSelector(getUserType) === "moder";
-  const course = courses.find(({ id }) => id === +courseId);
+  const course = courses?.find(({ id }) => id === +courseId);
   const courseLessons = course?.lessons;
   const progress = course?.progress;
 

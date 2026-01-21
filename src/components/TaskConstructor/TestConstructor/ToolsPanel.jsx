@@ -17,7 +17,7 @@ const ToolsPanel = ({
   isLoading,
 }) => {
   const { taskId } = useParams();
-  const task = useSelector(getAllLessons).find(
+  const task = useSelector(getAllLessons)?.find(
     (lesson) => lesson.id === +taskId
   );
 

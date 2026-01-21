@@ -63,7 +63,7 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
   };
 
   const addColumnChildren = (key, amount) => {
-    const targetColumn = state.columns.find((col) => col.key === key);
+    const targetColumn = state.columns?.find((col) => col.key === key);
 
     const childrenArray = Array(amount)
       .fill(null)
@@ -90,14 +90,14 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
       if (targetColumn.children) {
         const lastChildKey =
           targetColumn.children[targetColumn.children.length - 1].key;
-        const lastChildCellIndex = row.findIndex(
+        const lastChildCellIndex = row?.findIndex(
           (row) => row.key === lastChildKey
         );
 
         return row.toSpliced(lastChildCellIndex + 1, 0, ...childrenArray);
       }
 
-      const targetCellIndex = row.findIndex((cell) => cell.key === key);
+      const targetCellIndex = row?.findIndex((cell) => cell.key === key);
 
       const childCells = childrenArray.map((cell, index) => {
         if (index === 0) {
@@ -116,7 +116,7 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
   };
 
   const deleteColumn = (key) => {
-    const columnToDelete = state.columns.find((col) => col.key === key);
+    const columnToDelete = state.columns?.find((col) => col.key === key);
     const columns = state.columns.filter((column) => column.key !== key);
     const rows = state.rows.map((row) =>
       row.filter(
@@ -146,7 +146,7 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
       col.key === parentColumnKey ? updatedColumn(col) : col
     );
     const rows = state.rows.map((row) => {
-      if (columns.find((col) => col.key === parentColumnKey).children) {
+      if (columns?.find((col) => col.key === parentColumnKey).children) {
         return row.filter((cell) => cell.key !== key);
       }
       return row.map((cell) =>
@@ -309,7 +309,7 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
   };
 
   const mergeRowCellsAmount = (rowIndex, cellKey) => {
-    const cellIndex = state.rows[rowIndex].findIndex(
+    const cellIndex = state.rows[rowIndex]?.findIndex(
       (cell) => cell.key === cellKey
     );
 

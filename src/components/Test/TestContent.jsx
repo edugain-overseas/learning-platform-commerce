@@ -78,7 +78,7 @@ const TestContent = ({
       const updatedState = prev.map((question) => {
         if (question.q_id === id) {
           if (
-            question.matching.find(
+            question.matching?.find(
               ({ left_id: leftId }) => leftId === leftOptionId
             )
           ) {
@@ -117,7 +117,7 @@ const TestContent = ({
 
       switch (type) {
         case "test":
-          const testState = studentAnswers.find(
+          const testState = studentAnswers?.find(
             ({ q_id: questionId }) => questionId === id
           )?.a_id;
           return (
@@ -140,7 +140,7 @@ const TestContent = ({
             </div>
           );
         case "multiple_choice":
-          const multipleChoiseState = studentAnswers.find(
+          const multipleChoiseState = studentAnswers?.find(
             ({ q_id: questionId }) => questionId === id
           )?.a_ids;
           return (
@@ -163,7 +163,7 @@ const TestContent = ({
             </div>
           );
         case "answer_with_photo":
-          const photoAnswersState = studentAnswers.find(
+          const photoAnswersState = studentAnswers?.find(
             ({ q_id: questionId }) => questionId === id
           )?.a_id;
           return (
@@ -186,7 +186,7 @@ const TestContent = ({
             </div>
           );
         case "question_with_photo":
-          const photoState = studentAnswers.find(
+          const photoState = studentAnswers?.find(
             ({ q_id: questionId }) => questionId === id
           )?.a_id;
           return (
@@ -210,7 +210,7 @@ const TestContent = ({
             </div>
           );
         case "matching":
-          const matchingState = studentAnswers.find(
+          const matchingState = studentAnswers?.find(
             ({ q_id }) => q_id === id
           )?.matching;
           return (
@@ -235,7 +235,7 @@ const TestContent = ({
             </div>
           );
         case "boolean":
-          const booleanState = studentAnswers.find(
+          const booleanState = studentAnswers?.find(
             ({ q_id: questionId }) => questionId === id
           )?.a_id;
           return (

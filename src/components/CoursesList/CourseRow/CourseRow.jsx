@@ -26,7 +26,7 @@ const CourseRow = ({ course, disabled }) => {
     bought,
   } = course;
 
-  const isItemInCart = cartItems.find((item) => item === id) && true;
+  const isItemInCart = cartItems?.find((item) => item === id) && true;
 
   const handleMouseEnder = (e) => {
     const text = e.target.querySelector("span");

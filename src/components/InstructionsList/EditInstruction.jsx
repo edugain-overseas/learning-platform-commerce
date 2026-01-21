@@ -9,7 +9,7 @@ import styles from "./InstructionsList.module.scss";
 const EditInstruction = ({ instructionId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const instructionData = useSelector(getAllInstructions).find(
+  const instructionData = useSelector(getAllInstructions)?.find(
     (instr) => instr.id === instructionId
   );
 

@@ -54,7 +54,7 @@ const PublishingErrorComponent = ({ error, lessonsTableData }) => {
       case "test":
         return [
           {
-            ...lessonsTableData.find(
+            ...lessonsTableData?.find(
               ({ id }) => id === errorState.test_info.lesson_id
             ),
             score: errorState.test_info.test_score,
@@ -63,7 +63,7 @@ const PublishingErrorComponent = ({ error, lessonsTableData }) => {
       case "exam":
         return [
           {
-            ...lessonsTableData.find(
+            ...lessonsTableData?.find(
               ({ id }) => id === errorState.exam_info.lesson_id
             ),
             score: errorState.exam_info.exam_score,
@@ -78,7 +78,7 @@ const PublishingErrorComponent = ({ error, lessonsTableData }) => {
           .map((lesson) => {
             const score =
               lesson.type === "test"
-                ? errorState.test_info.find(
+                ? errorState.test_info?.find(
                     (test) => test.lesson_id === lesson.id
                   ).test_score
                 : errorState.exam_info.exam_score;

@@ -14,7 +14,7 @@ import styles from "./TaskList.module.scss";
 const TaskRow = ({ task, messageApi }) => {
   const isModer = useSelector(getUserType) === "moder";
   const { courseId } = useParams();
-  const isPublished = useSelector(getAllCourses).find(
+  const isPublished = useSelector(getAllCourses)?.find(
     (course) => course.id === +courseId
   ).is_published;
 

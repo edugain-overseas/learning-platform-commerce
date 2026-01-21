@@ -21,9 +21,9 @@ export const useLectureConstructor = () =>
 export const LectureConstructorProvider = ({ children }) => {
   const { taskId } = useParams();
   const lessons = useSelector(getAllLessons);
-  const lectureData = lessons.find(({ id }) => id === +taskId);
+  const lectureData = lessons?.find(({ id }) => id === +taskId);
   const lectureId = lectureData?.lecture_info?.lecture_id;
-  const task = lessons.find(({ id }) => id === +taskId);
+  const task = lessons?.find(({ id }) => id === +taskId);
   const initialBlocks = task?.lecture_info?.attributes || [];
 
   const [blocks, setBlocks] = useState([
@@ -221,7 +221,7 @@ export const LectureConstructorProvider = ({ children }) => {
     const initialBlocksToUpdate = initialAttrsData.filter((block) => {
       return compareLecturePart(
         block,
-        lectureAttributesToBlocks(initialBlocks).find(
+        lectureAttributesToBlocks(initialBlocks)?.find(
           (initBlock) => initBlock.a_id === block.a_id
         ),
         block.a_type

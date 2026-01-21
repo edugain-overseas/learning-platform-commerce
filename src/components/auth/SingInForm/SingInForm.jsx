@@ -41,7 +41,7 @@ const SingInForm = () => {
 
       const reopenCart = Boolean(location.state?.openCartAfterLogin);
 
-      location.state.from
+      location.state?.from
         ? navigate(location.state.from, {
             replace: true,
             state: { reopenCart },

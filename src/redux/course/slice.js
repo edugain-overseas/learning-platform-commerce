@@ -24,12 +24,12 @@ const courseSlice = createSlice({
     updateLessonInCourse: (state, { payload }) => {
       const { courseId, lessonId, updatedLessonData } = payload;
 
-      const courseIndex = state.courses.findIndex(
+      const courseIndex = state.courses?.findIndex(
         (course) => course.id === courseId
       );
 
       if (courseIndex !== -1) {
-        const lessonIndex = state.courses[courseIndex].lessons.findIndex(
+        const lessonIndex = state.courses[courseIndex].lessons?.findIndex(
           (lesson) => lesson.id === lessonId
         );
 
@@ -42,7 +42,7 @@ const courseSlice = createSlice({
       }
     },
     deleteLessonInCourse: (state, { payload }) => {
-      const courseIndex = state.courses.findIndex(
+      const courseIndex = state.courses?.findIndex(
         (course) => course.id === payload.courseId
       );
 
@@ -85,8 +85,8 @@ const courseSlice = createSlice({
 
       .addCase(confirmLectureThunk.fulfilled, (state, action) => {
         const lessonId = action.meta.arg;
-        const courseToUpdate = state.courses.find(({ lessons }) =>
-          lessons.find(({ id }) => {
+        const courseToUpdate = state.courses?.find(({ lessons }) =>
+          lessons?.find(({ id }) => {
             return id === lessonId;
           })
         );
@@ -123,7 +123,7 @@ const courseSlice = createSlice({
       .addCase(updateCourseThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         const { courseId, courseData } = action.meta.arg;
-        const courseIndex = state.courses.findIndex(
+        const courseIndex = state.courses?.findIndex(
           (course) => course.id === +courseId
         );
 
@@ -146,7 +146,7 @@ const courseSlice = createSlice({
       .addCase(createLessonInCourseThunk.fulfilled, (state, action) => {
         state.isLoading = false;
 
-        const courseIndex = state.courses.findIndex(
+        const courseIndex = state.courses?.findIndex(
           ({ id }) => id === action.meta.arg.course_id
         );
 

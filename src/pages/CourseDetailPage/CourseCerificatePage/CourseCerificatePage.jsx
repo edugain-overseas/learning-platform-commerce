@@ -10,13 +10,13 @@ import { getLessonByIdThunk } from "../../../redux/lesson/operation";
 const CourseCerificatePage = () => {
   const { courseId } = useParams();
   const dispatch = useDispatch();
-  const course = useSelector(getAllCourses).find(
+  const course = useSelector(getAllCourses)?.find(
     (course) => course.id === +courseId
   );
   const lessons = useSelector(getAllLessons);
   const exam = course?.lessons?.find((lesson) => lesson.type === "exam");
   const examId = exam?.id;
-  const examData = lessons.find((lesson) => lesson.id === examId);
+  const examData = lessons?.find((lesson) => lesson.id === examId);
 
   useEffect(() => {
     if (examId && !examData) {

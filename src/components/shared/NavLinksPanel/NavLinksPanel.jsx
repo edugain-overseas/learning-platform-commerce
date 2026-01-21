@@ -9,7 +9,7 @@ import styles from "./NavLinksPanel.module.scss";
 export default function NavLinksPanel({ renderLinks }) {
   const [messageApi, contextHolder] = useNotificationMessage();
   const { courseId } = useParams();
-  const course = useSelector(getAllCourses).find(
+  const course = useSelector(getAllCourses)?.find(
     (course) => course?.id === +courseId
   );
 

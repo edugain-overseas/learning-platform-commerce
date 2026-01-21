@@ -12,7 +12,7 @@ const DownloadCertificate = () => {
   const { courseId } = useParams();
   const dispatch = useDispatch();
   const courses = useSelector(getAllCourses);
-  const categoryId = courses.find(
+  const categoryId = courses?.find(
     (course) => course.id === +courseId
   )?.category_id;
   const userInfo = useSelector(getUserInfo);
@@ -22,11 +22,11 @@ const DownloadCertificate = () => {
 
   const courseCertificateData = userCertificates
     ? userCertificates
-        .find(
+        ?.find(
           (categoryCertificate) =>
             categoryCertificate.category_id === categoryId
         )
-        ?.course_certificate_data.find(
+        ?.course_certificate_data?.find(
           (courseCertificate) => courseCertificate.course_id === +courseId
         )
     : null;

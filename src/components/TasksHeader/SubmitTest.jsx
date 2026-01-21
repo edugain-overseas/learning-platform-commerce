@@ -37,7 +37,7 @@ const AttemptsList = ({ test, closePopOver }) => {
     );
   }
 
-  const answers = attemptsDetails.find(
+  const answers = attemptsDetails?.find(
     ({ id }) => id === selectedAttemptId
   )?.data;
 
@@ -45,7 +45,7 @@ const AttemptsList = ({ test, closePopOver }) => {
     setSelectedAttemptId(attempt.id);
     setIsLoadingAttemptId(attempt.id);
     try {
-      if (!attemptsDetails.find(({ id }) => id === attempt.id)) {
+      if (!attemptsDetails?.find(({ id }) => id === attempt.id)) {
         const attemptData = await getTestAttemptById(attempt.id, lessonType);
         setAttemptsDetails((prev) => [
           ...prev,

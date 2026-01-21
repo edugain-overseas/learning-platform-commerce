@@ -16,8 +16,8 @@ const EditLesson = ({ lessonId, onClickCallback }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { courseId } = useParams();
   const lessonData = useSelector(getAllCourses)
-    .find((course) => course.id === +courseId)
-    .lessons.find((lesson) => lesson.id === lessonId);
+    ?.find((course) => course.id === +courseId)
+    .lessons?.find((lesson) => lesson.id === lessonId);
 
   const handleClick = () => {
     onClickCallback?.();

@@ -13,7 +13,7 @@ const CoursePublishPage = () => {
   const { courseId } = useParams();
   const [error, setError] = useState(null);
 
-  const course = useSelector(getAllCourses).find(({ id }) => id === +courseId);
+  const course = useSelector(getAllCourses)?.find(({ id }) => id === +courseId);
   const courseLessons = course?.lessons;
   const lessonsTableData = courseLessons
     ? courseLessons.map((lesson, index) => ({ ...lesson, key: `${index}` }))

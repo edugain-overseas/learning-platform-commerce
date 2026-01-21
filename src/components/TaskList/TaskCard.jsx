@@ -18,7 +18,7 @@ const TaskCard = ({ task, messageApi }) => {
   const isModer = useSelector(getUserType) === "moder";
   const canUserGoToTask = (task.status && task.status !== "blocked") || isModer;
   const { courseId } = useParams();
-  const isPublished = useSelector(getAllCourses).find(
+  const isPublished = useSelector(getAllCourses)?.find(
     (course) => course.id === +courseId
   )?.is_published;
 

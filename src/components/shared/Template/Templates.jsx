@@ -36,7 +36,7 @@ const TemplatesList = ({ type, closePopover }) => {
     (template) => template.type === getTemplateTypeByLessonType(type)
   );
 
-  const selectedTemplateDetails = templatesDetails.find(
+  const selectedTemplateDetails = templatesDetails?.find(
     ({ id }) => id === selectedTemplateId
   );
 
@@ -71,7 +71,7 @@ const TemplatesList = ({ type, closePopover }) => {
   const selectTemplate = async (id) => {
     setSelectedTemplateId(id);
     if (
-      !templatesDetails.find((templateDetails) => templateDetails.id === id)
+      !templatesDetails?.find((templateDetails) => templateDetails.id === id)
     ) {
       await fetchTemplateDetails(id);
     }
@@ -84,8 +84,8 @@ const TemplatesList = ({ type, closePopover }) => {
   };
 
   const handleUseTemplate = async (id) => {
-    if (templatesDetails.find((templateDetails) => templateDetails.id === id)) {
-      const templateData = templatesDetails.find(
+    if (templatesDetails?.find((templateDetails) => templateDetails.id === id)) {
+      const templateData = templatesDetails?.find(
         (templateDetails) => templateDetails.id === id
       )[`${getTemplateTypeByLessonType(type)}_template`];
       console.log(templateData);

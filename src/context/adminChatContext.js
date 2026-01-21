@@ -24,11 +24,11 @@ export const AdminChatProvider = ({ children }) => {
       ? chats
       : chats.filter(({ status }) => status === chatsFilter);
 
-  const messages = chatsData.find(
+  const messages = chatsData?.find(
     (chatData) => chatData.id === selectedChatId
   )?.messages;
 
-  const selectedChat = chats.find(({ id }) => id === selectedChatId);
+  const selectedChat = chats?.find(({ id }) => id === selectedChatId);
 
   const selectChat = (id) => {
     setSelectedChatId(+id);
@@ -111,7 +111,7 @@ export const AdminChatProvider = ({ children }) => {
       message,
       files,
     };
-    const websocket = sockets.current.find(
+    const websocket = sockets.current?.find(
       ({ id }) => selectedChatId === id
     ).ws;
 
@@ -129,7 +129,7 @@ export const AdminChatProvider = ({ children }) => {
       type: "close-chat",
     };
 
-    const websocket = sockets.current.find(({ id }) => chatId === id).ws;
+    const websocket = sockets.current?.find(({ id }) => chatId === id).ws;
 
     try {
       websocket.send(JSON.stringify(data));

@@ -38,7 +38,7 @@ const ProposedItems = ({ proposedCourses }) => {
 
 const CartItem = ({ item }) => {
   const courses = useSelector(getAllCourses);
-  const courseInfo = courses.find((course) => course.id === item.id);
+  const courseInfo = courses?.find((course) => course.id === item.id);
 
   const { removeItem, getCoursesToPropose } = useCart();
   const proposedCourses = getCoursesToPropose(item.id);

@@ -99,7 +99,7 @@ const LessonsTable = ({
   const updateLessonsNumbers = async (newLessons) => {
     const lessonsToUpdate = newLessons.filter(
       (lesson) =>
-        lessonsTableData.find(({ id }) => id === lesson.id).number !==
+        lessonsTableData?.find(({ id }) => id === lesson.id).number !==
         lesson.number
     );
     const updatedLessonsData = lessonsToUpdate.map(({ id, number }) => ({
@@ -139,10 +139,10 @@ const LessonsTable = ({
         return;
       }
       setLessons((prevLessons) => {
-        const activeIndex = prevLessons.findIndex(
+        const activeIndex = prevLessons?.findIndex(
           (lesson) => lesson.key === active.id
         );
-        const overIndex = prevLessons.findIndex(
+        const overIndex = prevLessons?.findIndex(
           (lesson) => lesson.key === over?.id
         );
         const newLessons = arrayMove(prevLessons, activeIndex, overIndex).map(

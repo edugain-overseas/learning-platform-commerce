@@ -28,11 +28,11 @@ const TaskContructor = () => {
   const username = useSelector(getUserInfo).username;
   const isLoading = useSelector(getIsLoading);
   const dispatch = useDispatch();
-  const task = lessons.find(({ id }) => id === +taskId);
+  const task = lessons?.find(({ id }) => id === +taskId);
   const taskType = task?.type;
 
   const courseId = task?.course_id;
-  const course = courses.find(({ id }) => id === +courseId);
+  const course = courses?.find(({ id }) => id === +courseId);
   const courseName = course?.title;
 
   useEffect(() => {

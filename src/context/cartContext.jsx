@@ -64,8 +64,8 @@ export const CartProvider = ({ children }) => {
     const coursesToAdd = courses.filter(
       (course) =>
         course.category_id === categoryId &&
-        !cartItems.find((item) => item.id === course.id) &&
-        !userCourses.find((userCourse) => userCourse.course_id === course.id)
+        !cartItems?.find((item) => item.id === course.id) &&
+        !userCourses?.find((userCourse) => userCourse.course_id === course.id)
     );
 
     console.log(coursesToAdd);
@@ -84,7 +84,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const getCoursesToPropose = (courseItemId) => {
-    const courseCategoryId = courses.find(
+    const courseCategoryId = courses?.find(
       (course) => course.id === courseItemId
     )?.category_id;
 
@@ -94,8 +94,8 @@ export const CartProvider = ({ children }) => {
 
     const coursesToPropose = categoryCourses.filter(
       (course) =>
-        !cartItems.find(({ id }) => id === course.id) &&
-        !userCourses.find(({ course_id }) => course_id === course.id)
+        !cartItems?.find(({ id }) => id === course.id) &&
+        !userCourses?.find(({ course_id }) => course_id === course.id)
     );
 
     return coursesToPropose;
@@ -104,7 +104,7 @@ export const CartProvider = ({ children }) => {
   const getSubtotal = () =>
     cartItems.reduce((sum, item) => {
       if (item.checked) {
-        const itemPrice = courses.find(
+        const itemPrice = courses?.find(
           (course) => course.id === item.id
         )?.price;
         return sum + itemPrice;
@@ -115,10 +115,10 @@ export const CartProvider = ({ children }) => {
   const getDiscount = () =>
     cartItems.reduce((sum, item) => {
       if (item.checked) {
-        const itemPrice = courses.find(
+        const itemPrice = courses?.find(
           (course) => course.id === item.id
         )?.price;
-        const categoryId = courses.find(
+        const categoryId = courses?.find(
           (course) => course.id === item.id
         )?.category_id;
 
@@ -129,18 +129,18 @@ export const CartProvider = ({ children }) => {
         );
         const notPurchasedCategoryCourses = categoryCourses.filter(
           (course) =>
-            !userCourses.find(
+            !userCourses?.find(
               (userCourse) => userCourse.course_id === course.id
             )
         );
 
         const isAllNotPurchasedCategoryCoursesInCart =
           notPurchasedCategoryCourses.every((course) =>
-            cartItems.find((item) => item.id === course.id && item.checked)
+            cartItems?.find((item) => item.id === course.id && item.checked)
           );
 
         if (isAllNotPurchasedCategoryCoursesInCart) {
-          const categoryDiscount = categories.find(
+          const categoryDiscount = categories?.find(
             (category) => category.id === categoryId
           )?.discount;
           if (!categoryDiscount) {

@@ -12,7 +12,7 @@ const PreviewStudentAsideCourseProgressPanel = ({
     (itemA, itemB) => itemA.number - itemB.number
   );
 
-  const currentLessonIndex = lessonList.findIndex(
+  const currentLessonIndex = lessonList?.findIndex(
     (lesson) => lesson.id === currentLessonId
   );
 

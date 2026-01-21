@@ -35,7 +35,7 @@ const AvatarEditor = () => {
   useEffect(() => {
     if (previousAvatars.length) {
       setSelectedAvatarId(
-        previousAvatars.find(({ path }) => path === userAvatar)?.id
+        previousAvatars?.find(({ path }) => path === userAvatar)?.id
       );
     }
   }, [previousAvatars, userAvatar]);

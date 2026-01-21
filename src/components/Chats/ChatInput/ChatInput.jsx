@@ -22,15 +22,15 @@ const ChatInput = () => {
   const [isFormFocused, setIsFormFocused] = useState(false);
   const dispatch = useDispatch();
 
-  const chat = chats.find(({ id }) => id === selectedChatId);
+  const chat = chats?.find(({ id }) => id === selectedChatId);
 
   const isChatProposed =
-    chats.find(({ id }) => selectedChatId === id)?.status === "proposed";
+    chats?.find(({ id }) => selectedChatId === id)?.status === "proposed";
 
   const handleSendMessage = (e) => {
     e.preventDefault();
 
-    const chatId = chats.find(({ id }) => selectedChatId === id).id;
+    const chatId = chats?.find(({ id }) => selectedChatId === id).id;
     if (isChatProposed) {
       const chatData = { chat_subject: subject, message: message };
       dispatch(initializationChatThunk(chatData)).then(({ response }) => {

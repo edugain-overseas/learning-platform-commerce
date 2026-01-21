@@ -33,7 +33,7 @@ export const ChatProvider = ({ children }) => {
         });
 
   const messages =
-    chats.find(({ id }) => id === selectedChatId)?.messages || [];
+    chats?.find(({ id }) => id === selectedChatId)?.messages || [];
 
   useEffect(() => {
     if (accessToken) {
@@ -116,7 +116,7 @@ export const ChatProvider = ({ children }) => {
 
   useEffect(() => {
     if (
-      !filtredChats.find(({ id }) => id === selectedChatId) &&
+      !filtredChats?.find(({ id }) => id === selectedChatId) &&
       filtredChats.length !== 0
     ) {
       setSelectedChatId(filtredChats[0].id);
@@ -140,7 +140,7 @@ export const ChatProvider = ({ children }) => {
   };
 
   const sendToWebsocket = (data, chatId) => {
-    const ws = webSockets.find(({ id }) => id === chatId).websocket;
+    const ws = webSockets?.find(({ id }) => id === chatId).websocket;
     if (ws) ws.send(data);
   };
 

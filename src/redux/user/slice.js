@@ -64,7 +64,7 @@ const userSlice = createSlice({
     },
     moderJoinChat(state, { payload }) {
       const chatId = payload;
-      const chatIndex = state.chats.findIndex((chat) => chat.id === chatId);
+      const chatIndex = state.chats?.findIndex((chat) => chat.id === chatId);
       if (chatIndex !== -1) {
         state.chats[chatIndex].status = "active";
       }
@@ -318,7 +318,7 @@ const userSlice = createSlice({
       .addCase(setNewMainImageThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         const imageId = action.meta.arg;
-        state.avatarURL = state.previousAvatars.find(
+        state.avatarURL = state.previousAvatars?.find(
           ({ id }) => id === imageId
         ).path;
       })

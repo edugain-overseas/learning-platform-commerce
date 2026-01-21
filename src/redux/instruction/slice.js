@@ -27,7 +27,7 @@ const instructionSlice = createSlice({
         state.isLoading = false;
         state.instructions = [
           ...state.instructions.filter(
-            ({ id }) => !payload.find(({ id: instrId }) => instrId === id)
+            ({ id }) => !payload?.find(({ id: instrId }) => instrId === id)
           ),
           ...payload.map((instr) => ({ ...instr, type: "general" })),
         ];
@@ -44,7 +44,7 @@ const instructionSlice = createSlice({
         state.isLoading = false;
         state.instructions = [
           ...state.instructions.filter(
-            ({ id }) => !payload.find(({ id: instrId }) => instrId === id)
+            ({ id }) => !payload?.find(({ id: instrId }) => instrId === id)
           ),
           ...payload,
         ];

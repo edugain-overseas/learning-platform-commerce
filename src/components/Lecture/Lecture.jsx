@@ -11,7 +11,7 @@ import TaskLayout from "../shared/TaskLayout/TaskLayout";
 const Lecture = ({ lecture }) => {
   const { course_id: courseId, id } = lecture;
   const courses = useSelector(getAllCourses);
-  const course = courses.find(({ id }) => id === +courseId);
+  const course = courses?.find(({ id }) => id === +courseId);
   const courseName = course?.title;
   const courseLessons = course?.lessons;
   const status = courseLessons?.find(

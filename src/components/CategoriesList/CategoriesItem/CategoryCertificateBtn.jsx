@@ -14,7 +14,7 @@ const CategoryCertificateBtn = ({ categoryId }) => {
       return;
     }
 
-    const certificate = userCertificates.find(
+    const certificate = userCertificates?.find(
       (categoryCertificate) => categoryCertificate.category_id === categoryId
     );
 
