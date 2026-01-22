@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { serverName } from "../../../http/server";
 import { useGoogleAvatar } from "../../../hooks/useGoogleAvatar";
 import AvatarFallback from "../AvatarFallback/AvatarFallback";
@@ -33,9 +32,7 @@ const Avatar = ({ size = "76rem", src, alt = "" }) => {
         height: size,
       }}
     >
-      <Link to="/me" style={{ width: "100%", height: "100%" }}>
-        <img src={avatarSrc} alt={alt} />
-      </Link>
+      <img src={avatarSrc} alt={alt} />
     </div>
   );
 };

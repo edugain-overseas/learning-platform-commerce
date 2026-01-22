@@ -1,14 +1,12 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   min-width: 148rem;
   transform: translateX(-100%);
   transition: transform var(--transition-time-max) ease;
 
   a {
-    display: block;
-    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     text-align: center;
     position: relative;
@@ -30,6 +28,7 @@
 }
 
 .fullName {
+  margin-top: 10rem;
   color: var(--content-main);
   font-size: 14rem;
   line-height: 1;

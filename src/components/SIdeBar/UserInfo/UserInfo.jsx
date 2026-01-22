@@ -16,12 +16,10 @@ const UserInfo = () => {
 
   const isAuthorizedStudent = !!accessToken && !isModer;
 
-  console.log(isAuthorizedStudent);
-
   return (
     <div className={styles.wrapper} id="expanded">
-      <Avatar src={userInfo.avatarURL} />
       <Link to={isAuthorizedStudent ? "/me" : null}>
+      <Avatar src={userInfo.avatarURL} />
         <span className={styles.fullName}>{username}</span>
       </Link>
       {accessToken && !isModer && (
