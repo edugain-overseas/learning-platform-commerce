@@ -13,31 +13,38 @@ const ServicesBtns = () => {
   const dispatch = useDispatch();
   useScript(appleAuthHelpers.APPLE_SCRIPT_SRC);
 
+  // const handleCustomGoogleButtonClick = () => {
+  //   try {
+  //     /* global google */
+  //     if (!google?.accounts?.id) {
+  //       console.error("Google accounts API not initialized");
+  //       return;
+  //     }
+
+  //     google.accounts.id.prompt((notification) => {
+  //       if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+  //         console.warn("Google One Tap prompt skipped or not displayed.");
+
+  //         // Optionally handle cookie or localStorage clean-up
+  //         document.cookie =
+  //           "g_state=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT";
+
+  //         // Try to reinitialize or log this as a skipped session
+  //         google.accounts.id.prompt(); // Caution: Avoid infinite loops
+  //       } else {
+  //         console.log("Google One Tap displayed successfully.");
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.error("Error invoking Google One Tap:", error);
+  //   }
+  // };
+
   const handleCustomGoogleButtonClick = () => {
-    try {
-      /* global google */
-      if (!google?.accounts?.id) {
-        console.error("Google accounts API not initialized");
-        return;
-      }
-
-      google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          console.warn("Google One Tap prompt skipped or not displayed.");
-
-          // Optionally handle cookie or localStorage clean-up
-          document.cookie =
-            "g_state=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT";
-
-          // Try to reinitialize or log this as a skipped session
-          google.accounts.id.prompt(); // Caution: Avoid infinite loops
-        } else {
-          console.log("Google One Tap displayed successfully.");
-        }
-      });
-    } catch (error) {
-      console.error("Error invoking Google One Tap:", error);
-    }
+    if (!window.google?.accounts?.id) return;
+    
+    /* global google */
+    google.accounts.id.prompt();
   };
 
   const handleAppleResponse = async (response) => {

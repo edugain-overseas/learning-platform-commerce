@@ -19,7 +19,7 @@ export const sidebarNav = [
     children: null,
   },
   {
-    label: "My education",
+    label: "My study",
     icon: <EducationIcon />,
     link: "/education",
     children: null,
@@ -107,11 +107,6 @@ export const adminCourseLinks = [
     content: "Publish",
     element: <CoursePublishPage />,
   },
-  // {
-  //   to: "exam-certificate",
-  //   content: "exam | certificate",
-  //   element: <CourseCerificatePage />,
-  // },
   {
     to: "constructor",
     content: "Edit",

@@ -25,6 +25,8 @@ const UserInfoCard = ({ userInfo }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [messageApi, contextHolder] = useNotificationMessage();
 
+  const accessToken = userInfo.accessToken;
+
   const userCoursesNumber = userInfo.courses.length;
   const userCertificatesNumber = userInfo.courses.filter(
     (course) => course.status === "completed"
@@ -167,7 +169,7 @@ const UserInfoCard = ({ userInfo }) => {
           />
         </div>
       </div>
-      {!isEdit && (
+      {!isEdit && accessToken && (
         <div className={styles.editBtnWrapper}>
           <Tooltip infoContent="Edit profile">
             <InsetBtn onClick={handleEdit} icon={<SettingsIcon />} />
