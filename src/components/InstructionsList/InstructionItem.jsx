@@ -15,11 +15,15 @@ const InstructionItem = ({ instruction }) => {
   const isActiveInstruction = instruction.id === +params.instructionId;
   const closedLink = pathname.replace(`/${params.instructionId}`, "");
 
+  const instructionLinkTypePart =
+    instruction.type === "course" ? "courses" : "general";
+  const instructionLink = `/instructions/${instructionLinkTypePart}/${instruction.id}`;
+
   return (
     <>
       <NavLink
         className={({ isActive }) => navLinkActiveHandler(isActive, styles)}
-        to={isActiveInstruction ? closedLink : `${instruction.id}`}
+        to={isActiveInstruction ? closedLink : instructionLink}
       >
         <div className={styles.leftWrapper}>
           <TaskIcon />

@@ -29,10 +29,7 @@ const HomeCategories = () => {
   return (
     <section className={styles.categories}>
       <div className={styles.sectionContainer}>
-        <HomeSlider
-          renderItem={renderCategoryItem}
-          items={[...categories, ...categories, ...categories]}
-        >
+        <HomeSlider renderItem={renderCategoryItem} items={categories}>
           <SliderSectionHeader
             title="Categories of Courses"
             link="courses/all"

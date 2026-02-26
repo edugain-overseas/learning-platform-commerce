@@ -1,74 +1,186 @@
 .searchPage {
   padding: 20rem;
   padding-top: 0;
-  text-align: center;
   width: 100%;
   height: 100%;
   overflow: auto;
 
   .header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 16rem;
-    padding-block: 20rem 16rem;
-    margin-bottom: 20rem;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    backdrop-filter: blur(35px);
+    padding-block: 24rem 20rem;
 
-    h1 {
+    h2 {
+      font-family: Roboto;
       font-size: 20rem;
-
-      span {
-        font-size: 16rem;
-        color: var(--content-datail-secondary);
-      }
+      font-weight: 700;
+      line-height: 1.1;
+      padding: 0 12rem 12rem;
+      border-bottom: 2rem solid var(--content-main);
+      margin-bottom: 20rem;
     }
+  }
 
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 70%;
-      height: 2rem;
-      border-radius: 10rem;
-      background-color: var(--border-color-main);
+  .content {
+    padding-inline: 26rem;
+  }
+
+  .searchbarWrapper {
+    padding-inline: 12rem;
+  }
+}
+
+.resultsDiscription {
+  margin-bottom: 20rem;
+  p {
+    color: var(--content-datail-secondary);
+    font-family: Roboto;
+    font-size: 12rem;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+
+  .title {
+    margin-bottom: 5rem;
+  }
+}
+
+.title {
+  color: var(--content-main);
+  font-family: Roboto;
+  font-size: 20rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.resultContainer {
+  section:not(:last-child) {
+    margin-bottom: 20rem;
+  }
+}
+
+.resultBlock {
+  .title {
+    margin-bottom: 16rem;
+
+    span {
+      text-transform: capitalize;
+    }
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20rem;
+  }
+
+  &[id="search-result-instructions"] {
+    li {
+      a {
+        flex-direction: column;
+        padding: 12rem;
+        gap: 6rem;
+
+        transition: background-color var(--transition-time-default) ease;
+
+        &:hover {
+          background-color: var(--bg-default);
+        }
+
+        button {
+          display: none;
+        }
+      }
     }
   }
 }
-.resultBlock {
-  width: 70%;
-  margin: 0 auto 64rem;
 
-  h2 {
-    text-align: start;
-    font-size: 18rem;
-    padding-bottom: 4rem;
+.searchHistoryWrapper {
+  margin-bottom: 20rem;
+
+  .title {
     margin-bottom: 12rem;
-    position: relative;
-    width: fit-content;
-    text-transform: capitalize;
-
-    &::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 1rem;
-        background-color: var(--content-nav-hover);
-    }
   }
-  
+
   ul {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20rem;
+  }
+
+  .historyLink {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8rem;
+    width: 100%;
+    height: 40rem;
+
+    border-radius: 5rem;
+    background: var(--bg-rgba-default);
+    box-shadow: var(--drop-shadow-middle-intense);
+    backdrop-filter: blur(16px);
+
+    transition: background-color var(--transition-time-default) ease;
+
+    &:hover {
+      background-color: var(--bg-default);
+
+      svg * {
+        fill: var(--content-main);
+      }
+    }
+
+    span {
+      font-size: 14rem;
+      font-weight: 700;
+      color: var(--ion-color-dark);
+      position: relative;
+      padding-inline-start: 13rem;
+      overflow: visible;
+
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 4rem;
+        height: 24rem;
+
+        border-radius: 5rem;
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: var(--box-shadow-button-inset);
+      }
+    }
+
+    svg {
+      width: 10rem;
+      height: auto;
+      rotate: -90deg;
+
+      & * {
+        fill: var(--content-datail-secondary);
+      }
+    }
+  }
+}
+
+.content .mostPopularContainer {
+  margin-inline: -70rem;
+
+  & > section {
+    margin-bottom: -76rem;
+  }
+
+  section > div > div > div:first-child {
+    margin-top: -6rem;
+  }
+
+  section h3 {
+    color: var(--content-main);
+    font-family: Roboto;
+    font-size: 20rem;
+    font-weight: 700;
+    line-height: 1.1;
   }
 }

@@ -30,7 +30,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     transition: opacity var(--transition-time-min) ease;
 
     &:hover {
@@ -44,30 +44,30 @@
   .deleteBtn path {
     fill: var(--content-nav-hover);
   }
+}
 
-  .navLink {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-    padding-inline: 12rem 14rem;
-    border-radius: 5rem;
-    box-shadow: var(--drop-shadow-button-main);
-    background-color: var(--bg-rgba-default);
+.navLink {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding-inline: 12rem 14rem;
+  border-radius: 5rem;
+  box-shadow: var(--drop-shadow-button-main);
+  background-color: var(--bg-rgba-default);
 
+  .chevronIcon {
+    width: 10.5rem;
+    height: 6rem;
+    transform: rotate(-90deg);
+    transition: transform var(--transition-time-min) ease;
+  }
+
+  &.navLink--active {
     .chevronIcon {
       width: 10.5rem;
       height: 6rem;
-      transform: rotate(-90deg);
-      transition: transform var(--transition-time-min) ease;
-    }
-
-    &.navLink--active {
-      .chevronIcon {
-        width: 10.5rem;
-        height: 6rem;
-        transform: rotate(90deg);
-      }
+      transform: rotate(90deg);
     }
   }
 
@@ -84,6 +84,7 @@
     h2 {
       font-size: 14rem;
       font-weight: 700;
+      margin: 0;
     }
   }
 

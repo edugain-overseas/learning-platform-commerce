@@ -98,11 +98,11 @@
 
 .courseName {
   display: -webkit-box;
-  position: relative;
-  white-space: normal;
-  overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  white-space: normal;
+  overflow: hidden;
+  position: relative;
   font-weight: 700;
   margin-right: 6rem;
 

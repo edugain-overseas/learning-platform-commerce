@@ -70,6 +70,9 @@ const MainSearchBar = ({ wrapperClassName = "" }) => {
     // eslint-disable-next-line
   }, [query]);
 
+  console.log(suggestions);
+  
+
   return (
     <form
       className={`${styles.searchForm} ${wrapperClassName}`}
@@ -102,7 +105,7 @@ const MainSearchBar = ({ wrapperClassName = "" }) => {
                     navigateToSearchWithQuery(suggestion.value)
                   }
                 >
-                  <h5>{suggestion.value}</h5>
+                  {/* <h5>{suggestion.value}</h5> */}
                   <span>{suggestion.type}</span>
                 </li>
               ))}
