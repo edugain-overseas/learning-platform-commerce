@@ -20,7 +20,6 @@ const MainSearchBar = ({ wrapperClassName = "" }) => {
   const debounceRef = useRef();
 
   const navigateToSearchWithQuery = (query) => {
-    if (!query.trim()) return;
     navigate(`/search?q=${encodeURIComponent(query.trim())}`);
   };
 
