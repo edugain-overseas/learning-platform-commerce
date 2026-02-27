@@ -71,7 +71,6 @@ const MainSearchBar = ({ wrapperClassName = "" }) => {
   }, [query]);
 
   console.log(suggestions);
-  
 
   return (
     <form
@@ -94,6 +93,7 @@ const MainSearchBar = ({ wrapperClassName = "" }) => {
           style={{
             opacity: showSuggestions ? 1 : 0,
             height: showSuggestions ? "auto" : 0,
+            pointerEvents: showSuggestions ? "auto" : "none",
           }}
         >
           {suggestions.length ? (
@@ -105,7 +105,7 @@ const MainSearchBar = ({ wrapperClassName = "" }) => {
                     navigateToSearchWithQuery(suggestion.value)
                   }
                 >
-                  {/* <h5>{suggestion.value}</h5> */}
+                  <h5>{suggestion.value}</h5>
                   <span>{suggestion.type}</span>
                 </li>
               ))}

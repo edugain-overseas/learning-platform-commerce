@@ -184,3 +184,30 @@
     line-height: 1.1;
   }
 }
+
+.noResults {
+  margin-block: 90rem;
+  width: 650rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--border-color-decorate);
+
+  svg {
+    width: 62rem;
+    height: auto;
+    margin-bottom: 12rem;
+  }
+
+  p:not(:last-child) {
+    font-size: 28rem;
+    font-weight: 700;
+    margin-bottom: 20rem;
+  }
+
+  p {
+    text-align: center;
+    font-size: 14rem;
+    font-weight: 600;
+  }
+}

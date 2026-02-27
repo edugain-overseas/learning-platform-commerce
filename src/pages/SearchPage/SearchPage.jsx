@@ -9,6 +9,7 @@ import HomeCategories from "../HomePage/HomeCategories";
 import SearchHistory from "./SearchHistory";
 import HomeCourses from "../HomePage/HomeCourses";
 import { useSearchHistory } from "../../hooks/useSearchHistory";
+import { ReactComponent as NoResults } from "../../images/icons/search-list.svg";
 
 const CACHE = new Map();
 
@@ -77,7 +78,19 @@ const SearchPage = () => {
             </div>
             {loading && <Spinner />}
             {error && <p className={styles.title}>{error}</p>}
-            {data && <SearchResults data={data} />}
+            {data && !!resultsAmount ? (
+              <SearchResults data={data} />
+            ) : (
+              <div className={styles.noResults}>
+                <NoResults />
+                <p>Oops</p>
+                <p>
+                  No matching options.
+                  <br />
+                  Try changing your query
+                </p>
+              </div>
+            )}
           </>
         ) : (
           <>
