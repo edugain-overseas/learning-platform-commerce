@@ -644,6 +644,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                   control={control}
                   name="about_main_text"
                   placeholder="About text"
+                  className="stickyToolbarEditor"
                 />
               </div>
             </div>

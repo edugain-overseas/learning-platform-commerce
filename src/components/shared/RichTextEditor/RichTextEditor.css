@@ -1,5 +1,5 @@
 .richTextEditor {
-  background-color: var(--bg-rgba-primary);
+  /* background-color: var(--bg-rgba-primary); */
   position: relative;
   border-radius: 5rem;
 
@@ -17,6 +17,8 @@
     padding: 4rem 8rem;
     position: absolute;
     bottom: 100%;
+    /* position: sticky;
+    top: 0; */
     box-shadow: var(--drop-shadow-button-main);
     border-radius: 2.5rem;
     background-color: #fff;
@@ -92,6 +94,16 @@
 
   & .ql-editor {
     padding: 4rem 8rem;
+    background-color: var(--bg-rgba-primary);
+
+  }
+}
+
+.stickyToolbarEditor {
+  & [role="toolbar"] {
+    position: sticky;
+    top: 0;
+    /* margin-bottom: calc(-24px - 8rem); */
   }
 }
 

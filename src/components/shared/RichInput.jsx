@@ -2,11 +2,18 @@ import React from "react";
 import { useController } from "react-hook-form";
 import RichTextEditor from "./RichTextEditor/RichTextEditor";
 
-const RichInput = ({ control, name, placeholder, maxLength = null, toolbarType }) => {
+const RichInput = ({
+  control,
+  name,
+  placeholder,
+  maxLength = null,
+  toolbarType,
+  className="",
+}) => {
   const { field } = useController({
     name,
     control,
-  });  
+  });
 
   return (
     <RichTextEditor
@@ -15,6 +22,7 @@ const RichInput = ({ control, name, placeholder, maxLength = null, toolbarType }
       placeholder={placeholder}
       maxLength={maxLength}
       type={toolbarType}
+      className={className}
     />
   );
 };

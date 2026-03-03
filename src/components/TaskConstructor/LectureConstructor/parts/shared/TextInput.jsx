@@ -8,7 +8,7 @@ const TextInput = ({ value, setValue }) => {
       placeholder="Block text"
       value={value}
       setValue={setValue}
-      className={styles.textEditor}
+      className={`${styles.textEditor} stickyToolbarEditor`}
     />
   );
 };
