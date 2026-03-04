@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { getIsLoading } from "../../redux/category/selectors";
@@ -11,6 +11,7 @@ import Modal from "../shared/Modal/Modal";
 import RichInput from "../shared/RichInput";
 import Textarea from "../shared/Textarea/Textarea";
 import Spinner from "../Spinner/Spinner";
+import CategoryIconPicker from "./CategoryIconPicker";
 import styles from "./CategoryModal.module.scss";
 
 const CategoryModal = ({
@@ -21,6 +22,10 @@ const CategoryModal = ({
   const isLoading = useSelector(getIsLoading);
   const dispatch = useDispatch();
   const [messageApi, contextHolder] = useNotificationMessage();
+  const [selectedIconId, setSelectedIconId] = useState(
+    categoryDefaultData?.icons?.find((icon) => icon.is_main)?.id
+  );
+
   const {
     register,
     handleSubmit,
@@ -46,13 +51,21 @@ const CategoryModal = ({
       setIsOpenModal(false);
     };
     console.log(data);
+
+    if (!selectedIconId) {
+      messageApi.error({
+        content: `Please choose category icon`,
+      });
+      return;
+    }
+
     dispatch(
       categoryDefaultData
         ? updateCategoryThunk({
             categoryId: categoryDefaultData.id,
-            updatedCategoryData: data,
+            updatedCategoryData: { ...data, icon_id: selectedIconId },
           })
-        : createCategoryThunk(data)
+        : createCategoryThunk({ ...data, icon_id: selectedIconId })
     )
       .unwrap()
       .then(handleSuccessRequest);
@@ -103,6 +116,10 @@ const CategoryModal = ({
             />
             {errors.description && <span>This field is required</span>}
 
+            <CategoryIconPicker
+              selectedId={selectedIconId}
+              setSelectedId={setSelectedIconId}
+            />
             <button type="submit">
               <span>{categoryDefaultData ? "Update" : "Create"}</span>
               {isLoading && <Spinner />}

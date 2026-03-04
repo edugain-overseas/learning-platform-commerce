@@ -3,7 +3,13 @@ import Modal from "../shared/Modal/Modal";
 import LessonForm from "../LessonForm/LessonForm";
 import styles from "./CreateNewLessonBtn.module.scss";
 
-const LessonModal = ({ isOpen, closeModal, lessonData, lessonNumber }) => {
+const LessonModal = ({
+  isOpen,
+  closeModal,
+  lessonData,
+  lessonNumber,
+  lessonConstructorCourseId,
+}) => {
   return (
     <Modal isOpen={isOpen} closeModal={closeModal} width="auto">
       <div className={styles.modalHeader}>
@@ -13,6 +19,7 @@ const LessonModal = ({ isOpen, closeModal, lessonData, lessonNumber }) => {
         lessonNumber={lessonNumber}
         closeModal={closeModal}
         lessonData={lessonData}
+        lessonConstructorCourseId={lessonConstructorCourseId}
       />
     </Modal>
   );

@@ -10,7 +10,10 @@ import {
 } from "../../redux/course/operations";
 import { getIsLoading } from "../../redux/course/selectors";
 import { ReactComponent as LaptopIcon } from "../../images/icons/laptop.svg";
-import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
+import { ReactComponent as AwardIcon } from "../../images/icons/award.svg";
+import { ReactComponent as LanguageIcon } from "../../images/icons/planet.svg";
+import { ReactComponent as LevelIcon } from "../../images/icons/brain.svg";
+import { ReactComponent as CreditIcon } from "../../images/icons/lock.svg";
 import { priceFormatter } from "../../utils/priceFormatter";
 import { stripHtmlTags } from "../../utils/stripHtmlTags";
 import {
@@ -468,7 +471,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                 </li>
                 <li>
                   <span className={styles.property}>
-                    <ClockIcon />
+                    <AwardIcon />
                     Award:
                   </span>
                   <Textarea
@@ -495,7 +498,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                 </li>
                 <li>
                   <span className={styles.property}>
-                    <ClockIcon />
+                    <LanguageIcon />
                     Language:
                   </span>
                   <Textarea
@@ -522,7 +525,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                 </li>
                 <li>
                   <span className={styles.property}>
-                    <ClockIcon />
+                    <LevelIcon />
                     Level:
                   </span>
                   <Textarea
@@ -549,7 +552,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                 </li>
                 <li>
                   <span className={styles.property}>
-                    <ClockIcon />
+                    <CreditIcon />
                     Tests:
                   </span>
 

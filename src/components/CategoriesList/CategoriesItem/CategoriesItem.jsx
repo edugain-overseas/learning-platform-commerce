@@ -8,6 +8,7 @@ import { useFilteredCoursesData } from "../../../hooks/useFiltredCoursesData";
 import { ReactComponent as BMIcon } from "../../../images/icons/bm.svg";
 import { ReactComponent as ChevronIcon } from "../../../images/icons/arrowDown.svg";
 import { ReactComponent as EditIcon } from "../../../images/icons/edit.svg";
+import { serverName } from "../../../http/server";
 import CoursesList from "../../CoursesList/CoursesList";
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import InfoBtn from "../../shared/InfoBtn/InfoBtn";
@@ -81,6 +82,9 @@ const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
     // eslint-disable-next-line
   }, [selectedListModeIndex]);
 
+  const iconPath = category.icons?.find((icon) => icon.is_main)?.path;
+  console.log(iconPath);
+
   return (
     <li className={styles.itemWrapper} id="wrapper">
       <div
@@ -88,7 +92,19 @@ const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
         id={`category-panel-${category.id}`}
       >
         <Link to={null} className={styles.titleWrapper}>
-          <BMIcon />
+          {iconPath ? (
+            <div
+              className={styles.icon}
+              style={{
+                backgroundImage: `url(${serverName}/${iconPath})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center center",
+              }}
+            />
+          ) : (
+            <BMIcon className={styles.icon} />
+          )}
           <div className={styles.nameWrapper}>
             <h3>{category.title}</h3>
             <p
@@ -103,13 +119,15 @@ const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
                 <span>Purchased: </span>
                 {`${userCoursesInCategory.length} / ${categoryCourses.length}`}
               </p>
-              {!isProgressHidden && <div className={styles.progressWrapper}>
-                <span>Progress:</span>
-                <ProgressBar
-                  value={Math.round(progress)}
-                  disabled={userCoursesInCategory.length === 0}
-                />
-              </div>}
+              {!isProgressHidden && (
+                <div className={styles.progressWrapper}>
+                  <span>Progress:</span>
+                  <ProgressBar
+                    value={Math.round(progress)}
+                    disabled={userCoursesInCategory.length === 0}
+                  />
+                </div>
+              )}
             </>
           ) : (
             <>

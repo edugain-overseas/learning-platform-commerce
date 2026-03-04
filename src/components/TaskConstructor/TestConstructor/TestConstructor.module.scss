@@ -210,18 +210,16 @@ div[data-narrowed="true"] {
     flex-shrink: 0;
     width: 20rem;
     height: 20rem;
+    color: var(--content-datail-secondary);
+    transition: color var(--transition-time-min) ease;
 
-    &:hover path {
-      fill: var(--content-nav-hover);
+    &:hover {
+      color: var(--content-nav-hover);
     }
 
     svg {
       width: 100%;
       height: 100%;
-    }
-
-    path {
-      transition: fill var(--transition-time-min) ease;
     }
   }
 }

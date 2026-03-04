@@ -12,7 +12,12 @@ import FileUploader from "../shared/Uploaders/FileUploader/FileUploader";
 import Spinner from "../Spinner/Spinner";
 import styles from "./LessonForm.module.scss";
 
-const LessonForm = ({ lessonNumber, closeModal, lessonData }) => {
+const LessonForm = ({
+  lessonNumber,
+  closeModal,
+  lessonData,
+  lessonConstructorCourseId,
+}) => {
   const {
     register,
     handleSubmit,
@@ -64,7 +69,7 @@ const LessonForm = ({ lessonNumber, closeModal, lessonData }) => {
       if (!lessonData) {
         const lessonData = {
           ...data,
-          course_id: +courseId,
+          course_id: +courseId ? courseId : lessonConstructorCourseId,
           image_path: uploadedImage,
           number: lessonNumber ? lessonNumber : 1,
           type: lessonType,
@@ -176,7 +181,7 @@ const LessonForm = ({ lessonNumber, closeModal, lessonData }) => {
         />
       </div>
       <button type="submit" className={styles.createLessonBtn}>
-        {(isLoading || isLessonStateLoading) ? (
+        {isLoading || isLessonStateLoading ? (
           <Spinner />
         ) : (
           <span>{lessonData ? "Update" : "Create"}</span>

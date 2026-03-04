@@ -5,6 +5,8 @@ import { getAllCourses } from "../../../redux/course/selectors";
 import { ReactComponent as ArrowDownIcon } from "../../../images/icons/arrow-left.svg";
 import { useNotificationMessage } from "../../../hooks/useNotificationMessage";
 import styles from "./LessonNavigateBtn.module.scss";
+import { getUserType } from "../../../redux/user/selectors";
+import CreateNewLessonBtn from "../../CreateNewLessonBtn/CreateNewLessonBtn";
 
 const LessonNavigateBtn = ({
   forward = false,
@@ -15,6 +17,7 @@ const LessonNavigateBtn = ({
   courseId = 1,
 }) => {
   const navigate = useNavigate();
+  const isModer = useSelector(getUserType) === "moder";
   const courses = useSelector(getAllCourses);
   const course = courses?.find(({ id }) => id === +courseId);
   const courseLessons = course?.lessons || [];
@@ -44,24 +47,35 @@ const LessonNavigateBtn = ({
     navigate(`/task/${targetLessonId}`);
   };
 
+  const renderCreateLessonBtn = isModer && !targetLesson && forward;
+
   return (
     <>
       {contextHolder}
-      <button
-        className={`${styles.btn} ${forward ? styles.next : styles.prev}`}
-        onClick={handleNavigate}
-        style={{
-          width,
-          height,
-          flexDirection: forward ? "row-reverse" : "row",
-          opacity: targetLesson ? "1" : "0.5",
-          pointerEvents: targetLesson ? "auto" : "none",
-        }}
-        disabled={!targetLesson}
-      >
-        <ArrowDownIcon />
-        <span>{label}</span>
-      </button>
+      {renderCreateLessonBtn ? (
+        <CreateNewLessonBtn
+          lessonNumber={currentNumber + 1}
+          classname={`${styles.btn} ${styles.createLessonBtn}`}
+          label="Create"
+          lessonConstructorCourseId={course.id}
+        />
+      ) : (
+        <button
+          className={`${styles.btn} ${forward ? styles.next : styles.prev}`}
+          onClick={handleNavigate}
+          style={{
+            width,
+            height,
+            flexDirection: forward ? "row-reverse" : "row",
+            opacity: targetLesson ? "1" : "0.5",
+            pointerEvents: targetLesson ? "auto" : "none",
+          }}
+          disabled={!targetLesson}
+        >
+          <ArrowDownIcon />
+          <span>{label}</span>
+        </button>
+      )}
     </>
   );
 };

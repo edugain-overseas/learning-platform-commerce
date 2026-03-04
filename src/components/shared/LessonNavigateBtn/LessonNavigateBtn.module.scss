@@ -82,3 +82,27 @@
     }
   }
 }
+
+.createLessonBtn {
+  width: 114rem;
+  height: 28rem;
+  padding: 0;
+  flex-direction: row;
+  padding-inline: 12rem;
+  background-color: var(--bg-button-success);
+  opacity: 0.7;
+  color: var(--content-light-secondary);
+  transition: opacity var(--transition-time-min) ease;
+
+  span {
+    color: inherit;
+  }
+
+  svg * {
+    fill: currentColor;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}

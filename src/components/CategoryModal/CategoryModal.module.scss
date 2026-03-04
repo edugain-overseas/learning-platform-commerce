@@ -38,3 +38,46 @@
     }
   }
 }
+
+.categoryIconPickerContainer {
+  margin-block: 12rem;
+  width: 100%;
+
+  h4 {
+    text-align: center;
+    padding-bottom: 6rem;
+    margin-bottom: 12rem;
+    border-bottom: 1rem solid var(--content-datail-secondary);
+  }
+
+  ul {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .iconContainer {
+    padding: 8rem;
+    cursor: pointer;
+    border-radius: 5rem;
+    border: 2rem solid transparent;
+    transition: border-color var(--transition-time-min) ease;
+
+    &.selected {
+      border-color: var(--content-datail-secondary);
+
+      .icon {
+        scale: 1.05;
+      }
+    }
+
+    .icon {
+      width: 64rem;
+      aspect-ratio: 1;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+
+      transition: scale var(--transition-time-min) ease;
+    }
+  }
+}

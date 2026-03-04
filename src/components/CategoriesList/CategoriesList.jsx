@@ -23,10 +23,7 @@ const CategoriesList = () => {
   return (
     <ul className={styles.categoryList}>
       {categories.map((category) => (
-        <CategoriesItem
-          key={category.id}
-          category={category}
-        />
+        <CategoriesItem key={category.id} category={category} />
       ))}
     </ul>
   );

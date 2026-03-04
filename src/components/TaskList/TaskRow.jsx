@@ -31,10 +31,12 @@ const TaskRow = ({ task, messageApi }) => {
     }
   };
 
-  const taskLink =
+  const studentTaskLink =
     task.type === "exam"
       ? `/course/${courseId}/exam-certificate`
       : `/task/${task.id}`;
+
+  const taskLink = isModer ? `/task/${task.id}` : studentTaskLink;
 
   return (
     <div
