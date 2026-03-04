@@ -5,9 +5,6 @@
   border: 1rem solid var(--border-color-main);
   background-color: var(--bg-accent-block);
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: 8rem;
 
   position: relative;
@@ -32,6 +29,13 @@
 
 .borderless {
   border-color: transparent;
+}
+
+.valueWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
 .value,

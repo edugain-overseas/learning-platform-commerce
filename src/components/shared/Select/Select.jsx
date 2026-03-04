@@ -106,32 +106,34 @@ const Select = ({
       } ${wrapperClassname}`}
       style={wrapperStyles}
     >
-      {selectedOption ? (
-        <span className={styles.value} title={selectedOption.label}>
-          {selectedOption.label}
-        </span>
-      ) : (
-        <span
-          className={styles.placeholder}
-          title={typeof placeholder === "string" ? placeholder : ""}
-        >
-          {placeholder}
-        </span>
-      )}
+      <div className={styles.valueWrapper} onClick={handleOpen}>
+        {selectedOption ? (
+          <span className={styles.value} title={selectedOption.label}>
+            {selectedOption.label}
+          </span>
+        ) : (
+          <span
+            className={styles.placeholder}
+            title={typeof placeholder === "string" ? placeholder : ""}
+          >
+            {placeholder}
+          </span>
+        )}
 
-      {normalizedValue !== "" && allowClear ? (
-        <button
-          type="button"
-          className={styles.clearBtn}
-          onMouseUp={handleClear}
-        >
-          <CrossIcon />
-        </button>
-      ) : (
-        <button type="button" className={styles.openBtn} onClick={handleOpen}>
-          <DropDownArrowIcon />
-        </button>
-      )}
+        {normalizedValue !== "" && allowClear ? (
+          <button
+            type="button"
+            className={styles.clearBtn}
+            onMouseUp={handleClear}
+          >
+            <CrossIcon />
+          </button>
+        ) : (
+          <button type="button" className={styles.openBtn} onClick={handleOpen}>
+            <DropDownArrowIcon />
+          </button>
+        )}
+      </div>
 
       <div
         className={`${styles.dropDownWrapper} ${dropdownClassname}`}
