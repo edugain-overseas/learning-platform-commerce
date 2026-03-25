@@ -26,9 +26,11 @@ export const LectureConstructorProvider = ({ children }) => {
   const task = lessons?.find(({ id }) => id === +taskId);
   const initialBlocks = task?.lecture_info?.attributes || [];
 
-  const [blocks, setBlocks] = useState([
-    ...lectureAttributesToBlocks(initialBlocks),
-  ]);
+  const [blocks, setBlocks] = useState(() => {
+    return lectureAttributesToBlocks(
+      [...initialBlocks].sort((a, b) => a.a_number - b.a_number)
+    );
+  });
 
   const prevBlocksLength = useRef(blocks.length);
 

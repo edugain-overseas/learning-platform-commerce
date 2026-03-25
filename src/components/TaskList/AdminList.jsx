@@ -54,20 +54,16 @@ const AnminListItem = ({ task }) => {
 };
 
 const AdminList = ({ items }) => {
+  const [lessons, setLessons] = useState(items);
   const { selectedListModeIndex } = useListMode();
   const [messageApi, contextHolder] = useNotificationMessage();
   const { courseId } = useParams();
-  const [lessons, setLessons] = useState(items);
+  
   const dispatch = useDispatch();
+
   const isCoursePublished = useSelector(getAllCourses)?.find(
     (course) => course.id === +courseId
   )?.is_published;
-
-  useEffect(() => {
-    if (items) {
-      setLessons(items);
-    }
-  }, [items]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -76,6 +72,12 @@ const AdminList = ({ items }) => {
       },
     })
   );
+
+  useEffect(() => {
+    if (items) {
+      setLessons(items);
+    }
+  }, [items]);
 
   const updateLessonsNumbers = async (newLessons) => {
     const lessonsToUpdate = newLessons.filter(

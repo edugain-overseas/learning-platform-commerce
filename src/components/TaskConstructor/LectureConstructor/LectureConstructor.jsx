@@ -1,4 +1,17 @@
 import React from "react";
+import {
+  closestCenter,
+  DndContext,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import {
+  restrictToParentElement,
+  restrictToVerticalAxis,
+} from "@dnd-kit/modifiers";
 import { useLectureConstructor } from "../../../context/LectureConstructorContext";
 import { ReactComponent as TrashIcon } from "../../../images/icons/delete.svg";
 import Text from "./parts/Text";
@@ -13,9 +26,49 @@ import Table from "./parts/Table";
 import TaskLayout from "../../shared/TaskLayout/TaskLayout";
 import styles from "./LectureConstructor.module.scss";
 
+const Sortable = ({ children, id }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    // transform: transform
+    //   ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+    //   : undefined,
+    transition,
+    ...(isDragging
+      ? {
+          position: "relative",
+          zIndex: 9999,
+          pointerEvents: "none",
+          backgroundColor: "rgb(252,252,252)",
+        }
+      : {}),
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      className={styles.block}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
+      {children}
+    </div>
+  );
+};
+
 const LectureConstructor = () => {
   const {
     blocks,
+    setBlocks,
     handleAddBlock,
     handleDeleteBlock,
     getSetters,
@@ -47,23 +100,51 @@ const LectureConstructor = () => {
     }
   };
 
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 10 } })
+  );
+
+  const onDragEnd = ({ active, over }) => {
+    if (!over || active.id === over.id) return;
+
+    setBlocks((prev) => {
+      const oldIndex = prev.findIndex((b) => b.id === active.id);
+      const newIndex = prev.findIndex((b) => b.id === over.id);
+
+      const newBlocks = arrayMove(prev, oldIndex, newIndex);
+
+      return newBlocks.map((block, index) => ({
+        ...block,
+        a_number: index + 1,
+      }));
+    });
+  };
+
   return (
     <TaskLayout.Container>
       <TaskLayout.Content>
-        {[...blocks]
-          .sort((itemA, itemB) => itemA.a_number - itemB.a_number)
-          .map((block) => (
-            <div key={block.id} className={styles.block}>
-              {getComponent(block)}
-              <button
-                className={styles.deleteBtn}
-                onClick={() => handleDeleteBlock(block.id)}
-              >
-                <span>Delete this block</span>
-                <TrashIcon />
-              </button>
-            </div>
-          ))}
+        <DndContext
+          sensors={sensors}
+          onDragEnd={onDragEnd}
+          modifiers={[restrictToVerticalAxis, restrictToParentElement]}
+          autoScroll={true}
+          collisionDetection={closestCenter}
+        >
+          <SortableContext items={blocks.map((block) => block.id)}>
+            {blocks.map((block) => (
+              <Sortable key={block.id} id={block.id}>
+                {getComponent(block)}
+                <button
+                  className={styles.deleteBtn}
+                  onClick={() => handleDeleteBlock(block.id)}
+                >
+                  <span>Delete this block</span>
+                  <TrashIcon />
+                </button>
+              </Sortable>
+            ))}
+          </SortableContext>
+        </DndContext>
       </TaskLayout.Content>
       <TaskLayout.Tools>
         <ToolsPanel
