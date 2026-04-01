@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { getIsLoading } from "../../../redux/lesson/selectors";
 import { lectureParts } from "../../../costants/tasksParts";
@@ -13,6 +13,93 @@ import { ReactComponent as LinkIcon } from "../../../images/icons/lessonIcons/le
 import { ReactComponent as TableIcon } from "../../../images/icons/lessonIcons/lecture/table.svg";
 import SaveBtn from "../../shared/SaveBtn/SaveBtn";
 import styles from "./LectureConstructor.module.scss";
+import CommonButton from "../../shared/CommonButton/CommonButton";
+import Modal from "../../shared/Modal/Modal";
+import Spinner from "../../Spinner/Spinner";
+
+const ImportDoc = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const contentWrapperRef = useRef();
+
+  const cleanDocument = (doc) => {
+    const allElems = doc.body.querySelectorAll("*");
+
+    const allowedAttrs = ["href", "src", "alt"];
+    //clean useless attributes
+    allElems.forEach((el) => {
+      [...el.attributes].forEach((attr) => {
+        if (!allowedAttrs.includes(attr.name)) {
+          el.removeAttribute(attr.name);
+        }
+      });
+    });
+
+    // clean useless spans
+    doc.querySelectorAll("span").forEach((el) => {
+      if (el.querySelector("img")) {
+        return;
+      }
+      el.replaceWith(...el.childNodes);
+    });
+    //clean empty p tags
+    // doc.querySelectorAll("p").forEach((el) => {
+    //   if (!el.textContent?.trim()) {
+    //     el.remove();
+    //   }
+    // });
+
+    return doc;
+  };
+
+  const handleImportDocument = async () => {
+    const DOC_ID = "1bXkgVZ_kZyAxdnq0rWq8Z8SZgk3UhfAXYn_P6eIcoqI";
+    setIsLoading(true);
+    try {
+      const res = await fetch(
+        `https://docs.google.com/document/d/${DOC_ID}/export?format=html`
+      );
+
+      const html = await res.text();
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+      const cleanDoc = cleanDocument(doc);
+      const content = cleanDoc.body.innerHTML;
+
+      if (content) {
+        contentWrapperRef.current.innerHTML = content;
+        setIsOpenModal(true);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      <CommonButton
+        text="Import document"
+        icon={isLoading ? <Spinner /> : null}
+        onClick={handleImportDocument}
+        wrapperStyles={{ width: "100%", marginBottom: "16rem" }}
+      />
+      <Modal
+        isOpen={isOpenModal}
+        closeModal={() => setIsOpenModal(false)}
+        height="90vh"
+        width="90vw"
+      >
+        <div
+          ref={contentWrapperRef}
+          style={{ overflow: "auto", height: "100%", padding: '16rem', marginTop: '16rem' }}
+        />
+      </Modal>
+    </div>
+  );
+};
 
 const toolIcons = {
   text: <TextIcon />,
@@ -27,6 +114,7 @@ const toolIcons = {
 
 const ToolsPanel = ({ handleAddBlock, handleSaveLectureParts }) => {
   const isLoading = useSelector(getIsLoading);
+
   return (
     <div className={styles.toolsWrapper}>
       <ul className={styles.addBlockBtns}>
@@ -39,8 +127,10 @@ const ToolsPanel = ({ handleAddBlock, handleSaveLectureParts }) => {
           </li>
         ))}
       </ul>
-
-      <SaveBtn isLoading={isLoading} handleClick={handleSaveLectureParts} />
+      <div>
+        <ImportDoc />
+        <SaveBtn isLoading={isLoading} handleClick={handleSaveLectureParts} />
+      </div>
     </div>
   );
 };

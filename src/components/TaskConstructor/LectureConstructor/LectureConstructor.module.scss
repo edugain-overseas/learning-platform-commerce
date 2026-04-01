@@ -104,6 +104,46 @@ div[data-narrowed="true"] {
   background-color: transparent;
 }
 
+.blockBottomBtns {
+  position: relative;
+}
+
+.reorderBtnsWrapper {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  gap: 8rem;
+
+  button {
+    width: 38rem;
+    height: 38rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover svg * {
+      fill: var(--content-main);
+    }
+
+    svg {
+      width: 18rem;
+      height: 18rem;
+
+      * {
+        fill: var(--content-datail-secondary);
+      }
+    }
+
+    &.upBtn svg {
+      rotate: 90deg;
+    }
+    &.downBtn svg {
+      rotate: -90deg;
+    }
+  }
+}
+
 .deleteBtn {
   width: 38rem;
   height: 38rem;

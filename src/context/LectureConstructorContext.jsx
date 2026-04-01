@@ -204,6 +204,31 @@ export const LectureConstructorProvider = ({ children }) => {
       });
     });
   };
+  console.log(blocks);
+
+  const handleReorder = (index, direction) => {
+    if (typeof index !== "number" || !direction) return;
+
+    setBlocks((prev) => {
+      // const blockCurrentNumber = prev[index].a_number;
+      const blockCurrentNumber = index + 1;
+      const blockNewNumber = blockCurrentNumber + direction;
+
+      if (!blockNewNumber) return prev;
+
+      const updatedBlock = prev.map((block, i) => {
+        if (i === index) {
+          return { ...block, a_number: blockNewNumber };
+        }
+        if (i === index + direction) {
+          return { ...block, a_number: blockCurrentNumber };
+        }
+        return block;
+      });
+
+      return updatedBlock.sort((a, b) => a.a_number - b.a_number);
+    });
+  };
 
   const handleSaveLectureParts = () => {
     const newAttrsData = blocks
@@ -320,6 +345,7 @@ export const LectureConstructorProvider = ({ children }) => {
         setBlocks,
         handleAddBlock,
         handleDeleteBlock,
+        handleReorder,
         getSetters,
         handleSaveLectureParts,
       }}
