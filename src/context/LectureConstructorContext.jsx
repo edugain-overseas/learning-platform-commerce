@@ -204,14 +204,13 @@ export const LectureConstructorProvider = ({ children }) => {
       });
     });
   };
-  console.log(blocks);
 
   const handleReorder = (index, direction) => {
     if (typeof index !== "number" || !direction) return;
 
     setBlocks((prev) => {
-      // const blockCurrentNumber = prev[index].a_number;
-      const blockCurrentNumber = index + 1;
+      const blockCurrentNumber = prev[index].a_number;
+      // const blockCurrentNumber = index + 1;
       const blockNewNumber = blockCurrentNumber + direction;
 
       if (!blockNewNumber) return prev;
