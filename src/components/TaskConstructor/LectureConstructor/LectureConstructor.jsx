@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { useLectureConstructor } from "../../../context/LectureConstructorContext";
 import { ReactComponent as TrashIcon } from "../../../images/icons/delete.svg";
 import { ReactComponent as ArrowIcon } from "../../../images/icons/arrow-left.svg";
@@ -50,11 +51,20 @@ const LectureConstructor = () => {
     }
   };
 
+  console.log(blocks);
+  
+
   return (
     <TaskLayout.Container>
       <TaskLayout.Content>
         {blocks.map((block, index, blocks) => (
-          <div key={block.id} className={styles.block}>
+          <motion.div
+            key={block.id}
+            // id={`lecture-block-${block.id}`}
+            layout
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className={styles.block}
+          >
             {getComponent(block)}
             <div className={styles.blockBottomBtns}>
               <button
@@ -85,7 +95,7 @@ const LectureConstructor = () => {
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </TaskLayout.Content>
       <TaskLayout.Tools>

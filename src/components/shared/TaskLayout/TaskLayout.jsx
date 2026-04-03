@@ -46,8 +46,8 @@ const ContentContainer = ({ children }) => (
   </div>
 );
 
-const Layout = ({ children }) => {
-  return <div className={styles.container}>{children}</div>;
+const Layout = ({ children, className = "" }) => {
+  return <div className={`${styles.container} ${className}`}>{children}</div>;
 };
 
 const TaskLayout = {

@@ -32,6 +32,8 @@ export const LectureConstructorProvider = ({ children }) => {
     );
   });
 
+  // const [activeBlockId, setAvtiveBlockId] = useState(null);
+
   const prevBlocksLength = useRef(blocks.length);
 
   const lectureAttrMaxNumber = blocks.reduce((maxNum, attr) => {
@@ -208,6 +210,8 @@ export const LectureConstructorProvider = ({ children }) => {
   const handleReorder = (index, direction) => {
     if (typeof index !== "number" || !direction) return;
 
+    // setAvtiveBlockId(blocks[index].id);
+
     setBlocks((prev) => {
       const blockCurrentNumber = prev[index].a_number;
       // const blockCurrentNumber = index + 1;
@@ -224,7 +228,6 @@ export const LectureConstructorProvider = ({ children }) => {
         }
         return block;
       });
-
       return updatedBlock.sort((a, b) => a.a_number - b.a_number);
     });
   };
@@ -335,6 +338,17 @@ export const LectureConstructorProvider = ({ children }) => {
       contentContainerScrollEffect();
     }
     prevBlocksLength.current = blocks.length;
+
+    // if (activeBlockId) {
+    //   const el = document.getElementById(`lecture-block-${activeBlockId}`);
+    //   if (!el) return;
+
+    //   el.scrollIntoView({
+    //     behavior: "smooth",
+    //     block: "nearest",
+    //   });
+    //   setAvtiveBlockId(null);
+    // }
   }, [blocks]);
 
   return (

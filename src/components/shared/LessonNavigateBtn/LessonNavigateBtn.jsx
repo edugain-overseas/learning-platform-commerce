@@ -57,7 +57,7 @@ const LessonNavigateBtn = ({
           lessonNumber={currentNumber + 1}
           classname={`${styles.btn} ${styles.createLessonBtn}`}
           label="Create"
-          lessonConstructorCourseId={course.id}
+          lessonConstructorCourseId={course?.id}
         />
       ) : (
         <button

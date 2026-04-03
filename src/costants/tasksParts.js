@@ -12,7 +12,7 @@
         },]
 */
 
-const lecturePartsTemplates = {
+export const lecturePartsTemplates = {
   text: {
     a_title: "",
     a_text: "",

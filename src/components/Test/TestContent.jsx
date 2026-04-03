@@ -34,7 +34,7 @@ const TestContent = ({
   const testData = test[`${lessonType}_data`];
 
   const testContent = [...testData?.questions].sort(
-    (itemA, itemB) => itemA.a_number - itemB.a_number
+    (itemA, itemB) => itemA.q_number - itemB.q_number
   );
 
   const showLessonNumber =

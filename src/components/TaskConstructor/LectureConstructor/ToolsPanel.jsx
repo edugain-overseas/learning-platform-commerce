@@ -16,6 +16,10 @@ import styles from "./LectureConstructor.module.scss";
 import CommonButton from "../../shared/CommonButton/CommonButton";
 import Modal from "../../shared/Modal/Modal";
 import Spinner from "../../Spinner/Spinner";
+import doc from "./response_1774881130338";
+import Tabs from "../../Tabs/Tabs";
+import TaskLayout from "../../shared/TaskLayout/TaskLayout";
+import DocumentToTaskContructor from "../../DocumentToTaskContructor/DocumentToTaskContructor";
 
 const ImportDoc = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -78,24 +82,24 @@ const ImportDoc = () => {
     }
   };
 
+  console.log(doc);
+
   return (
     <div>
       <CommonButton
         text="Import document"
         icon={isLoading ? <Spinner /> : null}
-        onClick={handleImportDocument}
+        // onClick={handleImportDocument}
+        onClick={() => setIsOpenModal(true)}
         wrapperStyles={{ width: "100%", marginBottom: "16rem" }}
       />
       <Modal
         isOpen={isOpenModal}
         closeModal={() => setIsOpenModal(false)}
-        height="90vh"
-        width="90vw"
+        height="96vh"
+        width="96vw"
       >
-        <div
-          ref={contentWrapperRef}
-          style={{ overflow: "auto", height: "100%", padding: '16rem', marginTop: '16rem' }}
-        />
+        <DocumentToTaskContructor doc={doc} />
       </Modal>
     </div>
   );
