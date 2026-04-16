@@ -19,7 +19,7 @@ const CreateNewLessonBtn = ({
 
   const isCoursePublished = courses.find(
     (course) => course.id === targetCourseId
-  ).is_published;
+  )?.is_published;
 
   console.log(isCoursePublished);
 

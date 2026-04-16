@@ -55,6 +55,19 @@ export const LectureConstructorProvider = ({ children }) => {
     ]);
   };
 
+  const handleAddBlockFromDocImport = (block) => {
+    setBlocks((prev) => [
+      ...prev,
+      {
+        id: generateId() + "-" + block.a_number,
+        ...block,
+        a_number: lectureAttrMaxNumber + 1,
+      },
+    ]);
+  };
+
+  console.log(blocks);
+
   const handleDeleteBlock = (partId) => {
     setBlocks((prev) =>
       prev.filter((block) => {
@@ -356,6 +369,7 @@ export const LectureConstructorProvider = ({ children }) => {
       value={{
         blocks,
         setBlocks,
+        handleAddBlockFromDocImport,
         handleAddBlock,
         handleDeleteBlock,
         handleReorder,

@@ -15,11 +15,11 @@ const HeroAuthBtns = () => {
       {accessToken ? (
         <>
           <Link className={styles.primaryBtn} to="/education">
-            <span>My education</span>
+            <span>My Sdudy</span>
             <EducationIcon />
           </Link>
           <Link className={styles.secondaryBtn} to="/courses">
-            <span>All courses</span>
+            <span>All Courses</span>
             <CoursesIcon />
           </Link>
         </>

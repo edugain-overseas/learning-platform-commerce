@@ -19,12 +19,12 @@ export const sidebarNav = [
     children: null,
   },
   {
-    label: "My study",
+    label: "My Study",
     icon: <EducationIcon />,
     link: "/education",
     children: null,
   },
-  { label: "My profile", icon: <MyProfileIcon />, link: "/me", children: null },
+  { label: "My Profile", icon: <MyProfileIcon />, link: "/me", children: null },
   {
     label: "About IEU",
     icon: <AboutIEUIcon />,

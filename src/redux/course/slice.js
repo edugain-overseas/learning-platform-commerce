@@ -144,10 +144,10 @@ const courseSlice = createSlice({
         state.error = null;
       })
       .addCase(createLessonInCourseThunk.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isLoading = false;        
 
         const courseIndex = state.courses?.findIndex(
-          ({ id }) => id === action.meta.arg.course_id
+          ({ id }) => +id === +action.meta.arg.course_id
         );
 
         if (courseIndex !== -1) {

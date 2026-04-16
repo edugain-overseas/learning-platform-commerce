@@ -1,7 +1,7 @@
 import { ConfigProvider, Tabs as AntdTabs } from "antd";
 import React from "react";
 
-const Tabs = ({ items }) => {
+const Tabs = ({ items, onChange }) => {
   return (
     <ConfigProvider
       theme={{
@@ -22,7 +22,6 @@ const Tabs = ({ items }) => {
       }}
     >
       <AntdTabs
-        defaultActiveKey="1"
         tabPlacement="start"
         styles={{
           item: {
@@ -30,13 +29,17 @@ const Tabs = ({ items }) => {
             fontWeight: 500,
           },
         }}
-        style={{ height: "100%", overflow: "auto", paddingRight: "16rem" }}
+        style={{
+          height: "calc(100% - 80rem)",
+          overflow: "auto",
+          paddingRight: "16rem",
+        }}
         tabBarStyle={{
           position: "sticky",
           top: 0,
-          // borderRight: "1px solid var(--content-datail-secondary)",
         }}
         items={items}
+        onChange={onChange}
       />
     </ConfigProvider>
   );

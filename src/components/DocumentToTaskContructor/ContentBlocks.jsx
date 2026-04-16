@@ -1,24 +1,45 @@
-import React, { memo } from "react";
+import { memo } from "react";
+import { docParserDomain } from "../../http/documentParserServer";
+import ImageGroup from "../shared/ImageGroup/ImageGroup";
 import styles from "./DocumentToTaskContructor.module.scss";
 
-const Block = memo(({ block }) => {
+const Block = ({ block }) => {
   return (
-    <div>
-      <p>{block.content}</p>
-    </div>
+    <section className={styles.section}>
+      {block.a_title && (
+        <h3
+          className={styles.title}
+          dangerouslySetInnerHTML={{ __html: block.a_title }}
+        ></h3>
+      )}
+      {block.a_type === "picture" && (
+        <ImageGroup
+          imagesData={block.files}
+          domenName={docParserDomain}
+          styles={styles}
+          isDesc={true}
+        />
+      )}
+      {block.a_text && (
+        <p
+          className={styles.text}
+          dangerouslySetInnerHTML={{ __html: block.a_text }}
+        ></p>
+      )}
+    </section>
   );
-});
+};
 
-const ContentBlocks = ({ contentBlocks }) => {
+const ContentBlocks = memo(({ blocks }) => {
   console.log("render");
 
   return (
     <div className={styles.blocksContainer}>
-      {contentBlocks.map((block, index) => (
+      {blocks.map((block, index) => (
         <Block key={index} block={block} />
       ))}
     </div>
   );
-};
+});
 
 export default ContentBlocks;

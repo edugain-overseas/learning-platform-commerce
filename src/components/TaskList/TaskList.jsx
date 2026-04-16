@@ -10,6 +10,7 @@ const TaskList = ({ tasks = [] }) => {
   const sortedItemsByNumber = [...tasks].sort(
     (itemA, itemB) => itemA.number - itemB.number
   );
+  
 
   return isModer ? (
     <AdminList items={sortedItemsByNumber} />

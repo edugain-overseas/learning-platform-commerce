@@ -69,7 +69,7 @@ const LessonForm = ({
       if (!lessonData) {
         const lessonData = {
           ...data,
-          course_id: +courseId ? courseId : lessonConstructorCourseId,
+          course_id: +courseId ? +courseId : lessonConstructorCourseId,
           image_path: uploadedImage,
           number: lessonNumber ? lessonNumber : 1,
           type: lessonType,

@@ -13,6 +13,7 @@ const ImageGroup = ({
   handleDeleteFile = () => {},
   // handleInputBlur = () => {},
   disabled = true,
+  domenName = serverName,
 }) => {
   return (
     <div>
@@ -25,7 +26,7 @@ const ImageGroup = ({
           {imagesData.map((imageData, index) => (
             <div key={index} className={styles.imageWrapper}>
               <Image
-                src={`${serverName}/${imageData.file_path}`}
+                src={`${domenName}/${imageData.file_path}`}
                 alt={`${imageData.filename}`}
                 fallback={noImage}
               />

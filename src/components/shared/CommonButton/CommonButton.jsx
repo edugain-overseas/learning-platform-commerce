@@ -20,6 +20,7 @@ const CommonButton = ({
   className = "",
   onClick,
   wrapperStyles = {},
+  disabled = false,
 }) => {
   return (
     <button
@@ -28,6 +29,7 @@ const CommonButton = ({
       } ${className}`}
       onClick={onClick}
       style={{ ...wrapperStyles }}
+      disabled={disabled}
     >
       <span>{text}</span>
       {icon}
