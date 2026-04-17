@@ -26,8 +26,6 @@ const Test = ({ test }) => {
     completeTestWithAttempt
   } = useStudentTest(test, "test");
 
-
-
   const { course_id: courseId } = test;
 
   const isTestClosed =

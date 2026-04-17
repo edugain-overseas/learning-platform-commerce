@@ -115,8 +115,6 @@ const TestConstructor = ({ attempts, score, timer }) => {
   };
 
   return (
-    // <div className={styles.wrapper}>
-    //   <div className={styles.blocksWrapper}>
     <TaskLayout.Container>
       <TaskLayout.Content>
         {blocks.map((block, index) => (

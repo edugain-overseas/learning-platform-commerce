@@ -31,7 +31,7 @@ export const TestContructorProvider = ({ children }) => {
   const task = useSelector(getAllLessons)?.find(
     (lesson) => lesson.id === +taskId
   );
-  
+
   console.log(task);
 
   const lessonType = task.type;
@@ -39,7 +39,13 @@ export const TestContructorProvider = ({ children }) => {
   const testId = task[`${lessonType}_data`][`${lessonType}_id`];
   console.log(initialBlocks);
 
-  const [blocks, setBlocks] = useState(testQuestionsToBlocks(initialBlocks));
+  const [blocks, setBlocks] = useState(
+    testQuestionsToBlocks(
+      initialBlocks.toSorted((a, b) => a.q_number - b.q_number)
+    )
+  );
+  console.log(blocks);
+  
   const [messageApi, contextHolder] = useNotificationMessage();
 
   const dispatch = useDispatch();
