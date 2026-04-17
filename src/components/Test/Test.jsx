@@ -23,9 +23,12 @@ const Test = ({ test }) => {
     isLoading,
     startTestAttempt,
     onSubmitAttemptBtnClick,
+    completeTestWithAttempt
   } = useStudentTest(test, "test");
 
-  const { course_id: courseId } = test;    
+
+
+  const { course_id: courseId } = test;
 
   const isTestClosed =
     test?.test_data?.attempts <= test.test_data?.attempts_data?.length ||
@@ -68,7 +71,7 @@ const Test = ({ test }) => {
         {contextHolder}
         <TestHeader
           test={test}
-          questionsDoneAmount={completedQuestionsAmount}
+          completedQuestionsAmount={completedQuestionsAmount}
         />
         {isLoading ? (
           <Spinner />
@@ -96,13 +99,14 @@ const Test = ({ test }) => {
               ) : (
                 <TestLanding
                   onStartTest={startTestAttempt}
+                  completeTestWithAttempt={completeTestWithAttempt}
                   testData={{ ...test.test_data, timer: test.scheduled_time }}
                 />
               )}
             </TaskLayout.Content>
             <TaskLayout.Tools>
               {/* <div className={styles.progressWrapper}> */}
-                <CourseAsideProgressPanel courseId={courseId} />
+              <CourseAsideProgressPanel courseId={courseId} />
               {/* </div> */}
             </TaskLayout.Tools>
           </TaskLayout.Container>

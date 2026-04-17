@@ -1,11 +1,12 @@
 import { useNotificationMessage } from "../hooks/useNotificationMessage";
 import { useEffect, useRef, useState } from "react";
 import { getTestAttemptById } from "../http/services/lesson";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   confirmTestThunk,
   getExamAttemptsThunk,
   getTestAttemptsThunk,
+  submitTestAttemptThunk,
 } from "../redux/lesson/operation";
 import { useTimer } from "./useTimer";
 import {
@@ -13,6 +14,7 @@ import {
   minutesToMilliseconds,
 } from "../utils/formatTime";
 import useLocalStorage from "./useLocalStorage";
+import { getUserInfo } from "../redux/user/selectors";
 
 export const useStudentTest = (test, lessonType) => {
   const lessonId = test.id;
@@ -30,6 +32,8 @@ export const useStudentTest = (test, lessonType) => {
   const [isLoading, setIsLoading] = useState(true);
   const [messageApi, contextHolder] = useNotificationMessage();
   const studentAnswersRef = useRef([]);
+
+  const student = useSelector(getUserInfo);
 
   useEffect(() => {
     studentAnswersRef.current = studentAnswers;
@@ -203,6 +207,31 @@ export const useStudentTest = (test, lessonType) => {
     // eslint-disable-next-line
   }, [timeLeft, initialTime]);
 
+  const completeTestWithAttempt = async (attemptId) => {
+    const attemptData = {
+      attempt_id: attemptId,
+      lesson_id: test.id,
+      student_id: student.studentId,
+      lessonType,
+    };
+
+    setIsLoading(true);
+    try {
+      await dispatch(submitTestAttemptThunk(attemptData))
+        .unwrap()
+        .then((r) => {
+          messageApi.success({
+            content: r.Message,
+            duration: 5,
+          });
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return {
     contextHolder,
     studentAnswers,
@@ -210,11 +239,12 @@ export const useStudentTest = (test, lessonType) => {
     completedQuestionsAmount,
     submitedAttemptData,
     timeLeft,
-    startTestAttempt,
     showTest,
     showExam,
     showTimer,
+    startTestAttempt,
     onSubmitAttemptBtnClick,
+    completeTestWithAttempt,
     isLoading,
   };
 };

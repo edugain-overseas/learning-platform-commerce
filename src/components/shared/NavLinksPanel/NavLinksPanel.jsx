@@ -39,7 +39,7 @@ export default function NavLinksPanel({ renderLinks }) {
                 e.preventDefault();
                 messageApi.info({
                   content:
-                    "You can not access this lesson becouse it is blocked",
+                    "You can not access this lesson because it is blocked",
                   duration: 3,
                 });
               }

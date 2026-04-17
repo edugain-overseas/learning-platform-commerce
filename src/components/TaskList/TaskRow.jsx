@@ -25,7 +25,7 @@ const TaskRow = ({ task, messageApi }) => {
       e.preventDefault();
       messageApi.open({
         type: "info",
-        content: "You can not access this lesson becouse it is blocked",
+        content: "You can not access this lesson because it is blocked",
         duration: 3,
       });
     }

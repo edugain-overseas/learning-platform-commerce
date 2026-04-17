@@ -16,6 +16,7 @@ import CommonButton from "../../shared/CommonButton/CommonButton";
 import Modal from "../../shared/Modal/Modal";
 import DocumentToTaskParser from "../../DocumentToTaskContructor/DocumentToTaskParser";
 import styles from "./LectureConstructor.module.scss";
+import { useLectureConstructor } from "../../../context/LectureConstructorContext";
 
 const ImportDoc = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -50,8 +51,13 @@ const toolIcons = {
   table: <TableIcon />,
 };
 
-const ToolsPanel = ({ handleAddBlock, handleSaveLectureParts }) => {
+const ToolsPanel = ({ handleSaveLectureParts }) => {
   const isLoading = useSelector(getIsLoading);
+  const { handleAddBlock, handleDeleteBlock, blocks } = useLectureConstructor();
+
+  const handleClearLecture = () => {
+    blocks.forEach((block) => handleDeleteBlock(block.id));
+  };
 
   return (
     <div className={styles.toolsWrapper}>
@@ -67,6 +73,13 @@ const ToolsPanel = ({ handleAddBlock, handleSaveLectureParts }) => {
       </ul>
       <div>
         <ImportDoc />
+        <CommonButton
+          text="Clear lecture"
+          variant="grey"
+          hoverVariant="red"
+          wrapperStyles={{ width: "100%", marginBottom: "16rem" }}
+          onClick={handleClearLecture}
+        />
         <SaveBtn isLoading={isLoading} handleClick={handleSaveLectureParts} />
       </div>
     </div>

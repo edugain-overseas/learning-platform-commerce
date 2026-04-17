@@ -152,8 +152,6 @@ const SubmitTest = ({ test }) => {
 
   const closePopOver = () => handleOpenChange(false);
 
-  console.log(test);
-
   const amountOfUserAttempts =
     test[`${lessonType}_data`]?.attempts_data?.length;
 

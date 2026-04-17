@@ -18,8 +18,6 @@ import styles from "./LectureConstructor.module.scss";
 const LectureConstructor = () => {
   const {
     blocks,
-    // setBlocks,
-    handleAddBlock,
     handleDeleteBlock,
     handleReorder,
     getSetters,
@@ -100,7 +98,6 @@ const LectureConstructor = () => {
       </TaskLayout.Content>
       <TaskLayout.Tools>
         <ToolsPanel
-          handleAddBlock={handleAddBlock}
           handleSaveLectureParts={handleSaveLectureParts}
         />
       </TaskLayout.Tools>

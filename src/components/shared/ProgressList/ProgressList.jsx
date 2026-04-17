@@ -7,10 +7,7 @@ const ProgressList = ({ items, blockedLessonMessage }) => {
 
   const sortedItemsByNumber = [...items].sort(
     (itemA, itemB) => itemA.number - itemB.number
-  );
-
-  console.log(sortedItemsByNumber);
-  
+  );  
 
   return (
     <ul className={styles.listWrapper}>
