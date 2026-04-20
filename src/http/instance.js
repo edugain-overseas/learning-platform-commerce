@@ -1,6 +1,5 @@
 import axios from "axios";
-import { serverBaseUrl } from "./server";
-import { docParserDomain } from "./documentParserServer";
+import { docParserBaseUrl, serverBaseUrl } from "./server";
 
 export const instance = axios.create({
   baseURL: serverBaseUrl,
@@ -10,8 +9,8 @@ export const instance = axios.create({
 });
 
 export const docParserInstance = axios.create({
-  baseURL: docParserDomain,
-  headers: {
-    "ngrok-skip-browser-warning": "1",
-  },
+  baseURL: docParserBaseUrl,
+  // headers: {
+  //   "ngrok-skip-browser-warning": "1",
+  // },
 });

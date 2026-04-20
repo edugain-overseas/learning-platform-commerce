@@ -16,9 +16,9 @@
   padding-inline: 20rem;
 }
 
-
 .useBtn {
   width: 196rem;
+  max-width: auto;
   position: absolute;
   top: 0;
   right: 20rem;
@@ -88,6 +88,7 @@ section {
     font-weight: 400;
     line-height: var(--line-height);
     text-indent: 16rem;
+    white-space: pre-line;
 
     &:not(:last-child) {
       margin-bottom: 24rem;
@@ -229,4 +230,3 @@ section {
     }
   }
 }
-

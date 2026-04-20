@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { docParserDomain } from "../../http/documentParserServer";
+import { docParserBaseUrl } from "../../http/server";
 import ImageGroup from "../shared/ImageGroup/ImageGroup";
 import styles from "./DocumentToTaskContructor.module.scss";
 
@@ -15,7 +15,7 @@ const Block = ({ block }) => {
       {block.a_type === "picture" && (
         <ImageGroup
           imagesData={block.files}
-          domenName={docParserDomain}
+          domainName={docParserBaseUrl}
           styles={styles}
           isDesc={true}
         />

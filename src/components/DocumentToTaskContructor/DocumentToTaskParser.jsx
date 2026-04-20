@@ -5,14 +5,17 @@ import ImportForm from "./ImportForm";
 import styles from "./DocumentToTaskContructor.module.scss";
 import CommonButton from "../shared/CommonButton/CommonButton";
 import { useLectureConstructor } from "../../context/LectureConstructorContext";
+import { docParserInstance } from "../../http/instance";
+import Spinner from "../Spinner/Spinner";
 
-const DocumentToTaskParser = ({ type = "lectures", closeModal }) => {
+const DocumentToTaskParser = ({ type = "lecture", closeModal }) => {
   const [doc, setDoc] = useState(null);
   const [activeTab, setActiveTab] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { handleAddBlockFromDocImport } = useLectureConstructor();
 
-  const handleUseBlocks = () => {
+  const handleUseBlocks = async () => {
     console.log("Active tab is " + activeTab);
 
     const activeTabLesson = activeTab
@@ -31,30 +34,43 @@ const DocumentToTaskParser = ({ type = "lectures", closeModal }) => {
       return pictures;
     }, []);
 
-    // Add pictures transfering to base server by http request and get new file_path for each picture
+    setIsLoading(true);
+    try {
+      const response = await docParserInstance.post("transfer-files", {
+        files: pictures,
+      });
+      const updatedPictures = response.data.files;
 
-    const blocksToUse = lessonBlocks.map((block) => {
-      const picture = pictures.find(
-        (picture) => picture.a_number === block.a_number
-      );
+      const blocksToUse = lessonBlocks.map((block) => {
+        const picture = updatedPictures.find(
+          (picture) => picture.a_number === block.a_number
+        );
 
-      if (picture) {
-        return {
-          ...block,
-          files: block.files.map((file) => ({
-            ...file,
-            file_path: picture.file_path,
-          })),
-        };
-      }
-      return block;
-    });
+        const formattedText = block.a_text.replace(/\n/g, "<br />");
 
-    console.log("Blocks to use are ");
-    console.log(blocksToUse);
+        if (picture) {
+          return {
+            ...block,
+            a_text: formattedText,
+            files: block.files.map((file) => ({
+              ...file,
+              file_path: picture.file_path,
+            })),
+          };
+        }
+        return { ...block, a_text: formattedText };
+      });
 
-    blocksToUse.forEach((block) => handleAddBlockFromDocImport(block));
-    closeModal();
+      console.log("Blocks to use are ");
+      console.log(blocksToUse);
+
+      blocksToUse.forEach((block) => handleAddBlockFromDocImport(block));
+      closeModal();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -63,7 +79,9 @@ const DocumentToTaskParser = ({ type = "lectures", closeModal }) => {
         <ImportForm type={type} setDocument={setDoc} />
         {doc && (
           <CommonButton
-            text="Use for current lesson"
+            text={isLoading ? "" : "Use for current lesson"}
+            icon={isLoading ? <Spinner /> : null}
+            disabled={isLoading}
             className={styles.useBtn}
             variant="darkBlue"
             hoverVariant="green"
