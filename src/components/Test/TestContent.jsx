@@ -37,6 +37,9 @@ const TestContent = ({
     (itemA, itemB) => itemA.q_number - itemB.q_number
   );
 
+  console.log(testContent);
+  
+
   const showLessonNumber =
     lessonType === "test" && courseLessons && courseLessons.length;
 
@@ -104,7 +107,7 @@ const TestContent = ({
   useInitializeAnswers(testData?.questions, setStudentAnswers);
 
   const renderTestContent = () =>
-    testContent.map((question) => {
+    testContent.map((question, index) => {
       const {
         q_id: id,
         q_number: number,
@@ -124,7 +127,7 @@ const TestContent = ({
             <div key={id} className={styles.questionWrapper}>
               <div className={styles.questionHeader}>
                 <p className={styles.text}>
-                  <span>{`${number}) `}</span>
+                  <span>{`${index + 1}) `}</span>
                   {text}
                 </p>
                 <span
@@ -147,7 +150,7 @@ const TestContent = ({
             <div key={id} className={styles.questionWrapper}>
               <div className={styles.questionHeader}>
                 <p className={styles.text}>
-                  <span>{`${number}) `}</span>
+                  <span>{`${index + 1}) `}</span>
                   {text}
                 </p>
                 <span
@@ -170,7 +173,7 @@ const TestContent = ({
             <div key={id} className={styles.questionWrapper}>
               <div className={styles.questionHeader}>
                 <p className={styles.text}>
-                  <span>{`${number}) `}</span>
+                  <span>{`${index + 1}) `}</span>
                   {text}
                 </p>
                 <span
@@ -193,7 +196,7 @@ const TestContent = ({
             <div key={id} className={styles.questionWrapper}>
               <div className={styles.questionHeader}>
                 <p className={styles.text}>
-                  <span>{`${number}) `}</span>
+                  <span>{`${index + 1}) `}</span>
                   {text}
                 </p>
                 <span
@@ -217,7 +220,7 @@ const TestContent = ({
             <div key={id} className={styles.questionWrapper}>
               <div className={styles.questionHeader}>
                 <p className={styles.text}>
-                  <span>{`${number})`}</span> {text}
+                  <span>{`${index + 1})`}</span> {text}
                 </p>
                 <span
                   className={styles.score}
@@ -242,7 +245,7 @@ const TestContent = ({
             <div key={id} className={styles.questionWrapper}>
               <div className={styles.questionHeader}>
                 <p className={styles.text}>
-                  <span>{`${number}) `}</span>
+                  <span>{`${index + 1}) `}</span>
                   {text}
                 </p>
                 <span

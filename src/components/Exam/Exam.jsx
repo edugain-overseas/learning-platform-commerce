@@ -4,12 +4,12 @@ import { getUserInfo } from "../../redux/user/selectors";
 import { getAllCourses } from "../../redux/course/selectors";
 import { submitTestAttemptThunk } from "../../redux/lesson/operation";
 import { useStudentTest } from "../../hooks/useStudentTest";
+import { useLeaveConfirm } from "../../hooks/useLeaveConfirm";
 import ExamHeader from "./ExamHeader";
 import ClosedExamPanel from "./ClosedExamPanel";
 import TestContent from "../Test/TestContent";
-import styles from "./Exam.module.scss";
-import { useLeaveConfirm } from "../../hooks/useLeaveConfirm";
 import LeaveModal from "./LeaveModal";
+import styles from "./Exam.module.scss";
 
 const Exam = ({ exam }) => {
   const userInfo = useSelector(getUserInfo);
