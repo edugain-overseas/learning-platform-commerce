@@ -176,12 +176,14 @@
     justify-content: center;
     gap: 72rem;
 
-    button {
+    button,
+    a {
       width: 360rem;
       height: 38rem;
       padding: 8rem 16rem;
       border-radius: 5rem;
       font-size: 18rem;
+      text-align: center;
       box-shadow: var(--drop-shadow-button-main);
       transition: all var(--transition-time-min) ease;
 
@@ -369,7 +371,7 @@
     }
   }
 
-  button {
+  button, a {
     width: 148rem;
     height: 28rem;
     color: var(--content-datail-secondary);

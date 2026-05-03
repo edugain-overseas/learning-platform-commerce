@@ -12,7 +12,6 @@ import { ReactComponent as SchoolOnlineIcon } from "../../../images/icons/course
 import { ReactComponent as ClockDarkIcon } from "../../../images/icons/courseIcons/clock-dark.svg";
 import { ReactComponent as CertificateIcon } from "../../../images/icons/courseIcons/certificate.svg";
 import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";
-import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
 import devices from "../../../images/devices.webp";
 import CardPrice from "../../../components/shared/CardPrice/CardPrice";
 import CoursesList from "../../../components/CoursesList/CoursesList";
@@ -20,10 +19,11 @@ import styles from "./CourseIntroPage.module.scss";
 import { useSelector } from "react-redux";
 import { getUserCourses, getUserType } from "../../../redux/user/selectors";
 import { useCart } from "../../../context/cartContext";
+import BuyCourseBtn from "../../../components/shared/BuyCourseBtn/BuyCourseBtn";
 
 const IntroContent = ({ course = {}, courses = [] }) => {
   const userCourses = useSelector(getUserCourses);
-  const { addItem, removeItem, cartItems, addAllCoursesInCategory } = useCart();
+  const { addAllCoursesInCategory } = useCart();
   const isModer = useSelector(getUserType) === "moder";
   const {
     title: courseName,
@@ -64,7 +64,6 @@ const IntroContent = ({ course = {}, courses = [] }) => {
     ...otherCoursesDifferentCategory,
   ].slice(0, 4);
 
-  const isCourseInCart = cartItems?.find((item) => item.id === id);
 
   return (
     <>
@@ -145,15 +144,7 @@ const IntroContent = ({ course = {}, courses = [] }) => {
             </ul>
             {!isUserCourse && !isModer && (
               <div className={styles.itemsTools}>
-                <button
-                  className={styles.butBtn}
-                  onClick={() =>
-                    isCourseInCart ? removeItem(id) : addItem(id)
-                  }
-                >
-                  <span>{isCourseInCart ? "Remove" : "Buy"}</span>
-                  {isCourseInCart ? <TrashIcon /> : <CartIcon />}
-                </button>
+                <BuyCourseBtn courseId={id} className={styles.buyBtn} />
                 <CardPrice
                   orientation="horizontal"
                   price={price}
@@ -213,7 +204,7 @@ const IntroContent = ({ course = {}, courses = [] }) => {
 
       {!isModer && (
         <div className={styles.navPanel}>
-          <Link to="/courses/available" className={styles.allCoursesLink}>
+          <Link to="/courses/all" className={styles.allCoursesLink}>
             <ArrowLeftIcon />
             <span>View all courses</span>
           </Link>

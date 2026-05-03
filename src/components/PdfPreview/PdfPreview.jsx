@@ -3,6 +3,7 @@ import { Image } from "antd";
 import { pdfUrlToImages } from "../../utils/pdfToImages";
 import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import { serverName } from "../../http/server";
+import styles from "./PdfPreview.module.scss";
 
 const PdfPreview = ({ pdfUrl, previewVisible, setPreviewVisible }) => {
   const [imgs, setImgs] = useState([]);
@@ -44,11 +45,13 @@ const PdfPreview = ({ pdfUrl, previewVisible, setPreviewVisible }) => {
       {!isError && (
         <Image.PreviewGroup
           preview={{
-            visible: previewVisible,
+            // visible: previewVisible,
+            open: previewVisible,
             onVisibleChange: (value) => {
               setPreviewVisible(value);
             },
           }}
+          classNames={{popup: styles.imagePopUp}}
         >
           <div style={{ display: "none" }}>
             {imgs.map((src, index) => (

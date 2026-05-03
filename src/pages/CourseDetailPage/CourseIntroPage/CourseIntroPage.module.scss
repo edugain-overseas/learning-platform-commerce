@@ -201,25 +201,26 @@
     padding-inline-start: 12rem;
     margin-top: 16rem;
 
-    .butBtn {
+    .buyBtn {
       width: 110rem;
       height: 28rem;
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 12rem;
-      background-color: var(--content-nav-hover);
-      border-radius: 5rem;
-      transition: background-color var(--transition-time-min) ease;
+      // background-color: var(--content-nav-hover);
+      // border-radius: 5rem;
+      // transition: background-color var(--transition-time-min) ease;
 
-      &:hover {
-        background-color: var(--content-success);
-      }
+      // &:hover {
+      //   background-color: var(--content-success);
+      // }
 
       span {
         color: var(--content-light-secondary);
         font-family: Inter, sans-serif;
         font-weight: 500;
+        font-size: 14rem;
       }
 
       svg {

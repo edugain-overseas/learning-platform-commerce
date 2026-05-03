@@ -11,6 +11,8 @@
   font-size: 12rem;
   font-weight: 500;
 
+  transition: all var(--transition-time-min) ease;
+
   svg {
     width: 12rem;
     height: 12rem;
@@ -18,5 +20,13 @@
 
   &:hover {
     background-color: var(--content-main);
+  }
+}
+
+.openBtn {
+  background-color: var(--content-main);
+
+  &:hover {
+    background-color: var(--content-success);
   }
 }

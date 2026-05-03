@@ -218,33 +218,8 @@
 button.cardBtn {
   width: 92rem;
   height: 28rem;
-  background-color: var(--content-datail-secondary);
   padding: 2rem;
-
-  // min-width: 64rem;
-  // height: 0;
-  // overflow: hidden;
-  // padding-inline: 8rem;
-  // border-radius: 0 0 5rem 5rem;
-  // background: var(--content-nav-hover);
-  // position: absolute;
-  // top: 100%;
-  // right: 16rem;
-  // z-index: 1;
-
-  // display: flex;
-  // gap: 6rem;
-  // align-items: center;
-  // justify-content: center;
-  // opacity: 0;
-
-  // transition: height var(--transition-time-min) ease,
-  //   opacity var(--transition-time-min) ease;
   color: var(--content-light-secondary);
-
-  &:hover {
-    background-color: var(--content-nav-hover);
-  }
 
   span {
     font-size: 14rem;

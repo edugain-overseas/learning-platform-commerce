@@ -110,7 +110,6 @@ const TestContent = ({
     testContent.map((question, index) => {
       const {
         q_id: id,
-        q_number: number,
         q_score: score,
         q_text: text,
         q_type: type,

@@ -18,6 +18,7 @@ import UserInfoForm from "./UserInfoForm";
 import UserInfoData from "./UserInfoData";
 import UserProfileStatCard from "../UserProfileStatCard/UserProfileStatCard";
 import InfoBtn from "../shared/InfoBtn/InfoBtn";
+import { letterGrade } from "../../utils/gradingScale";
 import styles from "./UserInfoCard.module.scss";
 
 const UserInfoCard = ({ userInfo }) => {
@@ -145,7 +146,7 @@ const UserInfoCard = ({ userInfo }) => {
             renderTitle={(value) => (
               <div className={styles.progressTitle}>
                 <span className={styles.name}>Average</span>
-                <span className={styles.value}>{value + "(*)"}</span>
+                <span className={styles.value}>{`${value} (${value ? letterGrade(value) : "*"})`}</span>
               </div>
             )}
           />

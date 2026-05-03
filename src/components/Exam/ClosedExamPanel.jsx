@@ -7,6 +7,7 @@ import { getUserInfo } from "../../redux/user/selectors";
 import { useSelector } from "react-redux";
 import Spinner from "../Spinner/Spinner";
 import DownloadCertificate from "./DownloadCertificate";
+import { Link } from "react-router-dom";
 
 const content = {
   firstAttempt: {
@@ -222,8 +223,19 @@ const ClosedExamPanel = ({
       </button>
     );
 
+    const allCoursesLink = (
+      <Link to="/courses/all" className={styles.secondaryBtn}>
+        <span>All Courses</span>
+      </Link>
+    );
+
     if (isCompleted) {
-      return downloadCertificate;
+      return (
+        <>
+          {downloadCertificate}
+          {allCoursesLink}
+        </>
+      );
     } else {
       switch (stats.status) {
         case "firstAttempt":

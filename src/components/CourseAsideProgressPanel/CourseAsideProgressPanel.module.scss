@@ -66,8 +66,11 @@
 }
 
 div[data-narrowed="true"] {
-  // .progressWrapper span#progress-max-value,
   .progressWrapper > span {
+    display: none;
+  }
+
+  span[id="progress-value-null"] {
     display: none;
   }
 
