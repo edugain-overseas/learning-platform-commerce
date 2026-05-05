@@ -8,7 +8,7 @@ import CourseRow from "./CourseRow/CourseRow";
 import styles from "./CoursesList.module.scss";
 import CreateNewCourseItem from "./CreateNewCourseItem/CreateNewCourseItem";
 
-const CoursesList = ({ courses }) => {
+const CoursesList = ({ courses, categoryId }) => {
   const { selectedListModeIndex } = useListMode();
   const { pathname } = useLocation();
   const isModer = useSelector(getUserType) === "moder";
@@ -48,7 +48,7 @@ const CoursesList = ({ courses }) => {
           </li>
         );
       })}
-      {isModer && <CreateNewCourseItem />}
+      {isModer && <CreateNewCourseItem categoryId={categoryId}/>}
     </ul>
   );
 };

@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useNavigation,
+  useParams,
+} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useHookFormMask } from "use-mask-input";
 import { useDispatch, useSelector } from "react-redux";
@@ -116,7 +121,11 @@ const AdvantageForm = ({ icon, updateAdvantages }) => {
 const AdminCourseConstructorPage = ({ courseData }) => {
   const { courseId } = useParams();
   const [imagePath, setImagePath] = useState(courseData?.image_path);
-  const [categoryId, setCategoryId] = useState(courseData?.category_id || null);
+  const location = useLocation();
+  const defaultCategoryId = location.state?.categoryId;
+  const [categoryId, setCategoryId] = useState(
+    courseData ? courseData?.category_id : defaultCategoryId || null
+  );
   const [type, setType] = useState(courseData?.type || "short");
   const [advantages, setAdvantages] = useState(
     courseData && courseData.icons?.length !== 0

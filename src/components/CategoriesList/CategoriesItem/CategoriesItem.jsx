@@ -165,7 +165,7 @@ const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
           className={styles.dropDownContent}
           style={{ paddingTop: selectedListModeIndex ? "16rem" : "8rem" }}
         >
-          <CoursesList courses={coursesToDisplay} />
+          <CoursesList courses={coursesToDisplay} categoryId={category.id}/>
         </div>
       </div>
     </li>
