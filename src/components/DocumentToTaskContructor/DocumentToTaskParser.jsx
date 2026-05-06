@@ -7,15 +7,37 @@ import CommonButton from "../shared/CommonButton/CommonButton";
 import { useLectureConstructor } from "../../context/LectureConstructorContext";
 import { docParserInstance } from "../../http/instance";
 import Spinner from "../Spinner/Spinner";
+import { useTestContructor } from "../../context/TestContructorContext";
+
+const DOCKEYBYTYPE = {
+  lecture: "lectures",
+  test: "tests",
+};
+
+const DOCTITLEKEYBYTYPE = {
+  lecture: "lesson_title",
+  test: "title",
+};
+
+const DOCBLOCKSKEYBYTYPE = {
+  lecture: "blocks",
+  test: "test_data",
+};
 
 const DocumentToTaskParser = ({ type = "lecture", closeModal }) => {
   const [doc, setDoc] = useState(null);
   const [activeTab, setActiveTab] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { handleAddBlockFromDocImport } = useLectureConstructor();
+  const lectureConstructorInterface = useLectureConstructor();
+  const testConstructorInterface = useTestContructor();
 
-  const handleUseBlocks = async () => {
+  const handleAddBlockFromDocImport =
+    type === "lecture"
+      ? lectureConstructorInterface.handleAddBlockFromDocImport
+      : testConstructorInterface.handleAddBlockFromDocImport;
+
+  const handleUseLectureBlocks = async () => {
     console.log("Active tab is " + activeTab);
 
     const activeTabLesson = activeTab
@@ -61,9 +83,6 @@ const DocumentToTaskParser = ({ type = "lecture", closeModal }) => {
         return { ...block, a_text: formattedText };
       });
 
-      console.log("Blocks to use are ");
-      console.log(blocksToUse);
-
       blocksToUse.forEach((block) => handleAddBlockFromDocImport(block));
       closeModal();
     } catch (error) {
@@ -71,6 +90,71 @@ const DocumentToTaskParser = ({ type = "lecture", closeModal }) => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleUseTestBlocks = async () => {
+    const activeTabLesson = activeTab
+      ? doc.tests.find((lesson) => lesson.title === activeTab)
+      : doc.tests[0];
+
+    console.log(activeTabLesson);
+
+    const questions = activeTabLesson.test_data;
+
+    questions.forEach((question) => handleAddBlockFromDocImport(question));
+
+    closeModal()
+
+    // [
+    //   {
+    //     id: "1778063768142",
+    //     q_type: "test",
+    //     q_number: 1,
+    //     q_text: "",
+    //     q_score: 2,
+    //     hedden: false,
+    //     answers: [
+    //       {
+    //         a_text: "",
+    //         is_correct: false,
+    //         image_path: null,
+    //       },
+    //       {
+    //         a_text: "",
+    //         is_correct: false,
+    //         image_path: null,
+    //       },
+    //       {
+    //         a_text: "",
+    //         is_correct: true,
+    //         image_path: null,
+    //       },
+    //       {
+    //         a_text: "",
+    //         is_correct: false,
+    //         image_path: null,
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     id: "1778063969666",
+    //     q_type: "boolean",
+    //     q_number: 2,
+    //     q_text: "",
+    //     q_score: 0,
+    //     hedden: false,
+    //     answers: [
+    //       {
+    //         a_text: "true",
+    //         is_correct: true,
+    //       },
+    //       {
+    //         a_text: "false",
+    //         is_correct: false,
+    //       },
+    //     ],
+    //   },
+    // ];
   };
 
   return (
@@ -85,17 +169,25 @@ const DocumentToTaskParser = ({ type = "lecture", closeModal }) => {
             className={styles.useBtn}
             variant="darkBlue"
             hoverVariant="green"
-            onClick={handleUseBlocks}
+            onClick={
+              type === "lecture" ? handleUseLectureBlocks : handleUseTestBlocks
+            }
           />
         )}
       </div>
       {doc && (
         <Tabs
           onChange={(newActiveTab) => setActiveTab(newActiveTab)}
-          items={doc.lectures.map((lesson) => ({
-            label: lesson.lesson_title,
-            key: `${lesson.lesson_title}`,
-            children: <ContentBlocks blocks={lesson.blocks} />,
+          items={doc?.[DOCKEYBYTYPE[type]].map((lesson) => ({
+            label: lesson[DOCTITLEKEYBYTYPE[type]],
+            key: `${lesson[DOCTITLEKEYBYTYPE[type]]}`,
+            children: (
+              <ContentBlocks
+                blocks={lesson[DOCBLOCKSKEYBYTYPE[type]]}
+                type={type}
+                config={{ score: lesson.max_score }}
+              />
+            ),
           }))}
         />
       )}

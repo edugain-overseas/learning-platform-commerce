@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { getIsLoading } from "../../../redux/lesson/selectors";
+import { useLectureConstructor } from "../../../context/LectureConstructorContext";
 import { lectureParts } from "../../../costants/tasksParts";
 import { generateId } from "../../../utils/generateIdBasedOnTime";
 import { ReactComponent as TextIcon } from "../../../images/icons/lessonIcons/lecture/text.svg";
@@ -13,32 +14,8 @@ import { ReactComponent as LinkIcon } from "../../../images/icons/lessonIcons/le
 import { ReactComponent as TableIcon } from "../../../images/icons/lessonIcons/lecture/table.svg";
 import SaveBtn from "../../shared/SaveBtn/SaveBtn";
 import CommonButton from "../../shared/CommonButton/CommonButton";
-import Modal from "../../shared/Modal/Modal";
-import DocumentToTaskParser from "../../DocumentToTaskContructor/DocumentToTaskParser";
+import ImportDocButton from "../../ImportDocButton/ImportDocButton";
 import styles from "./LectureConstructor.module.scss";
-import { useLectureConstructor } from "../../../context/LectureConstructorContext";
-
-const ImportDoc = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-
-  return (
-    <div>
-      <CommonButton
-        text="Import document"
-        onClick={() => setIsOpenModal(true)}
-        wrapperStyles={{ width: "100%", marginBottom: "16rem" }}
-      />
-      <Modal
-        isOpen={isOpenModal}
-        closeModal={() => setIsOpenModal(false)}
-        height="96vh"
-        width="96vw"
-      >
-        <DocumentToTaskParser closeModal={() => setIsOpenModal(false)} />
-      </Modal>
-    </div>
-  );
-};
 
 const toolIcons = {
   text: <TextIcon />,
@@ -72,7 +49,8 @@ const ToolsPanel = ({ handleSaveLectureParts }) => {
         ))}
       </ul>
       <div>
-        <ImportDoc />
+        {/* <ImportDoc /> */}
+        <ImportDocButton />
         <CommonButton
           text="Clear lecture"
           variant="grey"

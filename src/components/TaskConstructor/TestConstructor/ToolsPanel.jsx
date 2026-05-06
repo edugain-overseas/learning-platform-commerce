@@ -6,6 +6,7 @@ import { InputNumber } from "antd";
 import { testParts } from "../../../costants/tasksParts";
 import { ReactComponent as EditIcon } from "../../../images/icons/editBlack.svg";
 import { ReactComponent as SaveIcon } from "../../../images/icons/save.svg";
+import ImportDocButton from "../../ImportDocButton/ImportDocButton";
 import SaveBtn from "../../shared/SaveBtn/SaveBtn";
 import styles from "./TestConstructor.module.scss";
 
@@ -68,8 +69,10 @@ const ToolsPanel = ({
           ))}
         </ul>
       </div>
-
-      <SaveBtn handleClick={handleSaveTestParts} isLoading={isLoading} />
+      <div>
+        <ImportDocButton type="test" />
+        <SaveBtn handleClick={handleSaveTestParts} isLoading={isLoading} />
+      </div>
     </div>
   );
 };

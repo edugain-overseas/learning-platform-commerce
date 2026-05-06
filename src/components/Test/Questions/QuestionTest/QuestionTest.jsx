@@ -3,7 +3,7 @@ import { getLetterVatiantsByIndex } from "../../../../utils/getLetterVatiantsByI
 import styles from "./QuestionTest.module.scss";
 import InputRadio from "../../../shared/InputRadio/InputRadio";
 
-const QuestionTest = ({ answers, state, setState, id }) => {
+const QuestionTest = ({ answers, state, setState, id, isPreview }) => {
   const onRadioInputChange = (e) => {
     const value = +e.target.value;
     setState(id, value);
@@ -14,18 +14,24 @@ const QuestionTest = ({ answers, state, setState, id }) => {
       return;
     }
 
-    return answers.map(({ a_id: answerId, a_text: answerText }, index) => {
-      return (
-        <InputRadio
-          key={answerId}
-          value={answerId}
-          onChange={onRadioInputChange}
-          checked={state === answerId}
-          name={answerText}
-          labelText={`${getLetterVatiantsByIndex(index)} ${answerText}`}
-        />
-      );
-    });
+
+    return answers.map(
+      (
+        { a_id: answerId, a_text: answerText, is_correct: isCorrect },
+        index
+      ) => {        
+        return (
+          <InputRadio
+            key={answerId || index}
+            value={answerId || answerText}
+            onChange={onRadioInputChange}
+            checked={isPreview ? isCorrect : state === answerId}
+            name={answerText}
+            labelText={`${getLetterVatiantsByIndex(index)} ${answerText}`}
+          />
+        );
+      }
+    );
   };
   return <form className={styles.answersWrapper}>{renderAnswers()}</form>;
 };

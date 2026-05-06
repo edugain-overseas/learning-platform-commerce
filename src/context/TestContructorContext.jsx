@@ -45,7 +45,7 @@ export const TestContructorProvider = ({ children }) => {
     )
   );
   console.log(blocks);
-  
+
   const [messageApi, contextHolder] = useNotificationMessage();
 
   const dispatch = useDispatch();
@@ -82,6 +82,18 @@ export const TestContructorProvider = ({ children }) => {
         q_type: part.q_type,
         q_number: testQuestionMaxNumber + 1,
         ...part.template,
+      },
+    ]);
+  };
+
+  const handleAddBlockFromDocImport = (block) => {
+    console.log(block);
+    setBlocks((prev) => [
+      ...prev,
+      {
+        id: `${generateId()}-${block.q_number}`,
+        ...block,
+        q_number: testQuestionMaxNumber + block.q_number,
       },
     ]);
   };
@@ -508,6 +520,7 @@ export const TestContructorProvider = ({ children }) => {
         blocksScore,
         isLoading,
         setBlocks,
+        handleAddBlockFromDocImport,
         setNewQuestionProperty,
         addNewOption,
         addNewMatchingPair,

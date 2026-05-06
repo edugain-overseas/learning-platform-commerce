@@ -10,6 +10,7 @@
   gap: 4rem;
   align-items: center;
   margin-bottom: 8rem;
+  justify-content: space-between;
 
   &:last-of-type {
     margin-bottom: 16rem;
@@ -25,6 +26,10 @@
     &:hover {
       color: var(--content-main);
     }
+  }
+
+  .toolsInputNumber {
+    --ant-input-number-control-width: 72px;
   }
 }
 

@@ -6,7 +6,7 @@ import CommonButton from "../shared/CommonButton/CommonButton";
 
 const bodyKey = "google_doc_url";
 const googleDocURL =
-  "https://docs.google.com/document/d/1mT_Cfm3uJlYl_jwgH81BNQBEpeXQfU4IBTjEpdZ5QJE/edit?usp=sharing";
+  "https://docs.google.com/document/d/1OovJZewE-l0O5VnAgzOzVPPzfN7N9nmsmIG0XHUFApU/edit?tab=t.0";
 
 const ImportForm = ({ setDocument, type }) => {
   const [value, setValue] = useState(googleDocURL);

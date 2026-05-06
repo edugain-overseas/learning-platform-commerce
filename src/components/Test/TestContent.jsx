@@ -21,9 +21,11 @@ const TestContent = ({
   test,
   closed = false,
   timeLeft = null,
-  bottomTools,
+  bottomTools = null,
   maxWidth = "100%",
   wrapperStyles = {},
+  renderHeader = true,
+  isPreview=false
 }) => {
   const { id: testId, course_id: courseId, type: lessonType } = test;
 
@@ -36,9 +38,6 @@ const TestContent = ({
   const testContent = [...testData?.questions].sort(
     (itemA, itemB) => itemA.q_number - itemB.q_number
   );
-
-  console.log(testContent);
-  
 
   const showLessonNumber =
     lessonType === "test" && courseLessons && courseLessons.length;
@@ -123,7 +122,7 @@ const TestContent = ({
             ({ q_id: questionId }) => questionId === id
           )?.a_id;
           return (
-            <div key={id} className={styles.questionWrapper}>
+            <div key={id || index} className={styles.questionWrapper}>
               <div className={styles.questionHeader}>
                 <p className={styles.text}>
                   <span>{`${index + 1}) `}</span>
@@ -138,6 +137,7 @@ const TestContent = ({
                 setState={setSingleAnswerState}
                 state={testState}
                 id={id}
+                isPreview={isPreview}
               />
             </div>
           );
@@ -146,7 +146,7 @@ const TestContent = ({
             ({ q_id: questionId }) => questionId === id
           )?.a_ids;
           return (
-            <div key={id} className={styles.questionWrapper}>
+            <div key={id || index} className={styles.questionWrapper}>
               <div className={styles.questionHeader}>
                 <p className={styles.text}>
                   <span>{`${index + 1}) `}</span>
@@ -241,7 +241,7 @@ const TestContent = ({
             ({ q_id: questionId }) => questionId === id
           )?.a_id;
           return (
-            <div key={id} className={styles.questionWrapper}>
+            <div key={id || index} className={styles.questionWrapper}>
               <div className={styles.questionHeader}>
                 <p className={styles.text}>
                   <span>{`${index + 1}) `}</span>
@@ -256,6 +256,7 @@ const TestContent = ({
                 state={booleanState}
                 setState={setSingleAnswerState}
                 id={id}
+                isPreview={isPreview}
               />
             </div>
           );
@@ -276,56 +277,59 @@ const TestContent = ({
         }}
       >
         <div className={styles.testContent}>
-          <div className={styles.header}>
-            <div className={styles.testName}>
-              <span className={styles.prefix}>{courseName}: </span>
-              <span className={styles.title}>
-                {test.title ? test.title : ""}
-              </span>
-            </div>
-            <div className={`${styles.testName} ${styles.examTime}`}>
-              {!closed && (
-                <>
-                  <span className={styles.currentTime}>
-                    {`${
-                      convertMillisecondsToMinutesAndSeconds(timeLeft).minutes
-                    }`.padStart(2, "0") +
-                      ":" +
-                      `${
-                        convertMillisecondsToMinutesAndSeconds(timeLeft).seconds
-                      }`.padStart(2, "0")}
-                  </span>
-                  <span className={styles.divider}>/</span>
-                </>
-              )}
-              <span className={styles.prefix}>
-                {`${
-                  convertMillisecondsToMinutesAndSeconds(
-                    minutesToMilliseconds(test.scheduled_time)
-                  ).minutes
-                }`.padStart(2, "0") +
-                  ":" +
-                  `${
+          {renderHeader && (
+            <div className={styles.header}>
+              <div className={styles.testName}>
+                <span className={styles.prefix}>{courseName}: </span>
+                <span className={styles.title}>
+                  {test.title ? test.title : ""}
+                </span>
+              </div>
+              <div className={`${styles.testName} ${styles.examTime}`}>
+                {!closed && (
+                  <>
+                    <span className={styles.currentTime}>
+                      {`${
+                        convertMillisecondsToMinutesAndSeconds(timeLeft).minutes
+                      }`.padStart(2, "0") +
+                        ":" +
+                        `${
+                          convertMillisecondsToMinutesAndSeconds(timeLeft)
+                            .seconds
+                        }`.padStart(2, "0")}
+                    </span>
+                    <span className={styles.divider}>/</span>
+                  </>
+                )}
+                <span className={styles.prefix}>
+                  {`${
                     convertMillisecondsToMinutesAndSeconds(
                       minutesToMilliseconds(test.scheduled_time)
-                    ).seconds
-                  }`.padStart(2, "0")}
-              </span>
-            </div>
-            {showLessonNumber && (
-              <div className={styles.testName}>
-                <h2 className={styles.title}>
-                  <span className={styles.prefix}>Test №:</span>
-                  {getLessonNumberByType(courseLessons, lessonType, testId)}
-                </h2>
+                    ).minutes
+                  }`.padStart(2, "0") +
+                    ":" +
+                    `${
+                      convertMillisecondsToMinutesAndSeconds(
+                        minutesToMilliseconds(test.scheduled_time)
+                      ).seconds
+                    }`.padStart(2, "0")}
+                </span>
               </div>
-            )}
-            <div className={styles.testName}>
-              <span className={styles.description}>
-                {test.description ? test.description : ""}
-              </span>
+              {showLessonNumber && (
+                <div className={styles.testName}>
+                  <h2 className={styles.title}>
+                    <span className={styles.prefix}>Test №:</span>
+                    {getLessonNumberByType(courseLessons, lessonType, testId)}
+                  </h2>
+                </div>
+              )}
+              <div className={styles.testName}>
+                <span className={styles.description}>
+                  {test.description ? test.description : ""}
+                </span>
+              </div>
             </div>
-          </div>
+          )}
           {testContent?.length !== 0 ? renderTestContent() : <Empty />}
           {bottomTools}
         </div>

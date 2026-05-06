@@ -2,8 +2,9 @@ import { memo } from "react";
 import { docParserBaseUrl } from "../../http/server";
 import ImageGroup from "../shared/ImageGroup/ImageGroup";
 import styles from "./DocumentToTaskContructor.module.scss";
+import TestContent from "../Test/TestContent";
 
-const Block = ({ block }) => {
+const LectureBlock = ({ block }) => {
   return (
     <section className={styles.section}>
       {block.a_title && (
@@ -30,14 +31,26 @@ const Block = ({ block }) => {
   );
 };
 
-const ContentBlocks = memo(({ blocks }) => {
-  console.log("render");
+const ContentBlocks = memo(({ blocks, type, config }) => {
+  console.log(blocks);
 
   return (
-    <div className={styles.blocksContainer}>
-      {blocks.map((block, index) => (
-        <Block key={index} block={block} />
-      ))}
+    <div className={`${styles.blocksContainer} ${styles[type]}`}>
+      {type === "lecture" ? (
+        blocks.map((block, index) => <LectureBlock key={index} block={block} />)
+      ) : (
+        <TestContent
+          test={{
+            test_data: { questions: blocks, score: config?.score },
+            type,
+          }}
+          renderHeader={false}
+          closed={true}
+          wrapperStyles={{ opacity: 1 }}
+          studentAnswers={blocks.map((block) => ({ ...block }))}
+          isPreview={true}
+        />
+      )}
     </div>
   );
 });
