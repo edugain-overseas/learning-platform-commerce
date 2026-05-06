@@ -3,22 +3,22 @@ import { getLetterVatiantsByIndex } from "../../../../utils/getLetterVatiantsByI
 import styles from "./QuestionMultipleChoice.module.scss";
 import InputCheckbox from "../../../shared/InputCheckbox/InputCheckbox";
 
-const QuestionMultipleChoice = ({ answers, state, setState, id }) => {
+const QuestionMultipleChoice = ({ answers, state, setState, id, isPreview }) => {
   const renderAnswers = () => {
     if (!answers) {
       return null;
     }
 
-    return answers.map(({ a_id: answerId, a_text: answerText }, index) => {
+    return answers.map(({ a_id: answerId, a_text: answerText, is_correct: isCorrect }, index) => {
       const onCheckboxInputChange = () => {
         setState(id, answerId);
       };
       return (
         <InputCheckbox
-          key={answerId}
-          value={answerId}
+          key={answerId || index}
+          value={answerId || answerText}
           onChange={onCheckboxInputChange}
-          checked={state?.includes(answerId)}
+          checked={isPreview ? isCorrect : state?.includes(answerId)}
           name={answerText}
           labelText={`${getLetterVatiantsByIndex(index)} ${answerText}`}
         />

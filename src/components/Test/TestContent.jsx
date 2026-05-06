@@ -161,6 +161,7 @@ const TestContent = ({
                 state={multipleChoiseState}
                 setState={setMultipleAnswersState}
                 id={id}
+                isPreview={isPreview}
               />
             </div>
           );

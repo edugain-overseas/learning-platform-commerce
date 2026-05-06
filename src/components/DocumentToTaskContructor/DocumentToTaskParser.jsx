@@ -104,57 +104,6 @@ const DocumentToTaskParser = ({ type = "lecture", closeModal }) => {
     questions.forEach((question) => handleAddBlockFromDocImport(question));
 
     closeModal()
-
-    // [
-    //   {
-    //     id: "1778063768142",
-    //     q_type: "test",
-    //     q_number: 1,
-    //     q_text: "",
-    //     q_score: 2,
-    //     hedden: false,
-    //     answers: [
-    //       {
-    //         a_text: "",
-    //         is_correct: false,
-    //         image_path: null,
-    //       },
-    //       {
-    //         a_text: "",
-    //         is_correct: false,
-    //         image_path: null,
-    //       },
-    //       {
-    //         a_text: "",
-    //         is_correct: true,
-    //         image_path: null,
-    //       },
-    //       {
-    //         a_text: "",
-    //         is_correct: false,
-    //         image_path: null,
-    //       },
-    //     ],
-    //   },
-    //   {
-    //     id: "1778063969666",
-    //     q_type: "boolean",
-    //     q_number: 2,
-    //     q_text: "",
-    //     q_score: 0,
-    //     hedden: false,
-    //     answers: [
-    //       {
-    //         a_text: "true",
-    //         is_correct: true,
-    //       },
-    //       {
-    //         a_text: "false",
-    //         is_correct: false,
-    //       },
-    //     ],
-    //   },
-    // ];
   };
 
   return (
