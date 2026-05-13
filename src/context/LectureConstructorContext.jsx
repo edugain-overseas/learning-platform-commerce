@@ -28,7 +28,7 @@ export const LectureConstructorProvider = ({ children }) => {
 
   const [blocks, setBlocks] = useState(() => {
     return lectureAttributesToBlocks(
-      [...initialBlocks].sort((a, b) => a.a_number - b.a_number)
+      [...initialBlocks].sort((a, b) => a.a_number - b.a_number),
     );
   });
 
@@ -56,12 +56,14 @@ export const LectureConstructorProvider = ({ children }) => {
   };
 
   const handleAddBlockFromDocImport = (block) => {
+    console.log(block);
+
     setBlocks((prev) => [
       ...prev,
       {
         id: generateId() + "-" + block.a_number,
         ...block,
-        a_number: lectureAttrMaxNumber + 1,
+        a_number: lectureAttrMaxNumber + block.a_number,
       },
     ]);
   };
@@ -73,7 +75,7 @@ export const LectureConstructorProvider = ({ children }) => {
       prev.filter((block) => {
         if (block.id === partId && block.a_id) {
           dispatch(
-            deleteLectureAttributeThunk({ lectureId, attrId: block.a_id })
+            deleteLectureAttributeThunk({ lectureId, attrId: block.a_id }),
           )
             .unwrap()
             .then(() => {
@@ -84,7 +86,7 @@ export const LectureConstructorProvider = ({ children }) => {
             });
         }
         return block.id !== partId;
-      })
+      }),
     );
   };
 
@@ -264,9 +266,9 @@ export const LectureConstructorProvider = ({ children }) => {
       return compareLecturePart(
         block,
         lectureAttributesToBlocks(initialBlocks)?.find(
-          (initBlock) => initBlock.a_id === block.a_id
+          (initBlock) => initBlock.a_id === block.a_id,
         ),
-        block.a_type
+        block.a_type,
       );
     });
 
@@ -275,7 +277,7 @@ export const LectureConstructorProvider = ({ children }) => {
         updateLectureAttributesThunk({
           lectureId,
           attrsData: initialBlocksToUpdate,
-        })
+        }),
       )
         .unwrap()
         .then(() => {
@@ -292,7 +294,7 @@ export const LectureConstructorProvider = ({ children }) => {
 
     if (newAttrsData.length) {
       dispatch(
-        createLectureAttributesThunk({ lectureId, attrsData: newAttrsData })
+        createLectureAttributesThunk({ lectureId, attrsData: newAttrsData }),
       )
         .unwrap()
         .then((response) => {
@@ -341,7 +343,7 @@ export const LectureConstructorProvider = ({ children }) => {
   useEffect(() => {
     const contentContainerScrollEffect = () => {
       const contentContainer = document.getElementById(
-        "task-content-container"
+        "task-content-container",
       );
       if (!contentContainer) return;
       contentContainer.lastElementChild.scrollIntoView({ behavior: "smooth" });

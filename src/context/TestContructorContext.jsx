@@ -74,7 +74,7 @@ export const TestContructorProvider = ({ children }) => {
       });
   };
 
-  const handleAddBlock = (part) => {
+  const handleAddBlock = (part) => {    
     setBlocks((prev) => [
       ...prev,
       {
