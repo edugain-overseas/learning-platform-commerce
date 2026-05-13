@@ -5,11 +5,11 @@ import styles from "./DocumentToTaskContructor.module.scss";
 import CommonButton from "../shared/CommonButton/CommonButton";
 
 const bodyKey = "google_doc_url";
-const googleDocURL =
-  "https://docs.google.com/document/d/1-HXjnIDKBt4XJM4j7gOSr4Z6gjhM5uwjzGbOBo_xcBs/edit?usp=sharing";
+// const googleDocURL =
+//   "https://docs.google.com/document/d/1-HXjnIDKBt4XJM4j7gOSr4Z6gjhM5uwjzGbOBo_xcBs/edit?usp=sharing";
 
 const ImportForm = ({ setDocument, type }) => {
-  const [value, setValue] = useState(googleDocURL);
+  const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchGoogleDoc = async () => {

@@ -1,0 +1,9 @@
+:where(.css-dev-only-do-not-override-ch9ese).ant-image-preview
+  .ant-image-preview-mask {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(28px);
+}
+
+.ant-image-preview-body img {
+  width: auto;
+}

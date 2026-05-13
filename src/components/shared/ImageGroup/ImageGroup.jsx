@@ -4,6 +4,7 @@ import { serverName } from "../../../http/server";
 import { ReactComponent as TrashIcon } from "../../../images/icons/trashRounded.svg";
 import noImage from "../../../images/noImage.webp";
 import Textarea from "../Textarea/Textarea";
+import "./ImageGroup.scss";
 
 const ImageGroup = ({
   imagesData,
@@ -17,7 +18,7 @@ const ImageGroup = ({
 }) => {
   return (
     <div>
-      <Image.PreviewGroup>
+      <Image.PreviewGroup classNames={{ cover: styles.imagePreviewMask }}>
         <div
           className={`${styles.imagesWrapper} ${
             styles[`grid-${imagesData?.length}`]

@@ -87,8 +87,6 @@ const ServicesBtns = () => {
       usePopup: true,
     };
 
-    console.log(authOptions);
-
     await appleAuthHelpers.signIn({
       authOptions,
       onSuccess: handleAppleResponse,
