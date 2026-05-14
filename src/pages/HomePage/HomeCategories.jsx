@@ -6,12 +6,35 @@ import { ReactComponent as CategoryIcon } from "../../images/icons/bm.svg";
 import HomeSlider from "./shared/HomeSlider";
 import SliderSectionHeader from "./shared/SliderSectionHeader";
 import styles from "./HomePage.module.scss";
+import { serverName } from "../../http/server";
 
 export const renderCategoryItem = (category) => {
+  console.log(category);
+
+  const categoryMainIconPath = category.icons.find(
+    (icon) => icon.is_main,
+  )?.path;
+
+  const iconURL = `${serverName}/${categoryMainIconPath}`;
+
   return (
     <Link to={`/courses/all`} state={{ categoryId: category.id }}>
-      <div className={styles.categoryCard}>
-        <CategoryIcon className={styles.categoryIcon} />
+      <div
+        className={styles.categoryCard}
+        style={{ "--bg": categoryMainIconPath && `url(${iconURL})` }}
+      >
+        {categoryMainIconPath ? (
+          <div
+            className={styles.categoryIcon}
+            style={{
+              background: `url(${iconURL})`,
+              height: "52rem",
+              backgroundSize: "contain",
+            }}
+          ></div>
+        ) : (
+          <CategoryIcon className={styles.categoryIcon} />
+        )}
         <div className={styles.categoryInfo}>
           <h4 className={styles.categoryTitle}>{category.title}</h4>
           <p

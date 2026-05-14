@@ -154,6 +154,10 @@
     display: flex;
     gap: 8rem;
     align-items: center;
+
+    div span {
+      font-size: 10rem;
+    }
   }
 
   .infoWrapper {

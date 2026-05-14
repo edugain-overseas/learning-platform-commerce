@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { getUserCourses, getUserInfo } from "../../redux/user/selectors";
 import UserInfoCard from "../../components/UserInfoCard/UserInfoCard";
@@ -8,6 +8,7 @@ import InfoBtn from "../../components/shared/InfoBtn/InfoBtn";
 import UserCertificatesList from "../../components/UserCertificatesList/UserCertificatesList";
 import ProfileAuthPanel from "../../components/ProfileAuthPanel/ProfileAuthPanel";
 import styles from "./UserProfilePage.module.scss";
+import { getUserInfoThunk } from "../../redux/user/operations";
 
 const DefaultBlock = ({ className, children }) => {
   return (
@@ -20,8 +21,18 @@ const DefaultBlock = ({ className, children }) => {
 const UserProfilePage = () => {
   const userInfo = useSelector(getUserInfo);
   const myCourses = useSelector(getUserCourses);
+  const dispatch = useDispatch();
 
   const isUserLoggedIn = userInfo.username !== ""; // remove from all child components
+
+  console.log(myCourses);
+
+  useEffect(() => {
+    if (userInfo.accessToken) {
+      dispatch(getUserInfoThunk);
+    }
+    // eslint-disable-next-line
+  }, [userInfo.accessToken]);
 
   return (
     <motion.div
@@ -47,7 +58,7 @@ const UserProfilePage = () => {
                 Certificates of completed courses
               </h3>
               <div className={styles.btnsWrapper}>
-                <InfoBtn infoContent="A list of the courses certificates" />
+                <InfoBtn infoContent="Your certificates will always be available here. Track your course progress and completion status anytime." />
               </div>
             </div>
             <div className={styles.blockBody}>

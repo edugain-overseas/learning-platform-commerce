@@ -269,7 +269,7 @@
     height: 79rem;
     bottom: 16rem;
     right: 10.4rem;
-    background-image: url("../../images/icons/bm.svg");
+    background-image: var(--bg, url("../../images/icons/bm.svg"));
     background-size: cover;
     z-index: -1;
     opacity: 0.03;
@@ -289,7 +289,8 @@
   &:hover {
     border-color: transparent;
 
-    background: var(--bg-rgba-default),
+    background:
+      var(--bg-rgba-default),
       linear-gradient(202.62deg, #ffffff 8.08%, #e7e7e7 90.92%);
     background-clip: padding-box, border-box;
     background-origin: padding-box, border-box;
@@ -495,7 +496,9 @@
 
   opacity: 0;
   transform: translateY(65%);
-  transition: transform 1.2s ease, opacity 1.2s ease;
+  transition:
+    transform 1.2s ease,
+    opacity 1.2s ease;
 }
 
 .deviceMobile {
@@ -510,7 +513,9 @@
 
   opacity: 0;
   transform: translateY(50%);
-  transition: transform 1.4s ease 0.3s, opacity 1.4s ease 0.3s;
+  transition:
+    transform 1.4s ease 0.3s,
+    opacity 1.4s ease 0.3s;
 }
 
 // FOOTER

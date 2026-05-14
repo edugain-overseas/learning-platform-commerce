@@ -37,15 +37,15 @@ const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
   const { selectedListModeIndex } = useListMode();
 
   const categoryCourses = allCourses.filter(
-    (course) => course.category_id === category.id
+    (course) => course.category_id === category.id,
   );
 
   const coursesToDisplay = courses.filter(
-    (course) => course.category_id === category.id
+    (course) => course.category_id === category.id,
   );
 
   const userCoursesInCategory = categoryCourses.filter(({ id }) =>
-    userCourses?.find(({ course_id }) => course_id === id)
+    userCourses?.find(({ course_id }) => course_id === id),
   );
 
   const progress =
@@ -165,7 +165,7 @@ const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
           className={styles.dropDownContent}
           style={{ paddingTop: selectedListModeIndex ? "16rem" : "8rem" }}
         >
-          <CoursesList courses={coursesToDisplay} categoryId={category.id}/>
+          <CoursesList courses={coursesToDisplay} categoryId={category.id} />
         </div>
       </div>
     </li>

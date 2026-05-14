@@ -16,16 +16,33 @@ const UserInfo = () => {
 
   const isAuthorizedStudent = !!accessToken && !isModer;
 
+  const certificates = userInfo.certificates;
+
+  const userCoursesCertificates = certificates.reduce((array, catCert) => {
+    const coursesCert = catCert.course_certificate_data?.filter(
+      (courseCert) => courseCert?.course_certificate_id,
+    );
+    console.log(array, catCert, coursesCert);
+
+    return [...array, ...coursesCert];
+  }, []);
+
+  console.log(certificates);
+  console.log(userCoursesCertificates);
+
   return (
     <div className={styles.wrapper} id="expanded">
       <Link to={isAuthorizedStudent ? "/me" : null}>
-      <Avatar src={userInfo.avatarURL} />
+        <Avatar src={userInfo.avatarURL} />
         <span className={styles.fullName}>{username}</span>
       </Link>
       {accessToken && !isModer && (
         <div className={styles.studyInfo}>
           <span>{userInfo.courses.length} course</span>
-          <span>0 certificate</span>
+          <span>
+            {userCoursesCertificates && userCoursesCertificates.length}{" "}
+            certificates
+          </span>
         </div>
       )}
     </div>
