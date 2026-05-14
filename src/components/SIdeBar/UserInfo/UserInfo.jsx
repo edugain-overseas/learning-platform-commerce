@@ -18,7 +18,7 @@ const UserInfo = () => {
 
   const certificates = userInfo.certificates;
 
-  const userCoursesCertificates = certificates.reduce((array, catCert) => {
+  const userCoursesCertificates = certificates?.reduce((array, catCert) => {
     const coursesCert = catCert.course_certificate_data?.filter(
       (courseCert) => courseCert?.course_certificate_id,
     );
