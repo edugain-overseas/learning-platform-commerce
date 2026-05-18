@@ -7,3 +7,13 @@
 .ant-image-preview-body img {
   width: auto;
 }
+
+:where(.css-ch9ese).ant-image-preview .ant-image-preview-mask {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(28px);
+}
+
+div.ant-image-preview .ant-image-preview-mask {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(28px);
+}
