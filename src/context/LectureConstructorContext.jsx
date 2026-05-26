@@ -32,8 +32,6 @@ export const LectureConstructorProvider = ({ children }) => {
     );
   });
 
-  // const [activeBlockId, setAvtiveBlockId] = useState(null);
-
   const prevBlocksLength = useRef(blocks.length);
 
   const lectureAttrMaxNumber = blocks.reduce((maxNum, attr) => {
@@ -67,8 +65,6 @@ export const LectureConstructorProvider = ({ children }) => {
       },
     ]);
   };
-
-  console.log(blocks);
 
   const handleDeleteBlock = (partId) => {
     setBlocks((prev) =>

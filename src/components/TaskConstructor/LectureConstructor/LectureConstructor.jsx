@@ -47,10 +47,7 @@ const LectureConstructor = () => {
       default:
         return null;
     }
-  };
-
-  console.log(blocks);
-  
+  };  
 
   return (
     <TaskLayout.Container>

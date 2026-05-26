@@ -12,14 +12,15 @@ import { ReactComponent as SchoolOnlineIcon } from "../../../images/icons/course
 import { ReactComponent as ClockDarkIcon } from "../../../images/icons/courseIcons/clock-dark.svg";
 import { ReactComponent as CertificateIcon } from "../../../images/icons/courseIcons/certificate.svg";
 import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";
-import devices from "../../../images/devices.webp";
-import CardPrice from "../../../components/shared/CardPrice/CardPrice";
-import CoursesList from "../../../components/CoursesList/CoursesList";
-import styles from "./CourseIntroPage.module.scss";
 import { useSelector } from "react-redux";
 import { getUserCourses, getUserType } from "../../../redux/user/selectors";
 import { useCart } from "../../../context/cartContext";
+import devices from "../../../images/devices.webp";
+import CardPrice from "../../../components/shared/CardPrice/CardPrice";
+import CoursesList from "../../../components/CoursesList/CoursesList";
 import BuyCourseBtn from "../../../components/shared/BuyCourseBtn/BuyCourseBtn";
+import styles from "./CourseIntroPage.module.scss";
+// import "quill/dist/quill.snow.css";
 
 const IntroContent = ({ course = {}, courses = [] }) => {
   const userCourses = useSelector(getUserCourses);
@@ -51,22 +52,21 @@ const IntroContent = ({ course = {}, courses = [] }) => {
     ({ categoryId, id }) =>
       course.categoryId === categoryId &&
       !userCourses?.find(({ course_id }) => course_id === id) &&
-      course.id !== id
+      course.id !== id,
   );
 
   const otherCoursesDifferentCategory = courses.filter(
     ({ categoryId, id }) =>
       course.categoryId !== categoryId &&
-      !userCourses?.find(({ course_id }) => course_id === id)
+      !userCourses?.find(({ course_id }) => course_id === id),
   );
   const studentsAlsoBuyCourses = [
     ...otherCoursesThisCategory,
     ...otherCoursesDifferentCategory,
   ].slice(0, 4);
 
-
   return (
-    <>
+    <div className="ql-editor" style={{ padding: 0 }}>
       <section className={styles.mainInfoWrapper}>
         <div className={styles.textContentWrapper}>
           <h2 className={styles.courseName}>{courseName}</h2>
@@ -230,7 +230,7 @@ const IntroContent = ({ course = {}, courses = [] }) => {
           <CoursesList courses={studentsAlsoBuyCourses} />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

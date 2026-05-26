@@ -64,7 +64,7 @@ const ProgressBar = ({ width = 171, height = 24, value, className = "" }) => {
             </>
           ) : (
             <>
-              {`${value ? value : 0}`}{" "}
+              {`${value ? Math.floor(value) : 0}`}{" "}
               <span style={{ fontSize: "inherit" }} id="prosgress-max-value">
                 {" "}
                 / 100 %

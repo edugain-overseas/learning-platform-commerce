@@ -25,8 +25,10 @@ const LessonNavigateBtn = ({
   const [messageApi, contextHolder] = useNotificationMessage();
 
   const courseSortedLessons = [...courseLessons]?.sort(
-    (a, b) => a.number - b.number
+    (a, b) => a.number - b.number,
   );
+
+  console.log(currentNumber);
 
   const targetLesson = courseSortedLessons?.find(({ number: num }) => {
     if (forward) {
@@ -48,6 +50,8 @@ const LessonNavigateBtn = ({
   };
 
   const renderCreateLessonBtn = isModer && !targetLesson && forward;
+
+  console.log(isModer, targetLesson, forward);
 
   return (
     <>
@@ -80,10 +84,9 @@ const LessonNavigateBtn = ({
   );
 };
 
-// export default LessonNavigateBtn;
 export default memo(
   LessonNavigateBtn,
   (prevProps, nextProps) =>
-    prevProps.currentNumber === nextProps.currentNumber ||
-    prevProps.courseId === nextProps.courseId
+    prevProps.currentNumber === nextProps.currentNumber &&
+    prevProps.courseId === nextProps.courseId,
 );

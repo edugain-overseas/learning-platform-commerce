@@ -22,6 +22,9 @@ const LectureHeader = ({
     course_id: courseId,
   } = lecture;
 
+  console.log(number);
+  
+
   // const lectureSpeech = lectureInfo?.lecture_speeches;
 
   const isModer = useSelector(getUserType) === "moder";

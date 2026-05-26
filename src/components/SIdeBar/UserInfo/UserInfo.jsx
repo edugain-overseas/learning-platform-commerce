@@ -27,9 +27,6 @@ const UserInfo = () => {
     return [...array, ...coursesCert];
   }, []);
 
-  console.log(certificates);
-  console.log(userCoursesCertificates);
-
   return (
     <div className={styles.wrapper} id="expanded">
       <Link to={isAuthorizedStudent ? "/me" : null}>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Empty } from "antd";
 import { serverName } from "../../http/server";
 import { confirmLectureThunk } from "../../redux/lesson/operation";
@@ -15,6 +15,7 @@ import CompleteBtn from "../shared/CompleteBtn/CompleteBtn";
 import styles from "./Lecture.module.scss";
 import TableUI from "../Table/TableUI";
 import AudioPlayer from "../shared/AudioPlayer/AudioPlayer";
+import { getAllCourses } from "../../redux/course/selectors";
 
 const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
   const [fullscreen, setFullscreen] = useState(false);
@@ -25,7 +26,7 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
   const dispatch = useDispatch();
 
   const {
-    number,
+    // number,
     courseName,
     status,
     id,
@@ -35,7 +36,7 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
   const lectureContent = isTemplate
     ? tepmplateData
     : [...lecture.lecture_info.attributes].sort(
-        (itemA, itemB) => itemA.a_number - itemB.a_number
+        (itemA, itemB) => itemA.a_number - itemB.a_number,
       );
 
   const renderLectureContent = () =>
@@ -290,7 +291,7 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
   const handleConfirmLecture = () => {
     setConfirmBtnState("pending");
     dispatch(confirmLectureThunk(id)).then(() =>
-      setConfirmBtnState("fulfilled")
+      setConfirmBtnState("fulfilled"),
     );
   };
 
@@ -299,6 +300,17 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
       setConfirmBtnState("default");
     }
   }, [status]);
+
+  const courseLessons = useSelector(getAllCourses).find(
+    (course) => course.id === courseId,
+  ).lessons;
+
+  const courseLectures = courseLessons
+    .filter((lesson) => lesson.type === "lecture")
+    .toSorted((a, b) => a.number - b.number);
+
+  const lectureNumber =
+    courseLectures.findIndex((lesson) => lesson.id === id) + 1;
 
   return (
     <div className={styles.contentWrapper}>
@@ -312,7 +324,7 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
 
             <h2 className={styles.title}>
               <span className={styles.prefix}>Lecture №:</span>
-              {number}
+              {lectureNumber && lectureNumber}
             </h2>
           </div>
         )}
