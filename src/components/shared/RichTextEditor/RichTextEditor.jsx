@@ -127,32 +127,22 @@ const RichTextEditor = ({
   className = "",
   onBlur,
 }) => {
-  // 1. Створюємо ref для доступу до екземпляру Quill
   const quillRef = useRef(null);
 
-  // 2. Вішаємо біндінг напряму через useEffect
   useEffect(() => {
     if (!quillRef.current) return;
 
     const quill = quillRef.current.getEditor();
-    // Отримуємо реальний DOM-вузол, де користувач пише текст
     const editorRoot = quill.root;
 
     if (editorRoot) {
-      console.log(
-        "DOM-вузол редактора знайдено. Нативний обробник активовано.",
-      );
-
       const handleKeyDown = (event) => {
-        // Перевіряємо, чи натиснуто Enter (keyCode 13) разом із Shift
         if (event.keyCode === 13 && event.shiftKey) {
           const range = quill.getSelection();
 
           if (range) {
-            // Отримуємо поточний рядок (Blot) та його DOM-вузол
             const [lineBlot] = quill.getLine(range.index);
 
-            // Перевіряємо, чи ми всередині тегу LI (списку)
             const isInList =
               lineBlot &&
               (lineBlot.statics.blotName === "list-item" ||
@@ -160,27 +150,19 @@ const RichTextEditor = ({
                 lineBlot.domNode.closest("li"));
 
             if (isInList) {
-              // 1. Зупиняємо браузерну подію та внутрішні скрипти Quill
               event.preventDefault();
               event.stopPropagation();
 
-              console.log("Нативний Shift + Enter у списку спрацював!");
-
-              // 2. Вставляємо наш кастомний <br> (break)
               quill.insertEmbed(range.index, "break", true, "user");
 
-              // 3. Пересуваємо курсор на 1 позицію вперед
               quill.setSelection(range.index + 1, "user");
             }
           }
         }
       };
 
-      // Вішаємо слухач подій з прапором 'capture' (true),
-      // щоб перехопити подію ДО того, як її забере собі Quill
       editorRoot.addEventListener("keydown", handleKeyDown, true);
 
-      // Прибираємо слухач при розмонтуванні компонента, щоб не було витоку пам'яті
       return () => {
         editorRoot.removeEventListener("keydown", handleKeyDown, true);
       };
@@ -209,41 +191,35 @@ const RichTextEditor = ({
       );
     }
 
-    // БЕЗПЕЧНИЙ DOM-BASED МАЧЕР ДЛЯ LI
     const liMatcher = (node, delta) => {
-      // Якщо всередині LI немає тегу BR, віддаємо дефолтну дельту, хай Quill парсить сам
-      if (!node.querySelector('br')) {
+      if (!node.querySelector("br")) {
         return delta;
       }
 
       const Quill = ReactQuill.Quill || window.Quill;
-      const Delta = Quill.import('delta');
+      const Delta = Quill.import("delta");
       const newDelta = new Delta();
 
-      // Проходимо по ВСІХ нативних дочірніх вузлах нашого тегу <li>
       node.childNodes.forEach((child) => {
         if (child.nodeType === Node.TEXT_NODE) {
-          // Якщо це звичайний текст — просто вставляємо його текст
-          const text = child.textContent.replace(/\n/g, '');
+          const text = child.textContent.replace(/\n/g, "");
           if (text) {
             newDelta.insert(text);
           }
         } else if (child.nodeType === Node.ELEMENT_NODE) {
-          if (child.tagName === 'BR') {
-            // Якщо знайшли тег <br> — вставляємо РІВНО ОДИН наш break-блот
+          if (child.tagName === "BR") {
             newDelta.insert({ break: true });
           } else {
-            // Для будь-яких інших тегів (strong, em, spans, links)
-            // Ми беремо їхній текст, зберігаючи жирність/курсив через оригінальну дельту, 
-            // або просто вставляємо як текст, щоб уникнути виклику зламаного convert()
-            const inlineText = child.textContent.replace(/\n/g, '');
-            
+            const inlineText = child.textContent.replace(/\n/g, "");
+
             if (inlineText) {
-              // Формуємо базові атрибути стилю на основі тегу (опціонально)
               const attrs = {};
-              if (child.tagName === 'STRONG' || child.tagName === 'B') attrs.bold = true;
-              if (child.tagName === 'EM' || child.tagName === 'I') attrs.italic = true;
-              if (child.tagName === 'A') attrs.link = child.getAttribute('href');
+              if (child.tagName === "STRONG" || child.tagName === "B")
+                attrs.bold = true;
+              if (child.tagName === "EM" || child.tagName === "I")
+                attrs.italic = true;
+              if (child.tagName === "A")
+                attrs.link = child.getAttribute("href");
 
               newDelta.insert(inlineText, attrs);
             }
@@ -251,13 +227,11 @@ const RichTextEditor = ({
         }
       });
 
-      // Наприкінці кожного LI обов'язково має бути фінальний службовий '\n' з атрибутом списку,
-      // щоб Quill розумів, що це саме пункт списку. Копіюємо його з оригінальної дельти.
       const originalLastOp = delta.ops[delta.ops.length - 1];
       if (originalLastOp && originalLastOp.attributes) {
-        newDelta.insert('\n', originalLastOp.attributes);
+        newDelta.insert("\n", originalLastOp.attributes);
       } else {
-        newDelta.insert('\n');
+        newDelta.insert("\n");
       }
 
       return newDelta;
@@ -277,12 +251,13 @@ const RichTextEditor = ({
 
       clipboard: {
         matchers: [
-          ['LI', liMatcher], // Наш виправлений мачер
-          ["*", clipboardHandler]
+          ["LI", liMatcher],
+          ["*", clipboardHandler],
         ],
       },
     };
-  }, [type, customTools]);
+    // eslint-disable-next-line
+  }, [type]);
 
   const handleChange = (content) => {
     setValue(content);
@@ -298,7 +273,7 @@ const RichTextEditor = ({
 
   return (
     <ReactQuill
-      ref={quillRef} // 3. Передаємо ref у компонент
+      ref={quillRef}
       theme="snow"
       modules={modules}
       className={`${

@@ -185,7 +185,19 @@
 }
 
 .dropDownContent {
-  // padding-top: 16rem;
   padding-inline: 12rem;
   padding-bottom: 8rem;
+}
+
+.segment {
+  font-size: 12rem;
+  text-transform: capitalize;
+  font-family: Inter, sans-serif;
+  padding: 3rem;
+  background-color: var(--bg-rgba-detail);
+  border-radius: 5rem;
+  box-shadow: var(--box-shadow-button-inset);
+
+  --ant-control-height: 22rem;
+  --ant-segmented-track-padding: 3rem;
 }

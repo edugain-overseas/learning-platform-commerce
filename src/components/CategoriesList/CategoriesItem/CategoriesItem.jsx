@@ -17,11 +17,34 @@ import InsetBtn from "../../shared/InsetBtn/InsetBtn";
 import CategoryBuyAllBtn from "./CategoryBuyAllBtn";
 import CategoryCertificateBtn from "./CategoryCertificateBtn";
 import styles from "./CategoriesItem.module.scss";
+import AntSegment from "../../AntComponents/AntSegment";
+import { Segmented } from "antd";
+import useLocalStorage from "../../../hooks/useLocalStorage";
 
-const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
+const designTokens = {
+  itemActiveBg: "rgba(208, 0, 0, 1)",
+  itemColor: "#7e8ca8",
+  itemHoverBg: "transparent",
+  itemHoverColor: "#7e8ca8",
+  itemSelectedBg: "rgba(208, 0, 0, 9)",
+  itemSelectedColor: "#fff",
+};
+
+const coursesFilterOptions = ["all", "short", "long"];
+
+const CategoriesItem = ({
+  category,
+  defaultDropdownOpen = true,
+  lastOpenCategoryId,
+  setLastOpenCategoryId,
+}) => {
   const dropdownRef = useRef();
   const [dropDownOpen, setDropDownOpen] = useState(defaultDropdownOpen);
   const [isEditCategoryModalOpen, setIsEditCatgoryModalOpen] = useState(false);
+  const [coursesFilter, setCoursesFilter] = useLocalStorage(
+    `admin-preference__category-courses-filter-${category.id}`,
+    coursesFilterOptions[0],
+  );
   const { pathname } = useLocation();
 
   const isProgressHidden = pathname.includes("courses");
@@ -44,6 +67,11 @@ const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
     (course) => course.category_id === category.id,
   );
 
+  const filtredCoursesToDisplay = coursesToDisplay.filter((course) => {
+    if (coursesFilter === coursesFilterOptions[0]) return true;
+    return course.type === coursesFilter;
+  });
+
   const userCoursesInCategory = categoryCourses.filter(({ id }) =>
     userCourses?.find(({ course_id }) => course_id === id),
   );
@@ -60,14 +88,21 @@ const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
     <CategoryBuyAllBtn categoryId={category.id} disabled={!dropDownOpen} />
   );
 
-  const handleToggleDropDown = (e) => {
-    const dropdown = dropdownRef.current;
 
+  const handleToggleDropDown = () => {
+    const dropdown = dropdownRef.current;
     if (dropdown) {
       dropdown.style.maxHeight = dropDownOpen
-        ? 0 + "px"
-        : dropdown.scrollHeight + "px";
+        ? "0px"
+        : `${dropdown.scrollHeight}px`;
     }
+
+    if (!dropDownOpen) {
+      setLastOpenCategoryId?.(category.id);
+    } else if (lastOpenCategoryId === category.id) {
+      setLastOpenCategoryId?.(null);
+    }
+
     setDropDownOpen((prev) => !prev);
   };
 
@@ -83,13 +118,16 @@ const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
   }, [selectedListModeIndex]);
 
   const iconPath = category.icons?.find((icon) => icon.is_main)?.path;
-  console.log(iconPath);
 
   return (
     <li className={styles.itemWrapper} id="wrapper">
       <div
         className={styles.categoryPanel}
         id={`category-panel-${category.id}`}
+        onClick={(e) => {
+          if (e.currentTarget !== e.target) return;
+          handleToggleDropDown();
+        }}
       >
         <Link to={null} className={styles.titleWrapper}>
           {iconPath ? (
@@ -131,6 +169,13 @@ const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
             </>
           ) : (
             <>
+              <AntSegment
+                options={coursesFilterOptions}
+                value={coursesFilter}
+                onChange={(value) => setCoursesFilter(value)}
+                designTokens={designTokens}
+                className={styles.segment}
+              />
               <InsetBtn icon={<EditIcon />} onClick={openEditCategoryModal} />
               <CategoryModal
                 isOpenModal={isEditCategoryModalOpen}
@@ -165,7 +210,10 @@ const CategoriesItem = ({ category, defaultDropdownOpen = true }) => {
           className={styles.dropDownContent}
           style={{ paddingTop: selectedListModeIndex ? "16rem" : "8rem" }}
         >
-          <CoursesList courses={coursesToDisplay} categoryId={category.id} />
+          <CoursesList
+            courses={filtredCoursesToDisplay}
+            categoryId={category.id}
+          />
         </div>
       </div>
     </li>

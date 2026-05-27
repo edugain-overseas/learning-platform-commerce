@@ -13,6 +13,8 @@ export const useTableContructor = (state, setState, tableRef, styles) => {
   const [contextMenu, setContextMenu] = useState(null);
   const resizingRef = useRef(null);
   console.log(tableRef);
+  console.log(state);
+  
 
   const onColumnLabelChange = (key, value) => {
     const updatedColumns = state.columns.map((column) =>

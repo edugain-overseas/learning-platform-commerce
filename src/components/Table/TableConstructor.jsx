@@ -63,7 +63,7 @@ const TableConstructor = ({ state, setState }) => {
                   onBlur={() => setEditing(null)}
                   customTools={getCustomRichTextEditorTools(
                     cellTypes.COLUMN,
-                    column.key
+                    column.key,
                   )}
                 />
               ) : (
@@ -121,7 +121,7 @@ const TableConstructor = ({ state, setState }) => {
                   onBlur={() => setEditing(false)}
                   customTools={getCustomRichTextEditorTools(
                     cellTypes.COLUMNCHILD,
-                    child.key
+                    child.key,
                   )}
                 />
               ) : (
@@ -193,7 +193,7 @@ const TableConstructor = ({ state, setState }) => {
                   customTools={getCustomRichTextEditorTools(
                     cellTypes.ROW,
                     cell.key,
-                    rIndex
+                    rIndex,
                   )}
                 />
               ) : (
