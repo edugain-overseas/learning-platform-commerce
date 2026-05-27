@@ -9,6 +9,7 @@ import { ReactComponent as BMIcon } from "../../../images/icons/bm.svg";
 import { ReactComponent as ChevronIcon } from "../../../images/icons/arrowDown.svg";
 import { ReactComponent as EditIcon } from "../../../images/icons/edit.svg";
 import { serverName } from "../../../http/server";
+import useLocalStorage from "../../../hooks/useLocalStorage";
 import CoursesList from "../../CoursesList/CoursesList";
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import InfoBtn from "../../shared/InfoBtn/InfoBtn";
@@ -16,10 +17,8 @@ import CategoryModal from "../../CategoryModal/CategoryModal";
 import InsetBtn from "../../shared/InsetBtn/InsetBtn";
 import CategoryBuyAllBtn from "./CategoryBuyAllBtn";
 import CategoryCertificateBtn from "./CategoryCertificateBtn";
-import styles from "./CategoriesItem.module.scss";
 import AntSegment from "../../AntComponents/AntSegment";
-import { Segmented } from "antd";
-import useLocalStorage from "../../../hooks/useLocalStorage";
+import styles from "./CategoriesItem.module.scss";
 
 const designTokens = {
   itemActiveBg: "rgba(208, 0, 0, 1)",

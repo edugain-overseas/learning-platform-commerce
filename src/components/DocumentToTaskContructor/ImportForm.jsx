@@ -1,16 +1,16 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { docParserInstance } from "../../http/instance";
 import Spinner from "../Spinner/Spinner";
 import styles from "./DocumentToTaskContructor.module.scss";
 import CommonButton from "../shared/CommonButton/CommonButton";
 
 const bodyKey = "google_doc_url";
-// const googleDocURL =
-//   "https://docs.google.com/document/d/1-HXjnIDKBt4XJM4j7gOSr4Z6gjhM5uwjzGbOBo_xcBs/edit?usp=sharing";
 
-const ImportForm = ({ setDocument, type }) => {
+const ImportForm = ({ setDocument, type, cacheInterface }) => {
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const { getCachedDoc, saveToCache } = cacheInterface;
 
   const fetchGoogleDoc = async () => {
     try {
@@ -20,6 +20,10 @@ const ImportForm = ({ setDocument, type }) => {
       formData.append(bodyKey, value);
 
       const response = await docParserInstance.post(`/parse/${type}`, formData);
+
+      if (response.data) {
+        saveToCache(value, type, response.data);
+      }
 
       return response.data;
     } catch (error) {
@@ -31,9 +35,17 @@ const ImportForm = ({ setDocument, type }) => {
 
   const handleImport = async () => {
     setDocument(null);
+
+    const cachedData = getCachedDoc(value, type);
+
+    if (cachedData) {
+      console.log(`🚀 Loaded ${type} from cache:`, value);
+      setDocument(cachedData);
+      return;
+    }
+
     const doc = await fetchGoogleDoc();
     if (doc) {
-      console.log(doc);
       setDocument(doc);
     }
   };
