@@ -4,11 +4,14 @@ import { useParams } from "react-router-dom";
 import { getAllCourses } from "../../redux/course/selectors";
 import { getUserInfo } from "../../redux/user/selectors";
 import { getLessonByIdThunk } from "../../redux/lesson/operation";
-import { TestContructorProvider } from "../../context/TestContructorContext";
+import { TestContructorProvider, useTestContructor } from "../../context/TestContructorContext";
 import { getAllLessons, getIsLoading } from "../../redux/lesson/selectors";
 import { ReactComponent as EditIcon } from "../../images/icons/editBlack.svg";
 import { ReactComponent as EyeIcon } from "../../images/icons/eye-secondary.svg";
-import { LectureConstructorProvider } from "../../context/LectureConstructorContext";
+import {
+  LectureConstructorProvider,
+  useLectureConstructor,
+} from "../../context/LectureConstructorContext";
 import LectureConstructor from "./LectureConstructor/LectureConstructor";
 import TestConstructor from "./TestConstructor/TestConstructor";
 import LectureHeader from "../TasksHeader/LectureHeader";
@@ -16,9 +19,34 @@ import TestHeader from "../TasksHeader/TestHeader";
 import LectureContent from "../Lecture/LectureContent";
 import Spinner from "../Spinner/Spinner";
 import TestContent from "../Test/TestContent";
-import styles from "./TaskConstructor.module.scss";
 import TaskLayout from "../shared/TaskLayout/TaskLayout";
 import PreviewStudentAsideCourseProgressPanel from "./PreviewStudentAsideCourseProgressPanel";
+import NavigationGuard from "../shared/NavigationGuard/NavigationGuard";
+import styles from "./TaskConstructor.module.scss";
+
+const LectureGuard = () => {
+  const { isDirty } = useLectureConstructor();
+
+  return (
+    <NavigationGuard
+      isDirty={!!isDirty}
+      title="Unsaved changes in lecture!"
+      content="You have unsaved content blocks. Are you sure you want to leave this page?"
+    />
+  );
+};
+
+const TestGuard = () => {
+  const { isDirty } = useTestContructor();
+
+  return (
+    <NavigationGuard
+      isDirty={!!isDirty}
+      title="Unsaved changes in test!"
+      content="You have unsaved questions. Are you sure you want to leave this page?"
+    />
+  );
+};
 
 const TaskContructor = () => {
   const [viewTypeIndex, setViewTypeIndex] = useState(0);
@@ -48,6 +76,7 @@ const TaskContructor = () => {
         return (
           <>
             <LectureConstructorProvider>
+              <LectureGuard />
               <LectureHeader
                 lecture={task}
                 switcherItems={[
@@ -78,6 +107,7 @@ const TaskContructor = () => {
       case "exam":
         return (
           <TestContructorProvider>
+            <TestGuard />
             <TestHeader
               test={task}
               switcherItems={[<EditIcon />, <EyeIcon />]}

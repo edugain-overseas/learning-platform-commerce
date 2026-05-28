@@ -1,0 +1,27 @@
+.clearButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8rem;
+  border-radius: 5rem;
+
+  background-color: var(--bg-button-disabled);
+  color: var(--content-light-secondary);
+
+  width: 100%;
+  height: 38rem;
+  padding: 0.25em 0.5em;
+  margin-bottom: 16rem;
+
+  font-size: 16rem;
+  line-height: normal;
+
+  &:hover {
+    background-color: var(--content-nav-hover);
+  }
+}
+
+.popoverTitle {
+  color: var(--content-datail-secondary);
+  font-size: 16rem;
+}

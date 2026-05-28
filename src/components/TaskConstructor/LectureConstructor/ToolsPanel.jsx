@@ -16,6 +16,7 @@ import SaveBtn from "../../shared/SaveBtn/SaveBtn";
 import CommonButton from "../../shared/CommonButton/CommonButton";
 import ImportDocButton from "../../ImportDocButton/ImportDocButton";
 import styles from "./LectureConstructor.module.scss";
+import LessonToolsCancelButton from "../../shared/LessonToolsCancelButton/LessonToolsCancelButton";
 
 const toolIcons = {
   text: <TextIcon />,
@@ -49,14 +50,10 @@ const ToolsPanel = ({ handleSaveLectureParts }) => {
         ))}
       </ul>
       <div>
-        {/* <ImportDoc /> */}
         <ImportDocButton />
-        <CommonButton
-          text="Clear lecture"
-          variant="grey"
-          hoverVariant="red"
-          wrapperStyles={{ width: "100%", marginBottom: "16rem" }}
-          onClick={handleClearLecture}
+        <LessonToolsCancelButton
+          handleClear={handleClearLecture}
+          disabled={blocks?.length === 0}
         />
         <SaveBtn isLoading={isLoading} handleClick={handleSaveLectureParts} />
       </div>

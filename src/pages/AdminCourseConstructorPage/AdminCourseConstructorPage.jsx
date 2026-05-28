@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useHookFormMask } from "use-mask-input";
 import { useDispatch, useSelector } from "react-redux";
@@ -66,7 +62,7 @@ const AdvantageForm = ({ icon, updateAdvantages }) => {
       try {
         const icons = await privateRoutesHandler(
           "get",
-          `${serverBaseUrl}/course/icons`
+          `${serverBaseUrl}/course/icons`,
         );
         setIcons(icons);
       } catch (error) {
@@ -123,13 +119,13 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const location = useLocation();
   const defaultCategoryId = location.state?.categoryId;
   const [categoryId, setCategoryId] = useState(
-    courseData ? courseData?.category_id : defaultCategoryId || null
+    courseData ? courseData?.category_id : defaultCategoryId || null,
   );
   const [type, setType] = useState(courseData?.type || "short");
   const [advantages, setAdvantages] = useState(
     courseData && courseData.icons?.length !== 0
       ? courseData.icons
-      : courseAdvantages
+      : courseAdvantages,
   );
   const [activeAdvantagesIndex, setActiveAdvantagesIndex] = useState(null);
   const [isOpenAdvantagesModal, setIsOpenAdvantagesModal] = useState(false);
@@ -143,7 +139,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
     handleSubmit,
     watch,
     setError,
-    formState: { errors },
+    formState: { errors, isDirty: isFormDirty, dirtyFields },
     control,
   } = useForm({
     defaultValues: courseData
@@ -171,6 +167,31 @@ const AdminCourseConstructorPage = ({ courseData }) => {
         },
   });
 
+  // const isPageDirty = () => {
+  //   console.log("isFormDirty: ", isFormDirty);
+  //   if (isFormDirty) return true;
+
+  //   if (courseData) {
+  //     const isImageChanged = imagePath !== courseData.image_path;
+  //     const isCategoryChanged = categoryId !== courseData.category_id;
+  //     const isAdvantagesChanged =
+  //       JSON.stringify(advantages) !==
+  //       JSON.stringify(
+  //         courseData.icons?.length ? courseData.icons : courseAdvantages,
+  //       );
+  //     console.log(
+  //       "courseData changed: ",
+  //       isImageChanged || isCategoryChanged || isAdvantagesChanged,
+  //     );
+
+  //     return isImageChanged || isCategoryChanged || isAdvantagesChanged;
+  //   }
+
+  //   return !!imagePath || categoryId !== (defaultCategoryId || null);
+  // };
+
+  // isPageDirty();
+
   const watchTitle = watch("title");
   const watchProgramInfo = watch("program_text");
   const watchIntroText = watch("intro_text");
@@ -180,7 +201,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const watchCLanguage = watch("c_language");
   const watchCLevel = watch("c_level");
   const watchCAward = watch("c_award");
-  const registerWithMask = useHookFormMask(register);
+  const registerWithMask = useHookFormMask(register);  
 
   const onSubmit = (data) => {
     let isManualError = false;
@@ -691,7 +712,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
                 <ul className={styles.advantagesList}>
                   {advantages
                     .toSorted(
-                      (itemA, itemB) => itemA.icon_number - itemB.icon_number
+                      (itemA, itemB) => itemA.icon_number - itemB.icon_number,
                     )
                     .map((item, index) => (
                       <li
@@ -738,7 +759,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
             updateAdvantages={(updatedAdvantageData) =>
               handleUpdateAdvantages(
                 updatedAdvantageData,
-                activeAdvantagesIndex
+                activeAdvantagesIndex,
               )
             }
           />

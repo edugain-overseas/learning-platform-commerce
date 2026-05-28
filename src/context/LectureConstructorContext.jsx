@@ -38,6 +38,8 @@ export const LectureConstructorProvider = ({ children }) => {
     return Math.max(attr.a_number, maxNum);
   }, 0);
 
+  const isDirty = blocks.some((block) => !block.a_id);
+
   const dispatch = useDispatch();
   const [messageApi, contextHolder] = useNotificationMessage();
 
@@ -366,6 +368,7 @@ export const LectureConstructorProvider = ({ children }) => {
     <LectureConstructorContext.Provider
       value={{
         blocks,
+        isDirty,
         setBlocks,
         handleAddBlockFromDocImport,
         handleAddBlock,

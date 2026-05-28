@@ -8,7 +8,7 @@ const RichInput = ({
   placeholder,
   maxLength = null,
   toolbarType,
-  className="",
+  className = "",
 }) => {
   const { field } = useController({
     name,
@@ -17,12 +17,13 @@ const RichInput = ({
 
   return (
     <RichTextEditor
-      value={field.value}
+      value={field.value ?? ""}
       setValue={field.onChange}
       placeholder={placeholder}
       maxLength={maxLength}
       type={toolbarType}
       className={className}
+      onBlur={field.onBlur}
     />
   );
 };

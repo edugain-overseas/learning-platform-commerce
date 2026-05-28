@@ -21,6 +21,7 @@ const CommonButton = ({
   onClick,
   wrapperStyles = {},
   disabled = false,
+  ...props
 }) => {
   return (
     <button
@@ -30,6 +31,7 @@ const CommonButton = ({
       onClick={onClick}
       style={{ ...wrapperStyles }}
       disabled={disabled}
+      {...props}
     >
       <span>{text}</span>
       {icon}

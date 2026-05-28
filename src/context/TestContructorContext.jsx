@@ -29,22 +29,20 @@ export const useTestContructor = () => useContext(TestConstructorContext);
 export const TestContructorProvider = ({ children }) => {
   const { taskId } = useParams();
   const task = useSelector(getAllLessons)?.find(
-    (lesson) => lesson.id === +taskId
+    (lesson) => lesson.id === +taskId,
   );
-
-  console.log(task);
 
   const lessonType = task.type;
   const initialBlocks = task[`${lessonType}_data`].questions || [];
   const testId = task[`${lessonType}_data`][`${lessonType}_id`];
-  console.log(initialBlocks);
 
   const [blocks, setBlocks] = useState(
     testQuestionsToBlocks(
-      initialBlocks.toSorted((a, b) => a.q_number - b.q_number)
-    )
+      initialBlocks.toSorted((a, b) => a.q_number - b.q_number),
+    ),
   );
-  console.log(blocks);
+
+  const isDirty = blocks.some((block) => !block.q_id);
 
   const [messageApi, contextHolder] = useNotificationMessage();
 
@@ -64,7 +62,7 @@ export const TestContructorProvider = ({ children }) => {
         testId,
         newTestMetaData,
         lessonType,
-      })
+      }),
     )
       .unwrap()
       .then(() => {
@@ -74,7 +72,7 @@ export const TestContructorProvider = ({ children }) => {
       });
   };
 
-  const handleAddBlock = (part) => {    
+  const handleAddBlock = (part) => {
     setBlocks((prev) => [
       ...prev,
       {
@@ -109,7 +107,7 @@ export const TestContructorProvider = ({ children }) => {
                   testId,
                   question_id: block.q_id,
                   lessonType,
-                })
+                }),
               )
                 .unwrap()
                 .then(() => {
@@ -130,7 +128,7 @@ export const TestContructorProvider = ({ children }) => {
           return false;
         }
         return true;
-      })
+      }),
     );
   };
 
@@ -142,7 +140,7 @@ export const TestContructorProvider = ({ children }) => {
           ...block,
           [propertyName]: value,
         };
-      })
+      }),
     );
   };
 
@@ -158,7 +156,7 @@ export const TestContructorProvider = ({ children }) => {
             { a_text: "", is_correct: false, image_path: null },
           ],
         };
-      })
+      }),
     );
   };
 
@@ -170,7 +168,7 @@ export const TestContructorProvider = ({ children }) => {
           ...block,
           answers: [...block.answers, { right_text: "", left_text: "" }],
         };
-      })
+      }),
     );
   };
 
@@ -186,7 +184,7 @@ export const TestContructorProvider = ({ children }) => {
                 testId,
                 answer_id: block.answers[optionIndex].a_id,
                 lessonType,
-              })
+              }),
             )
               .unwrap()
               .then(() => {
@@ -211,7 +209,7 @@ export const TestContructorProvider = ({ children }) => {
                 testId,
                 left_option_id: block.answers[optionIndex].a_id,
                 lessonType,
-              })
+              }),
             )
               .unwrap()
               .then(() => {
@@ -235,7 +233,7 @@ export const TestContructorProvider = ({ children }) => {
             ...block.answers.filter((_, index) => index !== optionIndex),
           ],
         };
-      })
+      }),
     );
   };
 
@@ -253,7 +251,7 @@ export const TestContructorProvider = ({ children }) => {
             };
           }),
         };
-      })
+      }),
     );
   };
 
@@ -278,7 +276,7 @@ export const TestContructorProvider = ({ children }) => {
             }
           }),
         };
-      })
+      }),
     );
   };
 
@@ -299,7 +297,7 @@ export const TestContructorProvider = ({ children }) => {
               testId,
               questionsData: blocksToCreate,
               lessonType,
-            })
+            }),
           )
             .unwrap()
             .then((response) => {
@@ -337,7 +335,7 @@ export const TestContructorProvider = ({ children }) => {
       const formattedInitialBlocks = testQuestionsToBlocks(initialBlocks);
       blocksToCompare.forEach((block) => {
         const initialBlock = formattedInitialBlocks?.find(
-          ({ q_id }) => q_id === block.q_id
+          ({ q_id }) => q_id === block.q_id,
         );
         if (compareTestQuestion(block, initialBlock)) {
           // update question on server
@@ -361,7 +359,7 @@ export const TestContructorProvider = ({ children }) => {
                 question_id,
                 questionData,
                 lessonType,
-              })
+              }),
             )
               .unwrap()
               .then(() => {
@@ -389,7 +387,7 @@ export const TestContructorProvider = ({ children }) => {
                   question_id: block.q_id,
                   answerData: answer,
                   lessonType,
-                })
+                }),
               )
                 .unwrap()
                 .then((response) => {
@@ -401,13 +399,13 @@ export const TestContructorProvider = ({ children }) => {
                       const prevAnswers = question.answers.filter(
                         (answer) =>
                           answer.a_text !== response.a_text ||
-                          answer.image_path !== response.image_path
+                          answer.image_path !== response.image_path,
                       );
                       return {
                         ...question,
                         answers: [...prevAnswers, response],
                       };
-                    })
+                    }),
                   );
 
                   messageApi.success({
@@ -424,7 +422,7 @@ export const TestContructorProvider = ({ children }) => {
                   question_id: block.q_id,
                   pairData: answer,
                   lessonType,
-                })
+                }),
               )
                 .unwrap()
                 .then((response) => {
@@ -436,7 +434,7 @@ export const TestContructorProvider = ({ children }) => {
                       const prevAnswers = question.answers.filter(
                         (answer) =>
                           answer.left_text !== response.left_text ||
-                          answer.right_text !== response.right_text
+                          answer.right_text !== response.right_text,
                       );
                       return {
                         ...question,
@@ -449,7 +447,7 @@ export const TestContructorProvider = ({ children }) => {
                           },
                         ],
                       };
-                    })
+                    }),
                   );
                   messageApi.success({
                     content: "Pair has been created",
@@ -465,7 +463,7 @@ export const TestContructorProvider = ({ children }) => {
         if (answersToCompare.length !== 0) {
           answersToCompare.forEach((answer) => {
             const initialAnswer = initialBlock.answers?.find(
-              ({ a_id }) => answer.a_id === a_id
+              ({ a_id }) => answer.a_id === a_id,
             );
             if (compareTestAnswer(answer, initialAnswer, block.q_type)) {
               // update answer on server
@@ -478,7 +476,7 @@ export const TestContructorProvider = ({ children }) => {
                     answer_id: a_id,
                     answerData: rest,
                     lessonType,
-                  })
+                  }),
                 )
                   .unwrap()
                   .then(() => {
@@ -496,7 +494,7 @@ export const TestContructorProvider = ({ children }) => {
                     left_option_id: a_id,
                     pairData: rest,
                     lessonType,
-                  })
+                  }),
                 )
                   .unwrap()
                   .then(() => {
@@ -519,6 +517,7 @@ export const TestContructorProvider = ({ children }) => {
         blocks,
         blocksScore,
         isLoading,
+        isDirty,
         setBlocks,
         handleAddBlockFromDocImport,
         setNewQuestionProperty,

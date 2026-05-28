@@ -1,0 +1,30 @@
+.confirmModalContent {
+  padding: 24rem 12rem 12rem 12rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-size: 18rem;
+  font-weight: 700;
+  color: var(--content-main);
+  margin-bottom: 12rem;
+  padding-bottom: 6rem;
+  border-bottom: 1rem solid var(--content-datail-secondary);
+}
+
+.text {
+  font-size: 15rem;
+  color: var(--content-datail-secondary);
+  line-height: 1.5;
+  margin-bottom: 24rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 16rem;
+  width: 100%;
+}
