@@ -32,6 +32,7 @@ import RichInput from "../../components/shared/RichInput";
 import Modal from "../../components/shared/Modal/Modal";
 import Select from "../../components/shared/Select/Select";
 import styles from "./AdminCourseConstructorPage.module.scss";
+import NavigationGuard from "../../components/shared/NavigationGuard/NavigationGuard";
 
 const AdvantageForm = ({ icon, updateAdvantages }) => {
   const [selectedIconPath, setSelectedIconPath] = useState(icon.icon_path);
@@ -139,7 +140,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
     handleSubmit,
     watch,
     setError,
-    formState: { errors, isDirty: isFormDirty, dirtyFields },
+    formState: { errors, isDirty: isFormDirty },
     control,
   } = useForm({
     defaultValues: courseData
@@ -167,30 +168,23 @@ const AdminCourseConstructorPage = ({ courseData }) => {
         },
   });
 
-  // const isPageDirty = () => {
-  //   console.log("isFormDirty: ", isFormDirty);
-  //   if (isFormDirty) return true;
+  const isPageDirty = () => {
+    if (isFormDirty) return true;
 
-  //   if (courseData) {
-  //     const isImageChanged = imagePath !== courseData.image_path;
-  //     const isCategoryChanged = categoryId !== courseData.category_id;
-  //     const isAdvantagesChanged =
-  //       JSON.stringify(advantages) !==
-  //       JSON.stringify(
-  //         courseData.icons?.length ? courseData.icons : courseAdvantages,
-  //       );
-  //     console.log(
-  //       "courseData changed: ",
-  //       isImageChanged || isCategoryChanged || isAdvantagesChanged,
-  //     );
+    if (courseData) {
+      const isImageChanged = imagePath !== courseData.image_path;
+      const isCategoryChanged = categoryId !== courseData.category_id;
+      const isAdvantagesChanged =
+        JSON.stringify(advantages) !==
+        JSON.stringify(
+          courseData.icons?.length ? courseData.icons : courseAdvantages,
+        );
 
-  //     return isImageChanged || isCategoryChanged || isAdvantagesChanged;
-  //   }
+      return isImageChanged || isCategoryChanged || isAdvantagesChanged;
+    }
 
-  //   return !!imagePath || categoryId !== (defaultCategoryId || null);
-  // };
-
-  // isPageDirty();
+    return !!imagePath || categoryId !== (defaultCategoryId || null);
+  };
 
   const watchTitle = watch("title");
   const watchProgramInfo = watch("program_text");
@@ -201,7 +195,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const watchCLanguage = watch("c_language");
   const watchCLevel = watch("c_level");
   const watchCAward = watch("c_award");
-  const registerWithMask = useHookFormMask(register);  
+  const registerWithMask = useHookFormMask(register);
 
   const onSubmit = (data) => {
     let isManualError = false;
@@ -362,6 +356,13 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   return (
     <>
       {contextHolder}
+
+      <NavigationGuard
+        isDirty={isPageDirty()}
+        title="Unsaved course progress!"
+        content="You have unsaved changes in the course fields. Are you sure you want to leave this page?"
+      />
+
       <div
         className={`${styles.wrapper} ${!courseId ? styles.pageWrapper : ""}`}
       >
