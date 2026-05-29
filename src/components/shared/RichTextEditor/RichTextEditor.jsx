@@ -1,10 +1,18 @@
 import React, { useMemo } from "react";
-import ReactQuill from "react-quill-new";
+import ReactQuill, { Quill } from "react-quill-new";
 import quillModules, {
   clipboardHandler,
 } from "../../../costants/reactQuillModules";
 import "react-quill-new/dist/quill.snow.css";
 import "./RichTextEditor.css";
+
+const Embed = Quill.import("parchment").EmbedBlot;
+
+class SoftLineBreakPlot extends Embed {
+  static blotName = "softBreak";
+  static tagName = "br";
+}
+Quill.register(SoftLineBreakPlot);
 
 const RichTextEditor = ({
   value = "",
@@ -15,6 +23,7 @@ const RichTextEditor = ({
   className = "",
   onBlur,
 }) => {
+  
   const modules = useMemo(() => {
     const container = [...quillModules[type]];
     const handlers = {
@@ -25,17 +34,6 @@ const RichTextEditor = ({
         this.quill.history.redo();
       },
     };
-
-    const isCustomHandlers = Array.isArray(customTools);
-
-    if (isCustomHandlers) {
-      container.push(
-        customTools.map((tool) => {
-          handlers[tool.name] = tool.handler;
-          return tool.name;
-        }),
-      );
-    }
 
     return {
       toolbar: {
@@ -50,27 +48,33 @@ const RichTextEditor = ({
       },
 
       clipboard: {
-        matchers: [["*", clipboardHandler]],
+        matchers: [
+          ["*", clipboardHandler],
+          [
+            "BR",
+            (node, delta) => {
+              const Delta = Quill.import("delta");
+              return new Delta().insert({ softBreak: true });
+            },
+          ],
+        ],
       },
 
       keyboard: {
         bindings: {
           shiftEnterInList: {
-            key: 13, // Enter
-            shiftKey: true, // Обов'язково затиснутий Shift
-            format: ["list"], // Тільки всередині списків
+            key: "Enter",
+            shiftKey: true,
+            format: ["list"],
             handler: function (range, context) {
-              // Отримуємо поточний індекс курсору
-              const currentRange = this.quill.getSelection();
-              if (currentRange) {
-                // Вставляємо символ нового рядка.
-                // Якщо у тебе підключений quillBreakBlot, Quill автоматично перетворить '\n' у <br> всередині <li>
-                this.quill.insertText(currentRange.index, "\n", "user");
-                // Переносимо курсор на один символ вперед (за створений <br>)
-                this.quill.setSelection(currentRange.index + 1, "user");
-                return false; // Зупиняємо стандартну поведінку Quill
-              }
-              return true;
+              this.quill.insertEmbed(
+                range.index,
+                "softBreak",
+                true,
+                Quill.sources.USER,
+              );
+              this.quill.setSelection(range.index + 1, Quill.sources.SILENT);
+              return false;
             },
           },
         },
