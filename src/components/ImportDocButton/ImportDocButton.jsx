@@ -11,7 +11,7 @@ const ImportDocButton = ({ type }) => {
       <CommonButton
         text="Import document"
         onClick={() => setIsOpenModal(true)}
-        wrapperStyles={{ width: "100%", marginBottom: "16rem" }}
+        wrapperStyles={{ width: "100%", marginBottom: "8rem" }}
       />
       <Modal
         isOpen={isOpenModal}
