@@ -34,6 +34,8 @@
 
   transition: all var(--transition-time-min) ease;
 
+  overscroll-behavior: none;
+
   .expandBtn {
     width: 24rem;
     height: 24rem;

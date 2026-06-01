@@ -13,10 +13,10 @@ import { ReactComponent as FileIcon } from "../../../images/icons/lessonIcons/le
 import { ReactComponent as LinkIcon } from "../../../images/icons/lessonIcons/lecture/link.svg";
 import { ReactComponent as TableIcon } from "../../../images/icons/lessonIcons/lecture/table.svg";
 import SaveBtn from "../../shared/SaveBtn/SaveBtn";
-import CommonButton from "../../shared/CommonButton/CommonButton";
 import ImportDocButton from "../../ImportDocButton/ImportDocButton";
-import styles from "./LectureConstructor.module.scss";
 import LessonToolsCancelButton from "../../shared/LessonToolsCancelButton/LessonToolsCancelButton";
+import LessonPartsOrdering from "../../shared/LessonPartsOrdering/LessonPartsOrdering";
+import styles from "./LectureConstructor.module.scss";
 
 const toolIcons = {
   text: <TextIcon />,
@@ -31,7 +31,8 @@ const toolIcons = {
 
 const ToolsPanel = ({ handleSaveLectureParts }) => {
   const isLoading = useSelector(getIsLoading);
-  const { handleAddBlock, handleDeleteBlock, blocks } = useLectureConstructor();
+  const { handleAddBlock, handleDeleteBlock, blocks, setBlocks } =
+    useLectureConstructor();
 
   const handleClearLecture = () => {
     blocks.forEach((block) => handleDeleteBlock(block.id));
@@ -51,6 +52,7 @@ const ToolsPanel = ({ handleSaveLectureParts }) => {
       </ul>
       <div>
         <ImportDocButton />
+        <LessonPartsOrdering parts={blocks} setParts={setBlocks} />
         <LessonToolsCancelButton
           handleClear={handleClearLecture}
           disabled={blocks?.length === 0}

@@ -58,11 +58,11 @@ const AdminList = ({ items }) => {
   const { selectedListModeIndex } = useListMode();
   const [messageApi, contextHolder] = useNotificationMessage();
   const { courseId } = useParams();
-  
+
   const dispatch = useDispatch();
 
   const isCoursePublished = useSelector(getAllCourses)?.find(
-    (course) => course.id === +courseId
+    (course) => course.id === +courseId,
   )?.is_published;
 
   const sensors = useSensors(
@@ -70,7 +70,7 @@ const AdminList = ({ items }) => {
       activationConstraint: {
         distance: 10,
       },
-    })
+    }),
   );
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const AdminList = ({ items }) => {
   const updateLessonsNumbers = async (newLessons) => {
     const lessonsToUpdate = newLessons.filter(
       (lesson) =>
-        items?.find(({ id }) => id === lesson.id).number !== lesson.number
+        items?.find(({ id }) => id === lesson.id).number !== lesson.number,
     );
     const updatedLessonsData = lessonsToUpdate.map(({ id, number }) => ({
       id,
@@ -93,9 +93,9 @@ const AdminList = ({ items }) => {
       const result = await Promise.all(
         updatedLessonsData.map((lesson) =>
           dispatch(
-            updateLessonThunk({ courseId: +courseId, updatedLesson: lesson })
-          ).unwrap()
-        )
+            updateLessonThunk({ courseId: +courseId, updatedLesson: lesson }),
+          ).unwrap(),
+        ),
       );
       if (result) {
         messageApi.success({
@@ -123,16 +123,16 @@ const AdminList = ({ items }) => {
       }
       setLessons((prevLessons) => {
         const activeIndex = prevLessons?.findIndex(
-          (lesson) => lesson.id === active.id
+          (lesson) => lesson.id === active.id,
         );
         const overIndex = prevLessons?.findIndex(
-          (lesson) => lesson.id === over?.id
+          (lesson) => lesson.id === over?.id,
         );
         const newLessons = arrayMove(prevLessons, activeIndex, overIndex).map(
           (lesson, index) => ({
             ...lesson,
             number: index + 1,
-          })
+          }),
         );
         updateLessonsNumbers(newLessons);
         return newLessons;

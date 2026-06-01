@@ -1,0 +1,21 @@
+.partsList {
+  padding-right: 12rem;
+}
+
+.partsItem {
+  cursor: grab;
+  padding: 6rem 12rem;
+  margin-bottom: 8rem;
+  background-color: var(--bg-rgba-default);
+  border: 1rem solid var(--border-color-main);
+  border-radius: 5rem;
+  display: flex;
+  align-items: center;
+  gap: 12rem;
+
+  color: var(--content-main);
+
+  strong {
+    color: var(--content-datail-secondary);
+  }
+}
