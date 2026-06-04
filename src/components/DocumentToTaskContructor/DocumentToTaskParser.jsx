@@ -1,14 +1,15 @@
 import React, { useMemo, useState } from "react";
-import ContentBlocks from "./ContentBlocks";
-import Tabs from "../Tabs/Tabs";
-import ImportForm from "./ImportForm";
-import styles from "./DocumentToTaskContructor.module.scss";
-import CommonButton from "../shared/CommonButton/CommonButton";
 import { useLectureConstructor } from "../../context/LectureConstructorContext";
 import { docParserInstance } from "../../http/instance";
-import Spinner from "../Spinner/Spinner";
 import { useTestContructor } from "../../context/TestContructorContext";
 import { useDocCache } from "../../hooks/useDocCache";
+import ImportForm from "./ImportForm";
+import CommonButton from "../shared/CommonButton/CommonButton";
+import Spinner from "../Spinner/Spinner";
+import DocumentParsedCahce from "./DocumentParsedCahce";
+import Tabs from "../Tabs/Tabs";
+import ContentBlocks from "./ContentBlocks";
+import styles from "./DocumentToTaskContructor.module.scss";
 
 const DOCKEYBYTYPE = {
   lecture: "lectures",
@@ -137,6 +138,14 @@ const DocumentToTaskParser = ({ type = "lecture", closeModal }) => {
           setDocument={setDoc}
           cacheInterface={cacheInterface}
         />
+        {cachedItems.length !== 0 && (
+          <DocumentParsedCahce
+            setDoc={setDoc}
+            setActiveTab={setActiveTab}
+            cacheInterface={cacheInterface}
+            cachedItems={cachedItems}
+          />
+        )}
         {doc && (
           <CommonButton
             text={isLoading ? "" : "Use for current lesson"}
@@ -151,46 +160,6 @@ const DocumentToTaskParser = ({ type = "lecture", closeModal }) => {
           />
         )}
       </div>
-      {cachedItems.length > 0 && (
-        <div className={styles.cacheHistorySection}>
-          <h3 className={styles.cacheHistoryTitle}>
-            Parsed Documents History ({type}s)
-          </h3>
-          <ul className={styles.cacheList}>
-            {cachedItems.map((item) => (
-              <li key={`${item.type}_${item.url}`} className={styles.cacheItem}>
-                <div
-                  className={styles.cacheInfo}
-                  onClick={() => {
-                    setDoc(item.response);
-                    setActiveTab(null); // скидаємо таб при перемиканні документа
-                  }}
-                  title="Click to quickly load this document from cache"
-                >
-                  <span className={styles.cacheTypeBadge}>{item.type}</span>
-                  <span className={styles.cacheTitle}>{item.title}</span>
-                  <span className={styles.cacheUrl}>{item.url}</span>
-                </div>
-                <button
-                  className={styles.deleteCacheBtn}
-                  onClick={() =>
-                    cacheInterface.removeFromCache(item.url, item.type)
-                  }
-                  title="Delete from cache"
-                >
-                  ✕
-                </button>
-              </li>
-            ))}
-          </ul>
-          <button
-            className={styles.clearAllBtn}
-            onClick={cacheInterface.clearAllCache}
-          >
-            Clear History Cache
-          </button>
-        </div>
-      )}
       {doc && isDocValid && (
         <Tabs
           onChange={(newActiveTab) => setActiveTab(newActiveTab)}

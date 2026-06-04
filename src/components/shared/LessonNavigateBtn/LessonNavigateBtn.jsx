@@ -28,8 +28,6 @@ const LessonNavigateBtn = ({
     (a, b) => a.number - b.number,
   );
 
-  console.log(currentNumber);
-
   const targetLesson = courseSortedLessons?.find(({ number: num }) => {
     if (forward) {
       return num === currentNumber + 1;
@@ -50,8 +48,6 @@ const LessonNavigateBtn = ({
   };
 
   const renderCreateLessonBtn = isModer && !targetLesson && forward;
-
-  console.log(isModer, targetLesson, forward);
 
   return (
     <>

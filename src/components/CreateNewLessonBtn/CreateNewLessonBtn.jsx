@@ -18,16 +18,15 @@ const CreateNewLessonBtn = ({
   const targetCourseId = courseId ? +courseId : lessonConstructorCourseId;
 
   const isCoursePublished = courses.find(
-    (course) => course.id === targetCourseId
+    (course) => course.id === targetCourseId,
   )?.is_published;
-
-  console.log(isCoursePublished);
 
   return (
     <>
       <button
         className={`${styles.createLessonBtn} ${classname}`}
         onClick={() => setIsOpen(true)}
+        disabled={!isCoursePublished}
       >
         <PlusIcon />
         <span>{label}</span>

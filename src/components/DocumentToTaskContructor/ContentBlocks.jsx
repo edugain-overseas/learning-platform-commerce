@@ -32,7 +32,6 @@ const LectureBlock = ({ block }) => {
 };
 
 const ContentBlocks = memo(({ blocks, type, config }) => {
-  console.log(blocks);
 
   return (
     <div className={`${styles.blocksContainer} ${styles[type]}`}>

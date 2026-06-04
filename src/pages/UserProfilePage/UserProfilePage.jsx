@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { getUserCourses, getUserInfo } from "../../redux/user/selectors";
+import { getUserInfoThunk } from "../../redux/user/operations";
 import UserInfoCard from "../../components/UserInfoCard/UserInfoCard";
 import UserStats from "../../components/UserStats/UserStats";
 import InfoBtn from "../../components/shared/InfoBtn/InfoBtn";
 import UserCertificatesList from "../../components/UserCertificatesList/UserCertificatesList";
 import ProfileAuthPanel from "../../components/ProfileAuthPanel/ProfileAuthPanel";
 import styles from "./UserProfilePage.module.scss";
-import { getUserInfoThunk } from "../../redux/user/operations";
 
 const DefaultBlock = ({ className, children }) => {
   return (

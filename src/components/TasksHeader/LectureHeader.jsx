@@ -20,11 +20,7 @@ const LectureHeader = ({
     number,
     // lecture_info: lectureInfo,
     course_id: courseId,
-  } = lecture;
-
-  console.log(number);
-  
-
+  } = lecture;  
   // const lectureSpeech = lectureInfo?.lecture_speeches;
 
   const isModer = useSelector(getUserType) === "moder";

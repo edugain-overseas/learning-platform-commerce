@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllCourses } from "../../../redux/course/selectors";
 import { getUserCourses, getUserType } from "../../../redux/user/selectors";
@@ -87,7 +87,6 @@ const CategoriesItem = ({
     <CategoryBuyAllBtn categoryId={category.id} disabled={!dropDownOpen} />
   );
 
-
   const handleToggleDropDown = () => {
     const dropdown = dropdownRef.current;
     if (dropdown) {
@@ -128,7 +127,11 @@ const CategoriesItem = ({
           handleToggleDropDown();
         }}
       >
-        <Link to={null} className={styles.titleWrapper}>
+        <div
+          to={null}
+          className={styles.titleWrapper}
+          onClick={handleToggleDropDown}
+        >
           {iconPath ? (
             <div
               className={styles.icon}
@@ -148,7 +151,7 @@ const CategoriesItem = ({
               dangerouslySetInnerHTML={{ __html: category.certificate_info }}
             ></p>
           </div>
-        </Link>
+        </div>
         <div className={styles.tools}>
           {!isModer ? (
             <>
