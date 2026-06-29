@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./CommonButton.module.scss";
 
+
 const variants = {
   grey: "grey",
   lightGrey: "lightGrey",

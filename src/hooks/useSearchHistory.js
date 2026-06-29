@@ -28,7 +28,7 @@ export const useSearchHistory = () => {
           return prevLocalHistory;
         }
         const filtred = prevLocalHistory.filter(
-          (item) => item.query !== validQuery
+          (item) => item.query !== validQuery,
         );
 
         const updatedLocalHistory = [
@@ -40,6 +40,7 @@ export const useSearchHistory = () => {
     };
 
     if (query) updateLocalHistory();
+    // eslint-disable-next-line
   }, [query]);
 
   useEffect(() => {

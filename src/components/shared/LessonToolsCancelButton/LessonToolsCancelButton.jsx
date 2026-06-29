@@ -1,6 +1,5 @@
 import React from "react";
 import { Popconfirm } from "antd";
-import CommonButton from "../CommonButton/CommonButton";
 import styles from "./LessonToolsCancelButton.module.scss";
 import "../../../styles/antDesign/Popconfirm.css";
 
