@@ -28,29 +28,29 @@ const HomeFooter = () => {
               <WhatsupIcon />
               <span className={styles.label}>Phone number:</span>
               <a
-                href="https://wa.me/+35677215496"
+                href="https://wa.me/+380964627777"
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                +356 7721 5496
+                +380 96 462 77 77
               </a>
             </li>
             <li className={styles.contact}>
               <EmailIcon />
               <span className={styles.label}>Email address:</span>
               <a
-                href="mailto:info@ieu.edu.ua"
+                href="mailto:courses@feu.com.ua"
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                info@ieu.edu.ua
+                courses@feu.com.ua
               </a>
             </li>
             <li className={styles.contact}>
               <LocationIcon />
               <span className={styles.label}>Our office:</span>
               <a href="/" target="_blank" rel="noreferrer noopener">
-                151 triq Edgar Bernard, Malta
+                Academician Glushkova Avenue.42, Kyiv 03187
               </a>
             </li>
             <li className={styles.socialContainer}>
@@ -77,7 +77,7 @@ const HomeFooter = () => {
               </a>
             </li>
             <li className={styles.singleLink}>
-              <Link to="/aboutIEU">About IEU</Link>
+              <Link to="/aboutIEU">About FEU</Link>
             </li>
           </ul>
         </div>
