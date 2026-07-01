@@ -9,6 +9,7 @@
   background: var(--bg-rgba-default);
   box-shadow: var(--drop-shadow-middle-intense);
   backdrop-filter: blur(16px);
+  overflow: hidden;
 }
 
 .titleWrapper {
@@ -52,6 +53,8 @@
     width: 54rem;
     transform: skewX(37deg);
     margin-left: -22rem;
+    margin-bottom: -1rem;
+    height: 58rem;
   }
   div:nth-child(3) {
     background-color: #f7a600;

@@ -2,7 +2,7 @@ import React from "react";
 import HomeHeroSearchbar from "./HomeHeroSearchbar";
 import HeroAuthBtns from "./HomeAuthBtns";
 import HomeHeroAnimatedFragment from "./HomeHeroAnimatedFragment/HomeHeroAnimatedFragment";
-import { ReactComponent as ArrowIcon } from "../../../images/icons/arrowDown.svg";
+import { ReactComponent as MouseIcon } from "../../../images/icons/mouse.svg";
 import styles from "../HomePage.module.scss";
 
 const HomeHero = ({ showArrow }) => {
@@ -27,8 +27,8 @@ const HomeHero = ({ showArrow }) => {
         </div>
         <HomeHeroAnimatedFragment />
       </div>
-      <ArrowIcon
-        className={`${styles.arrow} ${showArrow ? "" : styles.hidden}`}
+      <MouseIcon
+        className={`${styles.mouse} ${showArrow ? "" : styles.hidden}`}
       />
     </section>
   );

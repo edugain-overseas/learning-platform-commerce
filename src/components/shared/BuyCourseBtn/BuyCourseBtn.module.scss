@@ -1,6 +1,6 @@
 .buyCourseBtn {
   padding: 4rem 12rem;
-  background-color: var(--content-nav-hover);
+  background-color: var(--content-main);
   border-radius: 5rem;
   display: flex;
   align-items: center;
@@ -19,7 +19,7 @@
   }
 
   &:hover {
-    background-color: var(--content-main);
+    background-color: var(--content-nav-hover);
   }
 }
 

@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/category/selectors";
+import { serverName } from "../../http/server";
 import { ReactComponent as CategoryIcon } from "../../images/icons/bm.svg";
 import HomeSlider from "./shared/HomeSlider";
 import SliderSectionHeader from "./shared/SliderSectionHeader";
 import styles from "./HomePage.module.scss";
-import { serverName } from "../../http/server";
 
 export const renderCategoryItem = (category) => {
   console.log(category);
@@ -19,28 +19,30 @@ export const renderCategoryItem = (category) => {
 
   return (
     <Link to={`/courses/all`} state={{ categoryId: category.id }}>
-      <div
-        className={styles.categoryCard}
-        style={{ "--bg": categoryMainIconPath && `url(${iconURL})` }}
-      >
-        {categoryMainIconPath ? (
-          <div
-            className={styles.categoryIcon}
-            style={{
-              background: `url(${iconURL})`,
-              height: "52rem",
-              backgroundSize: "contain",
-            }}
-          ></div>
-        ) : (
-          <CategoryIcon className={styles.categoryIcon} />
-        )}
-        <div className={styles.categoryInfo}>
-          <h4 className={styles.categoryTitle}>{category.title}</h4>
-          <p
-            className={styles.certificateInfo}
-            dangerouslySetInnerHTML={{ __html: category.certificate_info }}
-          ></p>
+      <div className={styles.categoryCardContainer}>
+        <div
+          className={styles.categoryCard}
+          style={{ "--bg": categoryMainIconPath && `url(${iconURL})` }}
+        >
+          {categoryMainIconPath ? (
+            <div
+              className={styles.categoryIcon}
+              style={{
+                backgroundImage: `url(${iconURL})`,
+                height: "52rem",
+                backgroundSize: "contain",
+              }}
+            ></div>
+          ) : (
+            <CategoryIcon className={styles.categoryIcon} />
+          )}
+          <div className={styles.categoryInfo}>
+            <h4 className={styles.categoryTitle}>{category.title}</h4>
+            <p
+              className={styles.certificateInfo}
+              dangerouslySetInnerHTML={{ __html: category.certificate_info }}
+            ></p>
+          </div>
         </div>
       </div>
     </Link>

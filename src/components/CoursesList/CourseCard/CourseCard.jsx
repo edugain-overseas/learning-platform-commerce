@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getUserType } from "../../../redux/user/selectors";
 import { serverName } from "../../../http/server";
-import { ReactComponent as ArrowRightIcon } from "../../../images/icons/arrow-left.svg";
+// import { ReactComponent as ArrowRightIcon } from "../../../images/icons/arrow-left.svg";
 import { ReactComponent as ClockIcon } from "../../../images/icons/clock.svg";
 import { ReactComponent as LaptopIcon } from "../../../images/icons/laptop.svg";
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
@@ -70,9 +70,9 @@ const CourseCard = ({
           <div className={styles.titleWrapper}>
             <span className={styles.courseName}>
               {courseName}
-              <span className={styles.openBtn}>
+              {/* <span className={styles.openBtn}>
                 <ArrowRightIcon />
-              </span>
+              </span> */}
             </span>
           </div>
           <div className={styles.courseInfo}>

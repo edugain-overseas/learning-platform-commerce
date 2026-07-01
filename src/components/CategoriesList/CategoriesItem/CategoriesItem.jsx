@@ -210,7 +210,7 @@ const CategoriesItem = ({
       >
         <div
           className={styles.dropDownContent}
-          style={{ paddingTop: selectedListModeIndex ? "16rem" : "8rem" }}
+          style={{ paddingTop: selectedListModeIndex === 0 ? "16rem" : "8rem" }}
         >
           <CoursesList
             courses={filtredCoursesToDisplay}

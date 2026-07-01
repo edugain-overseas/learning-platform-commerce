@@ -3,11 +3,6 @@
   position: relative;
 
   &:hover {
-    // .cardBtn {
-    //   height: 24rem;
-    //   opacity: 1;
-    // }
-
     .coursePoster {
       transform: scale(1.1);
     }
@@ -37,17 +32,17 @@
   padding: 8rem;
   border-radius: 5rem;
   background-color: var(--bg-rgba-default);
-  box-shadow: var(--drop-shadow-button-main);
-  backdrop-filter: blur(16rem);
+  box-shadow: none;
 
-  // position: relative;
-  // z-index: 2;
-
-  transition: background-color var(--transition-time-min) ease;
+  transition: box-shadow var(--transition-time-min) ease;
 
   &:hover {
-    background-color: var(--bg-rgba-primary);
     box-shadow: var(--drop-shadow-button-main-hover);
+
+    .courseName::before {
+      width: 50%;
+      transition: width var(--transition-time-min) ease;
+    }
   }
 }
 
@@ -58,23 +53,11 @@
   border-radius: 5rem;
   background-size: cover;
   background-position: center;
-  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.12);
-
-  &::before {
-    content: "";
-    display: block;
-    border-radius: 5rem;
-    position: absolute;
-    inset: 0;
-    background-color: var(--bg-rgba-default);
-    backdrop-filter: blur(26rem);
-  }
 }
 
 .imageWrapper {
   position: absolute;
   inset: 0;
-  border: 4rem solid transparent;
   overflow: hidden;
 }
 
@@ -118,35 +101,35 @@
     transition: width var(--transition-time-min) ease var(--transition-time-min);
   }
 
-  &::after {
-    content: "";
-    display: block;
-    width: 0;
-    position: absolute;
-    bottom: -2rem;
-    height: 1rem;
-    border-radius: 0.5rem;
-    background-color: var(--content-nav-hover);
-    transition: width var(--transition-time-min) ease;
-  }
+  // &::after {
+  //   content: "";
+  //   display: block;
+  //   width: 0;
+  //   position: absolute;
+  //   bottom: -2rem;
+  //   height: 1rem;
+  //   border-radius: 0.5rem;
+  //   background-color: var(--content-nav-hover);
+  //   transition: width var(--transition-time-min) ease;
+  // }
 
-  &:hover {
-    &::before {
-      width: 30rem;
-      transition: width var(--transition-time-min) ease;
-    }
+  // &:hover {
+  //   &::before {
+  //     width: 50%;
+  //     transition: width var(--transition-time-min) ease;
+  //   }
 
-    &::after {
-      width: 15rem;
-      transition: width var(--transition-time-min) ease
-        var(--transition-time-min);
-    }
+  //   &::after {
+  //     width: 15rem;
+  //     transition: width var(--transition-time-min) ease
+  //       var(--transition-time-min);
+  //   }
 
-    .openBtn {
-      transform: translate(120%, -50%);
-      opacity: 1;
-    }
-  }
+  //   .openBtn {
+  //     transform: translate(120%, -50%);
+  //     opacity: 1;
+  //   }
+  // }
 }
 
 .openBtn {
@@ -156,7 +139,8 @@
   transform: translate(0, -50%);
   opacity: 0;
 
-  transition: opacity var(--transition-time-min) ease,
+  transition:
+    opacity var(--transition-time-min) ease,
     transform var(--transition-time-min) ease;
 
   svg {

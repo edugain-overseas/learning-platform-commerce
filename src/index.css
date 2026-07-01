@@ -1,28 +1,32 @@
 :root {
   /* --bg-body: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
     url("./images/body-bg-desktop.webp"); */
-  --bg-body: url("./images/body-bg-desktop.webp");
+  /* --bg-body: url("./images/body-bg-desktop.webp"); */
+  --bg-body: #FAF9F9;
   --bg-auth: url("./images/auth-bg-destop.webp");
   --bg-aboutIEU: url("./images/aboutIEU-bg-desktop.webp");
   --bg-main: #f4f6fc;
+  /* --bg-main: #FAF9F9; */
   --bg-accent: #4171cd;
   --bg-default: #fff;
-  --bg-accent-active: #c30000;
+  /* --bg-accent-active: #c30000; */
+  --bg-accent-active: #760000;
   --bg-deafault-active: #718da7;
   --bg-deafult-block: #fafbff;
   --bg-default-block-hover: #dcdde3;
   --bg-accent-block: #fefefe;
   --bg-thumb: #f4f4f4;
   --bg-accent-thumb: #e2e2e2;
-  --bg-rgba-primary: rgba(255, 255, 255, 0.9);
+  /* --bg-rgba-primary: rgba(255, 255, 255, 0.9); */
+  --bg-rgba-primary: #FAF9F9;
   --bg-rgba-secondary: rgba(255, 255, 255, 0.75);
-  --bg-rgba-default: rgba(255, 255, 255, 0.65);
+  /* --bg-rgba-default: rgba(255, 255, 255, 0.65); */
+  --bg-rgba-default: #fff;
   --bg-rgba-detail: rgba(255, 255, 255, 0.2);
   --bg-rgba-accent: rgba(252, 252, 252, 0.9);
   --bg-rgba-block: rgba(252, 252, 252, 0.65);
 
   --bg-button-main: rgba(131, 131, 131, 0.2);
-  --bg-rgba-primary: #fff;
   --bg-button-disabled: #d9d9d9;
   --bg-button-success: #39ba6d;
   --bg-button-success-accent: #258D4F;
@@ -36,7 +40,8 @@
   --border-color-secondary: rgba(215, 215, 215, 0.5);
   --border-color-decorate: #bdc4d2;
 
-  --content-main: #001c54;
+  /* --content-main: #001c54; */
+  --content-main: #404040;
   --content-secondary: rgba(0, 0, 0, 0.5);
   --content-dark: #1e1e1e;
   --content-dark-secondary: rgba(0, 28, 84, 0.5);
@@ -47,9 +52,11 @@
   --content-success: #29ca6a;
   --content-failture: #ba3939;
   --content-contr-color: #ffffff;
-  --content-datail-secondary: rgb(126, 140, 168);
+  /* --content-datail-secondary: rgb(126, 140, 168); */
+  --content-datail-secondary: #5D6977;
   --content-cold: #ffd700;
-  --content-nav-hover: #d00000;
+  /* --content-nav-hover: #d00000; */
+  --content-nav-hover: #760000;
 
   --lg-block: linear-gradient(156deg, #b8eaff 8.25%, #6fd4ff 100.26%);
 
