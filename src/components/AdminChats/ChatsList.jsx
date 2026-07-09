@@ -27,8 +27,8 @@ const designTokens = {
   iconMarginInlineEnd: "6rem",
   itemColor: "#7e8ca8",
   itemHoverBg: "rgba(131, 131, 131, 0.2)",
-  itemHoverColor: "#001c54",
-  itemSelectedBg: "#001c54",
+  itemHoverColor: "#37384B",
+  itemSelectedBg: "#37384B",
   itemSelectedColor: "#fff",
 };
 

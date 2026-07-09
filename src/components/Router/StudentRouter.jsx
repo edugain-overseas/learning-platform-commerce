@@ -11,34 +11,35 @@ import SearchPage from "../../pages/SearchPage/SearchPage";
 import Root from "../Root";
 const SingUpForm = React.lazy(() => import("../auth/SingUpForm/SingUpForm"));
 const SingInForm = React.lazy(() => import("../auth/SingInForm/SingInForm"));
-const CoursesPage = React.lazy(() =>
-  import("../../pages/CoursesPage/CoursesPage")
+const CoursesPage = React.lazy(
+  () => import("../../pages/CoursesPage/CoursesPage"),
 );
-const CategoriesList = React.lazy(() =>
-  import("../CategoriesList/CategoriesList")
+const CategoriesList = React.lazy(
+  () => import("../CategoriesList/CategoriesList"),
 );
-const CourseDetailPage = React.lazy(() =>
-  import("../../pages/CourseDetailPage/CourseDetailPage")
+const CourseDetailPage = React.lazy(
+  () => import("../../pages/CourseDetailPage/CourseDetailPage"),
 );
 const TaskPage = React.lazy(() => import("../../pages/TaskPage/TaskPage"));
-const UserProfilePage = React.lazy(() =>
-  import("../../pages/UserProfilePage/UserProfilePage")
+const UserProfilePage = React.lazy(
+  () => import("../../pages/UserProfilePage/UserProfilePage"),
 );
-const AboutIEUPage = React.lazy(() =>
-  import("../../pages/AboutIEUPage/AboutIEUPage")
+const AboutIEUPage = React.lazy(
+  () => import("../../pages/AboutIEUPage/AboutIEUPage"),
 );
-const InstructionsPage = React.lazy(() =>
-  import("../../pages/InstructionsPage/InstructionsPage")
+const InstructionsPage = React.lazy(
+  () => import("../../pages/InstructionsPage/InstructionsPage"),
 );
-const InstructionsList = React.lazy(() =>
-  import("../InstructionsList/InstructionsList")
+const InstructionsList = React.lazy(
+  () => import("../InstructionsList/InstructionsList"),
 );
-const InstructionContent = React.lazy(() =>
-  import("../InstructionContent/InstructionContent")
+const InstructionContent = React.lazy(
+  () => import("../InstructionContent/InstructionContent"),
 );
-const PaymentPage = React.lazy(() =>
-  import("../../pages/PaymentPage/PaymentPage")
+const PaymentPage = React.lazy(
+  () => import("../../pages/PaymentPage/PaymentPage"),
 );
+const ContactsPage = React.lazy(() => import("../../pages/Contacts/Contacts"));
 
 export const studentRouter = createBrowserRouter(
   createRoutesFromElements(
@@ -69,9 +70,10 @@ export const studentRouter = createBrowserRouter(
           </Route>
         ))}
       </Route>
+      <Route path="/contacts" element={<ContactsPage />} />
       <Route path="/payment" element={<PaymentPage />} />
       <Route path="/search" element={<SearchPage />} />
       <Route path="/*" element={<div>Not Found Page</div>} />
-    </Route>
-  )
+    </Route>,
+  ),
 );

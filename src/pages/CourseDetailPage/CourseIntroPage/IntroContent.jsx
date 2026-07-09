@@ -66,7 +66,7 @@ const IntroContent = ({ course = {}, courses = [] }) => {
   ].slice(0, 4);
 
   return (
-    <div className={`${styles.ql} ql-editor`} style={{ padding: 0 }}>
+    <div className={`ql-editor ${styles.ql}`} style={{ padding: 0 }}>
       <section className={styles.mainInfoWrapper}>
         <div className={styles.textContentWrapper}>
           <h2 className={styles.courseName}>{courseName}</h2>

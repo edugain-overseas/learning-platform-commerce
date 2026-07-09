@@ -4,6 +4,7 @@ import { ReactComponent as EducationIcon } from "../images/icons/nav/my-educatio
 import { ReactComponent as MyProfileIcon } from "../images/icons/nav/my-profile.svg";
 import { ReactComponent as AboutIEUIcon } from "../images/icons/nav/about.svg";
 import { ReactComponent as InstructionsIcon } from "../images/icons/nav/instruction.svg";
+import { ReactComponent as ContactsIcon } from "../images/icons/nav/contacts.svg";
 import CourseIntroPage from "../pages/CourseDetailPage/CourseIntroPage/CourseIntroPage";
 import CourseTasksPage from "../pages/CourseDetailPage/CourseTasksPage/CourseTasksPage";
 import CourseCerificatePage from "../pages/CourseDetailPage/CourseCerificatePage/CourseCerificatePage";
@@ -26,7 +27,7 @@ export const sidebarNav = [
   },
   { label: "My Profile", icon: <MyProfileIcon />, link: "/me", children: null },
   {
-    label: "About IEU",
+    label: "About FEU",
     icon: <AboutIEUIcon />,
     link: "/aboutIEU",
     children: null,
@@ -35,6 +36,12 @@ export const sidebarNav = [
     label: "Instructions",
     icon: <InstructionsIcon />,
     link: "/instructions/general",
+    children: null,
+  },
+  {
+    label: "Contacts",
+    icon: <ContactsIcon />,
+    link: "/contacts",
     children: null,
   },
 ];
@@ -48,7 +55,7 @@ export const adminSidebarNav = [
     children: null,
   },
   {
-    label: "About IEU",
+    label: "About FEU",
     icon: <AboutIEUIcon />,
     link: "/aboutIEU",
     children: null,

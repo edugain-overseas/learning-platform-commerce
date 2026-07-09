@@ -194,11 +194,11 @@
   }
 
   .primaryBtn {
-    background-color: rgba($color: #001c54, $alpha: 1);
+    background-color: rgba($color: #37384B, $alpha: 1);
     color: var(--content-contr-color);
 
     &:hover {
-      background-color: rgba($color: #001c54, $alpha: 0.9);
+      background-color: rgba($color: #37384B, $alpha: 0.9);
     }
   }
 
@@ -394,7 +394,7 @@
     }
 
     span {
-      font-family: Roboto;
+      // font-family: Roboto;
       font-size: 12rem;
       font-weight: 600;
     }

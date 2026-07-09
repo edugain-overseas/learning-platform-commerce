@@ -6,24 +6,24 @@
 <circle cx="11.5" cy="10.5" r="10.2" stroke="url(#paint4_linear_1940_2320)" stroke-width="0.6"/>
 <defs>
 <linearGradient id="paint0_linear_1940_2320" x1="18.0001" y1="10.7754" x2="13.4434" y2="10.7754" gradientUnits="userSpaceOnUse">
-<stop stop-color="#001C54"/>
-<stop offset="1" stop-color="#001C54"/>
+<stop stop-color="#37384B"/>
+<stop offset="1" stop-color="#37384B"/>
 </linearGradient>
 <linearGradient id="paint1_linear_1940_2320" x1="9.55025" y1="11.941" x2="5" y2="11.941" gradientUnits="userSpaceOnUse">
-<stop stop-color="#001C54"/>
-<stop offset="1" stop-color="#001C54"/>
+<stop stop-color="#37384B"/>
+<stop offset="1" stop-color="#37384B"/>
 </linearGradient>
 <linearGradient id="paint2_linear_1940_2320" x1="9.54954" y1="7.29238" x2="7.06641" y2="7.29238" gradientUnits="userSpaceOnUse">
-<stop stop-color="#001C54"/>
-<stop offset="1" stop-color="#001C54"/>
+<stop stop-color="#37384B"/>
+<stop offset="1" stop-color="#37384B"/>
 </linearGradient>
 <linearGradient id="paint3_linear_1940_2320" x1="14.1007" y1="11.2754" x2="8.90039" y2="11.2754" gradientUnits="userSpaceOnUse">
-<stop stop-color="#001C54"/>
-<stop offset="1" stop-color="#001C54"/>
+<stop stop-color="#37384B"/>
+<stop offset="1" stop-color="#37384B"/>
 </linearGradient>
 <linearGradient id="paint4_linear_1940_2320" x1="22" y1="10.5" x2="1" y2="10.5" gradientUnits="userSpaceOnUse">
-<stop stop-color="#001C54"/>
-<stop offset="1" stop-color="#001C54"/>
+<stop stop-color="#37384B"/>
+<stop offset="1" stop-color="#37384B"/>
 </linearGradient>
 </defs>
 </svg>

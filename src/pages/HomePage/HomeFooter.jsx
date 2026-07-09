@@ -5,9 +5,9 @@ import { ReactComponent as EmailIcon } from "../../images/icons/social/email.svg
 import { ReactComponent as LocationIcon } from "../../images/icons/social/location.svg";
 import { ReactComponent as FacebookIcon } from "../../images/icons/social/facebook.svg";
 import { ReactComponent as InstagramIcon } from "../../images/icons/social/instagram.svg";
-import { ReactComponent as LinkedinIcon } from "../../images/icons/social/linkedin.svg";
-import { ReactComponent as YoutubeIcon } from "../../images/icons/social/youtube.svg";
-import { ReactComponent as TiktokIcon } from "../../images/icons/social/tiktok.svg";
+// import { ReactComponent as LinkedinIcon } from "../../images/icons/social/linkedin.svg";
+// import { ReactComponent as YoutubeIcon } from "../../images/icons/social/youtube.svg";
+// import { ReactComponent as TiktokIcon } from "../../images/icons/social/tiktok.svg";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import styles from "./HomePage.module.scss";
 
@@ -20,7 +20,7 @@ const HomeFooter = () => {
           <p>
             <b>If you have any additional questions</b> and want to get
             additional advice, our specialists will be able to provide you with
-            the necessary support when working or starting to work on the IEU
+            the necessary support when working or starting to work on the FEU
             educational platform. We are always happy to help you.
           </p>
           <ul className={styles.socialLinks}>
@@ -55,13 +55,13 @@ const HomeFooter = () => {
             </li>
             <li className={styles.socialContainer}>
               <span>Follow us:</span>
-              <a href="/" target="_blank" rel="noreferrer noopener">
+              <a href="https://www.facebook.com/profile.php?id=61591024424081" target="_blank" rel="noreferrer noopener">
                 <FacebookIcon />
               </a>
-              <a href="/" target="_blank" rel="noreferrer noopener">
+              <a href="https://www.instagram.com/feu.courses/" target="_blank" rel="noreferrer noopener">
                 <InstagramIcon />
               </a>
-              <a href="/" target="_blank" rel="noreferrer noopener">
+              {/* <a href="/" target="_blank" rel="noreferrer noopener">
                 <LinkedinIcon />
               </a>
               <a href="/" target="_blank" rel="noreferrer noopener">
@@ -69,7 +69,7 @@ const HomeFooter = () => {
               </a>
               <a href="/" target="_blank" rel="noreferrer noopener">
                 <TiktokIcon />
-              </a>
+              </a> */}
             </li>
             <li className={styles.singleLink}>
               <a href="/" target="_blank" rel="noreferrer noopener">

@@ -61,7 +61,7 @@
   }
 
   .primaryText {
-    font-family: Roboto;
+    // font-family: Roboto;
     font-size: 79rem;
     font-weight: 700;
     line-height: 1.14; /* 108.375% */
@@ -69,7 +69,7 @@
 
   .secondaryText {
     max-width: 497rem;
-    font-family: Roboto;
+    // font-family: Roboto;
     font-size: 63rem;
     font-weight: 700;
     line-height: 1.06; /* 108.375% */
@@ -112,7 +112,7 @@
     transition: background-color var(--transition-time-min) ease;
 
     span {
-      font-family: Roboto;
+      // font-family: Roboto;
       font-size: 18rem;
       font-weight: 700;
       letter-spacing: 0.36rem;
@@ -518,7 +518,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url("../../images/home_device_desktop.webp");
+  background-image: url("../../images/home_device_desktop.png");
   background-size: contain;
   background-repeat: no-repeat;
 
@@ -535,7 +535,7 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  background-image: url("../../images/home_device_mobile.webp");
+  background-image: url("../../images/home_device_mobile.png");
   background-size: contain;
   background-repeat: no-repeat;
 
@@ -576,7 +576,7 @@
 }
 
 .footerLinks {
-  color: var(--content-datail-secondary);
+  color: var(--content-main);
 
   & > p {
     text-align: justify;
@@ -596,7 +596,7 @@
     transition: color var(--transition-time-min) ease;
 
     &:hover {
-      color: var(--content-main);
+      color: var(--content-nav-hover);
     }
   }
 }

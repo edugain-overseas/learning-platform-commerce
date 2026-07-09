@@ -1,10 +1,11 @@
 .introContainer {
   padding-inline: 12rem;
-  font-family: Roboto, sans-serif;
+  // font-family: Roboto, sans-serif;
 }
 
-.ql {
-  overflow: visible;
+div.ql {
+  overflow-y: visible;
+  overflow-x: visible;
 }
 
 .mainInfoWrapper {
@@ -158,6 +159,7 @@
 
     box-shadow: var(--drop-shadow-button-main);
     backdrop-filter: blur(16rem);
+    width: 304rem;
   }
 
   .courseItems {
@@ -374,6 +376,10 @@
   }
 }
 
+.ql .richTextWrapper ol li span {
+  position: static;
+}
+
 .ql .otherCourses {
   & > h2 {
     text-align: center;
@@ -388,12 +394,16 @@
     &::after {
       content: "";
       position: absolute;
-      left: -24rem;
-      right: -24rem;
+      left: 0;
+      right: 0;
       bottom: 0;
       height: 2rem;
       background-color: var(--content-main);
     }
+  }
+
+  li {
+    padding-left: 0;
   }
 }
 

@@ -109,7 +109,7 @@ const AttemptsList = ({ test, closePopOver }) => {
                 <EyeIcon />
               </button>
             ) : (
-              <Spinner color="#001c54" size={6} />
+              <Spinner color="#37384B" size={6} />
             )}
 
             {!test[`${lessonType}_data`].my_attempt_id && (
