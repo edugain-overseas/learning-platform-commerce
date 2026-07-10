@@ -23,7 +23,7 @@ import {
 } from "../../costants/courseProperties";
 import { serverBaseUrl, serverName } from "../../http/server";
 import { privateRoutesHandler } from "../../http/privateRoutesHandler";
-import devices from "../../images/devices.webp";
+import devices from "../../images/devices.png";
 import Textarea from "../../components/shared/Textarea/Textarea";
 import CategoryPicker from "../../components/CategoryPicker/CategoryPicker";
 import FileUploader from "../../components/shared/Uploaders/FileUploader/FileUploader";

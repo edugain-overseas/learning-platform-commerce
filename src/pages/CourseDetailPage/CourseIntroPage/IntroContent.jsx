@@ -15,7 +15,7 @@ import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";
 import { useSelector } from "react-redux";
 import { getUserCourses, getUserType } from "../../../redux/user/selectors";
 import { useCart } from "../../../context/cartContext";
-import devices from "../../../images/devices.webp";
+import devices from "../../../images/devices.png";
 import CardPrice from "../../../components/shared/CardPrice/CardPrice";
 import CoursesList from "../../../components/CoursesList/CoursesList";
 import BuyCourseBtn from "../../../components/shared/BuyCourseBtn/BuyCourseBtn";
