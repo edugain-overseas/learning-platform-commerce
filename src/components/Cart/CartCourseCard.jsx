@@ -51,17 +51,17 @@ const CartCourseCard = ({ course, isProposed = false, checked = false }) => {
               <>
                 <span className={`${styles.price} ${styles.oldPrice}`}>
                   <span>Old Price:</span>{" "}
-                  <span>{priceFormatter(course.old_price)} USD</span>
+                  <span>{priceFormatter(course.old_price)} EUR</span>
                 </span>
                 <span className={styles.price}>
                   <span>New Price:</span>{" "}
-                  <span>{priceFormatter(course.price)} USD</span>
+                  <span>{priceFormatter(course.price)} EUR</span>
                 </span>
               </>
             ) : (
               <span className={styles.price}>
                 <span>Price:</span>{" "}
-                <span>{priceFormatter(course.price)} USD</span>
+                <span>{priceFormatter(course.price)} EUR</span>
               </span>
             )}
           </div>

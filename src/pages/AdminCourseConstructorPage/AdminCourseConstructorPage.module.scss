@@ -58,7 +58,7 @@
       border: 1rem solid var(--content-datail-secondary);
       outline: none;
       color: var(--content-main);
-      font-family: Inter, sans-serif;
+      font-family: Noto, serif;
       font-size: 24rem;
       font-style: normal;
       font-weight: 700;
@@ -145,7 +145,7 @@
       border: 1rem solid var(--content-datail-secondary);
       outline: none;
       color: var(--content-main);
-      font-family: Inter, sans-serif;
+      font-family: Noto, serif;
       font-size: 16rem;
       font-style: normal;
       font-weight: 600;
@@ -199,7 +199,7 @@
 
       span {
         color: var(--content-light-secondary);
-        font-family: Inter, sans-serif;
+        font-family: Noto, serif;
         font-weight: 500;
       }
 
@@ -240,7 +240,7 @@ div.courseItemsWrapper {
       flex-shrink: 0;
 
       color: var(--content-datail-secondary);
-      font-family: Inter, sans-serif;
+      font-family: Noto, serif;
       font-weight: 600;
 
       svg {
@@ -252,7 +252,7 @@ div.courseItemsWrapper {
 
     .value,
     .value::placeholder {
-      font-family: Inter, sans-serif;
+      font-family: Noto, serif;
       font-weight: 500;
     }
 

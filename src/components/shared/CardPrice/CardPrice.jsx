@@ -31,7 +31,7 @@ const CardPrice = ({
     >
       {oldPrice ? (
         <div className={styles.oldPriceWrapper}>
-          <span className={styles.dollarSign}>$</span>
+          <span className={styles.dollarSign}>€</span>
           <div className={styles.info}>
             <span className={styles.label}>Old price</span>
             <span className={styles.value}>{priceFormatter(oldPrice)}</span>
@@ -39,7 +39,7 @@ const CardPrice = ({
         </div>
       ) : null}
       <div className={styles.priceWrapper}>
-        <span className={styles.dollarSign}>$</span>
+        <span className={styles.dollarSign}>€</span>
         <div className={styles.info}>
           <span className={styles.label}>Buy</span>
           <span className={styles.value}>{priceFormatter(price)}</span>

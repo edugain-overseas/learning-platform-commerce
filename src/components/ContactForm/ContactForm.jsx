@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./ContactForm.module.scss";
-import Textarea from "../shared/Textarea/Textarea";
 import { useForm } from "react-hook-form";
 import { useNotificationMessage } from "../../hooks/useNotificationMessage";
+import Textarea from "../shared/Textarea/Textarea";
+import styles from "./ContactForm.module.scss";
 
 const requiredRegisterArgs = {
   required: {
@@ -18,6 +18,11 @@ const ContactForm = ({ wrapperClassname = "" }) => {
 
   const onSubmit = (data) => {
     console.log(data);
+
+    messageApi.success({
+      duration: 3,
+      content: `Your message was successfully sent. We will respond shortly.`,
+    });
   };
 
   const onError = (errors) => {

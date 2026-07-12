@@ -18,17 +18,17 @@ const CartPaymentPanel = () => {
             <div className={styles.discount}>
               <div className={styles.subtotalInfoItem}>
                 <span>Subtotal:</span>
-                <span>{`${priceFormatter(subTotal)} USD`}</span>
+                <span>{`${priceFormatter(subTotal)} EUR`}</span>
               </div>
               <div className={styles.subtotalInfoItem}>
                 <span>Discount:</span>
-                <span>{`${priceFormatter(discount)} USD`}</span>
+                <span>{`${priceFormatter(discount)} EUR`}</span>
               </div>
             </div>
           )}
           <div className={styles.total}>
             <span>Total:</span>
-            <span>{`${priceFormatter(total)} USD`}</span>
+            <span>{`${priceFormatter(total)} EUR`}</span>
           </div>
         </>
       )}

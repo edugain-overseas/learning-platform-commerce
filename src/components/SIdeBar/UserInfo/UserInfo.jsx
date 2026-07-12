@@ -22,8 +22,6 @@ const UserInfo = () => {
     const coursesCert = catCert.course_certificate_data?.filter(
       (courseCert) => courseCert?.course_certificate_id,
     );
-    console.log(array, catCert, coursesCert);
-
     return [...array, ...coursesCert];
   }, []);
 
