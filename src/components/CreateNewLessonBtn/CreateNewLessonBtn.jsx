@@ -26,7 +26,7 @@ const CreateNewLessonBtn = ({
       <button
         className={`${styles.createLessonBtn} ${classname}`}
         onClick={() => setIsOpen(true)}
-        disabled={!isCoursePublished}
+        disabled={isCoursePublished}
       >
         <PlusIcon />
         <span>{label}</span>

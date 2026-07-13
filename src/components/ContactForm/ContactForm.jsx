@@ -23,6 +23,7 @@ const ContactForm = ({ wrapperClassname = "" }) => {
       duration: 3,
       content: `Your message was successfully sent. We will respond shortly.`,
     });
+    
   };
 
   const onError = (errors) => {
