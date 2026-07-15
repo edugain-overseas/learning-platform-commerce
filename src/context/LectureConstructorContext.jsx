@@ -99,6 +99,36 @@ export const LectureConstructorProvider = ({ children }) => {
       });
     });
 
+  const addSubTitle = (id) => {
+    setBlocks((prev) =>
+      prev.map((block) => {
+        if (block.id !== id) return block;
+        if (block.subtitle) return block;
+        return { ...block, subtitle: "" };
+      }),
+    );
+  };
+
+  const removeSubTitle = (id) => {
+    setBlocks((prev) =>
+      prev.map((block) => {
+        if (block.id !== id) return block;
+        return { ...block, subtitle: null };
+      }),
+    );
+  };
+
+  const setSubTitle = (id, value) =>
+    setBlocks((prev) => {
+      return prev.map((block) => {
+        if (block.id !== id) return block;
+        return {
+          ...block,
+          subtitle: value,
+        };
+      });
+    });
+
   const setText = (id, value) =>
     setBlocks((prev) => {
       return prev.map((block) => {
@@ -319,6 +349,12 @@ export const LectureConstructorProvider = ({ children }) => {
 
       text: (value) => setText(block.id, value),
 
+      subTitle: (value) => setSubTitle(block.id, value),
+
+      addSubTitle: () => addSubTitle(block.id),
+
+      removeSubTitle: () => removeSubTitle(block.id),
+
       filePath: (value) => setFilePath(block.id, value),
 
       addFile: (file) => addNewFile(block.id, file),
@@ -329,6 +365,7 @@ export const LectureConstructorProvider = ({ children }) => {
         setDescriptionToFile(block.id, filename, value),
 
       addLink: () => addNewLink(block.id),
+
       deleteLink: (link) => deleteLink(block.id, link),
 
       tableData: (newTableData) => handleTableData(block.id, newTableData),
@@ -351,17 +388,6 @@ export const LectureConstructorProvider = ({ children }) => {
       contentContainerScrollEffect();
     }
     prevBlocksLength.current = blocks.length;
-
-    // if (activeBlockId) {
-    //   const el = document.getElementById(`lecture-block-${activeBlockId}`);
-    //   if (!el) return;
-
-    //   el.scrollIntoView({
-    //     behavior: "smooth",
-    //     block: "nearest",
-    //   });
-    //   setAvtiveBlockId(null);
-    // }
   }, [blocks]);
 
   return (

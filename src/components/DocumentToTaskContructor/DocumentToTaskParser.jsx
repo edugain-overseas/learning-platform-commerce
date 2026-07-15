@@ -26,6 +26,31 @@ const DOCBLOCKSKEYBYTYPE = {
   test: "test_data",
 };
 
+const formatGoogleDocText = (rawText) => {
+  if (!rawText) return "";
+
+  const trimmed = rawText.trim();
+
+  if (
+    trimmed.startsWith("<ol") ||
+    trimmed.startsWith("<ul") ||
+    trimmed.startsWith("<p>")
+  ) {
+    return trimmed;
+  }
+
+  const lines = trimmed.split("\n");
+
+  return lines
+    .map((line) => {
+      const cleanLine = line.trim();
+      if (!cleanLine) return "<p></p>";
+      return `<p>${cleanLine}</p>`;
+    })
+    .join("");
+};
+
+
 const DocumentToTaskParser = ({ type = "lecture", closeModal }) => {
   const [doc, setDoc] = useState(null);
   const [activeTab, setActiveTab] = useState(null);
@@ -90,7 +115,8 @@ const DocumentToTaskParser = ({ type = "lecture", closeModal }) => {
           (picture) => picture.a_number === block.a_number,
         );
 
-        const formattedText = block.a_text.replace(/\n/g, "<br />");
+        // const formattedText = block.a_text.replace(/\n/g, "<br />");
+        const formattedText = formatGoogleDocText(block.a_text);
 
         if (picture) {
           return {

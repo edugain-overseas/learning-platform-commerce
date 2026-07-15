@@ -98,6 +98,50 @@ div[data-narrowed="true"] {
   }
 }
 
+.titleWrapper {
+  position: relative;
+  
+
+  & .titleInput:focus + .addSubtitle, & .titleInput:focus + .removeSubtitle {
+    opacity: 1;
+  }
+
+  .subTitleWrapper {
+    position: relative;
+    margin-top: 8rem;
+  }
+
+  .addSubtitle, .removeSubtitle {
+    position: absolute;
+    top: 100%;
+    right: 6rem;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    border: 1rem solid var(--bg-button-success);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 16rem;
+    line-height: 1;
+    font-weight: 700;
+    color: var(--bg-button-success);
+
+    background-color: var(--bg-button-default);
+    opacity: 0;
+    cursor: pointer;
+
+    transition: opacity var(--transition-time-min) ease;
+  }
+
+  .removeSubtitle {
+    border-color: var(--bg-button-failture);
+    color: var(--bg-button-failture);
+  }
+}
+
 .titleInput {
   font-weight: 500;
   text-align: center;

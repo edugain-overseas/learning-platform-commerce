@@ -43,9 +43,9 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
     lectureContent?.map((section) => {
       const {
         a_type: type,
-        // a_id: id,
         a_title: title,
         a_text: text,
+        subtitle,
         hided,
         files,
         links,
@@ -65,6 +65,12 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
                   className={styles.sectionTitle}
                   dangerouslySetInnerHTML={{ __html: title }}
                 ></h3>
+              )}
+              {subtitle && (
+                <h4
+                  className={styles.sectionSubTitle}
+                  dangerouslySetInnerHTML={{ __html: subtitle }}
+                ></h4>
               )}
               {text && (
                 <div
