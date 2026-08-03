@@ -31,8 +31,8 @@ import Spinner from "../../components/Spinner/Spinner";
 import RichInput from "../../components/shared/RichInput";
 import Modal from "../../components/shared/Modal/Modal";
 import Select from "../../components/shared/Select/Select";
-import styles from "./AdminCourseConstructorPage.module.scss";
 import NavigationGuard from "../../components/shared/NavigationGuard/NavigationGuard";
+import styles from "./AdminCourseConstructorPage.module.scss";
 
 const AdvantageForm = ({ icon, updateAdvantages }) => {
   const [selectedIconPath, setSelectedIconPath] = useState(icon.icon_path);

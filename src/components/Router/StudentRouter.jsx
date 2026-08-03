@@ -9,6 +9,7 @@ import { courseLinks, instructionsLinks } from "../../costants/nav";
 import HomePage from "../../pages/HomePage/HomePage";
 import SearchPage from "../../pages/SearchPage/SearchPage";
 import Root from "../Root";
+
 const SingUpForm = React.lazy(() => import("../auth/SingUpForm/SingUpForm"));
 const SingInForm = React.lazy(() => import("../auth/SingInForm/SingInForm"));
 const CoursesPage = React.lazy(
@@ -39,7 +40,12 @@ const InstructionContent = React.lazy(
 const PaymentPage = React.lazy(
   () => import("../../pages/PaymentPage/PaymentPage"),
 );
-const ContactsPage = React.lazy(() => import("../../pages/Contacts/Contacts"));
+const ContactsPage = React.lazy(
+  () => import("../../pages/ContactsPage/ContactsPage"),
+);
+const PrivacyPolicyPage = React.lazy(
+  () => import("../../pages/PrivavcyPolicyPage/PrivacyPolicyPage"),
+);
 
 export const studentRouter = createBrowserRouter(
   createRoutesFromElements(
@@ -71,6 +77,7 @@ export const studentRouter = createBrowserRouter(
         ))}
       </Route>
       <Route path="/contacts" element={<ContactsPage />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       <Route path="/payment" element={<PaymentPage />} />
       <Route path="/search" element={<SearchPage />} />
       <Route path="/*" element={<div>Not Found Page</div>} />

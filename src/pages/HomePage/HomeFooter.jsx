@@ -55,10 +55,18 @@ const HomeFooter = () => {
             </li>
             <li className={styles.socialContainer}>
               <span>Follow us:</span>
-              <a href="https://www.facebook.com/profile.php?id=61591024424081" target="_blank" rel="noreferrer noopener">
+              <a
+                href="https://www.facebook.com/profile.php?id=61591024424081"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
                 <FacebookIcon />
               </a>
-              <a href="https://www.instagram.com/feu.courses/" target="_blank" rel="noreferrer noopener">
+              <a
+                href="https://www.instagram.com/feu.courses/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
                 <InstagramIcon />
               </a>
               {/* <a href="/" target="_blank" rel="noreferrer noopener">
@@ -72,9 +80,7 @@ const HomeFooter = () => {
               </a> */}
             </li>
             <li className={styles.singleLink}>
-              <a href="/" target="_blank" rel="noreferrer noopener">
-                Privacy policy
-              </a>
+              <Link to="/privacy-policy">Privacy policy</Link>
             </li>
             <li className={styles.singleLink}>
               <Link to="/aboutIEU">About FEU</Link>

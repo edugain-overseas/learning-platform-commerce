@@ -52,11 +52,11 @@ const FileUploader = ({
           },
           onUploadProgress: (progressEvent) => {
             const percentComplete = Math.round(
-              (progressEvent.loaded / progressEvent.total) * 100
+              (progressEvent.loaded / progressEvent.total) * 100,
             );
             setProgress(percentComplete);
           },
-        }
+        },
       );
 
       if (data.image_path) {
