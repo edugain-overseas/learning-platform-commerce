@@ -43,6 +43,9 @@ const PaymentPage = React.lazy(
 const ContactsPage = React.lazy(
   () => import("../../pages/ContactsPage/ContactsPage"),
 );
+const SettingsPage = React.lazy(
+  () => import("../../pages/SettingsPage/SettingsPage.jsx"),
+);;
 const PrivacyPolicyPage = React.lazy(
   () => import("../../pages/PrivavcyPolicyPage/PrivacyPolicyPage"),
 );
@@ -77,6 +80,7 @@ export const studentRouter = createBrowserRouter(
         ))}
       </Route>
       <Route path="/contacts" element={<ContactsPage />} />
+      <Route path="/settings" element={<SettingsPage />} />
       <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       <Route path="/payment" element={<PaymentPage />} />
       <Route path="/search" element={<SearchPage />} />

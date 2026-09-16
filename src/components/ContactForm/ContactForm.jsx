@@ -4,6 +4,8 @@ import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import Textarea from "../shared/Textarea/Textarea";
 import styles from "./ContactForm.module.scss";
 
+const API_URL = process.env.REACT_APP_CONTACT_SERVICE_WEB_APP_BY_GOOGLE_SCRIPT_URL;
+
 const requiredRegisterArgs = {
   required: {
     value: true,
@@ -12,18 +14,44 @@ const requiredRegisterArgs = {
 };
 
 const ContactForm = ({ wrapperClassname = "" }) => {
-  const { register, handleSubmit, formState } = useForm();
-  const { errors } = formState;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm();
   const [messageApi, contextHolder] = useNotificationMessage();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  console.log(API_URL);
+  
 
-    messageApi.success({
-      duration: 3,
-      content: `Your message was successfully sent. We will respond shortly.`,
-    });
-    
+  const handleSendMessage = async (data) => {
+    try {
+      const formData = new FormData();
+
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone);
+      formData.append("message", data.message);
+      formData.append("company", data.company || "");
+
+      await fetch(API_URL, {
+        method: "POST",
+        body: formData,
+      });
+
+      reset();
+
+      messageApi.success({
+        duration: 3,
+        content: "Your message has been sent!",
+      });
+    } catch (error) {
+      messageApi.error({
+        duration: 3,
+        content: "Contact service is currently unavailable. Try again later",
+      });
+    }
   };
 
   const onError = (errors) => {
@@ -41,7 +69,7 @@ const ContactForm = ({ wrapperClassname = "" }) => {
       {contextHolder}
       <form
         className={`${styles.formWrapper} ${wrapperClassname}`}
-        onSubmit={handleSubmit(onSubmit, onError)}
+        onSubmit={handleSubmit(handleSendMessage, onError)}
       >
         <div className={styles.formHeader}>
           <span className={styles.title}>Contact us</span>
@@ -77,8 +105,15 @@ const ContactForm = ({ wrapperClassname = "" }) => {
             placeholder="Message..."
             {...register("message")}
           />
+          <input
+            type="text"
+            style={{ display: "none" }}
+            {...register("company")}
+          />
         </div>
-        <button type="submit">Send message</button>
+        <button type="submit" disabled={isSubmitting}>
+          Send message
+        </button>
       </form>
     </>
   );

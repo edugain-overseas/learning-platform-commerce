@@ -14,6 +14,7 @@ const NavBar = ({ navItems }) => {
       <ul className={styles.navItems}>
         {navItems.map(({ label, link, icon }) => {
           if (link === "/education" && !isUserLoggedIn) return null;
+          if (link === "/settings" && !isUserLoggedIn) return null;
           return (
             <li key={label} title={`${label} page`} className={styles.navItem}>
               <NavLink

@@ -9,8 +9,8 @@ import { ReactComponent as DeleteIcon } from "../../images/icons/delete.svg";
 import "../../styles/antDesign/Popover.css";
 import LessonModal from "../CreateNewLessonBtn/LessonModal";
 import "../../styles/antDesign/Popconfirm.css";
-import styles from "./TaskList.module.scss";
 import { deleteLessonThunk } from "../../redux/lesson/operation";
+import styles from "./TaskList.module.scss";
 
 const EditLesson = ({ lessonId, onClickCallback }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);

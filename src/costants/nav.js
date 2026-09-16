@@ -5,6 +5,7 @@ import { ReactComponent as MyProfileIcon } from "../images/icons/nav/my-profile.
 import { ReactComponent as AboutIEUIcon } from "../images/icons/nav/about.svg";
 import { ReactComponent as InstructionsIcon } from "../images/icons/nav/instruction.svg";
 import { ReactComponent as ContactsIcon } from "../images/icons/nav/contacts.svg";
+import { ReactComponent as SettingsIcon } from "../images/icons/nav/settings.svg";
 import CourseIntroPage from "../pages/CourseDetailPage/CourseIntroPage/CourseIntroPage";
 import CourseTasksPage from "../pages/CourseDetailPage/CourseTasksPage/CourseTasksPage";
 import CourseCerificatePage from "../pages/CourseDetailPage/CourseCerificatePage/CourseCerificatePage";
@@ -42,6 +43,12 @@ export const sidebarNav = [
     label: "Contacts",
     icon: <ContactsIcon />,
     link: "/contacts",
+    children: null,
+  },
+  {
+    label: "Settings",
+    icon: <SettingsIcon />,
+    link: "/settings",
     children: null,
   },
 ];
