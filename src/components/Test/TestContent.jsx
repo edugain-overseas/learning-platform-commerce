@@ -86,14 +86,14 @@ const TestContent = ({
           ) {
             question.matching.map((i) => {
               if (i.left_id === leftOptionId) {
-                i.right_id = value;
+                i.right_uuid = value;
               }
               return i;
             });
           } else {
             question.matching.push({
               left_id: leftOptionId,
-              right_id: value,
+              right_uuid: value,
             });
           }
         }

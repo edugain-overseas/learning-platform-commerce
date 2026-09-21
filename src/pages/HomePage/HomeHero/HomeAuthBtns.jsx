@@ -15,7 +15,7 @@ const HeroAuthBtns = () => {
       {accessToken ? (
         <>
           <Link className={styles.primaryBtn} to="/education">
-            <span>My Sdudy</span>
+            <span>My Study</span>
             <EducationIcon />
           </Link>
           <Link className={styles.secondaryBtn} to="/courses">

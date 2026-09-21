@@ -10,7 +10,13 @@ import Tooltip from "../shared/Tooltip/Tooltip";
 import styles from "./UserInfoCard.module.scss";
 import "react-phone-input-2/lib/style.css";
 
-const UserInfoForm = ({ userInfo, onSubmit, closeEdit }) => {
+const UserInfoForm = ({
+  userInfo,
+  changedName,
+  changedSurname,
+  onSubmit,
+  closeEdit,
+}) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const countryWrapperRef = useRef(null);
 
@@ -100,7 +106,7 @@ const UserInfoForm = ({ userInfo, onSubmit, closeEdit }) => {
             infoContent="You can change your first name just once!"
             popupMaxWidth="100%"
           >
-            <input type="text" {...register("name")} />
+            <input type="text" {...register("name")} readOnly={changedName} />
           </Tooltip>
         </label>
 
@@ -111,7 +117,11 @@ const UserInfoForm = ({ userInfo, onSubmit, closeEdit }) => {
             infoContent="You can change your last name just once!"
             popupMaxWidth="100%"
           >
-            <input type="text" {...register("surname")} />
+            <input
+              type="text"
+              {...register("surname")}
+              readOnly={changedSurname}
+            />
           </Tooltip>
         </label>
 

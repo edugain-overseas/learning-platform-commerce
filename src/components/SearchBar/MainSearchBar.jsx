@@ -69,8 +69,6 @@ const MainSearchBar = ({ wrapperClassName = "" }) => {
     // eslint-disable-next-line
   }, [query]);
 
-  console.log(suggestions);
-
   return (
     <form
       className={`${styles.searchForm} ${wrapperClassName}`}

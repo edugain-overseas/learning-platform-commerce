@@ -9,8 +9,6 @@ import SliderSectionHeader from "./shared/SliderSectionHeader";
 import styles from "./HomePage.module.scss";
 
 export const renderCategoryItem = (category) => {
-  console.log(category);
-
   const categoryMainIconPath = category.icons.find(
     (icon) => icon.is_main,
   )?.path;

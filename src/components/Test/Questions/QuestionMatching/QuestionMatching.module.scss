@@ -59,11 +59,13 @@
       line-height: normal;
     }
   }
-}
-
-.optionsDropdown {
-  max-width: initial;
-  ul {
-    flex-direction: row;
+  
+  .optionsDropdown {
+    max-width: initial;
+    padding: 4rem 10rem;
+    ul {
+      flex-direction: row;
+    }
   }
 }
+

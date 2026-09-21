@@ -30,10 +30,11 @@ const CourseAsideProgressPanel = ({ courseId }) => {
         number,
         link: status && status !== "blocked" ? itemLink : null,
       };
-    }
+    },
   );
 
   const exam = courseLessons?.find((lesson) => lesson.type === "exam");
+  const userHasAceessToExam = exam?.status !== "blocked" && course?.bought;
 
   const blockedLessonMessage = () =>
     messageApi.open({
@@ -43,11 +44,12 @@ const CourseAsideProgressPanel = ({ courseId }) => {
     });
 
   const handleNavigateToExam = () => {
-    if (exam.status === "blocked") {
+    if (!userHasAceessToExam) {
       blockedLessonMessage();
-    } else {
-      navigate(`/course/${courseId}/exam-certificate`);
+      return;
     }
+
+    navigate(`/course/${courseId}/exam-certificate`);
   };
 
   return (
@@ -68,7 +70,7 @@ const CourseAsideProgressPanel = ({ courseId }) => {
         </div>
         <button
           className={`${styles.examLink} ${
-            exam?.status === "blocked" ? styles.disabled : ""
+            !userHasAceessToExam ? styles.disabled : ""
           }`}
           onClick={handleNavigateToExam}
         >

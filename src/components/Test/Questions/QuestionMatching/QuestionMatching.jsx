@@ -7,9 +7,9 @@ const QuestionMatching = ({ answers, setState, id, state }) => {
   const leftOptions = answers?.left || [];
   const rightOptions = answers?.right || [];  
 
-  const options = rightOptions.map(({ id }, index) => ({
+  const options = rightOptions.map(({ uuid }, index) => ({
     label: getLetterVatiantsByIndex(index),
-    value: id,
+    value: uuid,
   }));
 
   return (
@@ -40,7 +40,7 @@ const QuestionMatching = ({ answers, setState, id, state }) => {
           {leftOptions.map(({ id: leftOptionId }, index) => {
             const currentValue = state?.find(
               (answer) => answer.left_id === leftOptionId
-            )?.right_id;
+            )?.right_uuid;
             return (
               <li key={leftOptionId} className={styles.answerOption}>
                 <span>{`${index + 1}) = `}</span>
@@ -48,7 +48,7 @@ const QuestionMatching = ({ answers, setState, id, state }) => {
                   options={options}
                   value={currentValue ? currentValue : ""}
                   bordered={false}
-                  onChange={(value) => setState(id, leftOptionId, +value)}
+                  onChange={(value) => setState(id, leftOptionId, value)}
                   placeholder=""
                   borderless={true}
                   allowClear={false}

@@ -150,6 +150,14 @@ export const useStudentTest = (test, lessonType) => {
         duration: 5,
       });
     } catch (err) {
+      console.log(err);
+      if(err.status === 422) {
+        messageApi?.error({
+          content: "Some of your answers are invalid. Please check and try again.",
+          duration: 3,
+        });
+        return
+      }
       messageApi?.error({
         content: err?.message ? err.message : "Something went wrong",
         duration: 3,

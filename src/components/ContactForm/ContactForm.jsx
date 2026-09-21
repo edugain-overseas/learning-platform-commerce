@@ -20,10 +20,8 @@ const ContactForm = ({ wrapperClassname = "" }) => {
     formState: { errors, isSubmitting },
     reset,
   } = useForm();
-  const [messageApi, contextHolder] = useNotificationMessage();
-
-  console.log(API_URL);
   
+  const [messageApi, contextHolder] = useNotificationMessage();  
 
   const handleSendMessage = async (data) => {
     try {

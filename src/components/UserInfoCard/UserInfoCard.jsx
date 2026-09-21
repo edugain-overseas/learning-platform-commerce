@@ -4,21 +4,21 @@ import { useDispatch } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { ReactComponent as EditIcon } from "../../images/icons/edit-avatar.svg";
 import { ReactComponent as SettingsIcon } from "../../images/icons/settings.svg";
-import Avatar from "../shared/Avatar/Avatar";
-import Tooltip from "../shared/Tooltip/Tooltip";
-import InsetBtn from "../shared/InsetBtn/InsetBtn";
-import Modal from "../shared/Modal/Modal";
-import AvatarEditor from "../shared/AvatarEditor/AvatarEditor";
 import {
   updateUserInfoThunk,
   updateUsernameThunk,
 } from "../../redux/user/operations";
 import { useNotificationMessage } from "../../hooks/useNotificationMessage";
+import { letterGrade } from "../../utils/gradingScale";
+import Avatar from "../shared/Avatar/Avatar";
+import Tooltip from "../shared/Tooltip/Tooltip";
+import InsetBtn from "../shared/InsetBtn/InsetBtn";
+import Modal from "../shared/Modal/Modal";
+import AvatarEditor from "../shared/AvatarEditor/AvatarEditor";
 import UserInfoForm from "./UserInfoForm";
 import UserInfoData from "./UserInfoData";
 import UserProfileStatCard from "../UserProfileStatCard/UserProfileStatCard";
 import InfoBtn from "../shared/InfoBtn/InfoBtn";
-import { letterGrade } from "../../utils/gradingScale";
 import styles from "./UserInfoCard.module.scss";
 
 const UserInfoCard = ({ userInfo }) => {
@@ -74,7 +74,7 @@ const UserInfoCard = ({ userInfo }) => {
     username: userInfo.username,
     phone: userInfo.phone,
     country: userInfo.country,
-  };
+  };  
 
   return (
     <div className={styles.wrapper}>
@@ -129,6 +129,8 @@ const UserInfoCard = ({ userInfo }) => {
             >
               <UserInfoForm
                 userInfo={formDefaultValues}
+                changedName={userInfo.changedName}
+                changedSurname={userInfo.changedSurname}
                 closeEdit={() => setIsEdit(false)}
                 onSubmit={handleSave}
               />
