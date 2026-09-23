@@ -1,14 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { getCode } from "country-list";
 import PhoneInput from "react-phone-input-2";
-import { ReactComponent as EyeIcon } from "../../images/icons/eye.svg";
-import { ReactComponent as EyeInvisibleIcon } from "../../images/icons/eye-invisible.svg";
+// import { ReactComponent as EyeIcon } from "../../images/icons/eye.svg";
+// import { ReactComponent as EyeInvisibleIcon } from "../../images/icons/eye-invisible.svg";
 import { ReactComponent as ReloadIcon } from "../../images/icons/reload.svg";
 import { ReactComponent as SaveIcon } from "../../images/icons/save.svg";
 import Tooltip from "../shared/Tooltip/Tooltip";
 import styles from "./UserInfoCard.module.scss";
 import "react-phone-input-2/lib/style.css";
+import CommonButton from "../shared/CommonButton/CommonButton";
+import { useNavigate } from "react-router-dom";
+import { resetPassword } from "../../http/services/user";
+import Spinner from "../Spinner/Spinner";
 
 const UserInfoForm = ({
   userInfo,
@@ -17,8 +21,10 @@ const UserInfoForm = ({
   onSubmit,
   closeEdit,
 }) => {
-  const [isPasswordShown, setIsPasswordShown] = useState(false);
+  // const [isPasswordShown, setIsPasswordShown] = useState(false);
   const countryWrapperRef = useRef(null);
+  const navigate = useNavigate();
+  const [isChangePasswordLoading, setIsChangePasswordLoading] = useState(false);
 
   const {
     register,
@@ -35,10 +41,10 @@ const UserInfoForm = ({
     reset(userInfo);
   }, [userInfo, reset]);
 
-  const handleToggleShowPassword = (e) => {
-    e.preventDefault();
-    setIsPasswordShown((prev) => !prev);
-  };
+  // const handleToggleShowPassword = (e) => {
+  //   e.preventDefault();
+  //   setIsPasswordShown((prev) => !prev);
+  // };
 
   const handleCancel = (e) => {
     e.preventDefault();
@@ -79,6 +85,33 @@ const UserInfoForm = ({
       onSubmit(changedData);
     } else {
       closeEdit();
+    }
+  };
+
+  const handleNavigateToChangePassword = async () => {
+    if (userInfo.email) {
+      setIsChangePasswordLoading(true);
+      try {
+        const response = await resetPassword(userInfo.email);
+        setIsChangePasswordLoading(false);
+        const message = response.data.message;
+        if (response.status === 200) {
+          navigate("/login", {
+            state: {
+              paswordRecovery: true,
+              email: userInfo.email,
+              message: {
+                type: "success",
+                content: `${message} ${userInfo.email}`,
+              },
+            },
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        setIsChangePasswordLoading(false);
+      } finally {
+      }
     }
   };
 
@@ -142,7 +175,7 @@ const UserInfoForm = ({
           )}
         </label>
 
-        <label className={`${styles.passwordWrapper} ${styles.blockLabel}`}>
+        {/* <label className={`${styles.passwordWrapper} ${styles.blockLabel}`}>
           <span>Password:</span>
           <div className={styles.passwordInputWrapper}>
             <button
@@ -166,7 +199,7 @@ const UserInfoForm = ({
           {errors.password && (
             <span className={styles.error}>{errors.password.message}</span>
           )}
-        </label>
+        </label> */}
 
         <label>
           <span>Phone number:</span>
@@ -210,6 +243,21 @@ const UserInfoForm = ({
             />
           </div>
         </label>
+
+        <div className={styles.changePasswordWrapper}>
+          <p>Last updated at:</p>
+          <p>22.08.2026</p>
+        </div>
+        <CommonButton
+          type="button"
+          className={styles.changePasswordButton}
+          text="Change password"
+          icon={
+            isChangePasswordLoading && <Spinner size={4} contrastColor={true} />
+          }
+          variant="transparentTextDark"
+          onClick={handleNavigateToChangePassword}
+        />
       </div>
 
       <div className={styles.btnsWrapper}>

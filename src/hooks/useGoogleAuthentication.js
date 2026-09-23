@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { loginWithGoogleThunk } from "../redux/user/operations";
 
-const useGoogleAuthentication = () => {
+export const useGoogleAuthentication = () => {
   const dispatch = useDispatch();
 
   // useEffect(() => {

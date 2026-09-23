@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setNewPasswordThunk } from "../../../redux/user/operations";
 import {
@@ -14,11 +15,15 @@ import InputPassword from "../shared/InputPassword/InputPassword";
 import styles from "./PasswordRecovery.module.scss";
 
 const PasswordRecovery = ({ messageApi }) => {
-  const [email, setEmail] = useState("");
+  const location = useLocation();
+  const [email, setEmail] = useState(location.state?.email || "");
   const [newPassword, setNewPassword] = useState("");
   const [code, setCode] = useState("");
   const [errorField, setErrorField] = useState("");
-  const [isVerification, setIsVerification] = useState(false);
+  const [isVerification, setIsVerification] = useState(
+    location.state?.paswordRecovery && location.state?.email,
+  );
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -52,7 +57,6 @@ const PasswordRecovery = ({ messageApi }) => {
         setIsVerification(true);
       }
     } catch (error) {
-      //response validation
       const message = error.response.data.detail;
       if (error.response.status === 404 && message.includes("email")) {
         messageApi.open({
@@ -66,14 +70,12 @@ const PasswordRecovery = ({ messageApi }) => {
           content: "Something went wrong. Please try again",
         });
       }
-      //response validation
     }
   };
 
   const handleVerify = async (e) => {
     e.preventDefault();
 
-    //client validation
     if (!validateCode(code)) {
       messageApi.open({
         type: "error",
@@ -82,7 +84,6 @@ const PasswordRecovery = ({ messageApi }) => {
       setErrorField("Recovery code");
       return;
     }
-    //client validation
 
     const credentials = {
       code,
@@ -90,7 +91,20 @@ const PasswordRecovery = ({ messageApi }) => {
       email,
     };
 
-    dispatch(setNewPasswordThunk({ credentials, messageApi, setErrorField }));
+    await dispatch(
+      setNewPasswordThunk({ credentials, messageApi, setErrorField }),
+    ).unwrap();
+
+    if (location.state?.paswordRecovery && location.state?.email) {
+      navigate("/me", {
+        state: {
+          message: {
+            type: "success",
+            content: "Your new password was successfully set",
+          },
+        },
+      });
+    }
   };
 
   const resetError = () => {

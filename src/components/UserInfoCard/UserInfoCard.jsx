@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "react-phone-input-2/lib/style.css";
 import { useDispatch } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
@@ -10,6 +10,7 @@ import {
 } from "../../redux/user/operations";
 import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import { letterGrade } from "../../utils/gradingScale";
+import { useLocation } from "react-router-dom";
 import Avatar from "../shared/Avatar/Avatar";
 import Tooltip from "../shared/Tooltip/Tooltip";
 import InsetBtn from "../shared/InsetBtn/InsetBtn";
@@ -25,12 +26,13 @@ const UserInfoCard = ({ userInfo }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [messageApi, contextHolder] = useNotificationMessage();
+  const location = useLocation();
 
   const accessToken = userInfo.accessToken;
 
   const userCoursesNumber = userInfo.courses.length;
   const userCertificatesNumber = userInfo.courses.filter(
-    (course) => course.status === "completed"
+    (course) => course.status === "completed",
   ).length;
 
   const userStudingStatsStr = `${userCoursesNumber} course${
@@ -74,7 +76,17 @@ const UserInfoCard = ({ userInfo }) => {
     username: userInfo.username,
     phone: userInfo.phone,
     country: userInfo.country,
-  };  
+  };
+
+  useEffect(() => {
+    if (location.state?.message) {
+      messageApi.open({
+        type: location.state?.message?.type,
+        content: location.state?.message?.content,
+      });
+    }
+    // eslint-disable-next-line
+  }, [location]);
 
   return (
     <div className={styles.wrapper}>
@@ -104,10 +116,22 @@ const UserInfoCard = ({ userInfo }) => {
         {!isEdit && (
           <motion.div
             key="username"
-            initial={{ opacity: 0, y: "-40%", height: "auto" }}
-            animate={{ opacity: 1, y: 0, height: "auto" }}
-            exit={{ opacity: 0, y: "-40%", height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
+            initial={{
+              opacity: 0,
+              y: "-40%",
+              height: 0,
+              padding: 0,
+              margin: 0,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              height: "auto",
+              padding: "0 0 18rem 0",
+              margin: "16rem 0 0 0",
+            }}
+            exit={{ opacity: 0, y: "-40%", height: 0, padding: 0, margin: 0 }}
+            transition={{ duration: 0.25, ease: "linear" }}
             className={styles.usernameContainer}
           >
             <p className={styles.username}>{userInfo.username}</p>
@@ -122,10 +146,10 @@ const UserInfoCard = ({ userInfo }) => {
           {isEdit ? (
             <motion.div
               key="editForm"
-              initial={{ opacity: 0.5 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0.1 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
+              initial={{ opacity: 0.5, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 100 }}
+              transition={{ duration: 0.25, ease: "linear" }}
             >
               <UserInfoForm
                 userInfo={formDefaultValues}
@@ -148,7 +172,9 @@ const UserInfoCard = ({ userInfo }) => {
             renderTitle={(value) => (
               <div className={styles.progressTitle}>
                 <span className={styles.name}>Average</span>
-                <span className={styles.value}>{`${value} (${value ? letterGrade(value) : "*"})`}</span>
+                <span
+                  className={styles.value}
+                >{`${value} (${value ? letterGrade(value) : "*"})`}</span>
               </div>
             )}
           />

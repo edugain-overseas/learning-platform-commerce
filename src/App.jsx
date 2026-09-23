@@ -3,8 +3,8 @@ import { getUserType } from "./redux/user/selectors";
 import { getRouterByUserType } from "./utils/getRouterByUserType";
 import { useInitialData } from "./hooks/useInitialData";
 import { RouterProvider } from "react-router-dom";
-import useAdjustFontSize from "./hooks/useAdjustFontSize";
-import useGoogleAuthentication from "./hooks/useGoogleAuthentication";
+import {useAdjustFontSize} from "./hooks/useAdjustFontSize";
+import {useGoogleAuthentication} from "./hooks/useGoogleAuthentication";
 
 function App() {
   useAdjustFontSize();

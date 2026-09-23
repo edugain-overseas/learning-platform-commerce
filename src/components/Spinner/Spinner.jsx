@@ -7,7 +7,7 @@ const Spinner = ({ contrastColor = false, size = 8, height = 20, color }) => {
     <SyncLoader
       color={color ? color : contrastColor ? "#fcfcfc" : "#d00000"}
       size={remToPx(size)}
-      speedMultiplier={0.7}
+      speedMultiplier={0.5}
       style={{ overflow: "visible", height: `${height}rem` }}
     />
   );

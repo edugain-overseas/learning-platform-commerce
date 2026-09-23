@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useCountUp } from "react-countup";
 import { platformStats } from "../../costants/platformStats";
 import { useObserver } from "../../hooks/useObserver";
@@ -32,13 +32,22 @@ const StatItem = ({ stat, animationStarted = false }) => {
     return `${value} (${valuePostfix})`;
   }, []);
 
+  const coursesFormarring = useCallback((value) => {
+    return `${value} ${value === 100 ? "+" : ""}`;
+  }, []);
+
+  const formattingFns = {
+    score: scoreFormatting,
+    courses: coursesFormarring,
+  };
+
   const { start } = useCountUp({
     ref: statValueRef,
     start: 0,
     end: stat.value,
     duration: 3,
     startOnMount: false,
-    formattingFn: stat.name === "score" && scoreFormatting,
+    formattingFn: formattingFns[stat.name],
   });
 
   if (animationStarted) {

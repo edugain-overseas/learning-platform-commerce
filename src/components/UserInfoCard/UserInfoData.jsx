@@ -13,9 +13,6 @@ const UserInfoData = ({ userInfo }) => {
       <p>
         Email:<span>{userInfo.email}</span>
       </p>
-      <p>
-        Phone namber:<span>{phone}</span>
-      </p>
       <Accordion
         header={<span>Details</span>}
         content={
@@ -30,7 +27,7 @@ const UserInfoData = ({ userInfo }) => {
               Your country:<span>{country}</span>
             </p>
             <p>
-              Password:<span>********</span>
+              Phone number:<span>{phone}</span>
             </p>
           </>
         }

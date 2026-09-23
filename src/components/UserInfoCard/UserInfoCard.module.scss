@@ -42,6 +42,7 @@
   .username {
     margin-bottom: 8rem;
     font-size: 16rem;
+    min-height: 18rem;
     font-weight: 600;
     color: var(--content-main);
   }
@@ -388,4 +389,33 @@
   position: absolute;
   top: 16rem;
   right: 28rem;
+}
+
+.changePasswordWrapper {
+  font-size: 14rem;
+  font-weight: 400;
+  color: var(--content-datail-secondary);
+  padding-inline: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.changePasswordButton {
+  width: 100%;
+  height: 28rem;
+  border-radius: 5rem;
+  border: 1rem solid var(--content-datail-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12rem;
+
+  color: var(--content-datail-secondary);
+
+  transition: all var(--transition-time-min) ease;
+
+  font-size: 14rem;
+  font-weight: 600;
+  font-weight: 400;
 }

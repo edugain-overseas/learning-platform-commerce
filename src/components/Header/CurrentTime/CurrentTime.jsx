@@ -3,7 +3,9 @@ import moment from "moment";
 import styles from "./CurrentTime.module.scss";
 
 const CurrentTime = () => {
-  const [currentTime, setCurrentTime] = useState("");
+  const [currentTime, setCurrentTime] = useState(() =>
+    moment().format("HH:mm"),
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {

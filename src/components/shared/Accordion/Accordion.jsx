@@ -51,6 +51,7 @@ const Accordion = ({
         transition={{ duration: 0.3, ease: "easeInOut" }}
         style={{
           overflow: "hidden",
+          height: 0,
         }}
       >
         <div className={contentClassName ? contentClassName : ""}>

@@ -23,7 +23,7 @@ const UserProfilePage = () => {
   const myCourses = useSelector(getUserCourses);
   const dispatch = useDispatch();
 
-  const isUserLoggedIn = userInfo.username !== ""; // remove from all child components
+  const isUserLoggedIn = userInfo.accessToken; // remove from all child components
 
   console.log(myCourses);
 

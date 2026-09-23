@@ -1,25 +1,14 @@
 import { useEffect } from 'react';
 
-const useAdjustFontSize = () => {
-  const adjustFontSize = () => {
-    const vw = window.innerWidth;
-    let fontSize;
-    if (vw >= 992) {
-      fontSize = vw / 1440;
-    } else {
-      fontSize = vw / 360;
-    }
-    document.documentElement.style.fontSize = `${fontSize}px`;
-  };
-
+export const useAdjustFontSize = () => {
   useEffect(() => {
-    adjustFontSize();
-    window.addEventListener('resize', adjustFontSize);
-
-    return () => {
-      window.removeEventListener('resize', adjustFontSize);
+    const adjustFontSize = () => {
+      const vw = window.innerWidth;
+      const fontSize = vw >= 992 ? (vw / 1440) : (vw / 360);
+      document.documentElement.style.fontSize = `${fontSize}px`;
     };
+
+    window.addEventListener('resize', adjustFontSize);
+    return () => window.removeEventListener('resize', adjustFontSize);
   }, []);
 };
-
-export default useAdjustFontSize;

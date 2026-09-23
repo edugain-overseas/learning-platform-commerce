@@ -37,6 +37,17 @@
     -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <title>FEU Courses</title>
+
+    <script>
+      (function () {
+        function adjustFontSize() {
+          var vw = window.innerWidth;
+          var fontSize = vw >= 992 ? vw / 1440 : vw / 360;
+          document.documentElement.style.fontSize = fontSize + "px";
+        }
+        adjustFontSize();
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
