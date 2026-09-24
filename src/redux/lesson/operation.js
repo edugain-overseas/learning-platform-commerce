@@ -39,7 +39,7 @@ export const getLessonByIdThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const updateLessonThunk = createAsyncThunk(
@@ -50,7 +50,7 @@ export const updateLessonThunk = createAsyncThunk(
       const response = await updateLesson(id, updatedLessonData);
 
       store.dispatch(
-        updateLessonInCourse({ courseId, lessonId: id, updatedLessonData })
+        updateLessonInCourse({ courseId, lessonId: id, updatedLessonData }),
       );
       return response;
     } catch (error) {
@@ -59,7 +59,7 @@ export const updateLessonThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const deleteLessonThunk = createAsyncThunk(
@@ -77,7 +77,7 @@ export const deleteLessonThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const confirmLectureThunk = createAsyncThunk(
@@ -85,8 +85,7 @@ export const confirmLectureThunk = createAsyncThunk(
   async (lessonId, { rejectWithValue }) => {
     try {
       const response = await confirmLecture(lessonId);
-      store.dispatch(getCoursesThunk());
-      // await getCourses();
+      await store.dispatch(getCoursesThunk()).unwrap();
       return response;
     } catch (error) {
       return rejectWithValue({
@@ -94,21 +93,21 @@ export const confirmLectureThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const confirmTestThunk = createAsyncThunk(
   "lesson/confirmTest",
   async (
     { lessonId, studentTest, lessonType = "test", spentMinutes },
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const response = await confirmTest(
         lessonId,
         studentTest,
         lessonType,
-        spentMinutes
+        spentMinutes,
       );
       return response;
     } catch (error) {
@@ -117,7 +116,7 @@ export const confirmTestThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const getTestAttemptsThunk = createAsyncThunk(
@@ -132,7 +131,7 @@ export const getTestAttemptsThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const getExamAttemptsThunk = createAsyncThunk(
@@ -147,7 +146,7 @@ export const getExamAttemptsThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const submitTestAttemptThunk = createAsyncThunk(
@@ -155,7 +154,7 @@ export const submitTestAttemptThunk = createAsyncThunk(
   async (attemptData, { rejectWithValue }) => {
     try {
       const response = await submitTestAttempt(attemptData);
-      store.dispatch(getCoursesThunk());
+      await store.dispatch(getCoursesThunk()).unwrap();
       return response;
     } catch (error) {
       return rejectWithValue({
@@ -163,7 +162,7 @@ export const submitTestAttemptThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const createLectureAttributesThunk = createAsyncThunk(
@@ -171,7 +170,7 @@ export const createLectureAttributesThunk = createAsyncThunk(
   async ({ lectureId, attrsData }, { rejectWithValue }) => {
     try {
       const attrsRequests = attrsData.map((attrData) =>
-        createLectureAttribute(lectureId, attrData)
+        createLectureAttribute(lectureId, attrData),
       );
       const response = await Promise.all(attrsRequests);
       return response;
@@ -181,7 +180,7 @@ export const createLectureAttributesThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const updateLectureAttributesThunk = createAsyncThunk(
@@ -199,7 +198,7 @@ export const updateLectureAttributesThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const deleteLectureAttributeThunk = createAsyncThunk(
@@ -213,7 +212,7 @@ export const deleteLectureAttributeThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const updateTestMetaDataThunk = createAsyncThunk(
@@ -227,7 +226,7 @@ export const updateTestMetaDataThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const createTestQuestionsThunk = createAsyncThunk(
@@ -242,7 +241,7 @@ export const createTestQuestionsThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const deleteTestQuestionThunk = createAsyncThunk(
@@ -256,7 +255,7 @@ export const deleteTestQuestionThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const createTestAnswerThunk = createAsyncThunk(
@@ -275,7 +274,7 @@ export const createTestAnswerThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const createTestMatchingPairThunk = createAsyncThunk(
@@ -294,7 +293,7 @@ export const createTestMatchingPairThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const updateTestAnswerThunk = createAsyncThunk(
@@ -308,7 +307,7 @@ export const updateTestAnswerThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const updateTestMatchingPairThunk = createAsyncThunk(
@@ -322,7 +321,7 @@ export const updateTestMatchingPairThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const deleteTestAnswerThunk = createAsyncThunk(
@@ -336,7 +335,7 @@ export const deleteTestAnswerThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const updateTestQuestionThunk = createAsyncThunk(
@@ -350,7 +349,7 @@ export const updateTestQuestionThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const deleteTestMatchingPairThunk = createAsyncThunk(
@@ -364,5 +363,5 @@ export const deleteTestMatchingPairThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );

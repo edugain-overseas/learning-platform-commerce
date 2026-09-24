@@ -13,7 +13,7 @@ const TestLanding = ({ onStartTest, completeTestWithAttempt, testData }) => {
   const studentAttemts = testData.attempts_data;
   const attemptsLeft = testAttemptsLimit - studentAttemts.length;
   const studentBestAttempt = studentAttemts.toSorted(
-    (a, b) => b.attempt_score - a.attempt_score
+    (a, b) => b.attempt_score - a.attempt_score,
   )[0];
   const studentHasPassed = studentBestAttempt?.is_passed;
 
@@ -97,7 +97,12 @@ const TestLanding = ({ onStartTest, completeTestWithAttempt, testData }) => {
             variant="green"
             hoverVariant="darkBlue"
             className={styles.landingBtn}
-            onClick={() => completeTestWithAttempt(studentBestAttempt.id)}
+            onClick={() =>
+              completeTestWithAttempt(
+                studentBestAttempt.id,
+                studentBestAttempt.attempt_score,
+              )
+            }
           />
         )}
       </div>

@@ -51,22 +51,39 @@ const UserInfoCard = ({ userInfo }) => {
     setIsOpenModal(true);
   };
 
-  const handleSave = (data) => {
+  const handleSave = async (data) => {
     const { username, ...userData } = data;
+    try {
+      if (data.username && data.username !== userInfo.username) {
+        await dispatch(updateUsernameThunk(data.username)).unwrap();
 
-    if (data.username !== userInfo.username) {
-      dispatch(updateUsernameThunk(data.username));
-    }
+        messageApi.success({
+          content: "Your username was successfully updated",
+          duration: 3,
+        });
+      }
 
-    dispatch(updateUserInfoThunk(userData))
-      .unwrap()
-      .then(() => {
+      if (Object.keys(userData).length > 0) {
+        await dispatch(updateUserInfoThunk(userData)).unwrap();
         messageApi.success({
           content: "Your profile was successfully updated",
           duration: 3,
         });
-      });
-    setIsEdit(false);
+      }
+      setIsEdit(false);
+    } catch (error) {
+      console.log(error);
+      if (error.status === 422) {
+        if (error.message?.includes("username")) {
+          messageApi.error({ content: error.message });
+          return { name: "username", message: error.message };
+        }
+        if (error.message?.includes("email")) {
+          messageApi.error({ content: error.message });
+          return { name: "email", message: error.message };
+        }
+      }
+    }
   };
 
   const formDefaultValues = {
@@ -155,6 +172,7 @@ const UserInfoCard = ({ userInfo }) => {
                 userInfo={formDefaultValues}
                 changedName={userInfo.changedName}
                 changedSurname={userInfo.changedSurname}
+                passwordChangedAt={userInfo.passwordChangedAt}
                 closeEdit={() => setIsEdit(false)}
                 onSubmit={handleSave}
               />

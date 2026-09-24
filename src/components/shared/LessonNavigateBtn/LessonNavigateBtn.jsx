@@ -15,6 +15,7 @@ const LessonNavigateBtn = ({
   label = forward ? "Next" : "Return",
   currentNumber = 1,
   courseId = 1,
+  disabled = false,
 }) => {
   const navigate = useNavigate();
   const isModer = useSelector(getUserType) === "moder";
@@ -49,6 +50,8 @@ const LessonNavigateBtn = ({
 
   const renderCreateLessonBtn = isModer && !targetLesson && forward;
 
+  const isButtonActive = !disabled && targetLesson;
+
   return (
     <>
       {contextHolder}
@@ -67,10 +70,10 @@ const LessonNavigateBtn = ({
             width,
             height,
             flexDirection: forward ? "row-reverse" : "row",
-            opacity: targetLesson ? "1" : "0.5",
-            pointerEvents: targetLesson ? "auto" : "none",
+            opacity: isButtonActive ? "1" : "0.5",
+            pointerEvents: isButtonActive ? "auto" : "none",
           }}
-          disabled={!targetLesson}
+          disabled={!isButtonActive}
         >
           <ArrowDownIcon />
           <span>{label}</span>
@@ -84,5 +87,6 @@ export default memo(
   LessonNavigateBtn,
   (prevProps, nextProps) =>
     prevProps.currentNumber === nextProps.currentNumber &&
-    prevProps.courseId === nextProps.courseId,
+    prevProps.courseId === nextProps.courseId &&
+    prevProps.disabled === nextProps.disabled,
 );

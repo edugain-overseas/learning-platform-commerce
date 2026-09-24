@@ -22,7 +22,7 @@ const TestHeader = ({
   const testData = isExam ? test.exam_data : test.test_data;
   const isModer = useSelector(getUserType) === "moder";
 
-  const testScore = testData?.my_score;
+  const testScore = testData?.my_score;  
 
   return (
     <div className={styles.wrapper}>

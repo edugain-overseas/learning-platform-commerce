@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { getUserType } from "../../redux/user/selectors";
 import LessonNavigateBtn from "../shared/LessonNavigateBtn/LessonNavigateBtn";
@@ -13,6 +12,7 @@ const LectureHeader = ({
   switcherItems,
   switcherValue,
   switcherOnChange,
+  isLoading = false,
 }) => {
   const {
     title,
@@ -20,7 +20,7 @@ const LectureHeader = ({
     number,
     // lecture_info: lectureInfo,
     course_id: courseId,
-  } = lecture;  
+  } = lecture;
   // const lectureSpeech = lectureInfo?.lecture_speeches;
 
   const isModer = useSelector(getUserType) === "moder";
@@ -43,10 +43,8 @@ const LectureHeader = ({
               onChange={switcherOnChange}
             />
           </>
-        ) : (
-          // <Notes />
-          null
-        )}
+        ) : // <Notes />
+        null}
         {/* {lectureSpeech && lectureSpeech?.length !== 0 && !isModer && (
           <LectureAudioPlayer lectureSpeeches={lectureInfo.lecture_speeches} />
         )} */}
@@ -55,11 +53,13 @@ const LectureHeader = ({
             forward={false}
             currentNumber={number}
             courseId={courseId}
+            disabled={isLoading}
           />
           <LessonNavigateBtn
             forward={true}
             currentNumber={number}
             courseId={courseId}
+            disabled={isLoading}
           />
         </div>
       </div>

@@ -1,18 +1,17 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { getCode } from "country-list";
 import PhoneInput from "react-phone-input-2";
-// import { ReactComponent as EyeIcon } from "../../images/icons/eye.svg";
-// import { ReactComponent as EyeInvisibleIcon } from "../../images/icons/eye-invisible.svg";
 import { ReactComponent as ReloadIcon } from "../../images/icons/reload.svg";
 import { ReactComponent as SaveIcon } from "../../images/icons/save.svg";
-import Tooltip from "../shared/Tooltip/Tooltip";
-import styles from "./UserInfoCard.module.scss";
-import "react-phone-input-2/lib/style.css";
-import CommonButton from "../shared/CommonButton/CommonButton";
-import { useNavigate } from "react-router-dom";
 import { resetPassword } from "../../http/services/user";
+import Tooltip from "../shared/Tooltip/Tooltip";
+import CommonButton from "../shared/CommonButton/CommonButton";
 import Spinner from "../Spinner/Spinner";
+import "react-phone-input-2/lib/style.css";
+import styles from "./UserInfoCard.module.scss";
+import moment from "moment";
 
 const UserInfoForm = ({
   userInfo,
@@ -20,8 +19,8 @@ const UserInfoForm = ({
   changedSurname,
   onSubmit,
   closeEdit,
+  passwordChangedAt,
 }) => {
-  // const [isPasswordShown, setIsPasswordShown] = useState(false);
   const countryWrapperRef = useRef(null);
   const navigate = useNavigate();
   const [isChangePasswordLoading, setIsChangePasswordLoading] = useState(false);
@@ -32,6 +31,7 @@ const UserInfoForm = ({
     reset,
     setValue,
     watch,
+    setError,
     formState: { isSubmitting, errors, dirtyFields },
   } = useForm({
     defaultValues: userInfo,
@@ -40,11 +40,6 @@ const UserInfoForm = ({
   useEffect(() => {
     reset(userInfo);
   }, [userInfo, reset]);
-
-  // const handleToggleShowPassword = (e) => {
-  //   e.preventDefault();
-  //   setIsPasswordShown((prev) => !prev);
-  // };
 
   const handleCancel = (e) => {
     e.preventDefault();
@@ -71,21 +66,6 @@ const UserInfoForm = ({
     if ((watch("phone") && dirtyFields.phone) || userInfo.phone) return;
 
     setValue("phone", value, { shouldDirty: false });
-  };
-
-  const handleFormSubmit = (data) => {
-    const changedData = Object.keys(dirtyFields).reduce((acc, key) => {
-      acc[key] = data[key];
-      return acc;
-    }, {});
-
-    console.log(changedData);
-
-    if (Object.keys(changedData).length > 0) {
-      onSubmit(changedData);
-    } else {
-      closeEdit();
-    }
   };
 
   const handleNavigateToChangePassword = async () => {
@@ -115,6 +95,22 @@ const UserInfoForm = ({
     }
   };
 
+  const handleFormSubmit = async (data) => {
+    const changedData = Object.keys(dirtyFields).reduce((acc, key) => {
+      acc[key] = data[key];
+      return acc;
+    }, {});
+
+    if (Object.keys(changedData).length > 0) {
+      const error = await onSubmit(changedData);
+      if (error) {
+        setError(error.name, { message: error.message });
+      }
+    } else {
+      closeEdit();
+    }
+  };
+
   return (
     <form
       onSubmit={handleSubmit(handleFormSubmit)}
@@ -126,6 +122,11 @@ const UserInfoForm = ({
           <input
             type="text"
             {...register("username", { required: "Username is required" })}
+            style={{
+              border: errors.username
+                ? "1rem solid var(--bg-button-failture)"
+                : "none",
+            }}
           />
           {errors.username && (
             <span className={styles.error}>{errors.username.message}</span>
@@ -169,38 +170,16 @@ const UserInfoForm = ({
                 message: "Please enter a valid email address",
               },
             })}
+            style={{
+              border: errors.email
+                ? "1rem solid var(--bg-button-failture)"
+                : "none",
+            }}
           />
           {errors.email && (
             <span className={styles.error}>{errors.email.message}</span>
           )}
         </label>
-
-        {/* <label className={`${styles.passwordWrapper} ${styles.blockLabel}`}>
-          <span>Password:</span>
-          <div className={styles.passwordInputWrapper}>
-            <button
-              className={styles.toggleShowBtn}
-              onClick={handleToggleShowPassword}
-            >
-              {isPasswordShown ? <EyeIcon /> : <EyeInvisibleIcon />}
-            </button>
-            <input
-              type={isPasswordShown ? "text" : "password"}
-              placeholder="********"
-              className={styles.password}
-              {...register("password", {
-                minLength: {
-                  value: 8,
-                  message: "Password must be at least 8 characters long",
-                },
-              })}
-            />
-          </div>
-          {errors.password && (
-            <span className={styles.error}>{errors.password.message}</span>
-          )}
-        </label> */}
-
         <label>
           <span>Phone number:</span>
           <PhoneInput
@@ -245,8 +224,15 @@ const UserInfoForm = ({
         </label>
 
         <div className={styles.changePasswordWrapper}>
-          <p>Last updated at:</p>
-          <p>22.08.2026</p>
+          <p>Last changed:</p>
+          <p>
+            {passwordChangedAt
+              ? moment
+                  .utc(passwordChangedAt)
+                  .local()
+                  .format("DD.MM.YYYY [at] HH:mm")
+              : "No data"}
+          </p>
         </div>
         <CommonButton
           type="button"

@@ -1,6 +1,6 @@
 import { useNotificationMessage } from "../hooks/useNotificationMessage";
 import { useEffect, useRef, useState } from "react";
-import { getTestAttemptById } from "../http/services/lesson";
+import { getLessonById, getTestAttemptById } from "../http/services/lesson";
 import { useDispatch, useSelector } from "react-redux";
 import {
   confirmTestThunk,
@@ -26,7 +26,7 @@ export const useStudentTest = (test, lessonType) => {
   const [submitedAttemptData, setSubmitedAttemptData] = useState(null);
   const [studentAnswers, setStudentAnswers] = useLocalStorage(
     answersStorageKey,
-    []
+    [],
   );
   const [showTestContent, setShowTestContent] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -65,7 +65,7 @@ export const useStudentTest = (test, lessonType) => {
           spentMinutes:
             test.scheduled_time -
             convertMillisecondsToMinutesAndSeconds(timeLeft).minutes,
-        })
+        }),
       ).unwrap();
 
       const score = newAttempt?.attempt_score;
@@ -138,7 +138,7 @@ export const useStudentTest = (test, lessonType) => {
           spentMinutes:
             test.scheduled_time -
             convertMillisecondsToMinutesAndSeconds(timeLeft).minutes,
-        })
+        }),
       ).unwrap();
 
       setStudentAnswers([]);
@@ -151,12 +151,13 @@ export const useStudentTest = (test, lessonType) => {
       });
     } catch (err) {
       console.log(err);
-      if(err.status === 422) {
+      if (err.status === 422) {
         messageApi?.error({
-          content: "Some of your answers are invalid. Please check and try again.",
+          content:
+            "Some of your answers are invalid. Please check and try again.",
           duration: 3,
         });
-        return
+        return;
       }
       messageApi?.error({
         content: err?.message ? err.message : "Something went wrong",
@@ -174,6 +175,7 @@ export const useStudentTest = (test, lessonType) => {
   useEffect(() => {
     const fetchAttemptId = async () => {
       try {
+        await dispatch(getLessonById(test.id)).unwrap();
         const data = await getTestAttemptById(sumbittedAttemptId);
         setSubmitedAttemptData(data);
       } catch (error) {
@@ -185,6 +187,7 @@ export const useStudentTest = (test, lessonType) => {
     } else {
       setSubmitedAttemptData(null);
     }
+    // eslint-disable-next-line
   }, [sumbittedAttemptId]);
 
   useEffect(() => {
@@ -193,7 +196,7 @@ export const useStudentTest = (test, lessonType) => {
         await dispatch(
           lessonType === "test"
             ? getTestAttemptsThunk({ test_id: testId })
-            : getExamAttemptsThunk({ exam_id: testId })
+            : getExamAttemptsThunk({ exam_id: testId }),
         ).unwrap();
       } catch (error) {
         console.log("UNWRAP THREW ERROR:", error);
@@ -215,9 +218,10 @@ export const useStudentTest = (test, lessonType) => {
     // eslint-disable-next-line
   }, [timeLeft, initialTime]);
 
-  const completeTestWithAttempt = async (attemptId) => {
+  const completeTestWithAttempt = async (attemptId, attemptScore) => {
     const attemptData = {
       attempt_id: attemptId,
+      attempt_acore: attemptScore,
       lesson_id: test.id,
       student_id: student.studentId,
       lessonType,

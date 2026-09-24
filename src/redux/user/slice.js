@@ -45,6 +45,8 @@ const initialState = {
   notes: [],
   isLoading: false,
   error: null,
+  passwordChangedAt: null,
+  registeredAt: null,
 };
 
 const userSlice = createSlice({
@@ -57,7 +59,7 @@ const userSlice = createSlice({
     },
     refreshTonkenExpiredAction(state, _) {
       Object.keys(initialState).forEach(
-        (key) => (state[key] = initialState[key])
+        (key) => (state[key] = initialState[key]),
       );
       instance.defaults.headers["Authorization"] = null;
       window.location.href = `${window.location.origin}/login`;
@@ -172,6 +174,8 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.studentId = null;
+        state.passwordChangedAt = null;
+        state.registeredAt = null;
       })
       .addCase(logoutThunk.rejected, (state, { payload }) => {
         state.userId = null;
@@ -193,6 +197,8 @@ const userSlice = createSlice({
         state.notes = [];
         state.isLoading = false;
         state.error = payload;
+        state.passwordChangedAt = null;
+        state.registeredAt = null;
       })
 
       .addCase(getUserInfoThunk.pending, (state, _) => {
@@ -219,6 +225,8 @@ const userSlice = createSlice({
         state.changedSurname = payload.changed_surname;
         state.chats = payload.chats;
         state.notes = payload.my_notes;
+        state.passwordChangedAt = payload.password_changed_at;
+        state.registeredAt = payload.registered_at;
       })
       .addCase(getUserInfoThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -319,7 +327,7 @@ const userSlice = createSlice({
         state.isLoading = false;
         const imageId = action.meta.arg;
         state.avatarURL = state.previousAvatars?.find(
-          ({ id }) => id === imageId
+          ({ id }) => id === imageId,
         ).path;
       })
       .addCase(setNewMainImageThunk.rejected, (state, { payload }) => {
@@ -400,7 +408,7 @@ const userSlice = createSlice({
         const deleteNodeRecursively = (node) => {
           const filteredChildren = node.children_folders
             ? node.children_folders.filter(
-                (child) => child.folder_id !== folderId
+                (child) => child.folder_id !== folderId,
               )
             : [];
 

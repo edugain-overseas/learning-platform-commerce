@@ -38,7 +38,7 @@ const AttemptsList = ({ test, closePopOver }) => {
   }
 
   const answers = attemptsDetails?.find(
-    ({ id }) => id === selectedAttemptId
+    ({ id }) => id === selectedAttemptId,
   )?.data;
 
   const handleOpenDetails = async (attempt) => {
@@ -60,23 +60,25 @@ const AttemptsList = ({ test, closePopOver }) => {
     }
   };
 
-  const handleSubmitAttempt = (attempt_id) => {
+  console.log(attempts);
+
+  const handleSubmitAttempt = async (attempt_id, attempt_score) => {
     const attemptData = {
       attempt_id,
+      attempt_score,
       lesson_id: test.id,
       student_id,
       lessonType,
     };
     try {
-      dispatch(submitTestAttemptThunk(attemptData))
-        .unwrap()
-        .then((r) => {
-          messageApi.success({
-            content: r.Message,
-            duration: 5,
-          });
-          closePopOver();
-        });
+      const response = await dispatch(
+        submitTestAttemptThunk(attemptData),
+      ).unwrap();
+      messageApi.success({
+        content: response.Message,
+        duration: 5,
+      });
+      closePopOver();
     } catch (error) {
       console.log(error);
     }
@@ -115,7 +117,9 @@ const AttemptsList = ({ test, closePopOver }) => {
             {!test[`${lessonType}_data`].my_attempt_id && (
               <button
                 className={styles.submitAttemptBtn}
-                onClick={() => handleSubmitAttempt(attempt.id)}
+                onClick={() =>
+                  handleSubmitAttempt(attempt.id, attempt.attempt_score)
+                }
                 disabled={!attempt.is_passed}
               >
                 <span>Submit</span>

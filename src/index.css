@@ -300,6 +300,7 @@ div.react-tel-input .flag-dropdown.open .selected-flag {
 
 div.react-tel-input .country-list .search-box {
   margin: 0 auto;
+  font-size: 14rem;
 }
 
 div.react-tel-input .country-list .search {

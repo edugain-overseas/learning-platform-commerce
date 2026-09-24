@@ -23,7 +23,7 @@ const Test = ({ test }) => {
     isLoading,
     startTestAttempt,
     onSubmitAttemptBtnClick,
-    completeTestWithAttempt
+    completeTestWithAttempt,
   } = useStudentTest(test, "test");
 
   const { course_id: courseId } = test;
@@ -43,6 +43,7 @@ const Test = ({ test }) => {
         label="Return to previous"
         width="200rem"
         height="38rem"
+        disabled={isLoading}
       />
       <CompleteBtn
         onClick={onSubmitAttemptBtnClick}

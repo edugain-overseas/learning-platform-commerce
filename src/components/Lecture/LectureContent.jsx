@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Empty } from "antd";
 import { serverName } from "../../http/server";
-import { confirmLectureThunk } from "../../redux/lesson/operation";
 import { useSelection } from "../../context/SelectionContext";
 import PDFReader from "../PDFReader/PDFReader";
 import Modal from "../shared/Modal/Modal";
@@ -17,16 +16,19 @@ import TableUI from "../Table/TableUI";
 import AudioPlayer from "../shared/AudioPlayer/AudioPlayer";
 import { getAllCourses } from "../../redux/course/selectors";
 
-const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
+const LectureContent = ({
+  lecture,
+  isTemplate = false,
+  tepmplateData,
+  confirmLecture = async () => {},
+  isLoading = false,
+}) => {
   const [fullscreen, setFullscreen] = useState(false);
   const [confirmBtnState, setConfirmBtnState] = useState("default");
 
   const selectionContaner = useSelection()?.selectionContaner;
 
-  const dispatch = useDispatch();
-
   const {
-    // number,
     courseName,
     status,
     id,
@@ -294,11 +296,10 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
       }
     });
 
-  const handleConfirmLecture = () => {
+  const handleConfirmLecture = async () => {
     setConfirmBtnState("pending");
-    dispatch(confirmLectureThunk(id)).then(() =>
-      setConfirmBtnState("fulfilled"),
-    );
+    await confirmLecture();
+    setConfirmBtnState("fulfilled");
   };
 
   useEffect(() => {
@@ -309,14 +310,18 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
 
   const courseLessons = useSelector(getAllCourses).find(
     (course) => course.id === courseId,
-  ).lessons;
+  )?.lessons;
 
   const courseLectures = courseLessons
-    .filter((lesson) => lesson.type === "lecture")
-    .toSorted((a, b) => a.number - b.number);
+    ? courseLessons
+        .filter((lesson) => lesson.type === "lecture")
+        .toSorted((a, b) => a.number - b.number)
+    : [];
 
   const lectureNumber =
     courseLectures.findIndex((lesson) => lesson.id === id) + 1;
+
+  console.log(status);
 
   return (
     <div className={styles.contentWrapper}>
@@ -350,6 +355,7 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
               label="Return to previous"
               width="200rem"
               height="38rem"
+              disabled={isLoading}
             />
             {status === "active" ? (
               <CompleteBtn
@@ -366,6 +372,7 @@ const LectureContent = ({ lecture, isTemplate = false, tepmplateData }) => {
               label="Move on to next"
               width="200rem"
               height="38rem"
+              disabled={isLoading}
             />
           </div>
         )}
