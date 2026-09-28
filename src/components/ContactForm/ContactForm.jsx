@@ -1,10 +1,8 @@
-import React from "react";
 import { useForm } from "react-hook-form";
+import { instance } from "../../http/instance";
 import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import Textarea from "../shared/Textarea/Textarea";
 import styles from "./ContactForm.module.scss";
-
-const API_URL = process.env.REACT_APP_CONTACT_SERVICE_WEB_APP_BY_GOOGLE_SCRIPT_URL;
 
 const requiredRegisterArgs = {
   required: {
@@ -20,23 +18,12 @@ const ContactForm = ({ wrapperClassname = "" }) => {
     formState: { errors, isSubmitting },
     reset,
   } = useForm();
-  
-  const [messageApi, contextHolder] = useNotificationMessage();  
+
+  const [messageApi, contextHolder] = useNotificationMessage();
 
   const handleSendMessage = async (data) => {
     try {
-      const formData = new FormData();
-
-      formData.append("name", data.name);
-      formData.append("email", data.email);
-      formData.append("phone", data.phone);
-      formData.append("message", data.message);
-      formData.append("company", data.company || "");
-
-      await fetch(API_URL, {
-        method: "POST",
-        body: formData,
-      });
+      await instance.post('/user/submit-form', data)
 
       reset();
 
@@ -102,11 +89,6 @@ const ContactForm = ({ wrapperClassname = "" }) => {
             maxRows={4}
             placeholder="Message..."
             {...register("message")}
-          />
-          <input
-            type="text"
-            style={{ display: "none" }}
-            {...register("company")}
           />
         </div>
         <button type="submit" disabled={isSubmitting}>
