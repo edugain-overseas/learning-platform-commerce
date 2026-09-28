@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import ExamStat from "./ExamStat";
-import styles from "./Exam.module.scss";
-import Modal from "../shared/Modal/Modal";
-import ChangeNameForm from "./ChangeNameForm";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { getUserInfo } from "../../redux/user/selectors";
 import { useSelector } from "react-redux";
+import ExamStat from "./ExamStat";
+import Modal from "../shared/Modal/Modal";
+import ChangeNameForm from "./ChangeNameForm";
 import Spinner from "../Spinner/Spinner";
 import DownloadCertificate from "./DownloadCertificate";
-import { Link } from "react-router-dom";
+import styles from "./Exam.module.scss";
 
 const content = {
   firstAttempt: {
@@ -161,8 +161,7 @@ const ClosedExamPanel = ({
   const name = userInfo.name;
   const surname = userInfo.surname;
   const studentAttempts = examData.attempts_data;
-
-  console.log(userInfo);
+  
 
   const handleCompleteCourseBtnClick = async () => {
     if (requestForUserChangeName || requestForUserChangeSurname) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Empty, Popover } from "antd";
 import { useNotificationMessage } from "../../hooks/useNotificationMessage";
 import { useDispatch, useSelector } from "react-redux";

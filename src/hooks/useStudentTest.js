@@ -1,10 +1,11 @@
 import { useNotificationMessage } from "../hooks/useNotificationMessage";
 import { useEffect, useRef, useState } from "react";
-import { getLessonById, getTestAttemptById } from "../http/services/lesson";
+import { getTestAttemptById } from "../http/services/lesson";
 import { useDispatch, useSelector } from "react-redux";
 import {
   confirmTestThunk,
   getExamAttemptsThunk,
+  getLessonByIdThunk,
   getTestAttemptsThunk,
   submitTestAttemptThunk,
 } from "../redux/lesson/operation";
@@ -175,8 +176,8 @@ export const useStudentTest = (test, lessonType) => {
   useEffect(() => {
     const fetchAttemptId = async () => {
       try {
-        await dispatch(getLessonById(test.id)).unwrap();
-        const data = await getTestAttemptById(sumbittedAttemptId);
+        await dispatch(getLessonByIdThunk(test.id)).unwrap();
+        const data = await getTestAttemptById(sumbittedAttemptId, lessonType);
         setSubmitedAttemptData(data);
       } catch (error) {
         console.log(error);
@@ -189,6 +190,7 @@ export const useStudentTest = (test, lessonType) => {
     }
     // eslint-disable-next-line
   }, [sumbittedAttemptId]);
+
 
   useEffect(() => {
     const fetchAttempts = async () => {

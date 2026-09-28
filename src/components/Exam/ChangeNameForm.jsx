@@ -20,12 +20,18 @@ const ChangeNameForm = ({
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const isSubmitButtonDisabled =
-    isLoading || (nameValue === name && surnameValue === surname);
+  const isSubmitButtonDisabled = isLoading;
+  // const isSubmitButtonDisabled =
+  //   isLoading || (nameValue === name && surnameValue === surname);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {};
+    if (nameValue === name && surnameValue === surname) {
+      afterSumbit();
+      return;
+    }
+    
     if (nameValue !== name) data.name = nameValue;
     if (surnameValue !== surname) data.surname = surnameValue;
 

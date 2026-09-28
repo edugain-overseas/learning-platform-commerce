@@ -12,6 +12,8 @@ const QuestionMatching = ({ answers, setState, id, state }) => {
     value: uuid,
   }));
 
+  
+
   return (
     <div className={styles.matchWrapper}>
       <div className={styles.oprionsWrapper}>
@@ -25,8 +27,8 @@ const QuestionMatching = ({ answers, setState, id, state }) => {
           ))}
         </ul>
         <ul className={styles.right}>
-          {rightOptions.map(({ id, value }, index) => (
-            <li key={id}>
+          {rightOptions.map(({ uuid, value }, index) => (
+            <li key={uuid}>
               <p>
                 {getLetterVatiantsByIndex(index)} {value}
               </p>

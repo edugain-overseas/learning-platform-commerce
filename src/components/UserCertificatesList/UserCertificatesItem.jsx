@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { serverName } from "../../http/server";
 import { ReactComponent as PreviewIcon } from "../../images/icons/eye-fullscreen.svg";
 import { ReactComponent as DownloadIcon } from "../../images/icons/document-download.svg";
 import { ReactComponent as CartIcon } from "../../images/icons/cart.svg";
@@ -8,6 +7,7 @@ import PdfPreview from "../PdfPreview/PdfPreview";
 import CertificateItemTagList from "./CertificateItemTagList";
 import styles from "./UserCertificatesList.module.scss";
 import BuyCourseBtn from "../shared/BuyCourseBtn/BuyCourseBtn";
+import { downloadCertificate } from "../../utils/downloadCertificate";
 
 const UserCertificatesItem = ({ certificate, type }) => {
   const [previewVisible, setPreviewVisible] = useState(false);
@@ -40,15 +40,12 @@ const UserCertificatesItem = ({ certificate, type }) => {
             <button onClick={() => setPreviewVisible(true)} title="Preview">
               <PreviewIcon />
             </button>
-            <a
-              download={`${title} certificate`}
-              href={`${serverName}/${certificateLink}`}
-              target="_blank"
-              rel="noreferrer"
+            <button
               title="Download"
+              onClick={() => downloadCertificate(certificateLink, title)}
             >
               <DownloadIcon />
-            </a>
+            </button>
           </div>
           <PdfPreview
             pdfUrl={certificateLink}
@@ -60,7 +57,10 @@ const UserCertificatesItem = ({ certificate, type }) => {
       {isNotPurchasedCourse && (
         <>
           <CartIcon className={styles.buyIcon} />
-          <BuyCourseBtn courseId={certificate.course_id} className={styles.hidden}/>
+          <BuyCourseBtn
+            courseId={certificate.course_id}
+            className={styles.hidden}
+          />
         </>
       )}
     </div>

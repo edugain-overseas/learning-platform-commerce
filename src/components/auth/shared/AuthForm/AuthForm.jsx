@@ -76,7 +76,7 @@ const AuthForm = ({
     const loginData = new FormData();
     loginData.append(
       "username",
-      usernameFromQueryParams ? usernameFromQueryParams : username
+      usernameFromQueryParams ? usernameFromQueryParams : username,
     );
     loginData.append("password", password);
 
@@ -109,14 +109,17 @@ const AuthForm = ({
     <>
       {contextHolder}
       <div className={styles.wrapper}>
-        <form className={styles.form} onSubmit={handleFormSubmit}>
+        <form
+          className={`${styles.form} ${styles[type]}`}
+          onSubmit={handleFormSubmit}
+        >
           <h2>{type === "registration" ? "Sing up" : "Sing in"}</h2>
           <AuthFormLink
             to={type === "registration" ? "login" : "registration"}
           />
           <div className={styles.row}>
             <InputText
-              name="Username"
+              name={type === "registration" ? "Username" : "Username or Email"}
               value={
                 usernameFromQueryParams ? usernameFromQueryParams : username
               }

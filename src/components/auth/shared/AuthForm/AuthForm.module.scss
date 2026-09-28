@@ -20,6 +20,18 @@
     line-height: normal;
     margin-bottom: 12rem;
   }
+
+  &.registration {
+    label > span {
+      min-width: 76rem;
+    }
+  }
+
+  &.login {
+    label > span {
+      min-width: 110rem;
+    }
+  }
 }
 
 .row {

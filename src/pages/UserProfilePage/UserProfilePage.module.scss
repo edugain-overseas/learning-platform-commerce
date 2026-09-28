@@ -105,24 +105,34 @@ div[data-expanded-fixed="true"] + main .pageContainer {
 .certificatesListContainer {
   height: calc(100% - 118rem);
   padding: 20rem 28rem;
+  padding-top: 0;
+  overflow-y: auto;
+  position: relative;
 }
 
 .blockHeader {
+  padding-top: 20rem;
   padding-bottom: 16rem;
+  padding: 20rem 46rem 16rem 28rem;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-inline-end: 18rem;
+  margin-inline: -28rem;
   margin-bottom: 16rem;
 
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: var(--bg-rgba-default);
+
 
   &:before {
     content: "";
     position: absolute;
     bottom: -1rem;
-    left: 0;
-    width: 100%;
+    left: 28rem;
+    right: 28rem;
     height: 2rem;
     border-radius: 10rem;
     background: var(--content-datail-secondary);
@@ -153,6 +163,7 @@ div[data-expanded-fixed="true"] + main .pageContainer {
 
 .blockBody {
   flex-grow: 1;
+
 }
 
 .userDataInner {

@@ -11,7 +11,10 @@ export const downloadCertificate = (certificateLink, courseName) => {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", `Certificate_${courseName}.pdf`);
+      link.setAttribute(
+        "download",
+        `Certificate${courseName && ` for ${courseName}`}.pdf`,
+      );
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

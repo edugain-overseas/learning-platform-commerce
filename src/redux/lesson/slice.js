@@ -44,10 +44,27 @@ const lessonSlice = createSlice({
       })
       .addCase(getLessonByIdThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.lessons = [
-          ...state.lessons.filter((lesson) => lesson.id !== payload.id),
-          payload,
-        ];
+
+        const lessonIndex = state.lessons.findIndex(
+          (lesson) => lesson.id === payload.id,
+        );
+        if (lessonIndex !== -1) {
+          const attempts_data =
+            state.lessons[lessonIndex].exam_data?.attempts_data;
+
+          state.lessons[lessonIndex] = {
+            ...state.lessons[lessonIndex],
+            ...payload,
+            exam_data: attempts_data
+              ? {
+                  attempts_data,
+                  ...payload.exam_data,
+                }
+              : payload.exam_data,
+          };
+        } else {
+          state.lessons.push(payload);
+        }
       })
       .addCase(getLessonByIdThunk.rejected, (state, { payload }) => {
         state.isLoading = false;

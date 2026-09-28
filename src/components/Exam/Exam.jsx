@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/user/selectors";
 import { getAllCourses } from "../../redux/course/selectors";
@@ -23,6 +23,7 @@ const Exam = ({ exam }) => {
     startTestAttempt,
     showExam,
     onSubmitAttemptBtnClick,
+    isLoading,
   } = useStudentTest(exam, "exam");
 
   const { course_id: courseId, id, exam_data: examData } = exam;
@@ -37,7 +38,7 @@ const Exam = ({ exam }) => {
 
   const bestAttempt = examData?.attempts_data
     ? [...examData?.attempts_data].sort(
-        (attemptA, attemptB) => attemptB.attempt_score - attemptA.attempt_score
+        (attemptA, attemptB) => attemptB.attempt_score - attemptA.attempt_score,
       )[0]
     : null;
 
@@ -85,7 +86,7 @@ const Exam = ({ exam }) => {
         lesson_id,
         student_id,
         lessonType,
-      })
+      }),
     ).unwrap();
   };
 
@@ -114,6 +115,10 @@ const Exam = ({ exam }) => {
     await onSubmitAttemptBtnClick();
     confirm();
   };
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <>
