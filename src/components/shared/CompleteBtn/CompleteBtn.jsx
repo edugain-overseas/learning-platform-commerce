@@ -10,7 +10,7 @@ const CompleteBtn = ({ onClick = () => {}, state }) => {
         return (
           <button
             type="button"
-            className={styles.completeBtn}
+            className={`${styles.completeBtn} ${styles.default}`}
             onClick={onClick}
           >
             <span>Complete</span>
