@@ -113,7 +113,7 @@ const AuthForm = ({
           className={`${styles.form} ${styles[type]}`}
           onSubmit={handleFormSubmit}
         >
-          <h2>{type === "registration" ? "Sing up" : "Sing in"}</h2>
+          <h2>{type === "registration" ? "Register" : "Login"}</h2>
           <AuthFormLink
             to={type === "registration" ? "login" : "registration"}
           />
@@ -168,7 +168,7 @@ const AuthForm = ({
           </div>
           <div className={styles.btnsWrapper}>
             <button className={styles.submitBtn}>
-              <span>{type === "registration" ? "Sing up" : "Sing in"}</span>
+              <span>{type === "registration" ? "Register" : "Login"}</span>
             </button>
             {type === "login" && errorField === "password" && (
               <button

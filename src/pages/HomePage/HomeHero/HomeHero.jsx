@@ -19,8 +19,8 @@ const HomeHero = ({ showArrow }) => {
             </span>
           </h1>
           <p className={styles.heroText}>
-            In this course, you will learn the skills to understand today’s
-            economy and to succeed in today’s interconnected business world.
+            In our courses, you will learn the skills to understand today’s
+            economy and succeed in the modern business world.
           </p>
           <HomeHeroSearchbar />
           <HeroAuthBtns />

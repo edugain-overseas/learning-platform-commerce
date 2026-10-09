@@ -20,8 +20,6 @@ const SingInForm = () => {
 
   const accessToken = useSelector(getAccessToken);
 
-  console.log(isResetPassword, location.state?.paswordRecovery);
-
   useEffect(() => {
     if (accessToken && !location.state?.paswordRecovery) {
       navigate("/");

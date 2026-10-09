@@ -38,7 +38,7 @@ const LogoutButton = () => {
             <LogoutIcon />
           </span>
           <span className={styles.label}>
-            {accessToken ? "Log out" : "Sing in"}
+            {accessToken ? "Log out" : "Login"}
           </span>
         </button>
       </div>

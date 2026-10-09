@@ -123,6 +123,22 @@ div.ql {
     }
   }
 
+  .programWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 12rem;
+    a {
+      color: var(--content-datail-secondary);
+      font-size: 14rem;
+      font-weight: 500;
+      flex-shrink: 0;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
   .programInfo {
     padding-inline-start: 12rem;
     text-align: justify;
@@ -339,7 +355,7 @@ div.ql {
   }
 }
 
-.buyAllCoursesBtn {
+.navBuyBtn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -348,7 +364,7 @@ div.ql {
   height: 40rem;
 
   border-radius: 5rem;
-  background-color: var(--bg-button-disabled);
+  background-color: var(--content-nav-hover);
   transition: background-color var(--transition-time-min) ease;
 
   &:hover {
@@ -360,7 +376,7 @@ div.ql {
   }
 
   span {
-    color: var(--content-datail-secondary);
+    color: var(--content-contr-color);
     font-family: Noto, serif;
     font-size: 16rem;
     font-weight: 500;
@@ -371,7 +387,7 @@ div.ql {
     width: 18rem;
     height: 18rem;
     * {
-      fill: var(--content-datail-secondary);
+      fill: var(--content-contr-color);
     }
   }
 }
@@ -418,21 +434,4 @@ div.ql {
     margin-top: 5px;
     padding-left: 16px;
   }
-
-  // ul li:not(.ql-direction-rtl), ol li:not(.ql-direction-rtl) {
-  //   padding-left: 20rem;
-  //   position: relative;
-
-  //   &::before {
-  //     content: "";
-  //     position: absolute;
-  //     left: 8rem;
-  //     width: 4rem;
-  //     height: 4rem;
-  //     background-color: var(--content-nav-hover);
-  //     top: calc(16rem * 1.2 / 2);
-  //     border-radius: 1rem;
-  //     transform: translateY(-50%);
-  //   }
-  // }
 }

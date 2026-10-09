@@ -30,7 +30,7 @@ const HeroAuthBtns = () => {
             <RegisterIcon />
           </Link>
           <Link className={styles.secondaryBtn} to="/login">
-            <span>Log in</span>
+            <span>Login</span>
             <LoginIcon />
           </Link>
         </>

@@ -27,3 +27,12 @@ export const convertMillisecondsToHoursMinutesAndSeconds = (milliseconds) => {
 };
 
 export const minutesToMilliseconds = (minutes) => minutes * 60 * 1000;
+
+export const hoursFloatToHoursAndMinutes = (decimal) => {
+  if (!decimal) return { hours: 0, minutes: 0 };
+
+  const hours = Math.floor(decimal);
+  const minutes = Math.round((decimal - hours) * 60);
+
+  return { hours, minutes };
+};

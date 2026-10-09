@@ -18,7 +18,7 @@ const AuthFormLink = ({ to }) => {
         }}
       >
         <span className={styles.linkText}>
-          {to === "login" ? "log in here!" : "sign up here!"}
+          {to === "login" ? "login here!" : "register here!"}
         </span>
         {/* <ArrowRightOutlined /> */}
       </Link>

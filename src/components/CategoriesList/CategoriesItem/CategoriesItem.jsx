@@ -28,7 +28,6 @@ const designTokens = {
   itemSelectedBg: "rgba(208, 0, 0, 9)",
   itemSelectedColor: "#fff",
 };
-
 const coursesFilterOptions = ["all", "short", "long"];
 
 const CategoriesItem = ({
@@ -44,6 +43,7 @@ const CategoriesItem = ({
     `admin-preference__category-courses-filter-${category.id}`,
     coursesFilterOptions[0],
   );
+
   const { pathname } = useLocation();
 
   const isProgressHidden = pathname.includes("courses");
@@ -115,6 +115,21 @@ const CategoriesItem = ({
     // eslint-disable-next-line
   }, [selectedListModeIndex]);
 
+  useEffect(() => {
+    
+    if (defaultDropdownOpen && dropdownRef?.current) {
+      console.log(defaultDropdownOpen, category.id);
+      const dropdown = dropdownRef.current;
+      if (dropdown) {
+        if (defaultDropdownOpen) {
+          dropdown.style.maxHeight = `${dropdown.scrollHeight}px`;
+          setDropDownOpen(true);
+        }
+      }
+    }
+    // eslint-disable-next-line
+  }, [defaultDropdownOpen]);
+
   const iconPath = category.icons?.find((icon) => icon.is_main)?.path;
 
   return (
@@ -127,29 +142,41 @@ const CategoriesItem = ({
           handleToggleDropDown();
         }}
       >
-        <div
-          to={null}
-          className={styles.titleWrapper}
-          onClick={handleToggleDropDown}
-        >
-          {iconPath ? (
-            <div
-              className={styles.icon}
-              style={{
-                backgroundImage: `url(${serverName}/${iconPath})`,
-                backgroundSize: "contain",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center center",
-              }}
-            />
-          ) : (
-            <BMIcon className={styles.icon} />
-          )}
-          <div className={styles.nameWrapper}>
-            <h3>{category.title}</h3>
-            <p
-              dangerouslySetInnerHTML={{ __html: category.certificate_info }}
-            ></p>
+        <div className={styles.panelStartWrapper}>
+          <button
+            className={`${styles.dropdownBtn} ${
+              dropDownOpen ? styles.open : ""
+            }`}
+            onClick={handleToggleDropDown}
+          >
+            <span>
+              <ChevronIcon />
+            </span>
+          </button>
+          <div
+            to={null}
+            className={styles.titleWrapper}
+            onClick={handleToggleDropDown}
+          >
+            {iconPath ? (
+              <div
+                className={styles.icon}
+                style={{
+                  backgroundImage: `url(${serverName}/${iconPath})`,
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center center",
+                }}
+              />
+            ) : (
+              <BMIcon className={styles.icon} />
+            )}
+            <div className={styles.nameWrapper}>
+              <h3>{category.title}</h3>
+              <p
+                dangerouslySetInnerHTML={{ __html: category.certificate_info }}
+              ></p>
+            </div>
           </div>
         </div>
         <div className={styles.tools}>
@@ -190,7 +217,7 @@ const CategoriesItem = ({
             <span>Info the courses</span>
             <InfoBtn infoContent={category.description} orientation="left" />
           </div>
-          <button
+          {/* <button
             className={`${styles.dropdownBtn} ${
               dropDownOpen ? styles.open : ""
             }`}
@@ -199,7 +226,7 @@ const CategoriesItem = ({
             <span>
               <ChevronIcon />
             </span>
-          </button>
+          </button> */}
           {!isModer && studentBtn}
         </div>
       </div>

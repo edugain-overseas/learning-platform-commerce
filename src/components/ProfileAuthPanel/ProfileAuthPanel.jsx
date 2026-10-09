@@ -10,7 +10,7 @@ const ProfileAuthPanel = () => {
         <div className={styles.iconWrapper}>
           <WarningIcon />
         </div>
-        <p>Available to registered users, please log in.</p>
+        <p>Available to registered users, please login.</p>
       </div>
       <HeroAuthBtns />
     </div>

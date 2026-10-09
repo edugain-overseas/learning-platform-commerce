@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCart } from "../../context/cartContext";
+import { priceFormatter } from "../../utils/priceFormatter";
+import { ReactComponent as CrossIcon } from "../../images/icons/cross.svg";
 import PaymentButton from "./PaymentButton";
 import styles from "./Cart.module.scss";
-import { priceFormatter } from "../../utils/priceFormatter";
+
+const DiscountMessage = () => {
+  const [showDiscountMessage, setShowDiscountMessage] = useState(true);
+
+  if (!showDiscountMessage) return null;
+
+  const handleCloseMessage = () => {
+    setShowDiscountMessage(false);
+  }
+
+  return (
+    <div className={styles.discountMessage}>
+      <span>Get 10% off when you purchase all courses in any category.</span>
+      <button onClick={handleCloseMessage} className={styles.closeButton}>
+        <CrossIcon />
+      </button>
+    </div>
+  );
+};
 
 const CartPaymentPanel = () => {
   const { getSubtotal, getDiscount, cartQuantity } = useCart();
@@ -14,7 +34,7 @@ const CartPaymentPanel = () => {
     <div className={styles.paymentPanel}>
       {cartQuantity !== 0 && (
         <>
-          {discount !== 0 && (
+          {discount !== 0 ? (
             <div className={styles.discount}>
               <div className={styles.subtotalInfoItem}>
                 <span>Subtotal:</span>
@@ -25,6 +45,8 @@ const CartPaymentPanel = () => {
                 <span>{`${priceFormatter(discount)} EUR`}</span>
               </div>
             </div>
+          ) : (
+            <DiscountMessage />
           )}
           <div className={styles.total}>
             <span>Total:</span>

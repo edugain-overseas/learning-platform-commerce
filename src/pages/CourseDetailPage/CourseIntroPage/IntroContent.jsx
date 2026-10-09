@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { serverName } from "../../../http/server";
 import { ReactComponent as LaptopIcon } from "../../../images/icons/laptop.svg";
@@ -11,10 +11,9 @@ import { ReactComponent as ArrowLeftIcon } from "../../../images/icons/arrow-lef
 import { ReactComponent as SchoolOnlineIcon } from "../../../images/icons/courseIcons/school-online.svg";
 import { ReactComponent as ClockDarkIcon } from "../../../images/icons/courseIcons/clock-dark.svg";
 import { ReactComponent as CertificateIcon } from "../../../images/icons/courseIcons/certificate.svg";
-import { ReactComponent as CartIcon } from "../../../images/icons/cart.svg";
 import { useSelector } from "react-redux";
 import { getUserCourses, getUserType } from "../../../redux/user/selectors";
-import { useCart } from "../../../context/cartContext";
+import { hoursFloatToHoursAndMinutes } from "../../../utils/formatTime";
 import devices from "../../../images/devices.png";
 import CardPrice from "../../../components/shared/CardPrice/CardPrice";
 import CoursesList from "../../../components/CoursesList/CoursesList";
@@ -24,7 +23,6 @@ import styles from "./CourseIntroPage.module.scss";
 
 const IntroContent = ({ course = {}, courses = [] }) => {
   const userCourses = useSelector(getUserCourses);
-  const { addAllCoursesInCategory } = useCart();
   const isModer = useSelector(getUserType) === "moder";
   const {
     title: courseName,
@@ -46,24 +44,59 @@ const IntroContent = ({ course = {}, courses = [] }) => {
     id,
   } = course;
 
-  const isUserCourse = userCourses?.find(({ course_id }) => course_id === id);
+  const duration = hoursFloatToHoursAndMinutes(courseDuration);
 
-  const otherCoursesThisCategory = courses.filter(
-    ({ categoryId, id }) =>
-      course.categoryId === categoryId &&
-      !userCourses?.find(({ course_id }) => course_id === id) &&
-      course.id !== id,
-  );
+  const courseCategoryId = course.category_id;
 
-  const otherCoursesDifferentCategory = courses.filter(
-    ({ categoryId, id }) =>
-      course.categoryId !== categoryId &&
-      !userCourses?.find(({ course_id }) => course_id === id),
-  );
-  const studentsAlsoBuyCourses = [
-    ...otherCoursesThisCategory,
-    ...otherCoursesDifferentCategory,
-  ].slice(0, 4);
+  const isUserCourse = useMemo(() => {
+    if (!id || !userCourses) return false;
+    return userCourses.some(
+      ({ course_id }) => String(course_id) === String(id),
+    );
+  }, [id, userCourses]);
+
+  const studentsAlsoBuyCourses = useMemo(() => {
+    if (!courses.length) return [];
+
+    const currentCourseId = String(id || "");
+    const currentCategoryId = String(courseCategoryId || "");
+
+    const purchasedIdsSet = new Set(
+      userCourses?.map(({ course_id }) => String(course_id)) || [],
+    );
+
+    const otherCoursesThisCategory = courses.filter((c) => {
+      const cId = String(c.id);
+      const cCatId = String(c.category_id);
+      return (
+        cCatId === currentCategoryId &&
+        !purchasedIdsSet.has(cId) &&
+        cId !== currentCourseId
+      );
+    });
+
+    const otherCategoriesRaw = courses.filter((c) => {
+      const cId = String(c.id);
+      const cCatId = String(c.category_id);
+      return cCatId !== currentCategoryId && !purchasedIdsSet.has(cId);
+    });
+
+    const uniqueCategoryMap = new Map();
+    otherCategoriesRaw.forEach((c) => {
+      const cCatId = String(c.category_id);
+      if (!uniqueCategoryMap.has(cCatId)) {
+        uniqueCategoryMap.set(cCatId, c);
+      }
+    });
+    const otherCoursesDifferentCategory = Array.from(
+      uniqueCategoryMap.values(),
+    );
+
+    return [
+      ...otherCoursesThisCategory,
+      ...otherCoursesDifferentCategory,
+    ].slice(0, 4);
+  }, [courses, id, courseCategoryId, userCourses]);
 
   return (
     <div className={`ql-editor ${styles.ql}`} style={{ padding: 0 }}>
@@ -81,10 +114,17 @@ const IntroContent = ({ course = {}, courses = [] }) => {
               dangerouslySetInnerHTML={{ __html: skillsText }}
             ></div>
           </div>
-          <p
-            className={styles.programInfo}
-            dangerouslySetInnerHTML={{ __html: ProgramText ? ProgramText : "" }}
-          ></p>
+          <div className={styles.programWrapper}>
+            <p
+              className={styles.programInfo}
+              dangerouslySetInnerHTML={{
+                __html: ProgramText ? ProgramText : "",
+              }}
+            ></p>
+            <Link to={`/courses/all`} state={{ categoryId: courseCategoryId }}>
+              More in Category
+            </Link>
+          </div>
         </div>
         <div className={styles.visualContentWrapper}>
           <div className={styles.posterWrapper}>
@@ -111,7 +151,9 @@ const IntroContent = ({ course = {}, courses = [] }) => {
                   <ClockIcon />
                   Duration:
                 </span>
-                <span className={styles.value}>{courseDuration}</span>
+                <span className={styles.value}>
+                  {duration.hours} hours {duration.minutes} minutes
+                </span>
               </li>
               <li>
                 <span className={styles.property}>
@@ -137,7 +179,7 @@ const IntroContent = ({ course = {}, courses = [] }) => {
               <li>
                 <span className={styles.property}>
                   <CreditIcon />
-                  Credits:
+                  ECTS:
                 </span>
                 <span className={styles.value}>{courseCredits}</span>
               </li>
@@ -204,23 +246,17 @@ const IntroContent = ({ course = {}, courses = [] }) => {
 
       {!isModer && (
         <div className={styles.navPanel}>
-          <Link to="/courses/all" className={styles.allCoursesLink}>
-            <ArrowLeftIcon />
-            <span>View all courses</span>
-          </Link>
+          <BuyCourseBtn courseId={id} className={styles.navBuyBtn} />
           <CardPrice
             orientation="horizontal"
             price={price}
             oldPrice={oldPrice}
             size="m"
           />
-          <button
-            className={styles.buyAllCoursesBtn}
-            onClick={() => addAllCoursesInCategory(course.category_id)}
-          >
-            <span>Buy all courses</span>
-            <CartIcon />
-          </button>
+          <Link to="/courses/all" className={styles.allCoursesLink}>
+            <ArrowLeftIcon />
+            <span>View all courses</span>
+          </Link>
         </div>
       )}
 

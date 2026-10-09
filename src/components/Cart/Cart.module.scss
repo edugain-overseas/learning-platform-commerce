@@ -304,3 +304,25 @@
     }
   }
 }
+
+.discountMessage {
+  padding-block: 16rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8rem;
+
+  svg {
+    width: 10rem;
+    height: 10rem;
+    * {
+      fill: var(--content-datail-secondary);
+    }
+  }
+
+  span {
+    font-size: 14rem;
+    font-weight: 500;
+    color: var(--content-success);
+  } 
+}

@@ -6,7 +6,7 @@ import styles from "./AuthBtn.module.scss";
 const AuthBtn = () => {
   return (
     <Link to="/registration" className={styles.link}>
-      <span>Sing up</span>
+      <span>Register</span>
       <UserIcon />
     </Link>
   );
