@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useCart } from "../../context/cartContext";
 import { priceFormatter } from "../../utils/priceFormatter";
 import { ReactComponent as CrossIcon } from "../../images/icons/cross.svg";
@@ -12,7 +12,7 @@ const DiscountMessage = () => {
 
   const handleCloseMessage = () => {
     setShowDiscountMessage(false);
-  }
+  };
 
   return (
     <div className={styles.discountMessage}>

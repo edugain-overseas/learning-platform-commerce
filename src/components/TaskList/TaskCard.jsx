@@ -18,16 +18,19 @@ const TaskCard = ({ task, messageApi }) => {
   const isModer = useSelector(getUserType) === "moder";
   const canUserGoToTask = (task.status && task.status !== "blocked") || isModer;
   const { courseId } = useParams();
-  const isPublished = useSelector(getAllCourses)?.find(
-    (course) => course.id === +courseId
-  )?.is_published;
+  const course = useSelector(getAllCourses)?.find(
+    (course) => course.id === +courseId,
+  );
+  const isPublished = course?.is_published;
 
   const handleLinkClick = (e) => {
     if (!canUserGoToTask) {
       e.preventDefault();
       messageApi.open({
         type: "info",
-        content: "You can not access this lesson because it is blocked",
+        content: course.bought
+          ? "This lesson is not availabel. Please complete previous lessons"
+          : "Please purchase the course to gain access to the lesson",
         duration: 3,
       });
     }

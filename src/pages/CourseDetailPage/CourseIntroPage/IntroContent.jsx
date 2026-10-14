@@ -33,7 +33,6 @@ const IntroContent = ({ course = {}, courses = [] }) => {
     program_text: ProgramText,
     image_path: coursePoster,
     c_type: courseType,
-    // c_access: courseAccess,
     c_credits: courseCredits,
     c_award: courseAward,
     c_duration: courseDuration,
@@ -121,8 +120,12 @@ const IntroContent = ({ course = {}, courses = [] }) => {
                 __html: ProgramText ? ProgramText : "",
               }}
             ></p>
-            <Link to={`/courses/all`} state={{ categoryId: courseCategoryId }}>
-              More in Category
+            <Link
+              to={isModer ? "/courses" : `/courses/all`}
+              state={{ categoryId: courseCategoryId }}
+            >
+              <span>More in Category</span>
+              <ArrowLeftIcon />
             </Link>
           </div>
         </div>

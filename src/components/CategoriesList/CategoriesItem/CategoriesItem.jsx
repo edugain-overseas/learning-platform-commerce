@@ -118,7 +118,6 @@ const CategoriesItem = ({
   useEffect(() => {
     
     if (defaultDropdownOpen && dropdownRef?.current) {
-      console.log(defaultDropdownOpen, category.id);
       const dropdown = dropdownRef.current;
       if (dropdown) {
         if (defaultDropdownOpen) {
@@ -183,7 +182,7 @@ const CategoriesItem = ({
           {!isModer ? (
             <>
               <p>
-                <span>Purchased: </span>
+                <span>Purchase in Category: </span>
                 {`${userCoursesInCategory.length} / ${categoryCourses.length}`}
               </p>
               {!isProgressHidden && (
@@ -214,19 +213,9 @@ const CategoriesItem = ({
             </>
           )}
           <div className={styles.infoWrapper}>
-            <span>Info the courses</span>
+            <span>About the Courses</span>
             <InfoBtn infoContent={category.description} orientation="left" />
           </div>
-          {/* <button
-            className={`${styles.dropdownBtn} ${
-              dropDownOpen ? styles.open : ""
-            }`}
-            onClick={handleToggleDropDown}
-          >
-            <span>
-              <ChevronIcon />
-            </span>
-          </button> */}
           {!isModer && studentBtn}
         </div>
       </div>

@@ -18,9 +18,17 @@
       }
     }
 
+    .coursePoster {
+      filter: grayscale(100%);
+    }
+
     &:hover {
       .courseLink {
         opacity: 1;
+      }
+
+      .coursePoster {
+        filter: grayscale(0%);
       }
     }
   }

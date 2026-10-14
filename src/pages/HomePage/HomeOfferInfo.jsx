@@ -58,7 +58,11 @@ const HomeOfferInfo = () => {
               </a>
             </li>
             <li>
-              <a href="/">
+              <a
+                href="https://play.google.com/store/apps/details?id=io.ieucourses.app"
+                target="_blank"
+                rel="norreferrer"
+              >
                 <Playmarketcon />
                 <div>Google play</div>
               </a>

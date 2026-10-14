@@ -60,3 +60,43 @@
     border-radius: 30rem;
   }
 }
+
+.linksWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32rem;
+
+  a {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38rem;
+    border-radius: 5rem;
+
+    span {
+      font-size: 14rem;
+      line-height: normal;
+    }
+  }
+
+  a:first-child {
+    background-color: var(--content-nav-hover);
+    color: var(--content-contr-color);
+
+    &:hover {
+      background-color: var(--content-main);
+      color: var(--content-contr-color);
+    }
+  }
+
+  a:last-child {
+    background-color: var(--content-main);
+    color: var(--content-contr-color);
+    &:hover {
+      background-color: var(--content-nav-hover);
+      color: var(--content-contr-color);
+    }
+  }
+}

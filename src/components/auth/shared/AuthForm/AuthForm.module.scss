@@ -23,13 +23,13 @@
 
   &.registration {
     label > span {
-      min-width: 76rem;
+      width: 76rem;
     }
   }
 
   &.login {
     label > span {
-      min-width: 110rem;
+      width: 110rem;
     }
   }
 }

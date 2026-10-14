@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { validatePassword } from "../../../../utils/inputsValidateHandler";
 import { ReactComponent as EyeIcon } from "../../../../images/icons/eye.svg";
 import { ReactComponent as EyeInvisibleIcon } from "../../../../images/icons/eye-invisible.svg";

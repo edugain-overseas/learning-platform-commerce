@@ -1,5 +1,4 @@
-import React from "react";
-import { Outlet, useLocation, useParams } from "react-router-dom";
+import { Navigate, Outlet, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllInstructions } from "../../redux/instruction/selectors";
 import { ReactComponent as DocSearchIcon } from "../../images/icons/document-search.svg";
@@ -16,10 +15,10 @@ const InstructionsList = () => {
 
   const instructions = useSelector(getAllInstructions);
   const generalInstruction = instructions.filter(
-    ({ type }) => type === "general"
+    ({ type }) => type === "general",
   );
   const coursesInstruction = instructions.filter(
-    ({ type }) => type === "course"
+    ({ type }) => type === "course",
   );
 
   const targetInstructions = pathname.includes("general")
@@ -27,6 +26,11 @@ const InstructionsList = () => {
     : coursesInstruction;
 
   const isAdmin = useSelector(getUserInfo).userType === "moder";
+
+  if (!instructionId && targetInstructions.length > 0) {
+    const firstInstructionId = targetInstructions[0].id;
+    return <Navigate to={`${firstInstructionId}`} replace />;
+  }
 
   return (
     <div className={styles.wrapper}>

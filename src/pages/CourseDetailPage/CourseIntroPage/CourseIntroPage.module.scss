@@ -124,14 +124,28 @@ div.ql {
   }
 
   .programWrapper {
-    display: flex;
-    justify-content: space-between;
-    gap: 12rem;
+    padding-inline-start: 12rem;
+
     a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8rem;
       color: var(--content-datail-secondary);
-      font-size: 14rem;
-      font-weight: 500;
-      flex-shrink: 0;
+
+      span {
+        font-size: 14rem;
+        font-weight: 500;
+      }
+
+      svg {
+        width: 14rem;
+        height: 14rem;
+        rotate: 180deg;
+
+        & > * {
+          fill: currentColor;
+        }
+      }
 
       &:hover {
         text-decoration: underline;
@@ -140,10 +154,15 @@ div.ql {
   }
 
   .programInfo {
-    padding-inline-start: 12rem;
+    display: inline;
     text-align: justify;
     font-weight: 600;
     line-height: 18rem;
+    margin-inline-end: 20rem;
+
+    & * {
+      display: inline;
+    }
   }
 }
 

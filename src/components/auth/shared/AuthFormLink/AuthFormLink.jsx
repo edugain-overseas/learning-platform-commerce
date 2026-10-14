@@ -1,6 +1,4 @@
-import React from "react";
 import { Link, useLocation } from "react-router-dom";
-// import { ArrowRightOutlined } from "@ant-design/icons";
 import styles from "./AuthFormLink.module.scss";
 
 const AuthFormLink = ({ to }) => {
@@ -18,9 +16,8 @@ const AuthFormLink = ({ to }) => {
         }}
       >
         <span className={styles.linkText}>
-          {to === "login" ? "login here!" : "register here!"}
+          {to === "login" ? "Login here!" : "Register here!"}
         </span>
-        {/* <ArrowRightOutlined /> */}
       </Link>
     </p>
   );

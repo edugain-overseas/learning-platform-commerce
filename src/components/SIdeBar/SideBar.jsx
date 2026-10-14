@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { getUserType } from "../../redux/user/selectors";
 import { adminSidebarNav, sidebarNav } from "../../costants/nav";
@@ -11,18 +11,17 @@ import UserInfo from "./UserInfo/UserInfo";
 import styles from "./SideBar.module.scss";
 
 const SideBar = () => {
-  // const accessToken = useSelector(getAccessToken);
   const isModer = useSelector(getUserType) === "moder";
 
   const navItems = isModer ? adminSidebarNav : sidebarNav;
 
   const [isExpandedFixed, setIsExpandedFixed] = useLocalStorage(
     "isExpandedFixed",
-    false
+    false,
   );
   const [isNarrowedFixed, setIsNarrowedFixed] = useLocalStorage(
     "isNarrowedFixed",
-    false
+    false,
   );
   const wrapperRef = useRef(null);
 

@@ -6,6 +6,8 @@ import { ReactComponent as AboutIEUIcon } from "../images/icons/nav/about.svg";
 import { ReactComponent as InstructionsIcon } from "../images/icons/nav/instruction.svg";
 import { ReactComponent as ContactsIcon } from "../images/icons/nav/contacts.svg";
 import { ReactComponent as SettingsIcon } from "../images/icons/nav/settings.svg";
+import { ReactComponent as AppstoreIcon } from "../images/icons/social/app-store.svg";
+import { ReactComponent as Playmarketcon } from "../images/icons/social/play-market.svg";
 import CourseIntroPage from "../pages/CourseDetailPage/CourseIntroPage/CourseIntroPage";
 import CourseTasksPage from "../pages/CourseDetailPage/CourseTasksPage/CourseTasksPage";
 import CourseCerificatePage from "../pages/CourseDetailPage/CourseCerificatePage/CourseCerificatePage";
@@ -49,6 +51,21 @@ export const sidebarNav = [
     label: "Settings",
     icon: <SettingsIcon />,
     link: "/settings",
+    children: null,
+  },
+];
+
+export const platformLinks = [
+  {
+    label: "App Store",
+    icon: <AppstoreIcon />,
+    link: "/",
+    children: null,
+  },
+  {
+    label: "Google Play",
+    icon: <Playmarketcon />,
+    link: "https://play.google.com/store/apps/details?id=io.ieucourses.app",
     children: null,
   },
 ];

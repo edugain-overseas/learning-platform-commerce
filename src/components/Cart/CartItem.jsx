@@ -29,7 +29,7 @@ const ProposedItems = ({ proposedCourses }) => {
       </ul>
       <button className={styles.toggleOpenBtn} onClick={toggleOpen}>
         <span>
-          {isOpen ? "Hide all available courses" : "See all available courses"}
+          {isOpen ? "Hide All Available Courses in This Category" : "View All Available Courses in This Category"}
         </span>
       </button>
     </div>
