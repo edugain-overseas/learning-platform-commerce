@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Image } from "antd";
 import { pdfUrlToImages } from "../../utils/pdfToImages";
 import { useNotificationMessage } from "../../hooks/useNotificationMessage";
@@ -47,11 +47,11 @@ const PdfPreview = ({ pdfUrl, previewVisible, setPreviewVisible }) => {
           preview={{
             // visible: previewVisible,
             open: previewVisible,
-            onVisibleChange: (value) => {
+            onOpenChange: (value) => {
               setPreviewVisible(value);
             },
           }}
-          classNames={{popup: styles.imagePopUp}}
+          classNames={{ popup: styles.imagePopUp }}
         >
           <div style={{ display: "none" }}>
             {imgs.map((src, index) => (

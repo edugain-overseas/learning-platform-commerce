@@ -97,8 +97,6 @@ const TestConstructor = ({ attempts, score, timer }) => {
           />
         );
       case "matching":
-        console.log(block);
-
         return (
           <Matching
             partData={block}

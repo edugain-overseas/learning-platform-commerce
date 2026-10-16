@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { getUserCourses, getUserInfo } from "../../redux/user/selectors";
@@ -24,8 +24,6 @@ const UserProfilePage = () => {
   const dispatch = useDispatch();
 
   const isUserLoggedIn = userInfo.accessToken; // remove from all child components
-
-  console.log(myCourses);
 
   useEffect(() => {
     if (userInfo.accessToken) {

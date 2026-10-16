@@ -23,7 +23,9 @@ const CoursesList = ({ courses, categoryId }) => {
     >
       {coursesToDisplay.map((course) => {
         const purchased = course.bought;
-        const disabled = !purchased && pathname.includes("education");
+        const disabled = pathname.includes("education")
+          ? !purchased
+          : purchased;
 
         return (
           <li
@@ -48,7 +50,7 @@ const CoursesList = ({ courses, categoryId }) => {
           </li>
         );
       })}
-      {isModer && <CreateNewCourseItem categoryId={categoryId}/>}
+      {isModer && <CreateNewCourseItem categoryId={categoryId} />}
     </ul>
   );
 };

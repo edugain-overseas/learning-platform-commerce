@@ -347,34 +347,42 @@ const LectureContent = ({
           <Empty />
         )}
         {!isTemplate && (
-          <div className={styles.bottomNavBtnsWrapper}>
-            <LessonNavigateBtn
-              forward={false}
-              currentNumber={lecture.number}
-              courseId={courseId}
-              label="Return to previous"
-              width="200rem"
-              height="38rem"
-              disabled={isLoading}
-            />
-            {status === "active" ? (
-              <CompleteBtn
-                onClick={handleConfirmLecture}
-                state={confirmBtnState}
+          <>
+            <div className={styles.bottomNavBtnsWrapper}>
+              <LessonNavigateBtn
+                forward={false}
+                currentNumber={lecture.number}
+                courseId={courseId}
+                label="Return to previous"
+                width="200rem"
+                height="38rem"
+                disabled={isLoading}
               />
-            ) : status === "completed" ? (
-              <CompleteBtn state={"fulfilled"} />
-            ) : null}
-            <LessonNavigateBtn
-              forward={true}
-              currentNumber={lecture.number}
-              courseId={courseId}
-              label="Move on to next"
-              width="200rem"
-              height="38rem"
-              disabled={isLoading}
-            />
-          </div>
+              {status === "active" ? (
+                <CompleteBtn
+                  onClick={handleConfirmLecture}
+                  state={confirmBtnState}
+                />
+              ) : status === "completed" ? (
+                <CompleteBtn state={"fulfilled"} />
+              ) : null}
+              <LessonNavigateBtn
+                forward={true}
+                currentNumber={lecture.number}
+                courseId={courseId}
+                label="Move on to next"
+                width="200rem"
+                height="38rem"
+                disabled={isLoading}
+              />
+            </div>
+            {status !== "completed" && (
+              <p className={styles.additionalBottomText}>
+                Make sure this lecture is marked as <b>Completed</b> to ensure
+                your learning progress is properly recorded.
+              </p>
+            )}
+          </>
         )}
       </div>
     </div>

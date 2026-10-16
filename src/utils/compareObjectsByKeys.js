@@ -1,8 +1,6 @@
 export const compareObjectsByKeys = (obj1, obj2, keys) => {
-  console.log(keys);
   
   for (let key of keys) {
-    console.log(obj1?.[key], obj2?.[key]);
     if (obj1?.[key] !== obj2?.[key]) {
       return true;
     }
@@ -31,7 +29,6 @@ const getByTemplateTypeByAttrType = (a_type) => {
 };
 
 export const compareLecturePart = (obj1, obj2, a_type) => {
-  console.log(obj1, obj2);
 
   const textBaseValues = ["a_title", "a_text", "a_number"];
   const fileBaseValues = [
@@ -76,7 +73,6 @@ export const compareLecturePart = (obj1, obj2, a_type) => {
         isLinksChanged = true;
       } else {
         isLinksChanged = obj1.links.reduce((changed, link, index) => {
-          console.log(link, obj2.links[index]);
           return (
             changed ||
             compareObjectsByKeys(link, obj2.links[index], linksBaseValues)

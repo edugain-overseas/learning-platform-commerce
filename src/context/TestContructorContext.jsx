@@ -85,7 +85,6 @@ export const TestContructorProvider = ({ children }) => {
   };
 
   const handleAddBlockFromDocImport = (block) => {
-    console.log(block);
     setBlocks((prev) => [
       ...prev,
       {
@@ -147,7 +146,6 @@ export const TestContructorProvider = ({ children }) => {
   const addNewOption = (id) => {
     setBlocks((prev) =>
       prev.map((block) => {
-        console.log(block);
         if (block.id !== id) return block;
         return {
           ...block,

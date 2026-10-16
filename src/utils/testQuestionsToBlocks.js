@@ -7,7 +7,7 @@ export const testQuestionsToBlocks = (questions) => {
         left_text: value,
         right_text: responseAnswers.right?.find(
           ({ id: rightId }) => rightId === id
-        ).value,
+        )?.value,
       }));
 
       return { ...question, answers, id: question.q_id || question.id };

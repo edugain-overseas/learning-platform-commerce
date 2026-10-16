@@ -1,8 +1,9 @@
+import moment from "moment";
+import PhoneInput from "react-phone-input-2";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { getCode } from "country-list";
-import PhoneInput from "react-phone-input-2";
 import { ReactComponent as ReloadIcon } from "../../images/icons/reload.svg";
 import { ReactComponent as SaveIcon } from "../../images/icons/save.svg";
 import { resetPassword } from "../../http/services/user";
@@ -11,7 +12,6 @@ import CommonButton from "../shared/CommonButton/CommonButton";
 import Spinner from "../Spinner/Spinner";
 import "react-phone-input-2/lib/style.css";
 import styles from "./UserInfoCard.module.scss";
-import moment from "moment";
 
 const UserInfoForm = ({
   userInfo,

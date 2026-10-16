@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "react-phone-input-2/lib/style.css";
 import { useDispatch } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { ReactComponent as EditIcon } from "../../images/icons/edit-avatar.svg";
-import { ReactComponent as SettingsIcon } from "../../images/icons/settings.svg";
 import {
   updateUserInfoThunk,
   updateUsernameThunk,
@@ -219,7 +218,7 @@ const UserInfoCard = ({ userInfo }) => {
       {!isEdit && accessToken && (
         <div className={styles.editBtnWrapper}>
           <Tooltip infoContent="Edit profile">
-            <InsetBtn onClick={handleEdit} icon={<SettingsIcon />} />
+            <InsetBtn onClick={handleEdit} icon={<EditIcon />} />
           </Tooltip>
         </div>
       )}

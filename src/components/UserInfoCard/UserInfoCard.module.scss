@@ -389,6 +389,21 @@
   position: absolute;
   top: 16rem;
   right: 28rem;
+
+  svg {
+    width: 100%;
+    height: auto;
+  }
+
+  rect {
+    fill: none;
+  }
+
+  &:hover g {
+    rect {
+      fill: none;
+    }
+  }
 }
 
 .changePasswordWrapper {
