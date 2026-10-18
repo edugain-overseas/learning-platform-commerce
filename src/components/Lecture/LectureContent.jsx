@@ -321,8 +321,6 @@ const LectureContent = ({
   const lectureNumber =
     courseLectures.findIndex((lesson) => lesson.id === id) + 1;
 
-  console.log(status);
-
   return (
     <div className={styles.contentWrapper}>
       <div className={styles.lectureContent}>

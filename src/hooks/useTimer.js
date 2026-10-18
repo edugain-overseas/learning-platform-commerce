@@ -19,6 +19,11 @@ export const useTimer = ({
     }
   }, []);
 
+  const reset = useCallback(() => {
+    clear();
+    setTimeLeft(initialTime);
+  }, [clear, initialTime, setTimeLeft]);
+
   const start = useCallback(() => {
     clear();
     if (!timeLeft) {
@@ -46,5 +51,5 @@ export const useTimer = ({
     return clear;
   }, [initialTime, clear, setTimeLeft]);
 
-  return { timeLeft, start, clear };
+  return { timeLeft, start, clear, reset };
 };

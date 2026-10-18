@@ -80,6 +80,7 @@ export const useStudentTest = (test, lessonType) => {
         setStudentAnswers([]);
         localStorage.removeItem(answersStorageKey);
         localStorage.removeItem(timerStorageKey);
+        resetTimer();
       } else {
         throw new Error("Error while calculating score");
       }
@@ -102,6 +103,7 @@ export const useStudentTest = (test, lessonType) => {
   const {
     start: startTimer,
     clear: clearTimer,
+    reset: resetTimer,
     timeLeft,
   } = useTimer({
     initialTime,
@@ -145,6 +147,7 @@ export const useStudentTest = (test, lessonType) => {
       setStudentAnswers([]);
       localStorage.removeItem(answersStorageKey);
       localStorage.removeItem(timerStorageKey);
+      resetTimer();
 
       messageApi.success({
         content: response.message,
@@ -190,7 +193,6 @@ export const useStudentTest = (test, lessonType) => {
     }
     // eslint-disable-next-line
   }, [sumbittedAttemptId]);
-
 
   useEffect(() => {
     const fetchAttempts = async () => {

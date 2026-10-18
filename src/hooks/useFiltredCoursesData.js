@@ -82,9 +82,6 @@ export const useFilteredCoursesData = () => {
         (course) => course.category_id === b.id,
       );
 
-      console.log(a, aCourses);
-      console.log(b, bCourses);
-
       const getCategoryWeight = (coursesList) => {
         const hasInProgress = coursesList.some(
           (c) => c.progress && c.progress < 100,

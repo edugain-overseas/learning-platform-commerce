@@ -55,8 +55,6 @@ const SearchPage = () => {
     return () => clearTimeout(debounceRef.current);
   }, [qFromUrl]);
 
-  console.log(data);
-
   const resultsAmount = data
     ? Object.keys(data).reduce((length, key) => (length += data[key].length), 0)
     : 0;

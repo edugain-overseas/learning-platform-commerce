@@ -44,6 +44,9 @@ const CourseCard = ({
     bought,
   } = course;
 
+  console.log(bought);
+  
+
   const courseLink = `/course/${id}/` + (bought ? "tasks" : "intro");
 
   return (

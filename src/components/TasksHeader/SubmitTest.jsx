@@ -60,7 +60,6 @@ const AttemptsList = ({ test, closePopOver }) => {
     }
   };
 
-  console.log(attempts);
 
   const handleSubmitAttempt = async (attempt_id, attempt_score) => {
     const attemptData = {

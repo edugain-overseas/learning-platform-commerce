@@ -97,6 +97,8 @@ const IntroContent = ({ course = {}, courses = [] }) => {
     ].slice(0, 4);
   }, [courses, id, courseCategoryId, userCourses]);
 
+  console.log(isUserCourse, isModer);
+
   return (
     <div className={`ql-editor ${styles.ql}`} style={{ padding: 0 }}>
       <section className={styles.mainInfoWrapper}>
@@ -249,13 +251,17 @@ const IntroContent = ({ course = {}, courses = [] }) => {
 
       {!isModer && (
         <div className={styles.navPanel}>
-          <BuyCourseBtn courseId={id} className={styles.navBuyBtn} />
-          <CardPrice
-            orientation="horizontal"
-            price={price}
-            oldPrice={oldPrice}
-            size="m"
-          />
+          {!isUserCourse && (
+            <>
+              <BuyCourseBtn courseId={id} className={styles.navBuyBtn} />
+              <CardPrice
+                orientation="horizontal"
+                price={price}
+                oldPrice={oldPrice}
+                size="m"
+              />
+            </>
+          )}
           <Link to="/courses/all" className={styles.allCoursesLink}>
             <ArrowLeftIcon />
             <span>View all courses</span>
