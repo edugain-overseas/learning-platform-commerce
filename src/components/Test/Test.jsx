@@ -24,13 +24,20 @@ const Test = ({ test }) => {
     startTestAttempt,
     onSubmitAttemptBtnClick,
     completeTestWithAttempt,
+    clearAttempts,
   } = useStudentTest(test, "test");
 
   const { course_id: courseId } = test;
 
+  const hasPassedAttempt = test.test_data?.attempts_data?.some(
+    (attempt) => attempt.is_passed,
+  );
+
+  const outOfAttempts =
+    test?.test_data?.attempts <= test.test_data?.attempts_data?.length;
+
   const isTestClosed =
-    test?.test_data?.attempts <= test.test_data?.attempts_data?.length ||
-    submitedAttemptData;
+    !!submitedAttemptData || (!hasPassedAttempt && outOfAttempts);
 
   const completeAttemptBtnState = submitedAttemptData ? "fulfilled" : "default";
 
@@ -60,9 +67,7 @@ const Test = ({ test }) => {
     </div>
   );
 
-  const showExpiredAttemptsMessage =
-    isTestClosed &&
-    test.test_data?.attempts_data?.every((attempt) => !attempt.is_passed);
+  const showExpiredAttemptsMessage = isTestClosed && !hasPassedAttempt;
 
   return (
     <>
@@ -99,14 +104,13 @@ const Test = ({ test }) => {
                 <TestLanding
                   onStartTest={startTestAttempt}
                   completeTestWithAttempt={completeTestWithAttempt}
+                  clearAttempts={clearAttempts}
                   testData={{ ...test.test_data, timer: test.scheduled_time }}
                 />
               )}
             </TaskLayout.Content>
             <TaskLayout.Tools>
-              {/* <div className={styles.progressWrapper}> */}
               <CourseAsideProgressPanel courseId={courseId} />
-              {/* </div> */}
             </TaskLayout.Tools>
           </TaskLayout.Container>
         )}

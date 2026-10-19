@@ -16,6 +16,7 @@ import {
 } from "../utils/formatTime";
 import useLocalStorage from "./useLocalStorage";
 import { getUserInfo } from "../redux/user/selectors";
+import { instance } from "../http/instance";
 
 export const useStudentTest = (test, lessonType) => {
   const lessonId = test.id;
@@ -248,6 +249,17 @@ export const useStudentTest = (test, lessonType) => {
     }
   };
 
+  const clearAttempts = async () => {
+    try {
+      await instance.delete(
+        `/student-${lessonType}/attempts/clear?${lessonType}_id=${test[`${lessonType}_data`][`${lessonType}_id`]}`,
+      );
+      await dispatch(getTestAttemptsThunk({ test_id: testId })).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     contextHolder,
     studentAnswers,
@@ -258,9 +270,10 @@ export const useStudentTest = (test, lessonType) => {
     showTest,
     showExam,
     showTimer,
+    isLoading,
     startTestAttempt,
     onSubmitAttemptBtnClick,
     completeTestWithAttempt,
-    isLoading,
+    clearAttempts,
   };
 };

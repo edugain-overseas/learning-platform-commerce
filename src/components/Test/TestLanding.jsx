@@ -3,9 +3,15 @@ import { ReactComponent as TimeIcon } from "../../images/icons/HomeStats/student
 import { ReactComponent as PointsIcon } from "../../images/icons/HomeStats/courses.svg";
 import { ReactComponent as AttemptsIcon } from "../../images/icons/HomeStats/score.svg";
 import CommonButton from "../shared/CommonButton/CommonButton";
+import ManualClearAttemptsRetakeButton from "../shared/ManualClearAttemptsRetakeButton/ManualClearAttemptsRetakeButton";
 import styles from "./Test.module.scss";
 
-const TestLanding = ({ onStartTest, completeTestWithAttempt, testData }) => {
+const TestLanding = ({
+  onStartTest,
+  completeTestWithAttempt,
+  clearAttempts,
+  testData,
+}) => {
   const timer = testData.timer;
   const testScore = testData.score;
   const passingScore = Math.round(testScore * 0.6);
@@ -80,20 +86,24 @@ const TestLanding = ({ onStartTest, completeTestWithAttempt, testData }) => {
         <b>Good luck!</b>
       </p>
       <div className={styles.btnsWrapper}>
-        <CommonButton
-          text={studentAttemts.length === 0 ? "Start" : "Retake"}
-          className={styles.landingBtn}
-          variant={
-            studentAttemts.length === 0 ? "darkBlue" : "transparentTextDark"
-          }
-          hoverVariant={
-            studentAttemts.length === 0 ? "lightBlue" : "transparentTextLight"
-          }
-          onClick={onStartTest}
-        />
+        {studentHasPassed && !attemptsLeft ? (
+          <ManualClearAttemptsRetakeButton handleClear={clearAttempts} />
+        ) : (
+          <CommonButton
+            text={studentAttemts.length === 0 ? "Start" : "Retake"}
+            className={styles.landingBtn}
+            variant={
+              studentAttemts.length === 0 ? "darkBlue" : "transparentTextDark"
+            }
+            hoverVariant={
+              studentAttemts.length === 0 ? "lightBlue" : "transparentTextLight"
+            }
+            onClick={onStartTest}
+          />
+        )}
         {studentHasPassed && (
           <CommonButton
-            text="Complete"
+            text="Submit"
             variant="green"
             hoverVariant="darkBlue"
             className={styles.landingBtn}
