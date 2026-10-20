@@ -17,7 +17,9 @@
   }
 }
 
-.serchIcon {
+.searchButton {
+  display: flex;
+  align-items: center;
   margin-right: 8rem;
   cursor: pointer;
 }
@@ -51,15 +53,15 @@
     color: var(--content-main);
 
     &::placeholder {
-        color: var(--content-main);
+      color: var(--content-main);
     }
   }
 }
 
 .clearBtn {
-    &:hover {
-        path {
-            fill: var(--content-nav-hover);
-        }
+  &:hover {
+    path {
+      fill: var(--content-nav-hover);
     }
+  }
 }

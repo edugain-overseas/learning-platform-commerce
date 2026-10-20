@@ -49,7 +49,7 @@ const TestLanding = ({
             <span>{passingScore}</span> points
           </div>
           <div className={styles.desc}>
-            <b>Points</b> for passing the Exam
+            <b>Points</b> for passing the Test
           </div>
         </div>
 

@@ -5,11 +5,13 @@ import { getAllCourses } from "../../redux/course/selectors";
 import { submitTestAttemptThunk } from "../../redux/lesson/operation";
 import { useStudentTest } from "../../hooks/useStudentTest";
 import { useLeaveConfirm } from "../../hooks/useLeaveConfirm";
+import { ReactComponent as CheckIcon } from "../../images/icons/checked.svg";
 import ExamHeader from "./ExamHeader";
 import ClosedExamPanel from "./ClosedExamPanel";
 import TestContent from "../Test/TestContent";
 import LeaveModal from "./LeaveModal";
 import styles from "./Exam.module.scss";
+import CommonButton from "../shared/CommonButton/CommonButton";
 
 const Exam = ({ exam }) => {
   const userInfo = useSelector(getUserInfo);
@@ -20,10 +22,11 @@ const Exam = ({ exam }) => {
     setStudentAnswers,
     completedQuestionsAmount,
     timeLeft,
-    startTestAttempt,
     showExam,
-    onSubmitAttemptBtnClick,
     isLoading,
+    startTestAttempt,
+    onSubmitAttemptBtnClick,
+    clearAttempts,
   } = useStudentTest(exam, "exam");
 
   const { course_id: courseId, id, exam_data: examData } = exam;
@@ -95,6 +98,7 @@ const Exam = ({ exam }) => {
     const handleBeforeUnload = (e) => {
       e.preventDefault();
       e.returnValue = "";
+      onSubmitAttemptBtnClick();
     };
 
     if (showExam) {
@@ -106,6 +110,7 @@ const Exam = ({ exam }) => {
         window.removeEventListener("beforeunload", handleBeforeUnload);
       }
     };
+    // eslint-disable-next-line
   }, [showExam]);
 
   //react-router-based page leave bloker
@@ -119,6 +124,17 @@ const Exam = ({ exam }) => {
   if (isLoading) {
     return null;
   }
+
+  const bottomTools = (
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <CommonButton
+        onClick={onSubmitAttemptBtnClick}
+        text="Complete"
+        icon={<CheckIcon />}
+        variant="lightBlue"
+      />
+    </div>
+  );
 
   return (
     <>
@@ -142,6 +158,7 @@ const Exam = ({ exam }) => {
               studentAnswers={studentAnswers}
               setStudentAnswers={setStudentAnswers}
               timeLeft={timeLeft}
+              bottomTools={bottomTools}
             />
           ) : (
             <ClosedExamPanel
@@ -150,6 +167,7 @@ const Exam = ({ exam }) => {
               stats={examStatus()}
               handleStartExam={startTestAttempt}
               handleCompleteCourse={handleCompleteCourse}
+              clearAttempts={clearAttempts}
             />
           )}
         </div>

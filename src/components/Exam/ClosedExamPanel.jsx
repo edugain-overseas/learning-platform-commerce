@@ -8,6 +8,7 @@ import ChangeNameForm from "./ChangeNameForm";
 import Spinner from "../Spinner/Spinner";
 import DownloadCertificate from "./DownloadCertificate";
 import styles from "./Exam.module.scss";
+import ManualClearAttemptsRetakeButton from "../shared/ManualClearAttemptsRetakeButton/ManualClearAttemptsRetakeButton";
 
 const content = {
   firstAttempt: {
@@ -152,6 +153,7 @@ const ClosedExamPanel = ({
   stats,
   handleStartExam,
   handleCompleteCourse,
+  clearAttempts,
 }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -161,7 +163,6 @@ const ClosedExamPanel = ({
   const name = userInfo.name;
   const surname = userInfo.surname;
   const studentAttempts = examData.attempts_data;
-  
 
   const handleCompleteCourseBtnClick = async () => {
     if (requestForUserChangeName || requestForUserChangeSurname) {
@@ -244,7 +245,11 @@ const ClosedExamPanel = ({
         case "passed":
           return (
             <>
-              {examData.attempts - studentAttempts?.length !== 0 && retakeExam}
+              {examData.attempts - studentAttempts?.length !== 0 ? (
+                retakeExam
+              ) : (
+                <ManualClearAttemptsRetakeButton handleClear={clearAttempts} />
+              )}
               {completeExam}
             </>
           );

@@ -1,74 +1,3 @@
-// .pageWrappper {
-//   padding: 16rem 16rem 30rem;
-//   height: 100%;
-//   display: flex;
-//   gap: 16rem;
-// }
-
-// .leftWrapper {
-//   flex-grow: 1;
-//   display: flex;
-//   flex-direction: column;
-//   gap: 16rem;
-
-//   .topWrapper {
-//     transition: height var(--transition-time-min) ease;
-//   }
-
-//   .bottomWrapper {
-//     flex-grow: 1;
-//     border-radius: 5rem;
-//     background-color: var(--bg-rgba-default);
-//     box-shadow: var(--drop-shadow-short);
-//     backdrop-filter: blur(16rem);
-//     border-radius: 5rem;
-//     padding: 20rem 28rem;
-//     display: flex;
-//     flex-direction: column;
-//     overflow: auto;
-// }
-// }
-
-// .rightWrapper {
-//   width: 268rem;
-
-//   display: flex;
-//   flex-direction: column;
-//   gap: 16rem;
-
-  // .cardWrapper {
-  //   flex: 1;
-  //   background-color: var(--bg-rgba-default);
-  //   box-shadow: var(--drop-shadow-short);
-  //   border-radius: 5rem;
-  // }
-
-  // .progressTitle {
-  //   display: flex;
-  //   flex-direction: column;
-  //   gap: 4rem;
-  //   align-items: center;
-
-  //   .name {
-  //     font-size: 14rem;
-  //     font-weight: 500;
-  //     line-height: 17rem;
-  //     color: var(--content-datail-secondary);
-  //   }
-
-  //   .value {
-  //     font-size: 24rem;
-  //     font-weight: 500;
-  //     line-height: 29rem;
-  //     color: var(--content-main);
-
-  //     span {
-  //       font-size: 16rem;
-  //     }
-  //   }
-  // }
-// }
-
 div[data-expanded-fixed="true"] + main .pageContainer {
   padding-inline-start: 16rem;
 }
@@ -126,7 +55,6 @@ div[data-expanded-fixed="true"] + main .pageContainer {
   z-index: 1;
   background-color: var(--bg-rgba-default);
 
-
   &:before {
     content: "";
     position: absolute;
@@ -163,7 +91,6 @@ div[data-expanded-fixed="true"] + main .pageContainer {
 
 .blockBody {
   flex-grow: 1;
-
 }
 
 .userDataInner {

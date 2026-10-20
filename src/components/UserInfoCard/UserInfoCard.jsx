@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "react-phone-input-2/lib/style.css";
 import { useDispatch } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
@@ -30,9 +30,17 @@ const UserInfoCard = ({ userInfo }) => {
   const accessToken = userInfo.accessToken;
 
   const userCoursesNumber = userInfo.courses.length;
-  const userCertificatesNumber = userInfo.courses.filter(
-    (course) => course.status === "completed",
-  ).length;
+
+  const userCertificatesNumber = useMemo(() => {
+    const certificatesList = userInfo?.certificates || [];
+    
+    return certificatesList.reduce((array, catCert) => {
+      const coursesCert = catCert.course_certificate_data?.filter(
+        (courseCert) => courseCert?.course_certificate_id
+      ) || [];
+      return [...array, ...coursesCert];
+    }, []).length;
+  }, [userInfo?.certificates]);
 
   const userStudingStatsStr = `${userCoursesNumber} course${
     userCoursesNumber > 1 ? "s" : ""

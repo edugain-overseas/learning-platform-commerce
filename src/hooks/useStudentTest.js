@@ -73,26 +73,30 @@ export const useStudentTest = (test, lessonType) => {
       const score = newAttempt?.attempt_score;
 
       if (score !== undefined) {
-        messageApi.destroy();
-        messageApi.success({
-          content: `Your result: ${score} point!`,
-          duration: 5,
-        });
         setStudentAnswers([]);
         localStorage.removeItem(answersStorageKey);
         localStorage.removeItem(timerStorageKey);
         resetTimer();
+        setTimeout(() => {
+          messageApi.destroy();
+          messageApi.success({
+            content: `Your result: ${score} point!`,
+            duration: 5,
+          });
+        }, 0);
       } else {
         throw new Error("Error while calculating score");
       }
     } catch (error) {
       console.log(error);
 
-      messageApi.destroy();
-      messageApi.error({
-        content: "Something went wrong!",
-        duration: 3,
-      });
+      setTimeout(() => {
+        messageApi.destroy();
+        messageApi.error({
+          content: "Something went wrong!",
+          duration: 3,
+        });
+      }, 0);
     } finally {
       closeTestAttempt();
       if (lessonType === "test") {
@@ -150,10 +154,14 @@ export const useStudentTest = (test, lessonType) => {
       localStorage.removeItem(timerStorageKey);
       resetTimer();
 
-      messageApi.success({
-        content: response.message,
-        duration: 5,
-      });
+      console.log(response);
+
+      setTimeout(() => {
+        messageApi.success({
+          content: response.message,
+          duration: 5,
+        });
+      }, 0);
     } catch (err) {
       console.log(err);
       if (err.status === 422) {
@@ -164,10 +172,12 @@ export const useStudentTest = (test, lessonType) => {
         });
         return;
       }
-      messageApi?.error({
-        content: err?.message ? err.message : "Something went wrong",
-        duration: 3,
-      });
+      setTimeout(() => {
+        messageApi?.error({
+          content: err?.message ? err.message : "Something went wrong",
+          duration: 3,
+        });
+      }, 0);
     } finally {
       setIsLoading(false);
       closeTestAttempt();
@@ -254,7 +264,11 @@ export const useStudentTest = (test, lessonType) => {
       await instance.delete(
         `/student-${lessonType}/attempts/clear?${lessonType}_id=${test[`${lessonType}_data`][`${lessonType}_id`]}`,
       );
-      await dispatch(getTestAttemptsThunk({ test_id: testId })).unwrap();
+      await dispatch(
+        lessonType === "test"
+          ? getTestAttemptsThunk({ test_id: testId })
+          : getExamAttemptsThunk({ exam_id: testId }),
+      ).unwrap();
     } catch (error) {
       console.log(error);
     }

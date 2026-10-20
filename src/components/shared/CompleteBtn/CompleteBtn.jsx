@@ -1,4 +1,3 @@
-import React from "react";
 import { ReactComponent as CompleteIcon } from "../../../images/icons/checked.svg";
 import styles from "./CompleteBtn.module.scss";
 import Spinner from "../../Spinner/Spinner";

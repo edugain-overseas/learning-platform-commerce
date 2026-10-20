@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { convertMillisecondsToMinutesAndSeconds } from "../../utils/formatTime";
 import { ReactComponent as ClockIcon } from "../../images/icons/clock.svg";
 import { ReactComponent as AttemptsIcon } from "../../images/icons/warning-circle.svg";
 import { ReactComponent as QuestionIcon } from "../../images/icons/document-question.svg";
 import { ReactComponent as CheckIcon } from "../../images/icons/checked.svg";
 import LessonGrade from "../shared/LessonGrade/LessonGrade";
-import styles from "./Exam.module.scss";
 import Spinner from "../Spinner/Spinner";
-import { convertMillisecondsToMinutesAndSeconds } from "../../utils/formatTime";
+import styles from "./Exam.module.scss";
 
 const ExamHeader = ({
   exam,
@@ -76,7 +76,7 @@ const ExamHeader = ({
             <Spinner />
           ) : (
             <>
-              <span>Submit</span>
+              <span>Complete</span>
               <CheckIcon />
             </>
           )}
