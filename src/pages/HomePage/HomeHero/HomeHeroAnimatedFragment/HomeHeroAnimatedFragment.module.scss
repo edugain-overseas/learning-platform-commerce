@@ -184,23 +184,28 @@
 .mediaObject {
   position: absolute;
   inset: 0;
-  background-image: url("../../../../images/happy-student.webp");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+  text-align: center;
+
+  img {
+    width: auto;
+    height: 100%;
+  }
 }
 
 .mediaObjectShadow {
   position: absolute;
   inset: 0;
-  background-image: url("../../../../images/happy-student.webp");
   filter: blur(2rem);
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
   z-index: -1;
   // opacity: 0.9;
   opacity: 0;
+
+  text-align: center;
+
+  img {
+    width: auto;
+    height: 100%;
+  }
 }
 
 @keyframes fadeIn {
