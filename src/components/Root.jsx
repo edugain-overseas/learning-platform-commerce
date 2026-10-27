@@ -1,4 +1,3 @@
-import React from "react";
 import MainLayout from "./MainLayout/MainLayout";
 import { ChatProvider } from "../context/chatContext";
 import { CartProvider } from "../context/cartContext";

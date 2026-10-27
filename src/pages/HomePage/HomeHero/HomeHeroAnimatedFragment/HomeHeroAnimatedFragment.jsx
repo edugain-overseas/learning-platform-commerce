@@ -1,4 +1,4 @@
-import happyStudent from "../../../../images/happy-student.webp";
+// import happyStudent from "../../../../images/happy-student.webp";
 import InnerRotationCircle from "./InnerRotationCircle";
 import OuterRotationCircle from "./OuterRotationCircle";
 import styles from "./HomeHeroAnimatedFragment.module.scss";
@@ -11,11 +11,18 @@ const HomeHeroAnimatedFragment = () => {
           <InnerRotationCircle />
           <div className={styles.innerCircle}></div>
           <div className={styles.mediaObjectWrapper}>
-            <div className={styles.mediaObjectShadow}>
+            {/* <div className={styles.mediaObjectShadow}>
               <img src={happyStudent} alt="Happy Student" loading="eager" />
-            </div>
+            </div> */}
             <div className={styles.mediaObject}>
-              <img src={happyStudent} alt="Happy Student" loading="eager" />
+              <img
+                // src={happyStudent}
+                src="/images/happy-student.webp"
+                alt="Happy Student"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+              />
             </div>
           </div>
         </div>

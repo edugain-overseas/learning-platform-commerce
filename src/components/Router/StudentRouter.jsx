@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import { courseLinks, instructionsLinks } from "../../costants/nav";
 import HomePage from "../../pages/HomePage/HomePage";
-import SearchPage from "../../pages/SearchPage/SearchPage";
 import Root from "../Root";
 
 const SingUpForm = React.lazy(() => import("../auth/SingUpForm/SingUpForm"));
@@ -45,9 +44,12 @@ const ContactsPage = React.lazy(
 );
 const SettingsPage = React.lazy(
   () => import("../../pages/SettingsPage/SettingsPage.jsx"),
-);;
+);
 const PrivacyPolicyPage = React.lazy(
   () => import("../../pages/PrivavcyPolicyPage/PrivacyPolicyPage"),
+);
+const SearchPage = React.lazy(
+  () => import("../../pages/SearchPage/SearchPage"),
 );
 
 export const studentRouter = createBrowserRouter(

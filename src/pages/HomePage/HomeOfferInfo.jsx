@@ -70,8 +70,24 @@ const HomeOfferInfo = () => {
           </ul>
         </div>
         <div className={styles.offerVisualContainer} ref={visualContentRef}>
-          <div className={styles.deviceDesctop}></div>
-          <div className={styles.deviceMobile}></div>
+          <div className={styles.deviceDesctop}>
+            <img
+              src="/images/home_device_desktop.webp"
+              alt="Happy Student"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </div>
+          <div className={styles.deviceMobile}>
+            <img
+              src="/images/home_device_mobile.webp"
+              alt="Happy Student"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </div>
         </div>
       </div>
     </section>
