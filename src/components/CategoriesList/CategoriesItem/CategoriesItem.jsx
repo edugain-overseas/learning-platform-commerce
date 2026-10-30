@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllCourses } from "../../../redux/course/selectors";
@@ -116,7 +116,6 @@ const CategoriesItem = ({
   }, [selectedListModeIndex]);
 
   useEffect(() => {
-    
     if (defaultDropdownOpen && dropdownRef?.current) {
       const dropdown = dropdownRef.current;
       if (dropdown) {

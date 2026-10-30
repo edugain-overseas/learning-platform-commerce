@@ -1,5 +1,14 @@
-.itemWrapper:not(:last-child) {
-  margin-bottom: 16rem;
+.itemWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  isolation: isolate;
+  contain: content;
+  transform: translateZ(0);
+
+  &:not(:last-child) {
+    margin-bottom: 16rem;
+  }
 }
 
 .categoryPanel {
@@ -7,7 +16,6 @@
   background: var(--bg-rgba-default);
 
   box-shadow: 0px 0px 4rem 0px rgba(0, 0, 0, 0.12);
-  backdrop-filter: blur(16rem);
   display: flex;
   justify-content: space-between;
   position: relative;
@@ -221,23 +229,16 @@
     gap: 8rem;
     align-items: center;
   }
-
-  // .dropdownBtn {
-  //   svg {
-  //     transform: rotate(0);
-  //     transition: transform var(--transition-time-min) ease;
-  //     transform-origin: center center;
-  //   }
-
-  //   &.open svg {
-  //     transform: rotate(-180deg);
-  //   }
-  // }
 }
 
 .dropdown {
   overflow: hidden;
   transition: max-height var(--transition-time-min) ease;
+  
+  contain: paint;
+  transform: translateZ(0);
+  will-change: max-height;
+  backface-visibility: hidden;
 }
 
 .dropDownContent {

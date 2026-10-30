@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/category/selectors";
 import { CategoryIconsProvider } from "../../context/CategoryIconsContext";
