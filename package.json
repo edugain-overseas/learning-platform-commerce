@@ -42,7 +42,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build --stats",
+    "build": "react-scripts build",
+    "analize": "react-scripts build --stats",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
