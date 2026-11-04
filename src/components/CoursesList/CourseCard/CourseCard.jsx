@@ -42,10 +42,7 @@ const CourseCard = ({
     is_published: isPublished,
     grade,
     bought,
-  } = course;
-
-  console.log(bought);
-  
+  } = course;  
 
   const courseLink = `/course/${id}/` + (bought ? "tasks" : "intro");
 

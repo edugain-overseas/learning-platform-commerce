@@ -6,6 +6,7 @@ import {
   getCourses,
   updateCourse,
 } from "../../http/services/course";
+import axios from "axios";
 
 export const getCoursesThunk = createAsyncThunk(
   "course/getAll",
@@ -19,7 +20,7 @@ export const getCoursesThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const getCourseDetailThunk = createAsyncThunk(
@@ -34,7 +35,7 @@ export const getCourseDetailThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const createCourseThunk = createAsyncThunk(
@@ -49,7 +50,7 @@ export const createCourseThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
 
 export const updateCourseThunk = createAsyncThunk(
@@ -59,13 +60,13 @@ export const updateCourseThunk = createAsyncThunk(
       const response = await updateCourse(courseId, courseData);
       return response;
     } catch (error) {
-      // return rejectWithValue({
-      //   message: error.response ? error.response.detail : error.message,
-      //   status: error.response ? error.response.status : null,
-      // });
-      return rejectWithValue(error);
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(error.response.data);
+      }
+      
+      return rejectWithValue(error.message || "Something went wrong");
     }
-  }
+  },
 );
 
 export const createLessonInCourseThunk = createAsyncThunk(
@@ -82,6 +83,5 @@ export const createLessonInCourseThunk = createAsyncThunk(
         status: error.response ? error.response.status : null,
       });
     }
-  }
+  },
 );
-

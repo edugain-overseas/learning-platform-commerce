@@ -140,6 +140,7 @@ const AdminCourseConstructorPage = ({ courseData }) => {
     handleSubmit,
     watch,
     setError,
+    setValue,
     formState: { errors, isDirty: isFormDirty },
     control,
   } = useForm({
@@ -197,7 +198,17 @@ const AdminCourseConstructorPage = ({ courseData }) => {
   const watchCAward = watch("c_award");
   const registerWithMask = useHookFormMask(register);
 
-  const onSubmit = (data) => {
+  const handleNotSupportedPriceResponse = (error) => {
+    messageApi.open({
+      type: "error",
+      content: `Apple price not supported. Suggested price: ${error.detail.suggested_price}`,
+    });
+    if (error?.detail?.suggested_price) {
+      setValue("price", error.detail.suggested_price);
+    }
+  };
+
+  const onSubmit = async (data) => {
     let isManualError = false;
 
     if (!stripHtmlTags(data.intro_text)) {
@@ -310,30 +321,30 @@ const AdminCourseConstructorPage = ({ courseData }) => {
 
     if (courseId) {
       try {
-        dispatch(updateCourseThunk({ courseId, courseData }))
-          .unwrap()
-          .then(() => {
-            messageApi.success({
-              content: "Course succesfully updated",
-              duration: 3,
-            });
-          });
+        await dispatch(updateCourseThunk({ courseId, courseData })).unwrap();
+        messageApi.success({
+          content: "Course succesfully updated",
+          duration: 3,
+        });
       } catch (error) {
         console.log(error);
+        if (error.detail.code === "apple_price_not_supported") {
+          handleNotSupportedPriceResponse(error);
+        }
       }
     } else {
       try {
-        dispatch(createCourseThunk(courseData))
-          .unwrap()
-          .then(() => {
-            messageApi.success({
-              content: "Course has been created",
-              duration: 3,
-            });
-            navigate("/courses");
-          });
+        await dispatch(createCourseThunk(courseData)).unwrap();
+        messageApi.success({
+          content: "Course has been created",
+          duration: 3,
+        });
+        navigate("/courses");
       } catch (error) {
         console.log(error);
+        if (error.detail.code === "apple_price_not_supported") {
+          handleNotSupportedPriceResponse(error);
+        }
       }
     }
   };

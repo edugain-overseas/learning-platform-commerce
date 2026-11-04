@@ -1,7 +1,6 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import textIcon from "../../images/textIcon.png";
 import styles from "./AboutIEUPage.module.scss";
-import { Link } from "react-router-dom";
 
 const AboutIEUPage = () => {
   return (
@@ -23,16 +22,6 @@ const AboutIEUPage = () => {
           </p>
         </div>
       </div>
-      {/* <div className={styles.textBlock}>
-        <h3 className={styles.secondaryTitle}>Our Mission</h3>
-        <p className={styles.text}>
-          Provide international students of the 
-          <b>First European University</b> in Malta with the best facilities,
-          knowledge, technologies, and internships in Malta to make the world a
-          better place for everyone. IEU, Malta Campus’s student community is an
-          active participant. Student community is an active participant.
-        </p>
-      </div> */}
       <div className={styles.textBlock}>
         <p className={styles.text}>
           First European University promotes a contemporary approach to
