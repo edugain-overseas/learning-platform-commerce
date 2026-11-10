@@ -59,7 +59,7 @@ export const platformLinks = [
   {
     label: "App Store",
     icon: <AppstoreIcon />,
-    link: "/",
+    link: "https://apps.apple.com/gb/app/feu-courses/id6742498936",
     children: null,
   },
   {

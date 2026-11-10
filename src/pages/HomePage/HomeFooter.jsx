@@ -49,7 +49,12 @@ const HomeFooter = () => {
             <li className={styles.contact}>
               <LocationIcon />
               <span className={styles.label}>Our office:</span>
-              <a href="/" target="_blank" rel="noreferrer noopener">
+              <a
+                href="/"
+                target="_blank"
+                rel="noreferrer noopener"
+                onClick={(e) => e.preventDefault()}
+              >
                 Academician Glushkova Avenue.42, Kyiv 03187
               </a>
             </li>
