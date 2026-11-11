@@ -52,6 +52,10 @@ const SearchPage = React.lazy(
   () => import("../../pages/SearchPage/SearchPage"),
 );
 
+const DownloadPage = React.lazy(
+  () => import("../../pages/DownloadPage/DownloadPage"),
+);
+
 export const studentRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
@@ -86,6 +90,7 @@ export const studentRouter = createBrowserRouter(
       <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       <Route path="/payment" element={<PaymentPage />} />
       <Route path="/search" element={<SearchPage />} />
+      <Route path="/download" element={<DownloadPage />} />
       <Route path="/*" element={<div>Not Found Page</div>} />
     </Route>,
   ),

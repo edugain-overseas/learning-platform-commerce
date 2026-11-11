@@ -1,4 +1,3 @@
-import React from "react";
 import { ReactComponent as WebIcon } from "../../images/icons/social/web.svg";
 import { ReactComponent as AppstoreIcon } from "../../images/icons/social/app-store.svg";
 import { ReactComponent as Playmarketcon } from "../../images/icons/social/play-market.svg";
