@@ -21,17 +21,33 @@
     margin-bottom: 12rem;
   }
 
-  &.registration {
-    label > span {
-      width: 76rem;
-    }
-  }
+  // &.registration {
+  //   label > span {
+  //     width: 76rem;
+  //   }
+  // }
 
-  &.login {
-    label > span {
-      width: 110rem;
-    }
+  // &.login {
+  //   label > span {
+  //     width: 110rem;
+  //   }
+  // }
+
+  &.registration {
+  label > span {
+    width: auto;
+    min-width: 5.5em;
+    white-space: nowrap;
   }
+}
+
+&.login {
+  label > span {
+    width: auto;
+    min-width: 8em;
+    white-space: nowrap;
+  }
+}
 }
 
 .row {
