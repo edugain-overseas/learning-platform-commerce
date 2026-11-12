@@ -51,7 +51,11 @@ const HomeOfferInfo = () => {
               </a>
             </li>
             <li>
-              <a href="https://apps.apple.com/gb/app/feu-courses/id6742498936">
+              <a
+                href="https://apps.apple.com/gb/app/feu-courses/id6742498936"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <AppstoreIcon />
                 <div>App Store</div>
               </a>
